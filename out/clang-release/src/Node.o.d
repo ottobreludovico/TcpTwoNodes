@@ -54,7 +54,17 @@
   ../../inet4/src\inet/networklayer/common/InterfaceEntry.h \
   ../../inet4/src\inet/common/Simsignals.h \
   ../../inet4/src\inet/common/Simsignals_m.h \
-  ../../inet4/src\inet/networklayer/common/InterfaceToken.h
+  ../../inet4/src\inet/networklayer/common/InterfaceToken.h \
+  ../../inet4/src\inet/applications/common/SocketTag_m.h \
+  ../../inet4/src\inet/common/TagBase_m.h \
+  ../../inet4/src\inet/applications/tcpapp/GenericAppMsg_m.h \
+  ../../inet4/src\inet/common/ModuleAccess.h \
+  ../../inet4/src\inet/networklayer/contract/IInterfaceTable.h \
+  ../../inet4/src\inet/common/ProtocolTag_m.h \
+  ../../inet4/src\inet/common/Protocol_m.h \
+  ../../inet4/src\inet/common/Protocol.h \
+  ../../inet4/src\inet/common/lifecycle/NodeStatus.h \
+  ../../inet4/src\inet/common/TimeTag_m.h
 
 Node.h:
 
@@ -177,3 +187,23 @@ base.h:
 ../../inet4/src\inet/common/Simsignals_m.h:
 
 ../../inet4/src\inet/networklayer/common/InterfaceToken.h:
+
+../../inet4/src\inet/applications/common/SocketTag_m.h:
+
+../../inet4/src\inet/common/TagBase_m.h:
+
+../../inet4/src\inet/applications/tcpapp/GenericAppMsg_m.h:
+
+../../inet4/src\inet/common/ModuleAccess.h:
+
+../../inet4/src\inet/networklayer/contract/IInterfaceTable.h:
+
+../../inet4/src\inet/common/ProtocolTag_m.h:
+
+../../inet4/src\inet/common/Protocol_m.h:
+
+../../inet4/src\inet/common/Protocol.h:
+
+../../inet4/src\inet/common/lifecycle/NodeStatus.h:
+
+../../inet4/src\inet/common/TimeTag_m.h:

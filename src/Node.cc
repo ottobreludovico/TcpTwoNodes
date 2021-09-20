@@ -19,6 +19,15 @@
 #include "inet/networklayer/common/L3AddressResolver.h"
 #include "inet/transportlayer/contract/tcp/TcpSocket.h"
 
+#include "inet/applications/common/SocketTag_m.h"
+#include "inet/applications/tcpapp/GenericAppMsg_m.h"
+#include "inet/common/ModuleAccess.h"
+#include "inet/common/ProtocolTag_m.h"
+#include "inet/common/lifecycle/NodeStatus.h"
+#include "inet/common/packet/Message.h"
+#include "inet/common/packet/chunk/ByteCountChunk.h"
+#include "inet/common/TimeTag_m.h"
+#include "inet/transportlayer/contract/tcp/TcpCommand_m.h"
 #include <math.h> // ceil
 #include <string>
 #include <map>
@@ -57,8 +66,10 @@ void Node::initialize(int stage)
     }else if (stage == INITSTAGE_APPLICATION_LAYER) {
         const char *localAddress = par("localAddress");
         int localPortL = par("localPortL");
+        socketL = TcpSocket();
         socketL.setOutputGate(gate("socketOut"));
         socketL.bind(localAddress[0] ? L3AddressResolver().resolve(localAddress) : L3Address(), localPortL);
+        socketL.setCallback(this);
         socketL.listen();
     }
 }
@@ -74,7 +85,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
         EV << "self message\n";
         EV << "selfId: " << selfId << "\n";
         if(roundId==0){
-            if(selfId == 0){
+            //if(selfId == 0){
                BriefPacket * bp = new BriefPacket();
                bp->setLinkSenderId(selfId);
                bp->setBroadcasterId(selfId);
@@ -87,7 +98,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
                }
                sendTo(bp, nids);
                roundId++;
-            }
+           // }
         }else { // Event that signals that a message is ready to be sent on a channel
            int destId;
            std::istringstream iss (msg->getName());
@@ -109,11 +120,11 @@ void Node::handleMessageWhenUp(cMessage *msg)
            //cout << selfId << " sending message with debugid = " << ((BriefPacket *) bp->peekAtBack().get())->getDebugId() << endl;
            socket.send(pk);
        }
-       EV<<"fuori if\n";
-
     }
-    else
-        socket.processMessage(msg);
+    else{
+        //socket.processMessage(msg);
+        socketL.processMessage(msg);
+    }
 }
 
 void Node::sendTo(BriefPacket * bp, vector<int> ids){
@@ -313,6 +324,7 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
     simtime_t startTime = std::max(startTimePar, simTime());
 
     localPort=par("localPort");
+    socket = TcpSocket();
     socket.setOutputGate(gate("socketOut"));
     socket.bind(localPort);
     socket.setCallback(this);
