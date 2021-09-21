@@ -56,7 +56,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
   protected:
     TcpSocket socketL;
-    TcpSocket socket;
+   // TcpSocket socket;
 
     // statistics
     int numSessions;
@@ -112,7 +112,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void handleStopOperation(LifecycleOperation *operation) override;
     virtual void handleCrashOperation(LifecycleOperation *operation) override;
 
-    virtual void sendTo(BriefPacket * bp, vector<int> ids);
+    virtual void sendTo(Packet * bp, vector<int> ids);
 };
 
 } // namespace inet

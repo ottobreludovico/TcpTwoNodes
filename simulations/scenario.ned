@@ -34,8 +34,14 @@ network scenario
             parameters:
                 @display("i=device/laptop"); //;p=250,100,col,100");
         }
+        client2: StandardHost {
+            parameters:
+                @display("i=device/laptop"); //;p=250,100,col,100");
+        }
     connections:
         client0.pppg++ <--> ethernetline <--> client1.pppg++;
+        client0.pppg++ <--> ethernetline <--> client2.pppg++;
+        client1.pppg++ <--> ethernetline <--> client2.pppg++;
 }
 
 

@@ -85,12 +85,8 @@ void Node::handleMessageWhenUp(cMessage *msg)
         EV << "self message\n";
         EV << "selfId: " << selfId << "\n";
         if(roundId==0){
-            //if(selfId == 0){
-               BriefPacket * bp = new BriefPacket();
-               bp->setLinkSenderId(selfId);
-               bp->setBroadcasterId(selfId);
-               bp->setMsgId(0);
-               bp->setMsgType(ECHO);
+            if(selfId == 0){
+               Packet * bp = new Packet("requestLudo");
 
                vector<int> nids; // Send to neighbors
                for (int j = 0; j < nodesNbr; j++) {
@@ -98,7 +94,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
                }
                sendTo(bp, nids);
                roundId++;
-           // }
+            }
         }else { // Event that signals that a message is ready to be sent on a channel
            int destId;
            std::istringstream iss (msg->getName());
@@ -118,7 +114,33 @@ void Node::handleMessageWhenUp(cMessage *msg)
            }
 
            //cout << selfId << " sending message with debugid = " << ((BriefPacket *) bp->peekAtBack().get())->getDebugId() << endl;
-           socket.send(pk);
+
+           localPort=par("localPort");
+           TcpSocket socket = TcpSocket();
+           socket.setOutputGate(gate("socketOut"));
+           socket.bind(localPort);
+           //socket.setCallback(this);
+
+           const char * address = ("client"+to_string(destId)).c_str();
+           L3Address destination = L3AddressResolver().resolve(address);
+           int connectPort = par("connectPort");
+
+           if (destination.isUnspecified()) {
+               EV_ERROR <<  "cannot resolve destination address\n";
+           }
+           else {
+               EV_INFO << "Connecting to " << destination << ") port=" << connectPort << endl;
+
+               socket.connect(destination, connectPort);
+
+               numSessions++;
+               emit(connectSignal, 1L);
+
+
+               bytesSent += pk->getByteLength();
+               packetsSent++;
+               socket.send(pk);
+           }
        }
     }
     else{
@@ -127,60 +149,15 @@ void Node::handleMessageWhenUp(cMessage *msg)
     }
 }
 
-void Node::sendTo(BriefPacket * bp, vector<int> ids){
-    bytesSent += 8*B(bp->getChunkLength()).get();
-    packetsSent++;
+void Node::sendTo(Packet * bp, vector<int> ids){
     EV << "\n\n\n\n\n INVIO \n\n\n\n\n\n";
     for (int destId : ids) {
         if (selfId == destId) continue;
-        bp->setIncludeData(false);
-        if (bp->getMsgType() == ECHO) {
-            // One could reduce a bit the consumption by removing the echoOrReadySender in the Send message (using another message type)
-            if (bp->getEchoOrReadySender() == bp->getBroadcasterId()) { // SEND message
-                bp->setChunkLength(B( ceil( (MSG_TYPE_SIZE+(PROCESS_ID_SIZE+MSG_ID_SIZE)+PATH_LENGTH_SIZE + PAYLOAD_SIZE)/8 ))); //+PROCESS_ID_SIZE*bp->getPathArraySize()));
-                bp->setIncludeData(true);
-            } else {
-                bp->setChunkLength(B( ceil((MSG_TYPE_SIZE+(PROCESS_ID_SIZE+MSG_ID_SIZE)+PROCESS_ID_SIZE + PATH_LENGTH_SIZE+PROCESS_ID_SIZE*bp->getPathArraySize()+PAYLOAD_SIZE)/8.0)));
-                bp->setIncludeData(true);
-
-            }
-        } else if (bp->getMsgType() == READY) { // To resume from here
-            bp->setChunkLength(B( ceil((MSG_TYPE_SIZE+(PROCESS_ID_SIZE+MSG_ID_SIZE)+PROCESS_ID_SIZE + PATH_LENGTH_SIZE+PROCESS_ID_SIZE*bp->getPathArraySize()+PAYLOAD_SIZE)/8.0)));
-            bp->setIncludeData(true);
-
-        } else if (bp->getMsgType() == READY_ECHO) {
-            bp->setChunkLength(B( ceil((MSG_TYPE_SIZE+(PROCESS_ID_SIZE+MSG_ID_SIZE)+PROCESS_ID_SIZE+PROCESS_ID_SIZE+PATH_LENGTH_SIZE+PROCESS_ID_SIZE*bp->getPathArraySize()+PAYLOAD_SIZE)/8.0)));
-            bp->setIncludeData(true);
-
-        } else if (bp->getMsgType() == ECHO_ECHO) {
-            bp->setChunkLength(B( ceil((MSG_TYPE_SIZE+(PROCESS_ID_SIZE+MSG_ID_SIZE)+PROCESS_ID_SIZE+PROCESS_ID_SIZE+PATH_LENGTH_SIZE+PROCESS_ID_SIZE*bp->getPathArraySize()+PAYLOAD_SIZE)/8.0)));
-            bp->setIncludeData(true);
-
-        } else if (bp->getMsgType() == PAYLOAD_ACK) {
-            bp->setChunkLength(B( ceil((MSG_TYPE_SIZE+LOCAL_ID_SIZE)/8.0) ));
-        } else {
-            cout << "sendTo: msgType not supported!" << endl;
-            return;
-        }
 
 
-        Packet *briefPacket;
-        if (bp->getMsgType() == ECHO) {
-            briefPacket = new Packet("ECHO");
-        } else if (bp->getMsgType() == READY) {
-            briefPacket = new Packet("READY");
-        } else if (bp->getMsgType() == READY_ECHO) {
-            briefPacket = new Packet("READY_ECHO");
-        } else if (bp->getMsgType() == ECHO_ECHO) {
-            briefPacket = new Packet("ECHO_ECHO");
-        } else if (bp->getMsgType() == PAYLOAD_ACK) {
-            briefPacket = new Packet("PAYLOAD_ACK");
-        }
+        auto data = makeShared<ByteCountChunk>(B(1000));
+        auto briefPacket = new Packet("requestLudo", data);
 
-
-        BriefPacket &tmp = *bp;
-        const auto& payload = makeShared<BriefPacket>(tmp);
-        briefPacket->insertAtBack(payload);
         SimTime emissionTime = simTime();
 
         vector<pair<Packet *, SimTime>>::iterator iter = pendingMsgsPerNeighbors[destId].begin();
@@ -203,64 +180,25 @@ void Node::sendTo(BriefPacket * bp, vector<int> ids){
 void Node::connect()
 {
     // we need a new connId if this is not the first connection
-    socket.renewSocket();
 
-    const char *localAddress = par("localAddress");
-    int localPort = par("localPort");
-    socket.bind(*localAddress ? L3AddressResolver().resolve(localAddress) : L3Address(), localPort);
-
-    int timeToLive = par("timeToLive");
-    if (timeToLive != -1)
-        socket.setTimeToLive(timeToLive);
-
-    int dscp = par("dscp");
-    if (dscp != -1)
-        socket.setDscp(dscp);
-
-    int tos = par("tos");
-    if (tos != -1)
-        socket.setTos(tos);
-
-    // connect
-    const char *connectAddress = par("connectAddress");
-    int connectPort = par("connectPort");
-
-    L3Address destination;
-    L3AddressResolver().tryResolve(connectAddress, destination);
-    if (destination.isUnspecified()) {
-        EV_ERROR << "Connecting to " << connectAddress << " port=" << connectPort << ": cannot resolve destination address\n";
-    }
-    else {
-        EV_INFO << "Connecting to " << connectAddress << "(" << destination << ") port=" << connectPort << endl;
-
-        socket.connect(destination, connectPort);
-
-        numSessions++;
-        emit(connectSignal, 1L);
-    }
 }
 
 void Node::close()
 {
     EV_INFO << "issuing CLOSE command\n";
-    socket.close();
+    socketL.close();
     emit(connectSignal, -1L);
 }
 
 void Node::sendPacket(Packet *msg)
 {
-    int numBytes = msg->getByteLength();
-    emit(packetSentSignal, msg);
-    socket.send(msg);
 
-    packetsSent++;
-    bytesSent += numBytes;
 }
 
 void Node::refreshDisplay() const
 {
     ApplicationBase::refreshDisplay();
-    getDisplayString().setTagArg("t", 0, TcpSocket::stateName(socket.getState()));
+    getDisplayString().setTagArg("t", 0, TcpSocket::stateName(socketL.getState()));
 }
 
 void Node::socketEstablished(TcpSocket *)
@@ -280,9 +218,9 @@ void Node::socketDataArrived(TcpSocket *, Packet *msg, bool)
 
 void Node::socketPeerClosed(TcpSocket *socket_)
 {
-    ASSERT(socket_ == &socket);
+    ASSERT(socket_ == &socketL);
     // close the connection (if not already closed)
-    if (socket.getState() == TcpSocket::PEER_CLOSED) {
+    if (socketL.getState() == TcpSocket::PEER_CLOSED) {
         EV_INFO << "remote TCP closed, closing here as well\n";
         close();
     }
@@ -311,63 +249,41 @@ void Node::finish()
 }
 
 void Node::handleStopOperation(LifecycleOperation *operation) {
-    socket.close();
+    socketL.close();
     delayActiveOperationFinish(par("stopOperationTimeout"));
 }
 
 void Node::handleCrashOperation(LifecycleOperation *operation) {
-    socket.destroy();    //TODO  in real operating systems, program crash detected by OS and OS closes sockets of crashed programs.
+    socketL.destroy();    //TODO  in real operating systems, program crash detected by OS and OS closes sockets of crashed programs.
 }
 
 void Node::handleStartOperation(LifecycleOperation *operation) {
     simtime_t startTimePar = par("startTimePar");
     simtime_t startTime = std::max(startTimePar, simTime());
 
-    localPort=par("localPort");
-    socket = TcpSocket();
-    socket.setOutputGate(gate("socketOut"));
-    socket.bind(localPort);
-    socket.setCallback(this);
-
-    const char *connectAddress = par("connectAddress");
-    int connectPort = par("connectPort");
-
-    L3Address destination;
-    L3AddressResolver().tryResolve(connectAddress, destination);
-    if (destination.isUnspecified()) {
-        EV_ERROR << "Connecting to " << connectAddress << " port=" << connectPort << ": cannot resolve destination address\n";
+    nodesNbr=3;
+    if (this->addrToId.size() == 0) {
+        for (int nodeId = 0; nodeId < nodesNbr; nodeId++) {
+            const char * address = ("client"+to_string(nodeId)).c_str();
+            L3Address addr = L3AddressResolver().resolve(address);
+            this->addrToId[addr] = nodeId;
+        }
     }
-    else {
-        EV_INFO << "Connecting to " << connectAddress << "(" << destination << ") port=" << connectPort << endl;
 
-        socket.connect(destination, connectPort);
+    L3Address selfAddr = L3AddressResolver().addressOf(getParentModule(),L3AddressResolver().ADDR_IPv4);
+    selfId = addrToId[selfAddr];
 
-        numSessions++;
-        emit(connectSignal, 1L);
+    roundEvent = new cMessage;
+    scheduleAt(startTime, roundEvent);
 
-        nodesNbr=2;
-            if (this->addrToId.size() == 0) {
-                for (int nodeId = 0; nodeId < nodesNbr; nodeId++) {
-                    const char * address = ("client"+to_string(nodeId)).c_str();
-                    L3Address addr = L3AddressResolver().resolve(address);
-                    this->addrToId[addr] = nodeId;
-                }
-            }
+    pendingMsgsPerNeighbors = new vector<pair<Packet *, SimTime>>[nodesNbr];
+    processLinkTimers = new cMessage*[nodesNbr];
+    for (int i = 0; i < nodesNbr; i++) {
+       processLinkTimers[i] = new cMessage(std::to_string(i).c_str());
+       //std::cout << selfId << " ** creating channel timer (id=" << channelTimers[i]->getId() << ") for " << i << std::endl;
+    }
 
-            L3Address selfAddr = L3AddressResolver().addressOf(getParentModule(),L3AddressResolver().ADDR_IPv4);
-            selfId = addrToId[selfAddr];
 
-            roundEvent = new cMessage;
-            scheduleAt(startTime, roundEvent);
-
-            pendingMsgsPerNeighbors = new vector<pair<Packet *, SimTime>>[nodesNbr];
-            processLinkTimers = new cMessage*[nodesNbr];
-            for (int i = 0; i < nodesNbr; i++) {
-               processLinkTimers[i] = new cMessage(std::to_string(i).c_str());
-               //std::cout << selfId << " ** creating channel timer (id=" << channelTimers[i]->getId() << ") for " << i << std::endl;
-            }
-
-     }
 
 
 }
