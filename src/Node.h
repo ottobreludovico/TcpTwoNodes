@@ -21,7 +21,7 @@
 #include "inet/applications/base/ApplicationBase.h"
 #include "inet/transportlayer/contract/tcp/TcpSocket.h"
 
-#include "packets_m.h"
+#include "msg_m.h"
 #include <vector>
 #include <set>
 #include <map>
@@ -32,6 +32,7 @@
 #include <bitset>
 
 #include <chrono>
+#include "inet/common/socket/SocketMap.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -56,7 +57,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
   protected:
     TcpSocket socketL;
-   // TcpSocket socket;
+    SocketMap socketMap;
+    TcpSocket* socketV[5];
 
     // statistics
     int numSessions;
@@ -76,6 +78,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     int selfId;
     int nodesNbr;
     vector<L3Address> nodesAddr;
+    simtime_t startTime;
+
 
 
 
@@ -95,6 +99,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void connect();
     virtual void close();
     virtual void sendPacket(Packet *pkt);
+    virtual void sendP(Packet * pk, int destId);
+    virtual void sendBack(int destId);
 
     virtual void handleTimer(cMessage *msg);
 
@@ -112,7 +118,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void handleStopOperation(LifecycleOperation *operation) override;
     virtual void handleCrashOperation(LifecycleOperation *operation) override;
 
-    virtual void sendTo(Packet * bp, vector<int> ids);
+    virtual void sendTo(Msg * bp, vector<int> ids);
 };
 
 } // namespace inet

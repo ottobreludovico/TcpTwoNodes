@@ -38,7 +38,7 @@
   ../../inet4/src\inet/transportlayer/contract/tcp/TcpCommand_m.h \
   ../../inet4/src\inet/common/INETDefs_m.h \
   ../../inet4/src\inet/networklayer/common/IpProtocolId_m.h \
-  ../../inet4/src\inet/networklayer/common/L3Address_m.h packets_m.h \
+  ../../inet4/src\inet/networklayer/common/L3Address_m.h msg_m.h \
   ../../inet4/src\inet/common/packet/chunk/Chunk_m.h \
   ../../inet4/src\inet/common/Units_m.h \
   ../../inet4/src\inet/common/packet/chunk/BitCountChunk.h \
@@ -48,6 +48,7 @@
   ../../inet4/src\inet/common/packet/chunk/SliceChunk.h \
   ../../inet4/src\inet/common/packet/chunk/FieldsChunk.h \
   ../../inet4/src\inet/networklayer/contract/ipv4/Ipv4Address_m.h base.h \
+  ../../inet4/src\inet/common/socket/SocketMap.h \
   ../../inet4/src\inet/networklayer/common/L3AddressResolver.h \
   ../../inet4/src\inet/networklayer/contract/IRoutingTable.h \
   ../../inet4/src\inet/networklayer/contract/IRoute.h \
@@ -152,7 +153,7 @@ C:/omnetpp-5.6.2/include\omnetpp.h:
 
 ../../inet4/src\inet/networklayer/common/L3Address_m.h:
 
-packets_m.h:
+msg_m.h:
 
 ../../inet4/src\inet/common/packet/chunk/Chunk_m.h:
 
@@ -173,6 +174,8 @@ packets_m.h:
 ../../inet4/src\inet/networklayer/contract/ipv4/Ipv4Address_m.h:
 
 base.h:
+
+../../inet4/src\inet/common/socket/SocketMap.h:
 
 ../../inet4/src\inet/networklayer/common/L3AddressResolver.h:
 
