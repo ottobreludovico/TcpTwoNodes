@@ -56,8 +56,8 @@ void Node::initialize(int stage)
     roundId = 0;
 
     if (stage == INITSTAGE_LOCAL) {
-        startTime = (simtime_t) par("startTimePar"); //*startTimePar;
-        EV << "\n\n\n StartTime: " << startTime << "\n\n\n";
+        startTime = 3;
+
         numSessions = numBroken = packetsSent = packetsRcvd = bytesSent = bytesRcvd = 0;
 
         WATCH(numSessions);
@@ -87,6 +87,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
 if (msg->isSelfMessage()){
        EV << "self message\n";
        EV << "selfId: " << selfId << "\n";
+       EV << "time: " << simTime() << "\n";
        //if(roundId==0){
        const char * x = msg->getName();
        int i = stoi(x);
@@ -103,11 +104,12 @@ if (msg->isSelfMessage()){
                 Msg * bp = new Msg();
                 bp->setId(selfId);
                 bp->setMsg("RequestLudo");
+                bp->setSendTime(simTime());
                 auto briefPacket = new Packet();
                 Msg &tmp = *bp;
                 const auto& payload = makeShared<Msg>(tmp);
                 briefPacket->insertAtBack(payload);
-
+                EV << "\n\n\n\n [Client"<< selfId <<"]messaggio inviato a: " << simTime() << "\n\n\n";
                 sendP(briefPacket, destId);
            }
        }
@@ -140,7 +142,7 @@ void Node::sendP(Packet * pk, int destId){
         TcpSocket * socket = new TcpSocket();
         socket->setOutputGate(gate("socketOut"));
         socket->bind(localPort);
-        //socket->setCallback(this);
+        socket->setCallback(this);
 
         const char * address = ("client"+to_string(destId)).c_str();
         L3Address destination = L3AddressResolver().resolve(address);
@@ -252,8 +254,16 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
     bytesRcvd += msg->getByteLength();
     emit(packetReceivedSignal, msg);
     Msg* x = (Msg *)msg->peekAtBack().get();
-    if(x->getReply()==-1 && x->getId()!=selfId){
-        sendBack(x->getId());
+    if(x->getReply()==-1 && x->getId()!=selfId ){
+        //sendBack(x->getId());
+        if (std::count(receivedMsg.begin(), receivedMsg.end(), x)) {
+
+        }
+        else {
+            EV << "\n\n\n\n [Client"<< selfId <<"]messaggio ricevuto a: " << simTime() << "\n\n\n";
+            x->setArrivalTime(simTime());
+            receivedMsg.push_back(x);
+        }
     }
     delete msg;
 }
@@ -282,7 +292,7 @@ void Node::sendBack(int destId)
         TcpSocket * socket = new TcpSocket();
         socket->setOutputGate(gate("socketOut"));
         socket->bind(localPort);
-        //socket->setCallback(this);
+        socket->setCallback(this);
 
        // socketMap.addSocket(socket);
        // EV << "\n\n\n";
@@ -359,7 +369,11 @@ void Node::socketFailure(TcpSocket *, int code)
 void Node::finish()
 {
     std::string modulePath = getFullPath();
-
+    EV_INFO << "Time finish: " << simTime() << "\n";
+    EV_INFO << "Messaggi ricevuti: \n";
+    for (int i = 0; i < receivedMsg.size(); i++) {
+       EV << i << " : " << "Messaggio ricevuto da Client"<< receivedMsg.at(i)->getId() << " inviato a " << receivedMsg.at(i)->getSendTime()<<" e arrivato a " << receivedMsg.at(i)->getArrivalTime()<<"\n";
+    }
     EV_INFO << modulePath << ": opened " << numSessions << " sessions\n";
     EV_INFO << modulePath << ": sent " << bytesSent << " bytes in " << packetsSent << " packets\n";
     EV_INFO << modulePath << ": received " << bytesRcvd << " bytes in " << packetsRcvd << " packets\n";
@@ -375,9 +389,6 @@ void Node::handleCrashOperation(LifecycleOperation *operation) {
 }
 
 void Node::handleStartOperation(LifecycleOperation *operation) {
-    simtime_t startTimePar = par("startTimePar");
-    simtime_t startTime = std::max(startTimePar, simTime());
-
     EV << "\n\n\n HandleStartTime: " << startTime << "\n\n\n";
 
 
@@ -397,8 +408,6 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
 
     L3Address selfAddr = L3AddressResolver().addressOf(getParentModule(),L3AddressResolver().ADDR_IPv4);
     selfId = addrToId[selfAddr];
-
-
 
     roundEvent = new cMessage("0");
     scheduleAt(startTime, roundEvent);

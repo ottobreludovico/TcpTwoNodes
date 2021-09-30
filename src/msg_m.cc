@@ -234,36 +234,45 @@ Msg& Msg::operator=(const Msg& other)
 
 void Msg::copy(const Msg& other)
 {
-    this->Id = other.Id;
+    this->id = other.id;
     this->msg = other.msg;
+    this->type = other.type;
+    this->sendTime = other.sendTime;
+    this->arrivalTime = other.arrivalTime;
     this->reply = other.reply;
 }
 
 void Msg::parsimPack(omnetpp::cCommBuffer *b) const
 {
     ::inet::FieldsChunk::parsimPack(b);
-    doParsimPacking(b,this->Id);
+    doParsimPacking(b,this->id);
     doParsimPacking(b,this->msg);
+    doParsimPacking(b,this->type);
+    doParsimPacking(b,this->sendTime);
+    doParsimPacking(b,this->arrivalTime);
     doParsimPacking(b,this->reply);
 }
 
 void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
 {
     ::inet::FieldsChunk::parsimUnpack(b);
-    doParsimUnpacking(b,this->Id);
+    doParsimUnpacking(b,this->id);
     doParsimUnpacking(b,this->msg);
+    doParsimUnpacking(b,this->type);
+    doParsimUnpacking(b,this->sendTime);
+    doParsimUnpacking(b,this->arrivalTime);
     doParsimUnpacking(b,this->reply);
 }
 
 int Msg::getId() const
 {
-    return this->Id;
+    return this->id;
 }
 
-void Msg::setId(int Id)
+void Msg::setId(int id)
 {
     handleChange();
-    this->Id = Id;
+    this->id = id;
 }
 
 const char * Msg::getMsg() const
@@ -275,6 +284,39 @@ void Msg::setMsg(const char * msg)
 {
     handleChange();
     this->msg = msg;
+}
+
+int Msg::getType() const
+{
+    return this->type;
+}
+
+void Msg::setType(int type)
+{
+    handleChange();
+    this->type = type;
+}
+
+omnetpp::simtime_t Msg::getSendTime() const
+{
+    return this->sendTime;
+}
+
+void Msg::setSendTime(omnetpp::simtime_t sendTime)
+{
+    handleChange();
+    this->sendTime = sendTime;
+}
+
+omnetpp::simtime_t Msg::getArrivalTime() const
+{
+    return this->arrivalTime;
+}
+
+void Msg::setArrivalTime(omnetpp::simtime_t arrivalTime)
+{
+    handleChange();
+    this->arrivalTime = arrivalTime;
 }
 
 int Msg::getReply() const
@@ -293,8 +335,11 @@ class MsgDescriptor : public omnetpp::cClassDescriptor
   private:
     mutable const char **propertynames;
     enum FieldConstants {
-        FIELD_Id,
+        FIELD_id,
         FIELD_msg,
+        FIELD_type,
+        FIELD_sendTime,
+        FIELD_arrivalTime,
         FIELD_reply,
     };
   public:
@@ -358,7 +403,7 @@ const char *MsgDescriptor::getProperty(const char *propertyname) const
 int MsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 3+basedesc->getFieldCount() : 3;
+    return basedesc ? 6+basedesc->getFieldCount() : 6;
 }
 
 unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
@@ -370,11 +415,14 @@ unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
         field -= basedesc->getFieldCount();
     }
     static unsigned int fieldTypeFlags[] = {
-        FD_ISEDITABLE,    // FIELD_Id
+        FD_ISEDITABLE,    // FIELD_id
         FD_ISEDITABLE,    // FIELD_msg
+        FD_ISEDITABLE,    // FIELD_type
+        0,    // FIELD_sendTime
+        0,    // FIELD_arrivalTime
         FD_ISEDITABLE,    // FIELD_reply
     };
-    return (field >= 0 && field < 3) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 6) ? fieldTypeFlags[field] : 0;
 }
 
 const char *MsgDescriptor::getFieldName(int field) const
@@ -386,20 +434,26 @@ const char *MsgDescriptor::getFieldName(int field) const
         field -= basedesc->getFieldCount();
     }
     static const char *fieldNames[] = {
-        "Id",
+        "id",
         "msg",
+        "type",
+        "sendTime",
+        "arrivalTime",
         "reply",
     };
-    return (field >= 0 && field < 3) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 6) ? fieldNames[field] : nullptr;
 }
 
 int MsgDescriptor::findField(const char *fieldName) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     int base = basedesc ? basedesc->getFieldCount() : 0;
-    if (fieldName[0] == 'I' && strcmp(fieldName, "Id") == 0) return base+0;
+    if (fieldName[0] == 'i' && strcmp(fieldName, "id") == 0) return base+0;
     if (fieldName[0] == 'm' && strcmp(fieldName, "msg") == 0) return base+1;
-    if (fieldName[0] == 'r' && strcmp(fieldName, "reply") == 0) return base+2;
+    if (fieldName[0] == 't' && strcmp(fieldName, "type") == 0) return base+2;
+    if (fieldName[0] == 's' && strcmp(fieldName, "sendTime") == 0) return base+3;
+    if (fieldName[0] == 'a' && strcmp(fieldName, "arrivalTime") == 0) return base+4;
+    if (fieldName[0] == 'r' && strcmp(fieldName, "reply") == 0) return base+5;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -412,11 +466,14 @@ const char *MsgDescriptor::getFieldTypeString(int field) const
         field -= basedesc->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_Id
+        "int",    // FIELD_id
         "string",    // FIELD_msg
+        "int",    // FIELD_type
+        "omnetpp::simtime_t",    // FIELD_sendTime
+        "omnetpp::simtime_t",    // FIELD_arrivalTime
         "int",    // FIELD_reply
     };
-    return (field >= 0 && field < 3) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 6) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **MsgDescriptor::getFieldPropertyNames(int field) const
@@ -483,8 +540,11 @@ std::string MsgDescriptor::getFieldValueAsString(void *object, int field, int i)
     }
     Msg *pp = (Msg *)object; (void)pp;
     switch (field) {
-        case FIELD_Id: return long2string(pp->getId());
+        case FIELD_id: return long2string(pp->getId());
         case FIELD_msg: return oppstring2string(pp->getMsg());
+        case FIELD_type: return long2string(pp->getType());
+        case FIELD_sendTime: return simtime2string(pp->getSendTime());
+        case FIELD_arrivalTime: return simtime2string(pp->getArrivalTime());
         case FIELD_reply: return long2string(pp->getReply());
         default: return "";
     }
@@ -500,8 +560,9 @@ bool MsgDescriptor::setFieldValueAsString(void *object, int field, int i, const 
     }
     Msg *pp = (Msg *)object; (void)pp;
     switch (field) {
-        case FIELD_Id: pp->setId(string2long(value)); return true;
+        case FIELD_id: pp->setId(string2long(value)); return true;
         case FIELD_msg: pp->setMsg((value)); return true;
+        case FIELD_type: pp->setType(string2long(value)); return true;
         case FIELD_reply: pp->setReply(string2long(value)); return true;
         default: return false;
     }

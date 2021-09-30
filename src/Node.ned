@@ -60,7 +60,7 @@ simple Node like IApp
     parameters:
         // General parameters
         @class(inet::Node);
-        double startTimePar @unit("s") = default(0s);
+        //double startTimePar @unit("s") = default(0s);
         string 			localAddress = default(""); // may be left empty ("")
         int 			localPort = default(-1); // port number to listen on
         int 			localPortL = default(-1); 

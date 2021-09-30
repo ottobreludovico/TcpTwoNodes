@@ -37,8 +37,11 @@ namespace inet {
  * class Msg extends FieldsChunk
  * {
  *     chunkLength = B(1);
- *     int Id;
+ *     int id;
  *     string msg;
+ *     int type;
+ *     simtime_t sendTime;
+ *     simtime_t arrivalTime;
  *     int reply = -1;
  * }
  * </pre>
@@ -46,8 +49,11 @@ namespace inet {
 class Msg : public ::inet::FieldsChunk
 {
   protected:
-    int Id = 0;
+    int id = 0;
     omnetpp::opp_string msg;
+    int type = 0;
+    omnetpp::simtime_t sendTime = SIMTIME_ZERO;
+    omnetpp::simtime_t arrivalTime = SIMTIME_ZERO;
     int reply = -1;
 
   private:
@@ -68,9 +74,15 @@ class Msg : public ::inet::FieldsChunk
 
     // field getter/setter methods
     virtual int getId() const;
-    virtual void setId(int Id);
+    virtual void setId(int id);
     virtual const char * getMsg() const;
     virtual void setMsg(const char * msg);
+    virtual int getType() const;
+    virtual void setType(int type);
+    virtual omnetpp::simtime_t getSendTime() const;
+    virtual void setSendTime(omnetpp::simtime_t sendTime);
+    virtual omnetpp::simtime_t getArrivalTime() const;
+    virtual void setArrivalTime(omnetpp::simtime_t arrivalTime);
     virtual int getReply() const;
     virtual void setReply(int reply);
 };

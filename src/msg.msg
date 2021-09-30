@@ -25,7 +25,10 @@ namespace inet;
     
 class Msg extends FieldsChunk {
     chunkLength = B(1);
-    int Id;
+    int id;
     string msg;
+    int type;
+    simtime_t sendTime;
+    simtime_t arrivalTime;
     int reply = -1;
 }

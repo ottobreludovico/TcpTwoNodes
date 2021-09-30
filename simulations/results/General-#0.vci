@@ -1,15 +1,15 @@
-file 88645 1632589607                                           
+file 61091 1632993665                                           
 version 2
-run General-0-20210925-19:06:22-1560
+run General-0-20210930-11:20:49-9248
 attr configname General
-attr datetime 20210925-19:06:22
+attr datetime 20210930-11:20:49
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network scenario
-attr processid 1560
+attr processid 9248
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -880,934 +880,466 @@ vector 292 scenario.client4.tcp.conn-45 ssthresh:vector ETV
 attr interpolationmode sample-hold
 vector 293 scenario.client4.tcp.conn-45 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 294 scenario.client2.tcp.conn-46 tcpRcvQueueBytes:vector ETV
+vector 294 scenario.client0.tcp.conn-30 rtt:vector ETV
 attr interpolationmode sample-hold
-vector 295 scenario.client2.tcp.conn-46 rcvAdv:vector ETV
+vector 295 scenario.client0.tcp.conn-30 srtt:vector ETV
 attr interpolationmode sample-hold
-vector 296 scenario.client2.tcp.conn-46 rcvWnd:vector ETV
+vector 296 scenario.client0.tcp.conn-30 rttvar:vector ETV
 attr interpolationmode sample-hold
-vector 297 scenario.client2.tcp.conn-46 sndAck:vector ETV
+vector 297 scenario.client0.tcp.conn-30 rto:vector ETV
 attr interpolationmode sample-hold
-vector 298 scenario.client3.tcp.conn-47 tcpRcvQueueBytes:vector ETV
+vector 298 scenario.client0.tcp.conn-30 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 299 scenario.client3.tcp.conn-47 rcvAdv:vector ETV
+vector 299 scenario.client0.tcp.conn-30 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 300 scenario.client3.tcp.conn-47 rcvWnd:vector ETV
+vector 300 scenario.client0.tcp.conn-30 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 301 scenario.client3.tcp.conn-47 sndAck:vector ETV
+vector 301 scenario.client0.tcp.conn-31 rtt:vector ETV
 attr interpolationmode sample-hold
-vector 302 scenario.client4.tcp.conn-48 tcpRcvQueueBytes:vector ETV
+vector 302 scenario.client0.tcp.conn-31 srtt:vector ETV
 attr interpolationmode sample-hold
-vector 303 scenario.client4.tcp.conn-48 rcvAdv:vector ETV
+vector 303 scenario.client0.tcp.conn-31 rttvar:vector ETV
 attr interpolationmode sample-hold
-vector 304 scenario.client4.tcp.conn-48 rcvWnd:vector ETV
+vector 304 scenario.client0.tcp.conn-31 rto:vector ETV
 attr interpolationmode sample-hold
-vector 305 scenario.client4.tcp.conn-48 sndAck:vector ETV
+vector 305 scenario.client0.tcp.conn-31 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 306 scenario.client2.tcp.conn-49 tcpRcvQueueBytes:vector ETV
+vector 306 scenario.client0.tcp.conn-31 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 307 scenario.client2.tcp.conn-49 rcvAdv:vector ETV
+vector 307 scenario.client0.tcp.conn-31 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 308 scenario.client2.tcp.conn-49 rcvWnd:vector ETV
+vector 308 scenario.client0.tcp.conn-32 rtt:vector ETV
 attr interpolationmode sample-hold
-vector 309 scenario.client2.tcp.conn-49 sndAck:vector ETV
+vector 309 scenario.client0.tcp.conn-32 srtt:vector ETV
 attr interpolationmode sample-hold
-vector 310 scenario.client3.tcp.conn-50 tcpRcvQueueBytes:vector ETV
+vector 310 scenario.client0.tcp.conn-32 rttvar:vector ETV
 attr interpolationmode sample-hold
-vector 311 scenario.client3.tcp.conn-50 rcvAdv:vector ETV
+vector 311 scenario.client0.tcp.conn-32 rto:vector ETV
 attr interpolationmode sample-hold
-vector 312 scenario.client3.tcp.conn-50 rcvWnd:vector ETV
+vector 312 scenario.client0.tcp.conn-32 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 313 scenario.client3.tcp.conn-50 sndAck:vector ETV
+vector 313 scenario.client0.tcp.conn-32 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 314 scenario.client4.tcp.conn-51 tcpRcvQueueBytes:vector ETV
+vector 314 scenario.client0.tcp.conn-32 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 315 scenario.client4.tcp.conn-51 rcvAdv:vector ETV
+vector 315 scenario.client0.tcp.conn-33 rtt:vector ETV
 attr interpolationmode sample-hold
-vector 316 scenario.client4.tcp.conn-51 rcvWnd:vector ETV
+vector 316 scenario.client0.tcp.conn-33 srtt:vector ETV
 attr interpolationmode sample-hold
-vector 317 scenario.client4.tcp.conn-51 sndAck:vector ETV
+vector 317 scenario.client0.tcp.conn-33 rttvar:vector ETV
 attr interpolationmode sample-hold
-vector 318 scenario.client0.tcp.conn-30 rtt:vector ETV
+vector 318 scenario.client0.tcp.conn-33 rto:vector ETV
 attr interpolationmode sample-hold
-vector 319 scenario.client0.tcp.conn-30 srtt:vector ETV
+vector 319 scenario.client0.tcp.conn-33 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 320 scenario.client0.tcp.conn-30 rttvar:vector ETV
+vector 320 scenario.client0.tcp.conn-33 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 321 scenario.client0.tcp.conn-30 rto:vector ETV
+vector 321 scenario.client0.tcp.conn-33 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 322 scenario.client0.tcp.conn-30 cwnd:vector ETV
+vector 322 scenario.client1.tcp.conn-34 rtt:vector ETV
 attr interpolationmode sample-hold
-vector 323 scenario.client0.tcp.conn-30 ssthresh:vector ETV
+vector 323 scenario.client1.tcp.conn-34 srtt:vector ETV
 attr interpolationmode sample-hold
-vector 324 scenario.client0.tcp.conn-30 dupAcks:vector ETV
+vector 324 scenario.client1.tcp.conn-34 rttvar:vector ETV
 attr interpolationmode sample-hold
-vector 325 scenario.client0.tcp.conn-31 rtt:vector ETV
+vector 325 scenario.client1.tcp.conn-34 rto:vector ETV
 attr interpolationmode sample-hold
-vector 326 scenario.client0.tcp.conn-31 srtt:vector ETV
+vector 326 scenario.client1.tcp.conn-34 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 327 scenario.client0.tcp.conn-31 rttvar:vector ETV
+vector 327 scenario.client1.tcp.conn-34 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 328 scenario.client0.tcp.conn-31 rto:vector ETV
+vector 328 scenario.client1.tcp.conn-34 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 329 scenario.client0.tcp.conn-31 cwnd:vector ETV
+vector 329 scenario.client1.tcp.conn-35 rtt:vector ETV
 attr interpolationmode sample-hold
-vector 330 scenario.client0.tcp.conn-31 ssthresh:vector ETV
+vector 330 scenario.client1.tcp.conn-35 srtt:vector ETV
 attr interpolationmode sample-hold
-vector 331 scenario.client0.tcp.conn-31 dupAcks:vector ETV
+vector 331 scenario.client1.tcp.conn-35 rttvar:vector ETV
 attr interpolationmode sample-hold
-vector 332 scenario.client0.tcp.conn-32 rtt:vector ETV
+vector 332 scenario.client1.tcp.conn-35 rto:vector ETV
 attr interpolationmode sample-hold
-vector 333 scenario.client0.tcp.conn-32 srtt:vector ETV
+vector 333 scenario.client1.tcp.conn-35 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 334 scenario.client0.tcp.conn-32 rttvar:vector ETV
+vector 334 scenario.client1.tcp.conn-35 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 335 scenario.client0.tcp.conn-32 rto:vector ETV
+vector 335 scenario.client1.tcp.conn-35 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 336 scenario.client0.tcp.conn-32 cwnd:vector ETV
+vector 336 scenario.client1.tcp.conn-36 rtt:vector ETV
 attr interpolationmode sample-hold
-vector 337 scenario.client0.tcp.conn-32 ssthresh:vector ETV
+vector 337 scenario.client1.tcp.conn-36 srtt:vector ETV
 attr interpolationmode sample-hold
-vector 338 scenario.client0.tcp.conn-32 dupAcks:vector ETV
+vector 338 scenario.client1.tcp.conn-36 rttvar:vector ETV
 attr interpolationmode sample-hold
-vector 339 scenario.client0.tcp.conn-33 rtt:vector ETV
+vector 339 scenario.client1.tcp.conn-36 rto:vector ETV
 attr interpolationmode sample-hold
-vector 340 scenario.client0.tcp.conn-33 srtt:vector ETV
+vector 340 scenario.client1.tcp.conn-36 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 341 scenario.client0.tcp.conn-33 rttvar:vector ETV
+vector 341 scenario.client1.tcp.conn-36 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 342 scenario.client0.tcp.conn-33 rto:vector ETV
+vector 342 scenario.client1.tcp.conn-36 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 343 scenario.client0.tcp.conn-33 cwnd:vector ETV
+vector 343 scenario.client1.tcp.conn-37 rtt:vector ETV
 attr interpolationmode sample-hold
-vector 344 scenario.client0.tcp.conn-33 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 345 scenario.client0.tcp.conn-33 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 346 scenario.client1.tcp.conn-34 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 347 scenario.client1.tcp.conn-34 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 348 scenario.client1.tcp.conn-34 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 349 scenario.client1.tcp.conn-34 rto:vector ETV
-attr interpolationmode sample-hold
-vector 350 scenario.client1.tcp.conn-34 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 351 scenario.client1.tcp.conn-34 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 352 scenario.client1.tcp.conn-34 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 353 scenario.client1.tcp.conn-35 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 354 scenario.client1.tcp.conn-35 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 355 scenario.client1.tcp.conn-35 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 356 scenario.client1.tcp.conn-35 rto:vector ETV
-attr interpolationmode sample-hold
-vector 357 scenario.client1.tcp.conn-35 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 358 scenario.client1.tcp.conn-35 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 359 scenario.client1.tcp.conn-35 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 360 scenario.client1.tcp.conn-36 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 361 scenario.client1.tcp.conn-36 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 362 scenario.client1.tcp.conn-36 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 363 scenario.client1.tcp.conn-36 rto:vector ETV
-attr interpolationmode sample-hold
-vector 364 scenario.client1.tcp.conn-36 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 365 scenario.client1.tcp.conn-36 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 366 scenario.client1.tcp.conn-36 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 367 scenario.client1.tcp.conn-37 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 368 scenario.client1.tcp.conn-37 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 369 scenario.client1.tcp.conn-37 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 370 scenario.client1.tcp.conn-37 rto:vector ETV
-attr interpolationmode sample-hold
-vector 371 scenario.client1.tcp.conn-37 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 372 scenario.client1.tcp.conn-37 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 373 scenario.client1.tcp.conn-37 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 374 scenario.client0.tcp.conn-52 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 375 scenario.client0.tcp.conn-52 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 376 scenario.client0.tcp.conn-52 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 377 scenario.client0.tcp.conn-52 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 378 scenario.client0.tcp.conn-52 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 379 scenario.client0.tcp.conn-53 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 380 scenario.client0.tcp.conn-53 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 381 scenario.client0.tcp.conn-53 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 382 scenario.client0.tcp.conn-53 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 383 scenario.client0.tcp.conn-53 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 384 scenario.client0.tcp.conn-54 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 385 scenario.client0.tcp.conn-54 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 386 scenario.client0.tcp.conn-54 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 387 scenario.client0.tcp.conn-54 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 388 scenario.client0.tcp.conn-54 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 389 scenario.client1.tcp.conn-55 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 390 scenario.client1.tcp.conn-55 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 391 scenario.client1.tcp.conn-55 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 392 scenario.client1.tcp.conn-55 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 393 scenario.client1.tcp.conn-55 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 394 scenario.client1.tcp.conn-56 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 395 scenario.client1.tcp.conn-56 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 396 scenario.client1.tcp.conn-56 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 397 scenario.client1.tcp.conn-56 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 398 scenario.client1.tcp.conn-56 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 399 scenario.client1.tcp.conn-57 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 400 scenario.client1.tcp.conn-57 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 401 scenario.client1.tcp.conn-57 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 402 scenario.client1.tcp.conn-57 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 403 scenario.client1.tcp.conn-57 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 404 scenario.client2.tcp.conn-46 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 405 scenario.client2.tcp.conn-46 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 406 scenario.client2.tcp.conn-46 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 407 scenario.client2.tcp.conn-46 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 408 scenario.client3.tcp.conn-47 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 409 scenario.client3.tcp.conn-47 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 410 scenario.client3.tcp.conn-47 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 411 scenario.client3.tcp.conn-47 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 412 scenario.client4.tcp.conn-48 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 413 scenario.client4.tcp.conn-48 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 414 scenario.client4.tcp.conn-48 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 415 scenario.client4.tcp.conn-48 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 416 scenario.client2.tcp.conn-49 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 417 scenario.client2.tcp.conn-49 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 418 scenario.client2.tcp.conn-49 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 419 scenario.client2.tcp.conn-49 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 420 scenario.client3.tcp.conn-50 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 421 scenario.client3.tcp.conn-50 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 422 scenario.client3.tcp.conn-50 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 423 scenario.client3.tcp.conn-50 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 424 scenario.client4.tcp.conn-51 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 425 scenario.client4.tcp.conn-51 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 426 scenario.client4.tcp.conn-51 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 427 scenario.client4.tcp.conn-51 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 428 scenario.client0.tcp.conn-52 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 429 scenario.client0.tcp.conn-52 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 430 scenario.client0.tcp.conn-52 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 431 scenario.client0.tcp.conn-52 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 432 scenario.client0.tcp.conn-52 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 433 scenario.client0.tcp.conn-52 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 434 scenario.client0.tcp.conn-53 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 435 scenario.client0.tcp.conn-53 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 436 scenario.client0.tcp.conn-53 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 437 scenario.client0.tcp.conn-53 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 438 scenario.client0.tcp.conn-53 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 439 scenario.client0.tcp.conn-53 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 440 scenario.client0.tcp.conn-54 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 441 scenario.client0.tcp.conn-54 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 442 scenario.client0.tcp.conn-54 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 443 scenario.client0.tcp.conn-54 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 444 scenario.client0.tcp.conn-54 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 445 scenario.client0.tcp.conn-54 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 446 scenario.client1.tcp.conn-55 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 447 scenario.client1.tcp.conn-55 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 448 scenario.client1.tcp.conn-55 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 449 scenario.client1.tcp.conn-55 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 450 scenario.client1.tcp.conn-55 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 451 scenario.client1.tcp.conn-55 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 452 scenario.client1.tcp.conn-56 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 453 scenario.client1.tcp.conn-56 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 454 scenario.client1.tcp.conn-56 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 455 scenario.client1.tcp.conn-56 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 456 scenario.client1.tcp.conn-56 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 457 scenario.client1.tcp.conn-56 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 458 scenario.client1.tcp.conn-57 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 459 scenario.client1.tcp.conn-57 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 460 scenario.client1.tcp.conn-57 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 461 scenario.client1.tcp.conn-57 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 462 scenario.client1.tcp.conn-57 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 463 scenario.client1.tcp.conn-57 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 464 scenario.client2.tcp.conn-46 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 465 scenario.client2.tcp.conn-46 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 466 scenario.client2.tcp.conn-46 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 467 scenario.client2.tcp.conn-46 rto:vector ETV
-attr interpolationmode sample-hold
-vector 468 scenario.client2.tcp.conn-46 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 469 scenario.client2.tcp.conn-46 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 470 scenario.client2.tcp.conn-46 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 471 scenario.client3.tcp.conn-47 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 472 scenario.client3.tcp.conn-47 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 473 scenario.client3.tcp.conn-47 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 474 scenario.client3.tcp.conn-47 rto:vector ETV
-attr interpolationmode sample-hold
-vector 475 scenario.client3.tcp.conn-47 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 476 scenario.client3.tcp.conn-47 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 477 scenario.client3.tcp.conn-47 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 478 scenario.client4.tcp.conn-48 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 479 scenario.client4.tcp.conn-48 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 480 scenario.client4.tcp.conn-48 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 481 scenario.client4.tcp.conn-48 rto:vector ETV
-attr interpolationmode sample-hold
-vector 482 scenario.client4.tcp.conn-48 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 483 scenario.client4.tcp.conn-48 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 484 scenario.client4.tcp.conn-48 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 485 scenario.client2.tcp.conn-49 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 486 scenario.client2.tcp.conn-49 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 487 scenario.client2.tcp.conn-49 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 488 scenario.client2.tcp.conn-49 rto:vector ETV
-attr interpolationmode sample-hold
-vector 489 scenario.client2.tcp.conn-49 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 490 scenario.client2.tcp.conn-49 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 491 scenario.client2.tcp.conn-49 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 492 scenario.client3.tcp.conn-50 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 493 scenario.client3.tcp.conn-50 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 494 scenario.client3.tcp.conn-50 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 495 scenario.client3.tcp.conn-50 rto:vector ETV
-attr interpolationmode sample-hold
-vector 496 scenario.client3.tcp.conn-50 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 497 scenario.client3.tcp.conn-50 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 498 scenario.client3.tcp.conn-50 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 499 scenario.client4.tcp.conn-51 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 500 scenario.client4.tcp.conn-51 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 501 scenario.client4.tcp.conn-51 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 502 scenario.client4.tcp.conn-51 rto:vector ETV
-attr interpolationmode sample-hold
-vector 503 scenario.client4.tcp.conn-51 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 504 scenario.client4.tcp.conn-51 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 505 scenario.client4.tcp.conn-51 dupAcks:vector ETV
-attr interpolationmode sample-hold
-0	61967 209 0 351 0 0.004836 13 0 1 6 6
-1	62176 142 0 454 0 0.006152 9 0 1 4 4
-2	62318 142 0 455 0 0.006152 9 0 1 4 4
-3	62460 142 0 456 0 0.006152 9 0 1 4 4
-4	62602 208 0 350 0 0.004836 13 0 1 6 6
-5	62810 142 0 457 0 0.006152 9 0 1 4 4
-6	62952 142 0 458 0 0.006152 9 0 1 4 4
-7	63094 142 0 459 0 0.006152 9 0 1 4 4
-8	63236 149 0 388 0 0.005276 9 0 1 4 4
-9	63385 150 0 391 0 0.005276 9 0 1 4 4
-10	63535 10 0 0 0 0 1 0 0 0 0
-11	63545 10 0 0 0 0 1 0 0 0 0
-12	63555 158 0 389 0 0.005276 9 0 1 4 4
-13	63713 159 0 392 0 0.005276 9 0 1 4 4
-14	63872 10 0 0 0 0 1 0 0 0 0
-15	63882 10 0 0 0 0 1 0 0 0 0
-16	63892 158 0 390 0 0.005276 9 0 1 4 4
-17	64050 159 0 393 0 0.005276 9 0 1 4 4
-18	64209 10 0 0 0 0 1 0 0 0 0
-19	64219 10 0 0 0 0 1 0 0 0 0
-20	64229 49 16 288 0 0.003576 3 0 0 0 0
-21	64278 80 16 288 0 0.003576 4 7504 7732 30700 235661488
-22	64358 58 16 288 0 0.003576 3 7504 7504 22512 168930048
-23	64416 53 16 288 0 0.003576 3 0 228 456 103968
-24	64469 30 18 121 0 0.001816 2 0 0 0 0
-25	64499 58 18 121 0 0.001816 3 7504 7732 22968 175877664
-26	64557 36 18 121 0 0.001816 2 7504 7504 15008 112620032
-27	64593 32 18 121 0 0.001816 2 0 228 228 51984
-28	64625 30 20 122 0 0.001816 2 0 0 0 0
-29	64655 58 20 122 0 0.001816 3 7504 7732 22968 175877664
-30	64713 36 20 122 0 0.001816 2 7504 7504 15008 112620032
-31	64749 32 20 122 0 0.001816 2 0 228 228 51984
-32	64781 30 22 123 0 0.001816 2 0 0 0 0
-33	64811 58 22 123 0 0.001816 3 7504 7732 22968 175877664
-34	64869 36 22 123 0 0.001816 2 7504 7504 15008 112620032
-35	64905 32 22 123 0 0.001816 2 0 228 228 51984
-36	64937 49 24 292 0 0.003576 3 0 0 0 0
-37	64986 80 24 292 0 0.003576 4 7504 7732 30700 235661488
-38	65066 58 24 292 0 0.003576 3 7504 7504 22512 168930048
-39	65124 53 24 292 0 0.003576 3 0 228 456 103968
-40	65177 30 26 125 0 0.001816 2 0 0 0 0
-41	65207 58 26 125 0 0.001816 3 7504 7732 22968 175877664
-42	65265 36 26 125 0 0.001816 2 7504 7504 15008 112620032
-43	65301 32 26 125 0 0.001816 2 0 228 228 51984
-44	65333 30 28 126 0 0.001816 2 0 0 0 0
-45	65363 58 28 126 0 0.001816 3 7504 7732 22968 175877664
-46	65421 36 28 126 0 0.001816 2 7504 7504 15008 112620032
-47	65457 32 28 126 0 0.001816 2 0 228 228 51984
-48	65489 30 30 127 0 0.001816 2 0 0 0 0
-49	65519 58 30 127 0 0.001816 3 7504 7732 22968 175877664
-50	65577 36 30 127 0 0.001816 2 7504 7504 15008 112620032
-51	65613 32 30 127 0 0.001816 2 0 228 228 51984
-52	65645 108 40 349 0 0.00446 6 40 44 250 10434
-53	65753 108 40 349 0 0.00446 6 40 44 250 10434
-54	65861 204 40 349 0 0.00446 12 0 1 6 6
-55	66065 108 40 349 0 0.00446 6 40 44 250 10434
-56	66173 102 40 349 0 0.00446 6 0 0 0 0
-57	66275 108 40 349 0 0.00446 6 47 51 292 14228
-58	66383 72 41 431 0 0.005776 4 40 44 169 7153
-59	66455 72 41 431 0 0.005776 4 40 44 169 7153
-60	66527 136 41 431 0 0.005776 8 0 1 4 4
-61	66663 72 41 431 0 0.005776 4 40 44 169 7153
-62	66735 68 41 431 0 0.005776 4 0 0 0 0
-63	66803 72 41 431 0 0.005776 4 47 51 197 9715
-64	66875 72 42 433 0 0.005776 4 40 44 169 7153
-65	66947 72 42 433 0 0.005776 4 40 44 169 7153
-66	67019 136 42 433 0 0.005776 8 0 1 4 4
-67	67155 72 42 433 0 0.005776 4 40 44 169 7153
-68	67227 68 42 433 0 0.005776 4 0 0 0 0
-69	67295 72 42 433 0 0.005776 4 47 51 197 9715
-70	67367 72 43 435 0 0.005776 4 40 44 169 7153
-71	67439 72 43 435 0 0.005776 4 40 44 169 7153
-72	67511 136 43 435 0 0.005776 8 0 1 4 4
-73	67647 72 43 435 0 0.005776 4 40 44 169 7153
-74	67719 68 43 435 0 0.005776 4 0 0 0 0
-75	67787 72 43 435 0 0.005776 4 47 51 197 9715
-76	67859 108 44 348 0 0.00446 6 40 44 250 10434
-77	67967 108 44 348 0 0.00446 6 40 44 250 10434
-78	68075 204 44 348 0 0.00446 12 0 1 6 6
-79	68279 108 44 348 0 0.00446 6 40 44 250 10434
-80	68387 102 44 348 0 0.00446 6 0 0 0 0
-81	68489 108 44 348 0 0.00446 6 47 51 292 14228
-82	68597 72 45 437 0 0.005776 4 40 44 169 7153
-83	68669 72 45 437 0 0.005776 4 40 44 169 7153
-84	68741 136 45 437 0 0.005776 8 0 1 4 4
-85	68877 72 45 437 0 0.005776 4 40 44 169 7153
-86	68949 68 45 437 0 0.005776 4 0 0 0 0
-87	69017 72 45 437 0 0.005776 4 47 51 197 9715
-88	69089 72 46 439 0 0.005776 4 40 44 169 7153
-89	69161 72 46 439 0 0.005776 4 40 44 169 7153
-90	69233 136 46 439 0 0.005776 8 0 1 4 4
-91	69369 72 46 439 0 0.005776 4 40 44 169 7153
-92	69441 68 46 439 0 0.005776 4 0 0 0 0
-93	69509 72 46 439 0 0.005776 4 47 51 197 9715
-94	69581 72 47 441 0 0.005776 4 40 44 169 7153
-95	69653 72 47 441 0 0.005776 4 40 44 169 7153
-96	69725 136 47 441 0 0.005776 8 0 1 4 4
-97	69861 72 47 441 0 0.005776 4 40 44 169 7153
-98	69933 68 47 441 0 0.005776 4 0 0 0 0
-99	70001 72 47 441 0 0.005776 4 47 51 197 9715
-100	70073 122 56 395 0.000908 0.005336 6 47 51 292 14228
-101	70195 122 56 395 0.000908 0.005336 6 40 44 250 10434
-102	70317 81 57 460 0.000908 0.006652 4 47 51 197 9715
-103	70398 81 57 460 0.000908 0.006652 4 40 44 169 7153
-104	70479 81 58 461 0.000908 0.006652 4 47 51 197 9715
-105	70560 81 58 461 0.000908 0.006652 4 40 44 169 7153
-106	70641 81 59 462 0.000908 0.006652 4 47 51 197 9715
-107	70722 81 59 462 0.000908 0.006652 4 40 44 169 7153
-108	70803 122 60 394 0.000908 0.005336 6 47 51 292 14228
-109	70925 122 60 394 0.000908 0.005336 6 40 44 250 10434
-110	71047 81 61 463 0.000908 0.006652 4 47 51 197 9715
-111	71128 81 61 463 0.000908 0.006652 4 40 44 169 7153
-112	71209 81 62 464 0.000908 0.006652 4 47 51 197 9715
-113	71290 81 62 464 0.000908 0.006652 4 40 44 169 7153
-114	71371 81 63 465 0.000908 0.006652 4 47 51 197 9715
-115	71452 81 63 465 0.000908 0.006652 4 40 44 169 7153
-116	71533 85 72 319 0.000908 0.003984 4 0 675 2025 1366875
-117	71618 79 72 319 0.000908 0.003984 4 0 0 0 0
-118	71697 87 72 342 0.000908 0.00446 4 7505 7507 30022 225330124
-119	71784 43 72 176 0.000908 0.0027 2 7504 7504 15008 112620032
-120	71827 93 72 342 0.000908 0.00446 5 0 1 1 1
-121	71920 65 72 342 0.000908 0.00446 3 7503 7504 22511 168915041
-122	71985 56 72 342 0.000908 0.00446 3 1 3 6 14
-123	72041 38 73 77 0.000908 0.000908 2 0 0 0 0
-124	72079 38 73 77 0.000908 0.000908 2 0 0 0 0
-125	72117 65 73 177 0.000908 0.0027 3 7505 7505 22515 168975075
-126	72182 43 73 177 0.000908 0.0027 2 7504 7504 15008 112620032
-127	72225 55 73 177 0.000908 0.0027 3 0 1 1 1
-128	72280 43 73 177 0.000908 0.0027 2 7503 7504 15007 112605025
-129	72323 37 73 177 0.000908 0.0027 2 1 2 3 5
-130	72360 38 74 78 0.000908 0.000908 2 0 0 0 0
-131	72398 38 74 78 0.000908 0.000908 2 0 0 0 0
-132	72436 65 74 178 0.000908 0.0027 3 7505 7505 22515 168975075
-133	72501 43 74 178 0.000908 0.0027 2 7504 7504 15008 112620032
-134	72544 55 74 178 0.000908 0.0027 3 0 1 1 1
-135	72599 43 74 178 0.000908 0.0027 2 7503 7504 15007 112605025
-136	72642 37 74 178 0.000908 0.0027 2 1 2 3 5
-137	72679 38 75 79 0.000908 0.000908 2 0 0 0 0
-138	72717 38 75 79 0.000908 0.000908 2 0 0 0 0
-139	72755 65 75 179 0.000908 0.0027 3 7505 7505 22515 168975075
-140	72820 43 75 179 0.000908 0.0027 2 7504 7504 15008 112620032
-141	72863 55 75 179 0.000908 0.0027 3 0 1 1 1
-142	72918 43 75 179 0.000908 0.0027 2 7503 7504 15007 112605025
-143	72961 37 75 179 0.000908 0.0027 2 1 2 3 5
-144	72998 85 76 316 0.000908 0.003984 4 0 675 2025 1366875
-145	73083 79 76 316 0.000908 0.003984 4 0 0 0 0
-146	73162 87 76 343 0.000908 0.00446 4 7505 7507 30022 225330124
-147	73249 43 76 180 0.000908 0.0027 2 7504 7504 15008 112620032
-148	73292 93 76 343 0.000908 0.00446 5 0 1 1 1
-149	73385 65 76 343 0.000908 0.00446 3 7503 7504 22511 168915041
-150	73450 56 76 343 0.000908 0.00446 3 1 3 6 14
-151	73506 65 77 181 0.000908 0.0027 3 7505 7505 22515 168975075
-152	73571 43 77 181 0.000908 0.0027 2 7504 7504 15008 112620032
-153	73614 55 77 181 0.000908 0.0027 3 0 1 1 1
-154	73669 43 77 181 0.000908 0.0027 2 7503 7504 15007 112605025
-155	73712 37 77 181 0.000908 0.0027 2 1 2 3 5
-156	73749 65 78 182 0.000908 0.0027 3 7505 7505 22515 168975075
-157	73814 43 78 182 0.000908 0.0027 2 7504 7504 15008 112620032
-158	73857 55 78 182 0.000908 0.0027 3 0 1 1 1
-159	73912 43 78 182 0.000908 0.0027 2 7503 7504 15007 112605025
-160	73955 37 78 182 0.000908 0.0027 2 1 2 3 5
-161	73992 65 79 183 0.000908 0.0027 3 7505 7505 22515 168975075
-162	74057 43 79 183 0.000908 0.0027 2 7504 7504 15008 112620032
-163	74100 55 79 183 0.000908 0.0027 3 0 1 1 1
-164	74155 43 79 183 0.000908 0.0027 2 7503 7504 15007 112605025
-165	74198 37 79 183 0.000908 0.0027 2 1 2 3 5
-166	74235 79 89 382 0.000908 0.004892 4 40 44 169 7153
-167	74314 79 89 382 0.000908 0.004892 4 40 44 169 7153
-168	74393 152 89 382 0.000908 0.004892 8 0 1 4 4
-169	74545 81 89 382 0.000908 0.004892 4 40 44 169 7153
-170	74626 84 89 382 0.000908 0.004892 4 0 0.000376 0.000376 1.41376e-007
-171	74710 81 89 382 0.000908 0.004892 4 47 51 197 9715
-172	74791 79 90 383 0.000908 0.004892 4 40 44 169 7153
-173	74870 79 90 383 0.000908 0.004892 4 40 44 169 7153
-174	74949 152 90 383 0.000908 0.004892 8 0 1 4 4
-175	75101 81 90 383 0.000908 0.004892 4 40 44 169 7153
-176	75182 84 90 383 0.000908 0.004892 4 0 0.000376 0.000376 1.41376e-007
-177	75266 81 90 383 0.000908 0.004892 4 47 51 197 9715
-178	75347 79 91 384 0.000908 0.004892 4 40 44 169 7153
-179	75426 79 91 384 0.000908 0.004892 4 40 44 169 7153
-180	75505 152 91 384 0.000908 0.004892 8 0 1 4 4
-181	75657 81 91 384 0.000908 0.004892 4 40 44 169 7153
-182	75738 84 91 384 0.000908 0.004892 4 0 0.000376 0.000376 1.41376e-007
-183	75822 81 91 384 0.000908 0.004892 4 47 51 197 9715
-184	75903 79 93 385 0.000908 0.004892 4 40 44 169 7153
-185	75982 79 93 385 0.000908 0.004892 4 40 44 169 7153
-186	76061 152 93 385 0.000908 0.004892 8 0 1 4 4
-187	76213 81 93 385 0.000908 0.004892 4 40 44 169 7153
-188	76294 84 93 385 0.000908 0.004892 4 0 0.000376 0.000376 1.41376e-007
-189	76378 81 93 385 0.000908 0.004892 4 47 51 197 9715
-190	76459 79 94 386 0.000908 0.004892 4 40 44 169 7153
-191	76538 79 94 386 0.000908 0.004892 4 40 44 169 7153
-192	76617 152 94 386 0.000908 0.004892 8 0 1 4 4
-193	76769 81 94 386 0.000908 0.004892 4 40 44 169 7153
-194	76850 84 94 386 0.000908 0.004892 4 0 0.000376 0.000376 1.41376e-007
-195	76934 81 94 386 0.000908 0.004892 4 47 51 197 9715
-196	77015 79 95 387 0.000908 0.004892 4 40 44 169 7153
-197	77094 79 95 387 0.000908 0.004892 4 40 44 169 7153
-198	77173 152 95 387 0.000908 0.004892 8 0 1 4 4
-199	77325 81 95 387 0.000908 0.004892 4 40 44 169 7153
-200	77406 84 95 387 0.000908 0.004892 4 0 0.000376 0.000376 1.41376e-007
-201	77490 81 95 387 0.000908 0.004892 4 47 51 197 9715
-202	77571 84 105 400 0.001816 0.005776 4 47 51 197 9715
-203	77655 84 105 400 0.001816 0.005776 4 40 44 169 7153
-204	77739 84 106 401 0.001816 0.005776 4 47 51 197 9715
-205	77823 84 106 401 0.001816 0.005776 4 40 44 169 7153
-206	77907 84 107 402 0.001816 0.005776 4 47 51 197 9715
-207	77991 84 107 402 0.001816 0.005776 4 40 44 169 7153
-208	78075 84 109 403 0.001816 0.005776 4 47 51 197 9715
-209	78159 84 109 403 0.001816 0.005776 4 40 44 169 7153
-210	78243 84 110 404 0.001816 0.005776 4 47 51 197 9715
-211	78327 84 110 404 0.001816 0.005776 4 40 44 169 7153
-212	78411 84 111 405 0.001816 0.005776 4 47 51 197 9715
-213	78495 84 111 405 0.001816 0.005776 4 40 44 169 7153
-214	78579 66 120 398 0.001816 0.005336 3 227 228 683 155497
-215	78645 60 120 398 0.001816 0.005336 3 1 3 6 14
-216	78705 69 120 398 0.001816 0.005336 3 7503 7504 22511 168915041
-217	78774 80 120 398 0.001816 0.005336 4 0 1 2 2
-218	78854 44 121 289 0.001816 0.003576 2 227 228 455 103513
-219	78898 40 121 289 0.001816 0.003576 2 1 2 3 5
-220	78938 46 121 289 0.001816 0.003576 2 7503 7504 15007 112605025
-221	78984 40 121 289 0.001816 0.003576 2 0 1 1 1
-222	79024 44 122 290 0.001816 0.003576 2 227 228 455 103513
-223	79068 40 122 290 0.001816 0.003576 2 1 2 3 5
-224	79108 46 122 290 0.001816 0.003576 2 7503 7504 15007 112605025
-225	79154 40 122 290 0.001816 0.003576 2 0 1 1 1
-226	79194 44 123 291 0.001816 0.003576 2 227 228 455 103513
-227	79238 40 123 291 0.001816 0.003576 2 1 2 3 5
-228	79278 46 123 291 0.001816 0.003576 2 7503 7504 15007 112605025
-229	79324 40 123 291 0.001816 0.003576 2 0 1 1 1
-230	79364 66 124 399 0.001816 0.005336 3 227 228 683 155497
-231	79430 60 124 399 0.001816 0.005336 3 1 3 6 14
-232	79490 69 124 399 0.001816 0.005336 3 7503 7504 22511 168915041
-233	79559 80 124 399 0.001816 0.005336 4 0 1 2 2
-234	79639 44 125 293 0.001816 0.003576 2 227 228 455 103513
-235	79683 40 125 293 0.001816 0.003576 2 1 2 3 5
-236	79723 46 125 293 0.001816 0.003576 2 7503 7504 15007 112605025
-237	79769 40 125 293 0.001816 0.003576 2 0 1 1 1
-238	79809 44 126 294 0.001816 0.003576 2 227 228 455 103513
-239	79853 40 126 294 0.001816 0.003576 2 1 2 3 5
-240	79893 46 126 294 0.001816 0.003576 2 7503 7504 15007 112605025
-241	79939 40 126 294 0.001816 0.003576 2 0 1 1 1
-242	79979 44 127 295 0.001816 0.003576 2 227 228 455 103513
-243	80023 40 127 295 0.001816 0.003576 2 1 2 3 5
-244	80063 46 127 295 0.001816 0.003576 2 7503 7504 15007 112605025
-245	80109 40 127 295 0.001816 0.003576 2 0 1 1 1
-246	80149 37 176 342 0.0027 0.00446 2 1 2 3 5
-247	80186 41 176 342 0.0027 0.00446 2 228 228 456 103968
-248	80227 18 176 176 0.0027 0.0027 1 0 0 0 0
-249	80245 21 176 176 0.0027 0.0027 1 1072 1072 1072 1149184
-250	80266 27 176 176 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-251	80293 37 176 342 0.0027 0.00446 2 0 0 0 0
-252	80330 18 177 177 0.0027 0.0027 1 1 1 1 1
-253	80348 20 177 177 0.0027 0.0027 1 228 228 228 51984
-254	80368 18 177 177 0.0027 0.0027 1 0 0 0 0
-255	80386 21 177 177 0.0027 0.0027 1 1072 1072 1072 1149184
-256	80407 27 177 177 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-257	80434 18 177 177 0.0027 0.0027 1 0 0 0 0
-258	80452 18 178 178 0.0027 0.0027 1 1 1 1 1
-259	80470 20 178 178 0.0027 0.0027 1 228 228 228 51984
-260	80490 18 178 178 0.0027 0.0027 1 0 0 0 0
-261	80508 21 178 178 0.0027 0.0027 1 1072 1072 1072 1149184
-262	80529 27 178 178 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-263	80556 18 178 178 0.0027 0.0027 1 0 0 0 0
-264	80574 18 179 179 0.0027 0.0027 1 1 1 1 1
-265	80592 20 179 179 0.0027 0.0027 1 228 228 228 51984
-266	80612 18 179 179 0.0027 0.0027 1 0 0 0 0
-267	80630 21 179 179 0.0027 0.0027 1 1072 1072 1072 1149184
-268	80651 27 179 179 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-269	80678 18 179 179 0.0027 0.0027 1 0 0 0 0
-270	80696 37 180 343 0.0027 0.00446 2 1 2 3 5
-271	80733 41 180 343 0.0027 0.00446 2 228 228 456 103968
-272	80774 18 180 180 0.0027 0.0027 1 0 0 0 0
-273	80792 21 180 180 0.0027 0.0027 1 1072 1072 1072 1149184
-274	80813 27 180 180 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-275	80840 37 180 343 0.0027 0.00446 2 0 0 0 0
-276	80877 18 181 181 0.0027 0.0027 1 1 1 1 1
-277	80895 20 181 181 0.0027 0.0027 1 228 228 228 51984
-278	80915 18 181 181 0.0027 0.0027 1 0 0 0 0
-279	80933 21 181 181 0.0027 0.0027 1 1072 1072 1072 1149184
-280	80954 27 181 181 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-281	80981 18 181 181 0.0027 0.0027 1 0 0 0 0
-282	80999 18 182 182 0.0027 0.0027 1 1 1 1 1
-283	81017 20 182 182 0.0027 0.0027 1 228 228 228 51984
-284	81037 18 182 182 0.0027 0.0027 1 0 0 0 0
-285	81055 21 182 182 0.0027 0.0027 1 1072 1072 1072 1149184
-286	81076 27 182 182 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-287	81103 18 182 182 0.0027 0.0027 1 0 0 0 0
-288	81121 18 183 183 0.0027 0.0027 1 1 1 1 1
-289	81139 20 183 183 0.0027 0.0027 1 228 228 228 51984
-290	81159 18 183 183 0.0027 0.0027 1 0 0 0 0
-291	81177 21 183 183 0.0027 0.0027 1 1072 1072 1072 1149184
-292	81198 27 183 183 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-293	81225 18 183 183 0.0027 0.0027 1 0 0 0 0
-294	81243 38 233 364 0.0027 0.004892 2 0 0 0 0
-295	81281 67 233 364 0.0027 0.004892 3 7504 8500 24504 200810016
-296	81348 44 233 364 0.0027 0.004892 2 7504 7504 15008 112620032
-297	81392 40 233 364 0.0027 0.004892 2 0 996 996 992016
-298	81432 38 235 365 0.0027 0.004892 2 0 0 0 0
-299	81470 67 235 365 0.0027 0.004892 3 7504 8500 24504 200810016
-300	81537 44 235 365 0.0027 0.004892 2 7504 7504 15008 112620032
-301	81581 40 235 365 0.0027 0.004892 2 0 996 996 992016
-302	81621 38 237 366 0.0027 0.004892 2 0 0 0 0
-303	81659 67 237 366 0.0027 0.004892 3 7504 8500 24504 200810016
-304	81726 44 237 366 0.0027 0.004892 2 7504 7504 15008 112620032
-305	81770 40 237 366 0.0027 0.004892 2 0 996 996 992016
-306	81810 38 240 367 0.0027 0.004892 2 0 0 0 0
-307	81848 67 240 367 0.0027 0.004892 3 7504 8500 24504 200810016
-308	81915 44 240 367 0.0027 0.004892 2 7504 7504 15008 112620032
-309	81959 40 240 367 0.0027 0.004892 2 0 996 996 992016
-310	81999 38 242 368 0.0027 0.004892 2 0 0 0 0
-311	82037 67 242 368 0.0027 0.004892 3 7504 8500 24504 200810016
-312	82104 44 242 368 0.0027 0.004892 2 7504 7504 15008 112620032
-313	82148 40 242 368 0.0027 0.004892 2 0 996 996 992016
-314	82188 38 244 369 0.0027 0.004892 2 0 0 0 0
-315	82226 67 244 369 0.0027 0.004892 3 7504 8500 24504 200810016
-316	82293 44 244 369 0.0027 0.004892 2 7504 7504 15008 112620032
-317	82337 40 244 369 0.0027 0.004892 2 0 996 996 992016
-318	82377 52 288 398 0.003576 0.005336 2 0.00176 0.00176 0.00352 6.1952e-006
-319	82429 54 288 398 0.003576 0.005336 2 0.00022 0.0004125 0.0006325 2.1855625e-007
-320	82483 55 288 398 0.003576 0.005336 2 0.57460375 0.65647 1.23107375 0.76112233041406
-321	82538 53 288 398 0.003576 0.005336 2 2.2988275 2.6261 4.9249275 12.181009084756
-322	82591 46 288 398 0.003576 0.005336 2 1072 1608 2680 3734848
-323	82637 58 288 398 0.003576 0.005336 2 4294967295 4294967295 8589934590 3.6893488130239e+019
-324	82695 40 288 398 0.003576 0.005336 2 0 0 0 0
-325	82735 26 289 289 0.003576 0.003576 1 0.00176 0.00176 0.00176 3.0976e-006
-326	82761 26 289 289 0.003576 0.003576 1 0.00022 0.00022 0.00022 4.84e-008
-327	82787 26 289 289 0.003576 0.003576 1 0.65647 0.65647 0.65647 0.4309528609
-328	82813 25 289 289 0.003576 0.003576 1 2.6261 2.6261 2.6261 6.89640121
-329	82838 23 289 289 0.003576 0.003576 1 1072 1072 1072 1149184
-330	82861 29 289 289 0.003576 0.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
-331	82890 20 289 289 0.003576 0.003576 1 0 0 0 0
-332	82910 26 290 290 0.003576 0.003576 1 0.00176 0.00176 0.00176 3.0976e-006
-333	82936 26 290 290 0.003576 0.003576 1 0.00022 0.00022 0.00022 4.84e-008
-334	82962 26 290 290 0.003576 0.003576 1 0.65647 0.65647 0.65647 0.4309528609
-335	82988 25 290 290 0.003576 0.003576 1 2.6261 2.6261 2.6261 6.89640121
-336	83013 23 290 290 0.003576 0.003576 1 1072 1072 1072 1149184
-337	83036 29 290 290 0.003576 0.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
-338	83065 20 290 290 0.003576 0.003576 1 0 0 0 0
-339	83085 26 291 291 0.003576 0.003576 1 0.00176 0.00176 0.00176 3.0976e-006
-340	83111 26 291 291 0.003576 0.003576 1 0.00022 0.00022 0.00022 4.84e-008
-341	83137 26 291 291 0.003576 0.003576 1 0.65647 0.65647 0.65647 0.4309528609
-342	83163 25 291 291 0.003576 0.003576 1 2.6261 2.6261 2.6261 6.89640121
-343	83188 23 291 291 0.003576 0.003576 1 1072 1072 1072 1149184
-344	83211 29 291 291 0.003576 0.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
-345	83240 20 291 291 0.003576 0.003576 1 0 0 0 0
-346	83260 52 292 399 0.003576 0.005336 2 0.00176 0.00176 0.00352 6.1952e-006
-347	83312 54 292 399 0.003576 0.005336 2 0.00022 0.0004125 0.0006325 2.1855625e-007
-348	83366 55 292 399 0.003576 0.005336 2 0.57460375 0.65647 1.23107375 0.76112233041406
-349	83421 53 292 399 0.003576 0.005336 2 2.2988275 2.6261 4.9249275 12.181009084756
-350	83474 46 292 399 0.003576 0.005336 2 1072 1608 2680 3734848
-351	83520 58 292 399 0.003576 0.005336 2 4294967295 4294967295 8589934590 3.6893488130239e+019
-352	83578 40 292 399 0.003576 0.005336 2 0 0 0 0
-353	83618 26 293 293 0.003576 0.003576 1 0.00176 0.00176 0.00176 3.0976e-006
-354	83644 26 293 293 0.003576 0.003576 1 0.00022 0.00022 0.00022 4.84e-008
-355	83670 26 293 293 0.003576 0.003576 1 0.65647 0.65647 0.65647 0.4309528609
-356	83696 25 293 293 0.003576 0.003576 1 2.6261 2.6261 2.6261 6.89640121
-357	83721 23 293 293 0.003576 0.003576 1 1072 1072 1072 1149184
-358	83744 29 293 293 0.003576 0.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
-359	83773 20 293 293 0.003576 0.003576 1 0 0 0 0
-360	83793 26 294 294 0.003576 0.003576 1 0.00176 0.00176 0.00176 3.0976e-006
-361	83819 26 294 294 0.003576 0.003576 1 0.00022 0.00022 0.00022 4.84e-008
-362	83845 26 294 294 0.003576 0.003576 1 0.65647 0.65647 0.65647 0.4309528609
-363	83871 25 294 294 0.003576 0.003576 1 2.6261 2.6261 2.6261 6.89640121
-364	83896 23 294 294 0.003576 0.003576 1 1072 1072 1072 1149184
-365	83919 29 294 294 0.003576 0.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
-366	83948 20 294 294 0.003576 0.003576 1 0 0 0 0
-367	83968 26 295 295 0.003576 0.003576 1 0.00176 0.00176 0.00176 3.0976e-006
-368	83994 26 295 295 0.003576 0.003576 1 0.00022 0.00022 0.00022 4.84e-008
-369	84020 26 295 295 0.003576 0.003576 1 0.65647 0.65647 0.65647 0.4309528609
-370	84046 25 295 295 0.003576 0.003576 1 2.6261 2.6261 2.6261 6.89640121
-371	84071 23 295 295 0.003576 0.003576 1 1072 1072 1072 1149184
-372	84094 29 295 295 0.003576 0.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
-373	84123 20 295 295 0.003576 0.003576 1 0 0 0 0
-374	84143 69 314 412 0.003984 0.005776 3 8180 8180 24540 200737200
-375	84212 46 314 412 0.003984 0.005776 2 7504 7504 15008 112620032
-376	84258 60 314 412 0.003984 0.005776 3 0 1 1 1
-377	84318 46 314 412 0.003984 0.005776 2 7503 7504 15007 112605025
-378	84364 44 314 412 0.003984 0.005776 2 676 677 1353 915305
-379	84408 69 315 413 0.003984 0.005776 3 8180 8180 24540 200737200
-380	84477 46 315 413 0.003984 0.005776 2 7504 7504 15008 112620032
-381	84523 60 315 413 0.003984 0.005776 3 0 1 1 1
-382	84583 46 315 413 0.003984 0.005776 2 7503 7504 15007 112605025
-383	84629 44 315 413 0.003984 0.005776 2 676 677 1353 915305
-384	84673 69 316 414 0.003984 0.005776 3 8180 8180 24540 200737200
-385	84742 46 316 414 0.003984 0.005776 2 7504 7504 15008 112620032
-386	84788 60 316 414 0.003984 0.005776 3 0 1 1 1
-387	84848 46 316 414 0.003984 0.005776 2 7503 7504 15007 112605025
-388	84894 44 316 414 0.003984 0.005776 2 676 677 1353 915305
-389	84938 69 317 415 0.003984 0.005776 3 8180 8180 24540 200737200
-390	85007 46 317 415 0.003984 0.005776 2 7504 7504 15008 112620032
-391	85053 60 317 415 0.003984 0.005776 3 0 1 1 1
-392	85113 46 317 415 0.003984 0.005776 2 7503 7504 15007 112605025
-393	85159 44 317 415 0.003984 0.005776 2 676 677 1353 915305
-394	85203 69 318 416 0.003984 0.005776 3 8180 8180 24540 200737200
-395	85272 46 318 416 0.003984 0.005776 2 7504 7504 15008 112620032
-396	85318 60 318 416 0.003984 0.005776 3 0 1 1 1
-397	85378 46 318 416 0.003984 0.005776 2 7503 7504 15007 112605025
-398	85424 44 318 416 0.003984 0.005776 2 676 677 1353 915305
-399	85468 69 319 417 0.003984 0.005776 3 8180 8180 24540 200737200
-400	85537 46 319 417 0.003984 0.005776 2 7504 7504 15008 112620032
-401	85583 60 319 417 0.003984 0.005776 3 0 1 1 1
-402	85643 46 319 417 0.003984 0.005776 2 7503 7504 15007 112605025
-403	85689 44 319 417 0.003984 0.005776 2 676 677 1353 915305
-404	85733 44 364 472 0.004892 0.006652 2 995 996 1991 1982041
-405	85777 44 364 472 0.004892 0.006652 2 676 677 1353 915305
-406	85821 46 364 472 0.004892 0.006652 2 7503 7504 15007 112605025
-407	85867 40 364 472 0.004892 0.006652 2 0 1 1 1
-408	85907 44 365 473 0.004892 0.006652 2 995 996 1991 1982041
-409	85951 44 365 473 0.004892 0.006652 2 676 677 1353 915305
-410	85995 46 365 473 0.004892 0.006652 2 7503 7504 15007 112605025
-411	86041 40 365 473 0.004892 0.006652 2 0 1 1 1
-412	86081 44 366 474 0.004892 0.006652 2 995 996 1991 1982041
-413	86125 44 366 474 0.004892 0.006652 2 676 677 1353 915305
-414	86169 46 366 474 0.004892 0.006652 2 7503 7504 15007 112605025
-415	86215 40 366 474 0.004892 0.006652 2 0 1 1 1
-416	86255 44 367 475 0.004892 0.006652 2 995 996 1991 1982041
-417	86299 44 367 475 0.004892 0.006652 2 676 677 1353 915305
-418	86343 46 367 475 0.004892 0.006652 2 7503 7504 15007 112605025
-419	86389 40 367 475 0.004892 0.006652 2 0 1 1 1
-420	86429 44 368 476 0.004892 0.006652 2 995 996 1991 1982041
-421	86473 44 368 476 0.004892 0.006652 2 676 677 1353 915305
-422	86517 46 368 476 0.004892 0.006652 2 7503 7504 15007 112605025
-423	86563 40 368 476 0.004892 0.006652 2 0 1 1 1
-424	86603 44 369 477 0.004892 0.006652 2 995 996 1991 1982041
-425	86647 44 369 477 0.004892 0.006652 2 676 677 1353 915305
-426	86691 46 369 477 0.004892 0.006652 2 7503 7504 15007 112605025
-427	86737 40 369 477 0.004892 0.006652 2 0 1 1 1
-428	86777 22 412 412 0.005776 0.005776 1 676 676 676 456976
-429	86799 22 412 412 0.005776 0.005776 1 996 996 996 992016
-430	86821 20 412 412 0.005776 0.005776 1 0 0 0 0
-431	86841 23 412 412 0.005776 0.005776 1 1072 1072 1072 1149184
-432	86864 29 412 412 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
-433	86893 20 412 412 0.005776 0.005776 1 0 0 0 0
-434	86913 22 413 413 0.005776 0.005776 1 676 676 676 456976
-435	86935 22 413 413 0.005776 0.005776 1 996 996 996 992016
-436	86957 20 413 413 0.005776 0.005776 1 0 0 0 0
-437	86977 23 413 413 0.005776 0.005776 1 1072 1072 1072 1149184
-438	87000 29 413 413 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
-439	87029 20 413 413 0.005776 0.005776 1 0 0 0 0
-440	87049 22 414 414 0.005776 0.005776 1 676 676 676 456976
-441	87071 22 414 414 0.005776 0.005776 1 996 996 996 992016
-442	87093 20 414 414 0.005776 0.005776 1 0 0 0 0
-443	87113 23 414 414 0.005776 0.005776 1 1072 1072 1072 1149184
-444	87136 29 414 414 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
-445	87165 20 414 414 0.005776 0.005776 1 0 0 0 0
-446	87185 22 415 415 0.005776 0.005776 1 676 676 676 456976
-447	87207 22 415 415 0.005776 0.005776 1 996 996 996 992016
-448	87229 20 415 415 0.005776 0.005776 1 0 0 0 0
-449	87249 23 415 415 0.005776 0.005776 1 1072 1072 1072 1149184
-450	87272 29 415 415 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
-451	87301 20 415 415 0.005776 0.005776 1 0 0 0 0
-452	87321 22 416 416 0.005776 0.005776 1 676 676 676 456976
-453	87343 22 416 416 0.005776 0.005776 1 996 996 996 992016
-454	87365 20 416 416 0.005776 0.005776 1 0 0 0 0
-455	87385 23 416 416 0.005776 0.005776 1 1072 1072 1072 1149184
-456	87408 29 416 416 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
-457	87437 20 416 416 0.005776 0.005776 1 0 0 0 0
-458	87457 22 417 417 0.005776 0.005776 1 676 676 676 456976
-459	87479 22 417 417 0.005776 0.005776 1 996 996 996 992016
-460	87501 20 417 417 0.005776 0.005776 1 0 0 0 0
-461	87521 23 417 417 0.005776 0.005776 1 1072 1072 1072 1149184
-462	87544 29 417 417 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
-463	87573 20 417 417 0.005776 0.005776 1 0 0 0 0
-464	87593 26 472 472 0.006652 0.006652 1 0.00176 0.00176 0.00176 3.0976e-006
-465	87619 26 472 472 0.006652 0.006652 1 0.00022 0.00022 0.00022 4.84e-008
-466	87645 26 472 472 0.006652 0.006652 1 0.65647 0.65647 0.65647 0.4309528609
-467	87671 25 472 472 0.006652 0.006652 1 2.6261 2.6261 2.6261 6.89640121
-468	87696 23 472 472 0.006652 0.006652 1 1072 1072 1072 1149184
-469	87719 29 472 472 0.006652 0.006652 1 4294967295 4294967295 4294967295 1.844674406512e+019
-470	87748 20 472 472 0.006652 0.006652 1 0 0 0 0
-471	87768 26 473 473 0.006652 0.006652 1 0.00176 0.00176 0.00176 3.0976e-006
-472	87794 26 473 473 0.006652 0.006652 1 0.00022 0.00022 0.00022 4.84e-008
-473	87820 26 473 473 0.006652 0.006652 1 0.65647 0.65647 0.65647 0.4309528609
-474	87846 25 473 473 0.006652 0.006652 1 2.6261 2.6261 2.6261 6.89640121
-475	87871 23 473 473 0.006652 0.006652 1 1072 1072 1072 1149184
-476	87894 29 473 473 0.006652 0.006652 1 4294967295 4294967295 4294967295 1.844674406512e+019
-477	87923 20 473 473 0.006652 0.006652 1 0 0 0 0
-478	87943 26 474 474 0.006652 0.006652 1 0.00176 0.00176 0.00176 3.0976e-006
-479	87969 26 474 474 0.006652 0.006652 1 0.00022 0.00022 0.00022 4.84e-008
-480	87995 26 474 474 0.006652 0.006652 1 0.65647 0.65647 0.65647 0.4309528609
-481	88021 25 474 474 0.006652 0.006652 1 2.6261 2.6261 2.6261 6.89640121
-482	88046 23 474 474 0.006652 0.006652 1 1072 1072 1072 1149184
-483	88069 29 474 474 0.006652 0.006652 1 4294967295 4294967295 4294967295 1.844674406512e+019
-484	88098 20 474 474 0.006652 0.006652 1 0 0 0 0
-485	88118 26 475 475 0.006652 0.006652 1 0.00176 0.00176 0.00176 3.0976e-006
-486	88144 26 475 475 0.006652 0.006652 1 0.00022 0.00022 0.00022 4.84e-008
-487	88170 26 475 475 0.006652 0.006652 1 0.65647 0.65647 0.65647 0.4309528609
-488	88196 25 475 475 0.006652 0.006652 1 2.6261 2.6261 2.6261 6.89640121
-489	88221 23 475 475 0.006652 0.006652 1 1072 1072 1072 1149184
-490	88244 29 475 475 0.006652 0.006652 1 4294967295 4294967295 4294967295 1.844674406512e+019
-491	88273 20 475 475 0.006652 0.006652 1 0 0 0 0
-492	88293 26 476 476 0.006652 0.006652 1 0.00176 0.00176 0.00176 3.0976e-006
-493	88319 26 476 476 0.006652 0.006652 1 0.00022 0.00022 0.00022 4.84e-008
-494	88345 26 476 476 0.006652 0.006652 1 0.65647 0.65647 0.65647 0.4309528609
-495	88371 25 476 476 0.006652 0.006652 1 2.6261 2.6261 2.6261 6.89640121
-496	88396 23 476 476 0.006652 0.006652 1 1072 1072 1072 1149184
-497	88419 29 476 476 0.006652 0.006652 1 4294967295 4294967295 4294967295 1.844674406512e+019
-498	88448 20 476 476 0.006652 0.006652 1 0 0 0 0
-499	88468 26 477 477 0.006652 0.006652 1 0.00176 0.00176 0.00176 3.0976e-006
-500	88494 26 477 477 0.006652 0.006652 1 0.00022 0.00022 0.00022 4.84e-008
-501	88520 26 477 477 0.006652 0.006652 1 0.65647 0.65647 0.65647 0.4309528609
-502	88546 25 477 477 0.006652 0.006652 1 2.6261 2.6261 2.6261 6.89640121
-503	88571 23 477 477 0.006652 0.006652 1 1072 1072 1072 1149184
-504	88594 29 477 477 0.006652 0.006652 1 4294967295 4294967295 4294967295 1.844674406512e+019
-505	88623 20 477 477 0.006652 0.006652 1 0 0 0 0
+vector 344 scenario.client1.tcp.conn-37 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 345 scenario.client1.tcp.conn-37 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 346 scenario.client1.tcp.conn-37 rto:vector ETV
+attr interpolationmode sample-hold
+vector 347 scenario.client1.tcp.conn-37 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 348 scenario.client1.tcp.conn-37 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 349 scenario.client1.tcp.conn-37 dupAcks:vector ETV
+attr interpolationmode sample-hold
+0	47051 139 0 236 0 3.003076 9 0 1 4 4
+1	47190 70 0 153 0 3.0022 5 0 1 2 2
+2	47260 70 0 154 0 3.0022 5 0 1 2 2
+3	47330 70 0 155 0 3.0022 5 0 1 2 2
+4	47400 138 0 232 0 3.003076 9 0 1 4 4
+5	47538 70 0 157 0 3.0022 5 0 1 2 2
+6	47608 70 0 158 0 3.0022 5 0 1 2 2
+7	47678 70 0 159 0 3.0022 5 0 1 2 2
+8	47748 77 0 233 0 3.003076 5 0 1 2 2
+9	47825 78 0 237 0 3.003076 5 0 1 2 2
+10	47903 10 0 0 0 0 1 0 0 0 0
+11	47913 10 0 0 0 0 1 0 0 0 0
+12	47923 82 0 234 0 3.003076 5 0 1 2 2
+13	48005 83 0 238 0 3.003076 5 0 1 2 2
+14	48088 10 0 0 0 0 1 0 0 0 0
+15	48098 10 0 0 0 0 1 0 0 0 0
+16	48108 82 0 235 0 3.003076 5 0 1 2 2
+17	48190 83 0 239 0 3.003076 5 0 1 2 2
+18	48273 10 0 0 0 0 1 0 0 0 0
+19	48283 10 0 0 0 0 1 0 0 0 0
+20	48293 30 16 120 3 3.001816 2 0 0 0 0
+21	48323 62 16 120 3 3.001816 3 7504 757732 1522968 1148371877664
+22	48385 36 16 120 3 3.001816 2 7504 7504 15008 112620032
+23	48421 35 16 120 3 3.001816 2 0 750228 750228 562842051984
+24	48456 30 18 121 3 3.001816 2 0 0 0 0
+25	48486 62 18 121 3 3.001816 3 7504 757732 1522968 1148371877664
+26	48548 36 18 121 3 3.001816 2 7504 7504 15008 112620032
+27	48584 35 18 121 3 3.001816 2 0 750228 750228 562842051984
+28	48619 30 20 122 3 3.001816 2 0 0 0 0
+29	48649 62 20 122 3 3.001816 3 7504 757732 1522968 1148371877664
+30	48711 36 20 122 3 3.001816 2 7504 7504 15008 112620032
+31	48747 35 20 122 3 3.001816 2 0 750228 750228 562842051984
+32	48782 30 22 123 3 3.001816 2 0 0 0 0
+33	48812 62 22 123 3 3.001816 3 7504 757732 1522968 1148371877664
+34	48874 36 22 123 3 3.001816 2 7504 7504 15008 112620032
+35	48910 35 22 123 3 3.001816 2 0 750228 750228 562842051984
+36	48945 30 24 124 3 3.001816 2 0 0 0 0
+37	48975 62 24 124 3 3.001816 3 7504 757732 1522968 1148371877664
+38	49037 36 24 124 3 3.001816 2 7504 7504 15008 112620032
+39	49073 35 24 124 3 3.001816 2 0 750228 750228 562842051984
+40	49108 30 26 125 3 3.001816 2 0 0 0 0
+41	49138 62 26 125 3 3.001816 3 7504 757732 1522968 1148371877664
+42	49200 36 26 125 3 3.001816 2 7504 7504 15008 112620032
+43	49236 35 26 125 3 3.001816 2 0 750228 750228 562842051984
+44	49271 30 28 126 3 3.001816 2 0 0 0 0
+45	49301 62 28 126 3 3.001816 3 7504 757732 1522968 1148371877664
+46	49363 36 28 126 3 3.001816 2 7504 7504 15008 112620032
+47	49399 35 28 126 3 3.001816 2 0 750228 750228 562842051984
+48	49434 30 30 127 3 3.001816 2 0 0 0 0
+49	49464 62 30 127 3 3.001816 3 7504 757732 1522968 1148371877664
+50	49526 36 30 127 3 3.001816 2 7504 7504 15008 112620032
+51	49562 35 30 127 3 3.001816 2 0 750228 750228 562842051984
+52	49597 69 40 209 3 3.0027 4 40 44 169 7153
+53	49666 69 40 209 3 3.0027 4 40 44 169 7153
+54	49735 130 40 209 3 3.0027 8 0 1 4 4
+55	49865 69 40 209 3 3.0027 4 40 44 169 7153
+56	49934 65 40 209 3 3.0027 4 0 0 0 0
+57	49999 69 40 209 3 3.0027 4 47 51 197 9715
+58	50068 32 41 145 3 3.001816 2 41 44 85 3617
+59	50100 32 41 145 3 3.001816 2 41 44 85 3617
+60	50132 60 41 145 3 3.001816 4 0 1 2 2
+61	50192 32 41 145 3 3.001816 2 41 44 85 3617
+62	50224 30 41 145 3 3.001816 2 0 0 0 0
+63	50254 32 41 145 3 3.001816 2 48 51 99 4905
+64	50286 32 42 146 3 3.001816 2 41 44 85 3617
+65	50318 32 42 146 3 3.001816 2 41 44 85 3617
+66	50350 60 42 146 3 3.001816 4 0 1 2 2
+67	50410 32 42 146 3 3.001816 2 41 44 85 3617
+68	50442 30 42 146 3 3.001816 2 0 0 0 0
+69	50472 32 42 146 3 3.001816 2 48 51 99 4905
+70	50504 32 43 147 3 3.001816 2 41 44 85 3617
+71	50536 32 43 147 3 3.001816 2 41 44 85 3617
+72	50568 60 43 147 3 3.001816 4 0 1 2 2
+73	50628 32 43 147 3 3.001816 2 41 44 85 3617
+74	50660 30 43 147 3 3.001816 2 0 0 0 0
+75	50690 32 43 147 3 3.001816 2 48 51 99 4905
+76	50722 69 44 201 3 3.0027 4 40 44 169 7153
+77	50791 69 44 201 3 3.0027 4 40 44 169 7153
+78	50860 130 44 201 3 3.0027 8 0 1 4 4
+79	50990 69 44 201 3 3.0027 4 40 44 169 7153
+80	51059 65 44 201 3 3.0027 4 0 0 0 0
+81	51124 69 44 201 3 3.0027 4 47 51 197 9715
+82	51193 32 45 149 3 3.001816 2 41 44 85 3617
+83	51225 32 45 149 3 3.001816 2 41 44 85 3617
+84	51257 60 45 149 3 3.001816 4 0 1 2 2
+85	51317 32 45 149 3 3.001816 2 41 44 85 3617
+86	51349 30 45 149 3 3.001816 2 0 0 0 0
+87	51379 32 45 149 3 3.001816 2 48 51 99 4905
+88	51411 32 46 150 3 3.001816 2 41 44 85 3617
+89	51443 32 46 150 3 3.001816 2 41 44 85 3617
+90	51475 60 46 150 3 3.001816 4 0 1 2 2
+91	51535 32 46 150 3 3.001816 2 41 44 85 3617
+92	51567 30 46 150 3 3.001816 2 0 0 0 0
+93	51597 32 46 150 3 3.001816 2 48 51 99 4905
+94	51629 32 47 151 3 3.001816 2 41 44 85 3617
+95	51661 32 47 151 3 3.001816 2 41 44 85 3617
+96	51693 60 47 151 3 3.001816 4 0 1 2 2
+97	51753 32 47 151 3 3.001816 2 41 44 85 3617
+98	51785 30 47 151 3 3.001816 2 0 0 0 0
+99	51815 32 47 151 3 3.001816 2 48 51 99 4905
+100	51847 81 56 244 3.000908 3.003576 4 47 51 197 9715
+101	51928 81 56 244 3.000908 3.003576 4 40 44 169 7153
+102	52009 39 57 161 3.000908 3.0027 2 48 51 99 4905
+103	52048 39 57 161 3.000908 3.0027 2 41 44 85 3617
+104	52087 39 58 162 3.000908 3.0027 2 48 51 99 4905
+105	52126 39 58 162 3.000908 3.0027 2 41 44 85 3617
+106	52165 39 59 163 3.000908 3.0027 2 48 51 99 4905
+107	52204 39 59 163 3.000908 3.0027 2 41 44 85 3617
+108	52243 81 60 240 3.000908 3.003576 4 47 51 197 9715
+109	52324 81 60 240 3.000908 3.003576 4 40 44 169 7153
+110	52405 39 61 165 3.000908 3.0027 2 48 51 99 4905
+111	52444 39 61 165 3.000908 3.0027 2 41 44 85 3617
+112	52483 39 62 166 3.000908 3.0027 2 48 51 99 4905
+113	52522 39 62 166 3.000908 3.0027 2 41 44 85 3617
+114	52561 39 63 167 3.000908 3.0027 2 48 51 99 4905
+115	52600 39 63 167 3.000908 3.0027 2 41 44 85 3617
+116	52639 24 72 72 3.000908 3.000908 1 750000 750000 750000 562500000000
+117	52663 19 72 72 3.000908 3.000908 1 0 0 0 0
+118	52682 71 72 176 3.000908 3.0027 3 757505 757505 2272515 1721441475075
+119	52753 43 72 176 3.000908 3.0027 2 7504 7504 15008 112620032
+120	52796 55 72 176 3.000908 3.0027 3 0 1 1 1
+121	52851 43 72 176 3.000908 3.0027 2 7503 7504 15007 112605025
+122	52894 47 72 176 3.000908 3.0027 2 750001 750002 1500003 1125004500005
+123	52941 48 73 77 3.000908 3.000908 2 750000 750000 1500000 1125000000000
+124	52989 38 73 77 3.000908 3.000908 2 0 0 0 0
+125	53027 71 73 177 3.000908 3.0027 3 757505 757505 2272515 1721441475075
+126	53098 43 73 177 3.000908 3.0027 2 7504 7504 15008 112620032
+127	53141 55 73 177 3.000908 3.0027 3 0 1 1 1
+128	53196 43 73 177 3.000908 3.0027 2 7503 7504 15007 112605025
+129	53239 47 73 177 3.000908 3.0027 2 750001 750002 1500003 1125004500005
+130	53286 48 74 78 3.000908 3.000908 2 750000 750000 1500000 1125000000000
+131	53334 38 74 78 3.000908 3.000908 2 0 0 0 0
+132	53372 71 74 178 3.000908 3.0027 3 757505 757505 2272515 1721441475075
+133	53443 43 74 178 3.000908 3.0027 2 7504 7504 15008 112620032
+134	53486 55 74 178 3.000908 3.0027 3 0 1 1 1
+135	53541 43 74 178 3.000908 3.0027 2 7503 7504 15007 112605025
+136	53584 47 74 178 3.000908 3.0027 2 750001 750002 1500003 1125004500005
+137	53631 48 75 79 3.000908 3.000908 2 750000 750000 1500000 1125000000000
+138	53679 38 75 79 3.000908 3.000908 2 0 0 0 0
+139	53717 71 75 179 3.000908 3.0027 3 757505 757505 2272515 1721441475075
+140	53788 43 75 179 3.000908 3.0027 2 7504 7504 15008 112620032
+141	53831 55 75 179 3.000908 3.0027 3 0 1 1 1
+142	53886 43 75 179 3.000908 3.0027 2 7503 7504 15007 112605025
+143	53929 47 75 179 3.000908 3.0027 2 750001 750002 1500003 1125004500005
+144	53976 24 76 76 3.000908 3.000908 1 750000 750000 750000 562500000000
+145	54000 19 76 76 3.000908 3.000908 1 0 0 0 0
+146	54019 71 76 180 3.000908 3.0027 3 757505 757505 2272515 1721441475075
+147	54090 43 76 180 3.000908 3.0027 2 7504 7504 15008 112620032
+148	54133 55 76 180 3.000908 3.0027 3 0 1 1 1
+149	54188 43 76 180 3.000908 3.0027 2 7503 7504 15007 112605025
+150	54231 47 76 180 3.000908 3.0027 2 750001 750002 1500003 1125004500005
+151	54278 71 77 181 3.000908 3.0027 3 757505 757505 2272515 1721441475075
+152	54349 43 77 181 3.000908 3.0027 2 7504 7504 15008 112620032
+153	54392 55 77 181 3.000908 3.0027 3 0 1 1 1
+154	54447 43 77 181 3.000908 3.0027 2 7503 7504 15007 112605025
+155	54490 47 77 181 3.000908 3.0027 2 750001 750002 1500003 1125004500005
+156	54537 71 78 182 3.000908 3.0027 3 757505 757505 2272515 1721441475075
+157	54608 43 78 182 3.000908 3.0027 2 7504 7504 15008 112620032
+158	54651 55 78 182 3.000908 3.0027 3 0 1 1 1
+159	54706 43 78 182 3.000908 3.0027 2 7503 7504 15007 112605025
+160	54749 47 78 182 3.000908 3.0027 2 750001 750002 1500003 1125004500005
+161	54796 71 79 183 3.000908 3.0027 3 757505 757505 2272515 1721441475075
+162	54867 43 79 183 3.000908 3.0027 2 7504 7504 15008 112620032
+163	54910 55 79 183 3.000908 3.0027 3 0 1 1 1
+164	54965 43 79 183 3.000908 3.0027 2 7503 7504 15007 112605025
+165	55008 47 79 183 3.000908 3.0027 2 750001 750002 1500003 1125004500005
+166	55055 39 89 203 3.000908 3.0027 2 40 44 84 3536
+167	55094 39 89 203 3.000908 3.0027 2 40 44 84 3536
+168	55133 74 89 203 3.000908 3.0027 4 0 1 2 2
+169	55207 39 89 203 3.000908 3.0027 2 40 44 84 3536
+170	55246 37 89 203 3.000908 3.0027 2 0 0 0 0
+171	55283 39 89 203 3.000908 3.0027 2 47 51 98 4810
+172	55322 39 90 205 3.000908 3.0027 2 40 44 84 3536
+173	55361 39 90 205 3.000908 3.0027 2 40 44 84 3536
+174	55400 74 90 205 3.000908 3.0027 4 0 1 2 2
+175	55474 39 90 205 3.000908 3.0027 2 40 44 84 3536
+176	55513 37 90 205 3.000908 3.0027 2 0 0 0 0
+177	55550 39 90 205 3.000908 3.0027 2 47 51 98 4810
+178	55589 39 91 207 3.000908 3.0027 2 40 44 84 3536
+179	55628 39 91 207 3.000908 3.0027 2 40 44 84 3536
+180	55667 74 91 207 3.000908 3.0027 4 0 1 2 2
+181	55741 39 91 207 3.000908 3.0027 2 40 44 84 3536
+182	55780 37 91 207 3.000908 3.0027 2 0 0 0 0
+183	55817 39 91 207 3.000908 3.0027 2 47 51 98 4810
+184	55856 39 93 211 3.000908 3.0027 2 40 44 84 3536
+185	55895 39 93 211 3.000908 3.0027 2 40 44 84 3536
+186	55934 74 93 211 3.000908 3.0027 4 0 1 2 2
+187	56008 39 93 211 3.000908 3.0027 2 40 44 84 3536
+188	56047 37 93 211 3.000908 3.0027 2 0 0 0 0
+189	56084 39 93 211 3.000908 3.0027 2 47 51 98 4810
+190	56123 39 94 213 3.000908 3.0027 2 40 44 84 3536
+191	56162 39 94 213 3.000908 3.0027 2 40 44 84 3536
+192	56201 74 94 213 3.000908 3.0027 4 0 1 2 2
+193	56275 39 94 213 3.000908 3.0027 2 40 44 84 3536
+194	56314 37 94 213 3.000908 3.0027 2 0 0 0 0
+195	56351 39 94 213 3.000908 3.0027 2 47 51 98 4810
+196	56390 39 95 215 3.000908 3.0027 2 40 44 84 3536
+197	56429 39 95 215 3.000908 3.0027 2 40 44 84 3536
+198	56468 74 95 215 3.000908 3.0027 4 0 1 2 2
+199	56542 39 95 215 3.000908 3.0027 2 40 44 84 3536
+200	56581 37 95 215 3.000908 3.0027 2 0 0 0 0
+201	56618 39 95 215 3.000908 3.0027 2 47 51 98 4810
+202	56657 42 105 241 3.001816 3.003576 2 47 51 98 4810
+203	56699 42 105 241 3.001816 3.003576 2 40 44 84 3536
+204	56741 42 106 242 3.001816 3.003576 2 47 51 98 4810
+205	56783 42 106 242 3.001816 3.003576 2 40 44 84 3536
+206	56825 42 107 243 3.001816 3.003576 2 47 51 98 4810
+207	56867 42 107 243 3.001816 3.003576 2 40 44 84 3536
+208	56909 42 109 245 3.001816 3.003576 2 47 51 98 4810
+209	56951 42 109 245 3.001816 3.003576 2 40 44 84 3536
+210	56993 42 110 246 3.001816 3.003576 2 47 51 98 4810
+211	57035 42 110 246 3.001816 3.003576 2 40 44 84 3536
+212	57077 42 111 247 3.001816 3.003576 2 47 51 98 4810
+213	57119 42 111 247 3.001816 3.003576 2 40 44 84 3536
+214	57161 50 120 256 3.001816 3.003576 2 750227 750228 1500455 1125682603513
+215	57211 50 120 256 3.001816 3.003576 2 750001 750002 1500003 1125004500005
+216	57261 46 120 256 3.001816 3.003576 2 7503 7504 15007 112605025
+217	57307 40 120 256 3.001816 3.003576 2 0 1 1 1
+218	57347 50 121 257 3.001816 3.003576 2 750227 750228 1500455 1125682603513
+219	57397 50 121 257 3.001816 3.003576 2 750001 750002 1500003 1125004500005
+220	57447 46 121 257 3.001816 3.003576 2 7503 7504 15007 112605025
+221	57493 40 121 257 3.001816 3.003576 2 0 1 1 1
+222	57533 50 122 258 3.001816 3.003576 2 750227 750228 1500455 1125682603513
+223	57583 50 122 258 3.001816 3.003576 2 750001 750002 1500003 1125004500005
+224	57633 46 122 258 3.001816 3.003576 2 7503 7504 15007 112605025
+225	57679 40 122 258 3.001816 3.003576 2 0 1 1 1
+226	57719 50 123 259 3.001816 3.003576 2 750227 750228 1500455 1125682603513
+227	57769 50 123 259 3.001816 3.003576 2 750001 750002 1500003 1125004500005
+228	57819 46 123 259 3.001816 3.003576 2 7503 7504 15007 112605025
+229	57865 40 123 259 3.001816 3.003576 2 0 1 1 1
+230	57905 50 124 260 3.001816 3.003576 2 750227 750228 1500455 1125682603513
+231	57955 50 124 260 3.001816 3.003576 2 750001 750002 1500003 1125004500005
+232	58005 46 124 260 3.001816 3.003576 2 7503 7504 15007 112605025
+233	58051 40 124 260 3.001816 3.003576 2 0 1 1 1
+234	58091 50 125 261 3.001816 3.003576 2 750227 750228 1500455 1125682603513
+235	58141 50 125 261 3.001816 3.003576 2 750001 750002 1500003 1125004500005
+236	58191 46 125 261 3.001816 3.003576 2 7503 7504 15007 112605025
+237	58237 40 125 261 3.001816 3.003576 2 0 1 1 1
+238	58277 50 126 262 3.001816 3.003576 2 750227 750228 1500455 1125682603513
+239	58327 50 126 262 3.001816 3.003576 2 750001 750002 1500003 1125004500005
+240	58377 46 126 262 3.001816 3.003576 2 7503 7504 15007 112605025
+241	58423 40 126 262 3.001816 3.003576 2 0 1 1 1
+242	58463 50 127 263 3.001816 3.003576 2 750227 750228 1500455 1125682603513
+243	58513 50 127 263 3.001816 3.003576 2 750001 750002 1500003 1125004500005
+244	58563 46 127 263 3.001816 3.003576 2 7503 7504 15007 112605025
+245	58609 40 127 263 3.001816 3.003576 2 0 1 1 1
+246	58649 23 176 176 3.0027 3.0027 1 750001 750001 750001 562501500001
+247	58672 23 176 176 3.0027 3.0027 1 750228 750228 750228 562842051984
+248	58695 18 176 176 3.0027 3.0027 1 0 0 0 0
+249	58713 21 176 176 3.0027 3.0027 1 1072 1072 1072 1149184
+250	58734 27 176 176 3.0027 3.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+251	58761 18 176 176 3.0027 3.0027 1 0 0 0 0
+252	58779 23 177 177 3.0027 3.0027 1 750001 750001 750001 562501500001
+253	58802 23 177 177 3.0027 3.0027 1 750228 750228 750228 562842051984
+254	58825 18 177 177 3.0027 3.0027 1 0 0 0 0
+255	58843 21 177 177 3.0027 3.0027 1 1072 1072 1072 1149184
+256	58864 27 177 177 3.0027 3.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+257	58891 18 177 177 3.0027 3.0027 1 0 0 0 0
+258	58909 23 178 178 3.0027 3.0027 1 750001 750001 750001 562501500001
+259	58932 23 178 178 3.0027 3.0027 1 750228 750228 750228 562842051984
+260	58955 18 178 178 3.0027 3.0027 1 0 0 0 0
+261	58973 21 178 178 3.0027 3.0027 1 1072 1072 1072 1149184
+262	58994 27 178 178 3.0027 3.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+263	59021 18 178 178 3.0027 3.0027 1 0 0 0 0
+264	59039 23 179 179 3.0027 3.0027 1 750001 750001 750001 562501500001
+265	59062 23 179 179 3.0027 3.0027 1 750228 750228 750228 562842051984
+266	59085 18 179 179 3.0027 3.0027 1 0 0 0 0
+267	59103 21 179 179 3.0027 3.0027 1 1072 1072 1072 1149184
+268	59124 27 179 179 3.0027 3.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+269	59151 18 179 179 3.0027 3.0027 1 0 0 0 0
+270	59169 23 180 180 3.0027 3.0027 1 750001 750001 750001 562501500001
+271	59192 23 180 180 3.0027 3.0027 1 750228 750228 750228 562842051984
+272	59215 18 180 180 3.0027 3.0027 1 0 0 0 0
+273	59233 21 180 180 3.0027 3.0027 1 1072 1072 1072 1149184
+274	59254 27 180 180 3.0027 3.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+275	59281 18 180 180 3.0027 3.0027 1 0 0 0 0
+276	59299 23 181 181 3.0027 3.0027 1 750001 750001 750001 562501500001
+277	59322 23 181 181 3.0027 3.0027 1 750228 750228 750228 562842051984
+278	59345 18 181 181 3.0027 3.0027 1 0 0 0 0
+279	59363 21 181 181 3.0027 3.0027 1 1072 1072 1072 1149184
+280	59384 27 181 181 3.0027 3.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+281	59411 18 181 181 3.0027 3.0027 1 0 0 0 0
+282	59429 23 182 182 3.0027 3.0027 1 750001 750001 750001 562501500001
+283	59452 23 182 182 3.0027 3.0027 1 750228 750228 750228 562842051984
+284	59475 18 182 182 3.0027 3.0027 1 0 0 0 0
+285	59493 21 182 182 3.0027 3.0027 1 1072 1072 1072 1149184
+286	59514 27 182 182 3.0027 3.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+287	59541 18 182 182 3.0027 3.0027 1 0 0 0 0
+288	59559 23 183 183 3.0027 3.0027 1 750001 750001 750001 562501500001
+289	59582 23 183 183 3.0027 3.0027 1 750228 750228 750228 562842051984
+290	59605 18 183 183 3.0027 3.0027 1 0 0 0 0
+291	59623 21 183 183 3.0027 3.0027 1 1072 1072 1072 1149184
+292	59644 27 183 183 3.0027 3.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+293	59671 18 183 183 3.0027 3.0027 1 0 0 0 0
+294	59689 26 256 256 3.003576 3.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+295	59715 26 256 256 3.003576 3.003576 1 0.00022 0.00022 0.00022 4.84e-008
+296	59741 26 256 256 3.003576 3.003576 1 0.65647 0.65647 0.65647 0.4309528609
+297	59767 25 256 256 3.003576 3.003576 1 2.6261 2.6261 2.6261 6.89640121
+298	59792 23 256 256 3.003576 3.003576 1 1072 1072 1072 1149184
+299	59815 29 256 256 3.003576 3.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+300	59844 20 256 256 3.003576 3.003576 1 0 0 0 0
+301	59864 26 257 257 3.003576 3.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+302	59890 26 257 257 3.003576 3.003576 1 0.00022 0.00022 0.00022 4.84e-008
+303	59916 26 257 257 3.003576 3.003576 1 0.65647 0.65647 0.65647 0.4309528609
+304	59942 25 257 257 3.003576 3.003576 1 2.6261 2.6261 2.6261 6.89640121
+305	59967 23 257 257 3.003576 3.003576 1 1072 1072 1072 1149184
+306	59990 29 257 257 3.003576 3.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+307	60019 20 257 257 3.003576 3.003576 1 0 0 0 0
+308	60039 26 258 258 3.003576 3.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+309	60065 26 258 258 3.003576 3.003576 1 0.00022 0.00022 0.00022 4.84e-008
+310	60091 26 258 258 3.003576 3.003576 1 0.65647 0.65647 0.65647 0.4309528609
+311	60117 25 258 258 3.003576 3.003576 1 2.6261 2.6261 2.6261 6.89640121
+312	60142 23 258 258 3.003576 3.003576 1 1072 1072 1072 1149184
+313	60165 29 258 258 3.003576 3.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+314	60194 20 258 258 3.003576 3.003576 1 0 0 0 0
+315	60214 26 259 259 3.003576 3.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+316	60240 26 259 259 3.003576 3.003576 1 0.00022 0.00022 0.00022 4.84e-008
+317	60266 26 259 259 3.003576 3.003576 1 0.65647 0.65647 0.65647 0.4309528609
+318	60292 25 259 259 3.003576 3.003576 1 2.6261 2.6261 2.6261 6.89640121
+319	60317 23 259 259 3.003576 3.003576 1 1072 1072 1072 1149184
+320	60340 29 259 259 3.003576 3.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+321	60369 20 259 259 3.003576 3.003576 1 0 0 0 0
+322	60389 26 260 260 3.003576 3.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+323	60415 26 260 260 3.003576 3.003576 1 0.00022 0.00022 0.00022 4.84e-008
+324	60441 26 260 260 3.003576 3.003576 1 0.65647 0.65647 0.65647 0.4309528609
+325	60467 25 260 260 3.003576 3.003576 1 2.6261 2.6261 2.6261 6.89640121
+326	60492 23 260 260 3.003576 3.003576 1 1072 1072 1072 1149184
+327	60515 29 260 260 3.003576 3.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+328	60544 20 260 260 3.003576 3.003576 1 0 0 0 0
+329	60564 26 261 261 3.003576 3.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+330	60590 26 261 261 3.003576 3.003576 1 0.00022 0.00022 0.00022 4.84e-008
+331	60616 26 261 261 3.003576 3.003576 1 0.65647 0.65647 0.65647 0.4309528609
+332	60642 25 261 261 3.003576 3.003576 1 2.6261 2.6261 2.6261 6.89640121
+333	60667 23 261 261 3.003576 3.003576 1 1072 1072 1072 1149184
+334	60690 29 261 261 3.003576 3.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+335	60719 20 261 261 3.003576 3.003576 1 0 0 0 0
+336	60739 26 262 262 3.003576 3.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+337	60765 26 262 262 3.003576 3.003576 1 0.00022 0.00022 0.00022 4.84e-008
+338	60791 26 262 262 3.003576 3.003576 1 0.65647 0.65647 0.65647 0.4309528609
+339	60817 25 262 262 3.003576 3.003576 1 2.6261 2.6261 2.6261 6.89640121
+340	60842 23 262 262 3.003576 3.003576 1 1072 1072 1072 1149184
+341	60865 29 262 262 3.003576 3.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+342	60894 20 262 262 3.003576 3.003576 1 0 0 0 0
+343	60914 26 263 263 3.003576 3.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+344	60940 26 263 263 3.003576 3.003576 1 0.00022 0.00022 0.00022 4.84e-008
+345	60966 26 263 263 3.003576 3.003576 1 0.65647 0.65647 0.65647 0.4309528609
+346	60992 25 263 263 3.003576 3.003576 1 2.6261 2.6261 2.6261 6.89640121
+347	61017 23 263 263 3.003576 3.003576 1 1072 1072 1072 1149184
+348	61040 29 263 263 3.003576 3.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+349	61069 20 263 263 3.003576 3.003576 1 0 0 0 0
 

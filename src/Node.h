@@ -80,6 +80,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<L3Address> nodesAddr;
     simtime_t startTime;
 
+    vector<Msg*> receivedMsg;
+
 
 
 
