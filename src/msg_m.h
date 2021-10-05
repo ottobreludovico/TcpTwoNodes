@@ -28,21 +28,43 @@ class Msg;
 
 #include "inet/networklayer/contract/ipv4/Ipv4Address_m.h" // import inet.networklayer.contract.ipv4.Ipv4Address
 
+// cplusplus {{
+#include <vector>
+typedef std::vector<int> IntVector;
+// }}
+
 
 namespace inet {
 
 /**
- * Class generated from <tt>msg.msg:26</tt> by nedtool.
+ * Class generated from <tt>msg.msg:34</tt> by nedtool.
  * <pre>
  * class Msg extends FieldsChunk
  * {
  *     chunkLength = B(1);
- *     int id;
- *     string msg;
- *     int type;
- *     simtime_t sendTime;
- *     simtime_t arrivalTime;
- *     int reply = -1;
+ * 
+ *     int id; //sender
+ * 
+ *     string msg; //message
+ * 
+ *     IntVector view; //current view or view 
+ * 
+ *     IntVector SEQcv; //in case of PROPOSE
+ * 
+ *     int join_or_leave; //in case of RECONFIG
+ * 
+ *     int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
+ * 
+ *     int cer; //message certificate in case of COMMIT or ACK
+ * 
+ *     int Vcer; //view in which certificate is collected in case of COMMIT
+ * 
+ *     simtime_t sendTime; //send time
+ * 
+ *     simtime_t arrivalTime; //arrival time
+ * 
+ *     int msgId;
+ * 
  * }
  * </pre>
  */
@@ -51,10 +73,15 @@ class Msg : public ::inet::FieldsChunk
   protected:
     int id = 0;
     omnetpp::opp_string msg;
+    IntVector view;
+    IntVector SEQcv;
+    int join_or_leave = 0;
     int type = 0;
+    int cer = 0;
+    int Vcer = 0;
     omnetpp::simtime_t sendTime = SIMTIME_ZERO;
     omnetpp::simtime_t arrivalTime = SIMTIME_ZERO;
-    int reply = -1;
+    int msgId = 0;
 
   private:
     void copy(const Msg& other);
@@ -77,14 +104,26 @@ class Msg : public ::inet::FieldsChunk
     virtual void setId(int id);
     virtual const char * getMsg() const;
     virtual void setMsg(const char * msg);
+    virtual const IntVector& getView() const;
+    virtual IntVector& getViewForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<Msg*>(this)->getView());}
+    virtual void setView(const IntVector& view);
+    virtual const IntVector& getSEQcv() const;
+    virtual IntVector& getSEQcvForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<Msg*>(this)->getSEQcv());}
+    virtual void setSEQcv(const IntVector& SEQcv);
+    virtual int getJoin_or_leave() const;
+    virtual void setJoin_or_leave(int join_or_leave);
     virtual int getType() const;
     virtual void setType(int type);
+    virtual int getCer() const;
+    virtual void setCer(int cer);
+    virtual int getVcer() const;
+    virtual void setVcer(int Vcer);
     virtual omnetpp::simtime_t getSendTime() const;
     virtual void setSendTime(omnetpp::simtime_t sendTime);
     virtual omnetpp::simtime_t getArrivalTime() const;
     virtual void setArrivalTime(omnetpp::simtime_t arrivalTime);
-    virtual int getReply() const;
-    virtual void setReply(int reply);
+    virtual int getMsgId() const;
+    virtual void setMsgId(int msgId);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const Msg& obj) {obj.parsimPack(b);}

@@ -74,7 +74,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     //ludo
     int localPort;
     int roundId;
-    cMessage *roundEvent = nullptr;
+    cMessage *timerEvent = nullptr;
     int selfId;
     int nodesNbr;
     vector<L3Address> nodesAddr;
@@ -82,8 +82,33 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     vector<Msg*> receivedMsg;
 
+    int numMsgToSend;
 
 
+    //DBRB
+    int status;
+    vector<int> current_view;
+    int * RECV;
+    int * SEQv;
+    int * LCSEQv;
+    int * FORMATv;
+
+    int cer;
+    int ** v_cer;
+    bool allowed_ack;
+    bool stored = false;
+    bool stored_value;
+    bool can_leave = false;
+    bool delivered = false;
+
+    int ** acks; //bool?
+    int ** sigma; //bool?
+    int ** deliver; //bool?
+
+    int state;
+
+    bool join_complete;
+    bool leave_complete;
 
 
   public:
@@ -121,6 +146,11 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void handleCrashOperation(LifecycleOperation *operation) override;
 
     virtual void sendTo(Msg * bp, vector<int> ids);
+
+    // DBRB
+
+    virtual void join(int x);
+    virtual bool contain(int x, vector<int> cv);
 };
 
 } // namespace inet

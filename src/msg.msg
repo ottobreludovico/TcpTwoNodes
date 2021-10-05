@@ -21,14 +21,40 @@ import inet.common.INETDefs;
 import inet.common.packet.chunk.Chunk;
 import inet.networklayer.contract.ipv4.Ipv4Address;
 
+cplusplus {{
+#include <vector>
+typedef std::vector<int> IntVector;
+}}
+
+class IntVector {
+    @existingClass;
+}
 namespace inet;
     
 class Msg extends FieldsChunk {
+    
     chunkLength = B(1);
-    int id;
-    string msg;
-    int type;
-    simtime_t sendTime;
-    simtime_t arrivalTime;
-    int reply = -1;
+    
+    int id; //sender
+    
+    string msg; //message
+    
+    IntVector view; //current view or view 
+    
+    IntVector SEQcv; //in case of PROPOSE
+    
+    int join_or_leave; //in case of RECONFIG
+    
+    int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
+    
+    int cer; //message certificate in case of COMMIT or ACK
+    
+    int Vcer; //view in which certificate is collected in case of COMMIT
+    
+    simtime_t sendTime; //send time
+    
+    simtime_t arrivalTime; //arrival time
+    
+    int msgId;
+
 }

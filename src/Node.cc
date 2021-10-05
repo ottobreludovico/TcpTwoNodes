@@ -56,7 +56,7 @@ void Node::initialize(int stage)
     roundId = 0;
 
     if (stage == INITSTAGE_LOCAL) {
-        startTime = 3;
+        startTime = 0;
 
         numSessions = numBroken = packetsSent = packetsRcvd = bytesSent = bytesRcvd = 0;
 
@@ -84,8 +84,8 @@ void Node::handleTimer(cMessage *msg) {
 
 void Node::handleMessageWhenUp(cMessage *msg)
 {
-if (msg->isSelfMessage()){
-       EV << "self message\n";
+    if (msg->isSelfMessage()){
+       /*EV << "self message\n";
        EV << "selfId: " << selfId << "\n";
        EV << "time: " << simTime() << "\n";
        //if(roundId==0){
@@ -112,7 +112,34 @@ if (msg->isSelfMessage()){
                 EV << "\n\n\n\n [Client"<< selfId <<"]messaggio inviato a: " << simTime() << "\n\n\n";
                 sendP(briefPacket, destId);
            }
-       }
+       }*/
+        switch (msg->getKind()) {
+            case MSGKIND_JOIN:
+
+                //mando msg
+                for (int destId = 0; destId < nodesNbr; destId++) {
+                    if(destId==selfId) continue;
+                    if(contain(destId,current_view)==false) continue;
+                    Msg * bp = new Msg();
+                    bp->setId(selfId);
+                    bp->setMsg("Join");
+                    bp->setSendTime(simTime());
+                    bp->setJoin_or_leave(1);
+                    bp->setView(current_view);
+                    bp->setType(RECONFIG);
+                    auto briefPacket = new Packet();
+                    Msg &tmp = *bp;
+                    const auto& payload = makeShared<Msg>(tmp);
+                    briefPacket->insertAtBack(payload);
+                    EV << "\n\n\n\n [Client"<< selfId <<"]messaggio inviato a: " << simTime() << "\n\n\n";
+                    sendP(briefPacket, destId);
+                }
+
+                //schedulo il reinvio
+                if(!join_complete){ //TODO o quorum
+                    join(3);
+                }
+        }
    }
     else{
         //socket.processMessage(msg);
@@ -254,7 +281,7 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
     bytesRcvd += msg->getByteLength();
     emit(packetReceivedSignal, msg);
     Msg* x = (Msg *)msg->peekAtBack().get();
-    if(x->getReply()==-1 && x->getId()!=selfId ){
+    if(x->getId()!=selfId ){
         //sendBack(x->getId());
         if (std::count(receivedMsg.begin(), receivedMsg.end(), x)) {
 
@@ -263,6 +290,36 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
             EV << "\n\n\n\n [Client"<< selfId <<"]messaggio ricevuto a: " << simTime() << "\n\n\n";
             x->setArrivalTime(simTime());
             receivedMsg.push_back(x);
+            if(x->getType()==RECONFIG){
+                Msg * bp = new Msg();
+                bp->setId(selfId);
+                bp->setMsg("Join reply");
+                bp->setSendTime(simTime());
+                bp->setView(current_view);
+                bp->setType(REC_CONFIRM);
+                auto briefPacket = new Packet();
+                Msg &tmp = *bp;
+                const auto& payload = makeShared<Msg>(tmp);
+                briefPacket->insertAtBack(payload);
+                EV << "\n\n\n\n [Client"<< selfId <<"]messaggio inviato a: " << simTime() << "\n\n\n";
+                sendP(briefPacket, x->getId());
+            }else if(x->getType()==REC_CONFIRM){
+                //TODO fare array e salvarli solo una volta
+            }else if(x->getType()==PROPOSE){
+
+            }else if(x->getType()==CONVERGED){
+
+            }else if(x->getType()==ACK){
+
+            }else if(x->getType()==PREPARE){
+
+            }else if(x->getType()==COMMIT){
+
+            }else if(x->getType()==INSTALL){
+
+            }else if(x->getType()==DELIVER){
+
+            }
         }
     }
     delete msg;
@@ -280,7 +337,6 @@ void Node::sendBack(int destId)
         Msg * bp = new Msg();
         bp->setId(selfId);
         bp->setMsg("ReplyLudo");
-        bp->setReply(1);
 
 
         auto briefPacket = new Packet();
@@ -331,7 +387,6 @@ void Node::sendBack(int destId)
         Msg * bp = new Msg();
         bp->setId(selfId);
         bp->setMsg("ReplyLudo");
-        bp->setReply(1);
 
 
         auto briefPacket = new Packet();
@@ -388,10 +443,16 @@ void Node::handleCrashOperation(LifecycleOperation *operation) {
     socketL.destroy();    //TODO  in real operating systems, program crash detected by OS and OS closes sockets of crashed programs.
 }
 
+
+bool Node::contain(int x, vector<int> cv) {
+    return std::count(cv.begin(), cv.end(), x);
+}
+
+
 void Node::handleStartOperation(LifecycleOperation *operation) {
     EV << "\n\n\n HandleStartTime: " << startTime << "\n\n\n";
 
-
+    numMsgToSend=rand()%10+1;
 
     nodesNbr=5;
     for (int nodeId = 0; nodeId < nodesNbr; nodeId++) {
@@ -409,23 +470,35 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
     L3Address selfAddr = L3AddressResolver().addressOf(getParentModule(),L3AddressResolver().ADDR_IPv4);
     selfId = addrToId[selfAddr];
 
-    roundEvent = new cMessage("0");
-    scheduleAt(startTime, roundEvent);
+    current_view = { 0,1,2 };
 
-    cMessage * roundEvent2 = new cMessage("1");
-    scheduleAt(startTime, roundEvent2);
+  /*  int j=-5;
+    for (int i = 0; i < numMsgToSend; i++) {
+        cMessage * roundEvent2 = new cMessage((std::to_string(selfId)).c_str());
+        scheduleAt(j+5, roundEvent2);
+        j+=5;
+    }
 
     pendingMsgsPerNeighbors = new vector<pair<Packet *, SimTime>>[nodesNbr];
     processLinkTimers = new cMessage*[nodesNbr];
     for (int i = 0; i < nodesNbr; i++) {
        processLinkTimers[i] = new cMessage(std::to_string(i).c_str());
        //std::cout << selfId << " ** creating channel timer (id=" << channelTimers[i]->getId() << ") for " << i << std::endl;
+    }*/
+
+    int m=par("join");
+    if(m!=-1){
+        join(m);
     }
 
-
-
-
 }
+
+void Node::join(int x){
+    timerEvent = new cMessage();
+    timerEvent->setKind(MSGKIND_JOIN);
+    scheduleAt(simTime()+x,timerEvent);
+}
+
 
 
 } // namespace inet
