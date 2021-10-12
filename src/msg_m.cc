@@ -390,6 +390,223 @@ void *IntVectorDescriptor::getFieldStructValuePointer(void *object, int field, i
     }
 }
 
+class IntVectorVDescriptor : public omnetpp::cClassDescriptor
+{
+  private:
+    mutable const char **propertynames;
+    enum FieldConstants {
+    };
+  public:
+    IntVectorVDescriptor();
+    virtual ~IntVectorVDescriptor();
+
+    virtual bool doesSupport(omnetpp::cObject *obj) const override;
+    virtual const char **getPropertyNames() const override;
+    virtual const char *getProperty(const char *propertyname) const override;
+    virtual int getFieldCount() const override;
+    virtual const char *getFieldName(int field) const override;
+    virtual int findField(const char *fieldName) const override;
+    virtual unsigned int getFieldTypeFlags(int field) const override;
+    virtual const char *getFieldTypeString(int field) const override;
+    virtual const char **getFieldPropertyNames(int field) const override;
+    virtual const char *getFieldProperty(int field, const char *propertyname) const override;
+    virtual int getFieldArraySize(void *object, int field) const override;
+
+    virtual const char *getFieldDynamicTypeString(void *object, int field, int i) const override;
+    virtual std::string getFieldValueAsString(void *object, int field, int i) const override;
+    virtual bool setFieldValueAsString(void *object, int field, int i, const char *value) const override;
+
+    virtual const char *getFieldStructName(int field) const override;
+    virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
+};
+
+Register_ClassDescriptor(IntVectorVDescriptor)
+
+IntVectorVDescriptor::IntVectorVDescriptor() : omnetpp::cClassDescriptor(omnetpp::opp_typename(typeid(IntVectorV)), "")
+{
+    propertynames = nullptr;
+}
+
+IntVectorVDescriptor::~IntVectorVDescriptor()
+{
+    delete[] propertynames;
+}
+
+bool IntVectorVDescriptor::doesSupport(omnetpp::cObject *obj) const
+{
+    return dynamic_cast<IntVectorV *>(obj)!=nullptr;
+}
+
+const char **IntVectorVDescriptor::getPropertyNames() const
+{
+    if (!propertynames) {
+        static const char *names[] = { "existingClass",  nullptr };
+        omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+        const char **basenames = basedesc ? basedesc->getPropertyNames() : nullptr;
+        propertynames = mergeLists(basenames, names);
+    }
+    return propertynames;
+}
+
+const char *IntVectorVDescriptor::getProperty(const char *propertyname) const
+{
+    if (!strcmp(propertyname, "existingClass")) return "";
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->getProperty(propertyname) : nullptr;
+}
+
+int IntVectorVDescriptor::getFieldCount() const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? 0+basedesc->getFieldCount() : 0;
+}
+
+unsigned int IntVectorVDescriptor::getFieldTypeFlags(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeFlags(field);
+        field -= basedesc->getFieldCount();
+    }
+    return 0;
+}
+
+const char *IntVectorVDescriptor::getFieldName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldName(field);
+        field -= basedesc->getFieldCount();
+    }
+    return nullptr;
+}
+
+int IntVectorVDescriptor::findField(const char *fieldName) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->findField(fieldName) : -1;
+}
+
+const char *IntVectorVDescriptor::getFieldTypeString(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeString(field);
+        field -= basedesc->getFieldCount();
+    }
+    return nullptr;
+}
+
+const char **IntVectorVDescriptor::getFieldPropertyNames(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldPropertyNames(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+const char *IntVectorVDescriptor::getFieldProperty(int field, const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldProperty(field, propertyname);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+int IntVectorVDescriptor::getFieldArraySize(void *object, int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldArraySize(object, field);
+        field -= basedesc->getFieldCount();
+    }
+    IntVectorV *pp = (IntVectorV *)object; (void)pp;
+    switch (field) {
+        default: return 0;
+    }
+}
+
+const char *IntVectorVDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldDynamicTypeString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    IntVectorV *pp = (IntVectorV *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+std::string IntVectorVDescriptor::getFieldValueAsString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldValueAsString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    IntVectorV *pp = (IntVectorV *)object; (void)pp;
+    switch (field) {
+        default: return "";
+    }
+}
+
+bool IntVectorVDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->setFieldValueAsString(object,field,i,value);
+        field -= basedesc->getFieldCount();
+    }
+    IntVectorV *pp = (IntVectorV *)object; (void)pp;
+    switch (field) {
+        default: return false;
+    }
+}
+
+const char *IntVectorVDescriptor::getFieldStructName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructName(field);
+        field -= basedesc->getFieldCount();
+    }
+    return nullptr;
+}
+
+void *IntVectorVDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructValuePointer(object, field, i);
+        field -= basedesc->getFieldCount();
+    }
+    IntVectorV *pp = (IntVectorV *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
 namespace inet {
 
 // forward
@@ -529,12 +746,12 @@ void Msg::setView(const IntVector& view)
     this->view = view;
 }
 
-const IntVector& Msg::getSEQcv() const
+const IntVectorV& Msg::getSEQcv() const
 {
     return this->SEQcv;
 }
 
-void Msg::setSEQcv(const IntVector& SEQcv)
+void Msg::setSEQcv(const IntVectorV& SEQcv)
 {
     handleChange();
     this->SEQcv = SEQcv;
@@ -776,7 +993,7 @@ const char *MsgDescriptor::getFieldTypeString(int field) const
         "int",    // FIELD_id
         "string",    // FIELD_msg
         "IntVector",    // FIELD_view
-        "IntVector",    // FIELD_SEQcv
+        "IntVectorV",    // FIELD_SEQcv
         "int",    // FIELD_join_or_leave
         "int",    // FIELD_type
         "int",    // FIELD_cer
@@ -898,7 +1115,7 @@ const char *MsgDescriptor::getFieldStructName(int field) const
     }
     switch (field) {
         case FIELD_view: return omnetpp::opp_typename(typeid(IntVector));
-        case FIELD_SEQcv: return omnetpp::opp_typename(typeid(IntVector));
+        case FIELD_SEQcv: return omnetpp::opp_typename(typeid(IntVectorV));
         default: return nullptr;
     };
 }

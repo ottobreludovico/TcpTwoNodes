@@ -136,7 +136,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
                 }
 
                 //schedulo il reinvio
-                if(!join_complete){ //TODO o quorum
+                if(join_complete==false && rec_cond==false){ //TODO o quorum
                     join(3);
                 }
         }
@@ -202,41 +202,6 @@ void Node::sendP(Packet * pk, int destId){
 
 }
 
-void Node::sendTo(Msg * bp, vector<int> ids){
-    EV << "\n\n\n\n\n INVIO \n\n\n\n\n\n";
-    for (int destId : ids) {
-        if (selfId == destId) continue;
-
-        auto briefPacket = new Packet();
-
-        Msg &tmp = *bp;
-        const auto& payload = makeShared<Msg>(tmp);
-        briefPacket->insertAtBack(payload);
-
-        SimTime emissionTime = simTime();
-        EV << "\n\n\n EmissionTime: " << emissionTime << "\n\n\n";
-
-        vector<pair<Packet *, SimTime>>::iterator iter = pendingMsgsPerNeighbors[destId].begin();
-        while (iter != pendingMsgsPerNeighbors[destId].end() && iter->second < emissionTime) {
-            iter++;
-        }
-
-        pendingMsgsPerNeighbors[destId].insert(iter, make_pair(briefPacket, emissionTime));
-        EV << "\n\n\n Pending: " << pendingMsgsPerNeighbors[destId].front().first << " time: " << pendingMsgsPerNeighbors[destId].front().second << "\n\n\n";
-        SimTime emissionFirst = pendingMsgsPerNeighbors[destId].front().second;
-
-
-        if (!processLinkTimers[destId]->isScheduled()) {
-            EV << "\n\n\n Msg to client: " << destId << "at time: "<< emissionFirst << "\n\n\n";
-            scheduleAt(emissionFirst, processLinkTimers[destId]);
-        } else {
-            EV << "\n\n\n Msg to client: " << destId << "at time: "<< emissionFirst << "\n\n\n";
-            cancelEvent(processLinkTimers[destId]);
-            scheduleAt(emissionFirst, processLinkTimers[destId]);
-        }
-    }
-}
-
 void Node::connect()
 {
     // we need a new connId if this is not the first connection
@@ -274,6 +239,12 @@ void Node::socketEstablished(TcpSocket * s)
     }
 }
 
+template<class T> bool vectorExist (vector<T> c, T item)
+{
+    return (std::find(c.begin(), c.end(), item) != c.end());
+}
+
+
 void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
 {
     // *redefine* to perform or schedule next sending
@@ -287,25 +258,99 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
 
         }
         else {
-            EV << "\n\n\n\n [Client"<< selfId <<"]messaggio ricevuto a: " << simTime() << "\n\n\n";
             x->setArrivalTime(simTime());
             receivedMsg.push_back(x);
+
             if(x->getType()==RECONFIG){
-                Msg * bp = new Msg();
-                bp->setId(selfId);
-                bp->setMsg("Join reply");
-                bp->setSendTime(simTime());
-                bp->setView(current_view);
-                bp->setType(REC_CONFIRM);
-                auto briefPacket = new Packet();
-                Msg &tmp = *bp;
-                const auto& payload = makeShared<Msg>(tmp);
-                briefPacket->insertAtBack(payload);
-                EV << "\n\n\n\n [Client"<< selfId <<"]messaggio inviato a: " << simTime() << "\n\n\n";
-                sendP(briefPacket, x->getId());
+                EV << "\n\n\n\n [Client"<< selfId <<"]RECONFIG ricevuto a: " << simTime() << "\n\n\n";
+                if(x->getView()==current_view){
+                    if(x->getJoin_or_leave()==1 || (x->getJoin_or_leave()==0 && checkPropose(x->getId(),current_view))){
+                        RECV.push_back(std::make_pair(x->getId(),x->getJoin_or_leave()));
+
+                        Msg * bp = new Msg();
+                        bp->setId(selfId);
+                        bp->setMsg("Join reply");
+                        bp->setSendTime(simTime());
+                        bp->setView(current_view);
+                        bp->setType(REC_CONFIRM);
+                        auto briefPacket = new Packet();
+                        Msg &tmp = *bp;
+                        const auto& payload = makeShared<Msg>(tmp);
+                        briefPacket->insertAtBack(payload);
+                        EV << "\n\n\n\n [Client"<< selfId <<"]REC-CONFIRM inviato a: " << simTime() << "\n\n\n";
+                        sendP(briefPacket, x->getId());
+                    }
+                    if(contain(x->getId(),RECV)==true){
+                        uponRECV();
+                    }
+                }
             }else if(x->getType()==REC_CONFIRM){
                 //TODO fare array e salvarli solo una volta
+                EV << "\n\n\n\n [Client"<< selfId <<"]REC-CONFIRM ricevuto a: " << simTime() << "\n\n\n";
+                if(req_join_or_leave[x->getId()]==0){
+                    req_join_or_leave[x->getId()]=1;
+                    count_req_join_or_leave++;
+                    if(count_req_join_or_leave==3){ //TODO quorum
+                        rec_cond=true; //non devo più inviare richieste
+                    }
+                }
             }else if(x->getType()==PROPOSE){
+                update(x->getSEQcv());
+                EV << "\n\n\n\n\n\n\n\n";
+                for(auto i : propose){
+                    EV << "count : " << i.second << "\n";
+                }
+                EV << "\n\n\n\n\n\n\n\n";
+                if(checkPropose()==true){
+                    EV << "\n\n\n\n\n\n\n\n dajeeeee \n\n\n\n\n\n\n";
+                    LCSEQv = returnPropose();
+                    for (int destId = 0; destId < nodesNbr; destId++) {
+                      if(destId==selfId) continue;
+                      if(contain(destId,x->getView())==false) continue;
+                      Msg * bp = new Msg();
+                      bp->setId(selfId);
+                      bp->setMsg("Propose");
+                      bp->setSendTime(simTime());
+                      bp->setView(current_view);
+                      bp->setType(CONVERGED);
+                      bp->setSEQcv(SEQv);
+                      auto briefPacket = new Packet();
+                      Msg &tmp = *bp;
+                      const auto& payload = makeShared<Msg>(tmp);
+                      briefPacket->insertAtBack(payload);
+                      EV << "\n\n\n\n [Client"<< selfId <<"]CONVERGED inviato a: " << simTime() << "\n\n\n";
+                      sendP(briefPacket, destId);
+                    }
+                }
+                else if(FORMATv.empty()==true || isContainedIn(x->getSEQcv(),FORMATv)){
+                    //TODO check if SEQ is valid or not
+                    //TODO conflitto
+                    vector<pair<int,int>> w = mostRecent(x->getSEQcv());
+                    vector<pair<int,int>> w1 = mostRecent(SEQv);
+
+                    vector<vector<pair<int,int>>> q = x->getSEQcv();
+                    for(vector<pair<int,int>> v : q){
+                        SEQv.push_back(v);
+                    }
+
+                    for (int destId = 0; destId < nodesNbr; destId++) {
+                       if(destId==selfId) continue;
+                       if(contain(destId,x->getView())==false) continue;
+                       Msg * bp = new Msg();
+                       bp->setId(selfId);
+                       bp->setMsg("Propose");
+                       bp->setSendTime(simTime());
+                       bp->setView(current_view);
+                       bp->setType(PROPOSE);
+                       bp->setSEQcv(SEQv);
+                       auto briefPacket = new Packet();
+                       Msg &tmp = *bp;
+                       const auto& payload = makeShared<Msg>(tmp);
+                       briefPacket->insertAtBack(payload);
+                       EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE messaggio inviato a: " << simTime() << "\n\n\n";
+                       sendP(briefPacket, destId);
+                    }
+                 }
 
             }else if(x->getType()==CONVERGED){
 
@@ -325,79 +370,6 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
     delete msg;
 }
 
-void Node::sendBack(int destId)
-{
-    EV << "\n\n\n Client" << selfId << "\n";
-    for(int i=0;i<nodesNbr;i++){
-        EV << "Client" << i << " : "  << socketV[i] << "\n";
-    }
-    EV << "\n\n\n";
-    if(socketV[destId]==nullptr){
-        EV << "\n\n\n Sendback to" << destId <<"\n\n\n";
-        Msg * bp = new Msg();
-        bp->setId(selfId);
-        bp->setMsg("ReplyLudo");
-
-
-        auto briefPacket = new Packet();
-        Msg &tmp = *bp;
-        const auto& payload = makeShared<Msg>(tmp);
-        briefPacket->insertAtBack(payload);
-
-        localPort=par("localPort");
-        TcpSocket * socket = new TcpSocket();
-        socket->setOutputGate(gate("socketOut"));
-        socket->bind(localPort);
-        socket->setCallback(this);
-
-       // socketMap.addSocket(socket);
-       // EV << "\n\n\n";
-       // for(int i=0;i<socketV.size();i++){
-       //     EV << socketV[i] << "\n";
-       // }
-       // EV << "\n\n\n";
-
-        const char * address = ("client"+to_string(destId)).c_str();
-        L3Address destination = L3AddressResolver().resolve(address);
-        int connectPort = par("connectPort");
-
-        if (destination.isUnspecified()) {
-           EV_ERROR <<  "cannot resolve destination address\n";
-        }
-        else {
-           EV_INFO << "Connecting to " << destination << ") port=" << connectPort << endl;
-
-           socket->connect(destination, connectPort);
-           socketV[destId]=socket;
-           EV << "\n\n\n Client" << selfId << "\n";
-           for(int i=0;i<nodesNbr;i++){
-               EV << "Client" << i << " : "  << socketV[i] << "\n";
-           }
-           EV << "\n\n\n";
-           numSessions++;
-           emit(connectSignal, 1L);
-
-
-           bytesSent += briefPacket->getByteLength();
-           packetsSent++;
-           socket->send(briefPacket);
-        }
-    }else{
-        EV << "\n\n\n Sendback to" << destId <<"\n\n\n";
-        Msg * bp = new Msg();
-        bp->setId(selfId);
-        bp->setMsg("ReplyLudo");
-
-
-        auto briefPacket = new Packet();
-        Msg &tmp = *bp;
-        const auto& payload = makeShared<Msg>(tmp);
-        briefPacket->insertAtBack(payload);
-        socketV[destId]->send(briefPacket);
-    }
-
-}
-
 void Node::socketPeerClosed(TcpSocket *socket_)
 {
     ASSERT(socket_ == &socketL);
@@ -406,6 +378,21 @@ void Node::socketPeerClosed(TcpSocket *socket_)
         EV_INFO << "remote TCP closed, closing here as well\n";
         close();
     }
+}
+
+vector<pair<int,int>> Node::mostRecent(vector<vector<pair<int,int>>> seq)
+{
+    int n=0;
+    int j=0;
+    int k=0;
+    for(vector<pair<int,int>> i : seq){
+        if(sizeof(i)>n){
+            n=sizeof(i);
+            j=k;
+        }
+        k++;
+    }
+    return seq[j];
 }
 
 void Node::socketClosed(TcpSocket *)
@@ -444,10 +431,99 @@ void Node::handleCrashOperation(LifecycleOperation *operation) {
 }
 
 
-bool Node::contain(int x, vector<int> cv) {
-    return std::count(cv.begin(), cv.end(), x);
+bool Node::contain(int x, vector<pair<int,int>> cv) {
+    for(auto i : cv){
+        if(i.first==x){
+            return true;
+        }
+    }
+    return false;
 }
 
+bool Node::checkPropose(int x, vector<pair<int,int>> cv) {
+    for(auto i : cv){
+        if(i.first==x){
+            if(i.second==1){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool Node::isContainedIn(vector<vector<pair<int,int>>> s1, vector<vector<pair<int,int>>> s2 ) {
+    for(vector<pair<int,int>> i : s1){
+        for(vector<pair<int,int>> j : s2){
+            if(i==j) continue;
+            else return false;
+        }
+    }
+    return true;
+}
+
+void Node::update(vector<vector<pair<int,int>>> s1) {
+    int count=0;
+    for(auto it = propose.begin(); it!=propose.end(); ++it) {
+        if(equalSeq(it->first,s1)){
+            (it->second)++;
+            count=1;
+            return;
+        }
+    }
+    if(count==0){
+        propose.push_back(std::make_pair(s1,1));
+    }
+    return;
+}
+
+bool Node::equalVec(vector<pair<int,int>>s1, vector<pair<int,int>> s2){
+    int count=0;
+    if(s1.size()!=s2.size()) return false;
+    for(pair<int,int> v1 : s1){
+        for(pair<int,int> v2 : s2){
+            if(v1==v2){
+                count+=1;
+                break;
+            }
+        }
+    }
+    if(count==s1.size()) return true;
+    else return false;
+}
+
+bool Node::equalSeq(vector<vector<pair<int,int>>>s1, vector<vector<pair<int,int>>> s2){
+    //TODO stampare SEQ
+    int count=0;
+    if(s1.size()!=s2.size()) return false;
+    for(vector<pair<int,int>> v1 : s1){
+        for(vector<pair<int,int>> v2 : s2){
+            if(equalVec(v1,v2)==true){
+                count+=1;
+                break;
+            }
+        }
+    }
+    if(count==s1.size()) return true;
+    else return false;
+}
+
+bool Node::checkPropose() {
+    for (auto it = propose.begin(); it!=propose.end(); ++it) {
+        if(it->second>=2){ //TODO quorum
+            return true;
+        }
+    }
+    return false;
+}
+
+vector<vector<pair<int,int>>> Node::returnPropose() {
+    for (auto it = propose.begin(); it!=propose.end(); ++it) {
+        if(it->second>=2){
+            return it->first; //TODO quorum
+        }
+    }
+}
 
 void Node::handleStartOperation(LifecycleOperation *operation) {
     EV << "\n\n\n HandleStartTime: " << startTime << "\n\n\n";
@@ -470,24 +546,19 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
     L3Address selfAddr = L3AddressResolver().addressOf(getParentModule(),L3AddressResolver().ADDR_IPv4);
     selfId = addrToId[selfAddr];
 
-    current_view = { 0,1,2 };
-
-  /*  int j=-5;
-    for (int i = 0; i < numMsgToSend; i++) {
-        cMessage * roundEvent2 = new cMessage((std::to_string(selfId)).c_str());
-        scheduleAt(j+5, roundEvent2);
-        j+=5;
-    }
-
-    pendingMsgsPerNeighbors = new vector<pair<Packet *, SimTime>>[nodesNbr];
-    processLinkTimers = new cMessage*[nodesNbr];
-    for (int i = 0; i < nodesNbr; i++) {
-       processLinkTimers[i] = new cMessage(std::to_string(i).c_str());
-       //std::cout << selfId << " ** creating channel timer (id=" << channelTimers[i]->getId() << ") for " << i << std::endl;
-    }*/
+    current_view = {{0,1}, {1,1}, {2,1}};
+    req_join_or_leave = {0, 0, 0, 0, 0};
+    RECV={};
+    SEQv={};
+    propose={};
+    FORMATv={};
+    LCSEQv={};
+    req_rec={};
 
     int m=par("join");
     if(m!=-1){
+        rec_cond=false;
+        join_complete=false;
         join(m);
     }
 
@@ -497,6 +568,55 @@ void Node::join(int x){
     timerEvent = new cMessage();
     timerEvent->setKind(MSGKIND_JOIN);
     scheduleAt(simTime()+x,timerEvent);
+}
+
+vector<pair<int,int>> Node::merge(vector<pair<int,int>> v1, vector<pair<int,int>> v2){
+    vector<pair<int,int>> seq2={};
+    for(pair<int,int> i:v1){
+        seq2.push_back(i);
+    }
+    for(pair<int,int> i:v2){
+        int c=0;
+        for(pair<int,int> j:v1){
+            if(i==j){
+                c++;
+                break;
+            }
+        }
+        if(c==0){
+            seq2.push_back(i);
+        }
+    }
+    return seq2;
+}
+
+void Node::uponRECV(){
+   if(RECV.empty()==false){ //TODO and installed view
+
+       if(SEQv.empty()==true){
+
+           vector<pair<int,int>> seq = merge(current_view,RECV);
+           SEQv.push_back(seq);
+
+           for (int destId = 0; destId < nodesNbr; destId++) {
+               if(destId==selfId) continue;
+               if(contain(destId,current_view)==false) continue;
+               Msg * bp = new Msg();
+               bp->setId(selfId);
+               bp->setMsg("Propose");
+               bp->setSendTime(simTime());
+               bp->setView(current_view);
+               bp->setType(PROPOSE);
+               bp->setSEQcv(SEQv);
+               auto briefPacket = new Packet();
+               Msg &tmp = *bp;
+               const auto& payload = makeShared<Msg>(tmp);
+               briefPacket->insertAtBack(payload);
+               EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE messaggio inviato a: " << simTime() << "\n\n\n";
+               sendP(briefPacket, destId);
+           }
+       }
+   }
 }
 
 

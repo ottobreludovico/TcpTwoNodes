@@ -23,12 +23,18 @@ import inet.networklayer.contract.ipv4.Ipv4Address;
 
 cplusplus {{
 #include <vector>
-typedef std::vector<int> IntVector;
+typedef std::vector<std::pair<int,int>> IntVector;
+typedef std::vector<std::vector<std::pair<int,int>>> IntVectorV;
 }}
 
 class IntVector {
     @existingClass;
 }
+
+class IntVectorV {
+    @existingClass;
+}
+
 namespace inet;
     
 class Msg extends FieldsChunk {
@@ -41,9 +47,9 @@ class Msg extends FieldsChunk {
     
     IntVector view; //current view or view 
     
-    IntVector SEQcv; //in case of PROPOSE
+    IntVectorV SEQcv; //in case of PROPOSE
     
-    int join_or_leave; //in case of RECONFIG
+    int join_or_leave; //in case of RECONFIG (1 -> join, 0 -> leave)
     
     int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
     

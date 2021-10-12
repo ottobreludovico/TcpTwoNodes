@@ -30,14 +30,15 @@ class Msg;
 
 // cplusplus {{
 #include <vector>
-typedef std::vector<int> IntVector;
+typedef std::vector<std::pair<int,int>> IntVector;
+typedef std::vector<std::vector<std::pair<int,int>>> IntVectorV;
 // }}
 
 
 namespace inet {
 
 /**
- * Class generated from <tt>msg.msg:34</tt> by nedtool.
+ * Class generated from <tt>msg.msg:40</tt> by nedtool.
  * <pre>
  * class Msg extends FieldsChunk
  * {
@@ -49,9 +50,9 @@ namespace inet {
  * 
  *     IntVector view; //current view or view 
  * 
- *     IntVector SEQcv; //in case of PROPOSE
+ *     IntVectorV SEQcv; //in case of PROPOSE
  * 
- *     int join_or_leave; //in case of RECONFIG
+ *     int join_or_leave; //in case of RECONFIG (1 -> join, 0 -> leave)
  * 
  *     int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
  * 
@@ -74,7 +75,7 @@ class Msg : public ::inet::FieldsChunk
     int id = 0;
     omnetpp::opp_string msg;
     IntVector view;
-    IntVector SEQcv;
+    IntVectorV SEQcv;
     int join_or_leave = 0;
     int type = 0;
     int cer = 0;
@@ -107,9 +108,9 @@ class Msg : public ::inet::FieldsChunk
     virtual const IntVector& getView() const;
     virtual IntVector& getViewForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<Msg*>(this)->getView());}
     virtual void setView(const IntVector& view);
-    virtual const IntVector& getSEQcv() const;
-    virtual IntVector& getSEQcvForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<Msg*>(this)->getSEQcv());}
-    virtual void setSEQcv(const IntVector& SEQcv);
+    virtual const IntVectorV& getSEQcv() const;
+    virtual IntVectorV& getSEQcvForUpdate() { handleChange();return const_cast<IntVectorV&>(const_cast<Msg*>(this)->getSEQcv());}
+    virtual void setSEQcv(const IntVectorV& SEQcv);
     virtual int getJoin_or_leave() const;
     virtual void setJoin_or_leave(int join_or_leave);
     virtual int getType() const;

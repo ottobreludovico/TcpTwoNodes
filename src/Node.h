@@ -54,6 +54,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     static map<L3Address, int> addrToId;
     cMessage **processLinkTimers = nullptr; // An array of timers, one per possible destination (instantiated only for the neighbors)
     vector< pair<Packet *, SimTime> > *pendingMsgsPerNeighbors = nullptr;
+    vector<pair<vector<vector<pair<int,int>>>,int>> propose;
 
   protected:
     TcpSocket socketL;
@@ -87,11 +88,11 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     //DBRB
     int status;
-    vector<int> current_view;
-    int * RECV;
-    int * SEQv;
-    int * LCSEQv;
-    int * FORMATv;
+    vector<pair<int,int>> current_view;
+    vector<pair<int,int>> RECV;
+    vector< vector<pair<int,int>> > SEQv;
+    vector< vector<pair<int,int>> > LCSEQv;
+    vector< vector<pair<int,int>> > FORMATv;
 
     int cer;
     int ** v_cer;
@@ -109,6 +110,14 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     bool join_complete;
     bool leave_complete;
+    bool rec_cond;
+
+    vector<int> req_rec;
+
+    vector<int> req_join_or_leave;
+    int count_req_join_or_leave;
+
+
 
 
   public:
@@ -127,7 +136,6 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void close();
     virtual void sendPacket(Packet *pkt);
     virtual void sendP(Packet * pk, int destId);
-    virtual void sendBack(int destId);
 
     virtual void handleTimer(cMessage *msg);
 
@@ -145,12 +153,20 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void handleStopOperation(LifecycleOperation *operation) override;
     virtual void handleCrashOperation(LifecycleOperation *operation) override;
 
-    virtual void sendTo(Msg * bp, vector<int> ids);
-
-    // DBRB
-
+    //DBRB
     virtual void join(int x);
-    virtual bool contain(int x, vector<int> cv);
+    virtual bool contain(int x, vector<pair<int,int>> cv);
+    virtual vector<pair<int,int>> mostRecent(vector<vector<pair<int,int>>> seq);
+    virtual bool isContainedIn(vector<vector<pair<int,int>>> s1, vector<vector<pair<int,int>>> s2 );
+    virtual void update(vector<vector<pair<int,int>>> s1);
+    virtual bool checkPropose(int x, vector<pair<int,int>> cv);
+    virtual bool checkPropose() ;
+    virtual vector<vector<pair<int,int>>>returnPropose() ;
+
+    virtual vector<pair<int,int>> merge(vector<pair<int,int>> v1, vector<pair<int,int>> v2);
+    virtual void uponRECV();
+    virtual bool equalVec(vector<pair<int,int>>s1, vector<pair<int,int>> s2);
+    virtual bool equalSeq(vector<vector<pair<int,int>>>s1, vector<vector<pair<int,int>>> s2);
 };
 
 } // namespace inet
