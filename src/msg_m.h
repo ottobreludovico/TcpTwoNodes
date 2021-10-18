@@ -50,6 +50,8 @@ namespace inet {
  * 
  *     IntVector view; //current view or view 
  * 
+ *     IntVector installView; //current view or view 
+ * 
  *     IntVectorV SEQcv; //in case of PROPOSE
  * 
  *     int join_or_leave; //in case of RECONFIG (1 -> join, 0 -> leave)
@@ -66,6 +68,8 @@ namespace inet {
  * 
  *     int msgId;
  * 
+ *     int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
+ * 
  * }
  * </pre>
  */
@@ -75,6 +79,7 @@ class Msg : public ::inet::FieldsChunk
     int id = 0;
     omnetpp::opp_string msg;
     IntVector view;
+    IntVector installView;
     IntVectorV SEQcv;
     int join_or_leave = 0;
     int type = 0;
@@ -83,6 +88,7 @@ class Msg : public ::inet::FieldsChunk
     omnetpp::simtime_t sendTime = SIMTIME_ZERO;
     omnetpp::simtime_t arrivalTime = SIMTIME_ZERO;
     int msgId = 0;
+    int install_or_update = 0;
 
   private:
     void copy(const Msg& other);
@@ -108,6 +114,9 @@ class Msg : public ::inet::FieldsChunk
     virtual const IntVector& getView() const;
     virtual IntVector& getViewForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<Msg*>(this)->getView());}
     virtual void setView(const IntVector& view);
+    virtual const IntVector& getInstallView() const;
+    virtual IntVector& getInstallViewForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<Msg*>(this)->getInstallView());}
+    virtual void setInstallView(const IntVector& installView);
     virtual const IntVectorV& getSEQcv() const;
     virtual IntVectorV& getSEQcvForUpdate() { handleChange();return const_cast<IntVectorV&>(const_cast<Msg*>(this)->getSEQcv());}
     virtual void setSEQcv(const IntVectorV& SEQcv);
@@ -125,6 +134,8 @@ class Msg : public ::inet::FieldsChunk
     virtual void setArrivalTime(omnetpp::simtime_t arrivalTime);
     virtual int getMsgId() const;
     virtual void setMsgId(int msgId);
+    virtual int getInstall_or_update() const;
+    virtual void setInstall_or_update(int install_or_update);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const Msg& obj) {obj.parsimPack(b);}

@@ -54,7 +54,14 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     static map<L3Address, int> addrToId;
     cMessage **processLinkTimers = nullptr; // An array of timers, one per possible destination (instantiated only for the neighbors)
     vector< pair<Packet *, SimTime> > *pendingMsgsPerNeighbors = nullptr;
-    vector<pair<vector<vector<pair<int,int>>>,int>> propose;
+    vector<pair<vector<vector<pair<int,int>>>,vector<int>>> propose;
+    vector<pair<vector<vector<pair<int,int>>>,vector<int>>> proposeReceived;
+    vector<pair<vector<vector<pair<int,int>>>,vector<int>>> converge;
+    vector<pair<vector<vector<pair<int,int>>>,vector<int>>> convergeReceived;
+
+    vector<vector<pair<int,int>>> installReceived;
+
+    vector<vector<pair<int,int>>> installedView;
 
   protected:
     TcpSocket socketL;
@@ -73,6 +80,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     static simsignal_t connectSignal;
 
     //ludo
+    int f;
     int localPort;
     int roundId;
     cMessage *timerEvent = nullptr;
@@ -88,6 +96,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     //DBRB
     int status;
+    int quorumSize;
     vector<pair<int,int>> current_view;
     vector<pair<int,int>> RECV;
     vector< vector<pair<int,int>> > SEQv;
@@ -117,7 +126,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<int> req_join_or_leave;
     int count_req_join_or_leave;
 
-
+    bool stop_processing=false;
 
 
   public:
@@ -157,16 +166,40 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void join(int x);
     virtual bool contain(int x, vector<pair<int,int>> cv);
     virtual vector<pair<int,int>> mostRecent(vector<vector<pair<int,int>>> seq);
+    virtual vector<pair<int,int>> leastRecent(vector<vector<pair<int,int>>> seq);
     virtual bool isContainedIn(vector<vector<pair<int,int>>> s1, vector<vector<pair<int,int>>> s2 );
-    virtual void update(vector<vector<pair<int,int>>> s1);
+
+    virtual void updatePropose(vector<vector<pair<int,int>>> s1,int i);
+    virtual void updateConverge(vector<vector<pair<int,int>>> s1,int i);
+
     virtual bool checkPropose(int x, vector<pair<int,int>> cv);
+
     virtual bool checkPropose() ;
     virtual vector<vector<pair<int,int>>>returnPropose() ;
 
+    virtual bool checkConverge() ;
+    virtual vector<vector<pair<int,int>>>returnConverge() ;
+
+    virtual bool conflictS(vector<vector<pair<int,int>>> s1, vector<vector<pair<int,int>>> s2);
+    virtual bool conflictV(vector<pair<int,int>> v1, vector<pair<int,int>> v2);
+    virtual bool isReceivedC(vector<vector<pair<int,int>>> v,int id);
+
+    virtual bool isReceivedP(vector<vector<pair<int,int>>> v,int id);
+
+    virtual vector<vector<pair<int,int>>> unionS(vector<vector<pair<int,int>>> s1, vector<vector<pair<int,int>>> s2);
+
     virtual vector<pair<int,int>> merge(vector<pair<int,int>> v1, vector<pair<int,int>> v2);
+    virtual int sizeCV(vector<pair<int,int>> v1);
     virtual void uponRECV();
     virtual bool equalVec(vector<pair<int,int>>s1, vector<pair<int,int>> s2);
     virtual bool equalSeq(vector<vector<pair<int,int>>>s1, vector<vector<pair<int,int>>> s2);
+
+    virtual bool isMember(int id, vector<pair<int,int>> v);
+
+    virtual bool isReceivedI(vector<pair<int,int>> v);
+    virtual bool isInstalled(vector<pair<int,int>> v1);
+    virtual bool contains(vector<pair<int,int>> v1, vector<pair<int,int>> v2);
+
 };
 
 } // namespace inet

@@ -66,7 +66,11 @@ simple Node like IApp
         int 			localPortL = default(-1); 
         string 			connectAddress = default("");  // server address (may be symbolic)
         int 			connectPort = default(1000); // port number to connect to
-        int 			join = default(-1); // port number to connect to
+        int 			join = default(-1); // time to call a join req
+        int 			leave = default(-1); // time to call a leave req
+        int 			broadcast = default(-1); // time to call a broadcast req
+        int nPar; 
+        int fPar;
         @display("i=block/app");
        
     gates:

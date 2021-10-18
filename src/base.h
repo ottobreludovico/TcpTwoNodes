@@ -19,6 +19,8 @@ const int WAITING = 2;
 const int N=5;
 
 const int MSGKIND_JOIN=1;
+const int MSGKIND_LEAVE=2;
+const int MSGKIND_BROADCAST=3;
 
 
 #endif

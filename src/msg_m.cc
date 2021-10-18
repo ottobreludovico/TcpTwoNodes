@@ -671,6 +671,7 @@ void Msg::copy(const Msg& other)
     this->id = other.id;
     this->msg = other.msg;
     this->view = other.view;
+    this->installView = other.installView;
     this->SEQcv = other.SEQcv;
     this->join_or_leave = other.join_or_leave;
     this->type = other.type;
@@ -679,6 +680,7 @@ void Msg::copy(const Msg& other)
     this->sendTime = other.sendTime;
     this->arrivalTime = other.arrivalTime;
     this->msgId = other.msgId;
+    this->install_or_update = other.install_or_update;
 }
 
 void Msg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -687,6 +689,7 @@ void Msg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->id);
     doParsimPacking(b,this->msg);
     doParsimPacking(b,this->view);
+    doParsimPacking(b,this->installView);
     doParsimPacking(b,this->SEQcv);
     doParsimPacking(b,this->join_or_leave);
     doParsimPacking(b,this->type);
@@ -695,6 +698,7 @@ void Msg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->sendTime);
     doParsimPacking(b,this->arrivalTime);
     doParsimPacking(b,this->msgId);
+    doParsimPacking(b,this->install_or_update);
 }
 
 void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -703,6 +707,7 @@ void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->id);
     doParsimUnpacking(b,this->msg);
     doParsimUnpacking(b,this->view);
+    doParsimUnpacking(b,this->installView);
     doParsimUnpacking(b,this->SEQcv);
     doParsimUnpacking(b,this->join_or_leave);
     doParsimUnpacking(b,this->type);
@@ -711,6 +716,7 @@ void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->sendTime);
     doParsimUnpacking(b,this->arrivalTime);
     doParsimUnpacking(b,this->msgId);
+    doParsimUnpacking(b,this->install_or_update);
 }
 
 int Msg::getId() const
@@ -744,6 +750,17 @@ void Msg::setView(const IntVector& view)
 {
     handleChange();
     this->view = view;
+}
+
+const IntVector& Msg::getInstallView() const
+{
+    return this->installView;
+}
+
+void Msg::setInstallView(const IntVector& installView)
+{
+    handleChange();
+    this->installView = installView;
 }
 
 const IntVectorV& Msg::getSEQcv() const
@@ -834,6 +851,17 @@ void Msg::setMsgId(int msgId)
     this->msgId = msgId;
 }
 
+int Msg::getInstall_or_update() const
+{
+    return this->install_or_update;
+}
+
+void Msg::setInstall_or_update(int install_or_update)
+{
+    handleChange();
+    this->install_or_update = install_or_update;
+}
+
 class MsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -842,6 +870,7 @@ class MsgDescriptor : public omnetpp::cClassDescriptor
         FIELD_id,
         FIELD_msg,
         FIELD_view,
+        FIELD_installView,
         FIELD_SEQcv,
         FIELD_join_or_leave,
         FIELD_type,
@@ -850,6 +879,7 @@ class MsgDescriptor : public omnetpp::cClassDescriptor
         FIELD_sendTime,
         FIELD_arrivalTime,
         FIELD_msgId,
+        FIELD_install_or_update,
     };
   public:
     MsgDescriptor();
@@ -912,7 +942,7 @@ const char *MsgDescriptor::getProperty(const char *propertyname) const
 int MsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 11+basedesc->getFieldCount() : 11;
+    return basedesc ? 13+basedesc->getFieldCount() : 13;
 }
 
 unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
@@ -927,6 +957,7 @@ unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_id
         FD_ISEDITABLE,    // FIELD_msg
         FD_ISCOMPOUND,    // FIELD_view
+        FD_ISCOMPOUND,    // FIELD_installView
         FD_ISCOMPOUND,    // FIELD_SEQcv
         FD_ISEDITABLE,    // FIELD_join_or_leave
         FD_ISEDITABLE,    // FIELD_type
@@ -935,8 +966,9 @@ unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
         0,    // FIELD_sendTime
         0,    // FIELD_arrivalTime
         FD_ISEDITABLE,    // FIELD_msgId
+        FD_ISEDITABLE,    // FIELD_install_or_update
     };
-    return (field >= 0 && field < 11) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 13) ? fieldTypeFlags[field] : 0;
 }
 
 const char *MsgDescriptor::getFieldName(int field) const
@@ -951,6 +983,7 @@ const char *MsgDescriptor::getFieldName(int field) const
         "id",
         "msg",
         "view",
+        "installView",
         "SEQcv",
         "join_or_leave",
         "type",
@@ -959,8 +992,9 @@ const char *MsgDescriptor::getFieldName(int field) const
         "sendTime",
         "arrivalTime",
         "msgId",
+        "install_or_update",
     };
-    return (field >= 0 && field < 11) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 13) ? fieldNames[field] : nullptr;
 }
 
 int MsgDescriptor::findField(const char *fieldName) const
@@ -970,14 +1004,16 @@ int MsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0] == 'i' && strcmp(fieldName, "id") == 0) return base+0;
     if (fieldName[0] == 'm' && strcmp(fieldName, "msg") == 0) return base+1;
     if (fieldName[0] == 'v' && strcmp(fieldName, "view") == 0) return base+2;
-    if (fieldName[0] == 'S' && strcmp(fieldName, "SEQcv") == 0) return base+3;
-    if (fieldName[0] == 'j' && strcmp(fieldName, "join_or_leave") == 0) return base+4;
-    if (fieldName[0] == 't' && strcmp(fieldName, "type") == 0) return base+5;
-    if (fieldName[0] == 'c' && strcmp(fieldName, "cer") == 0) return base+6;
-    if (fieldName[0] == 'V' && strcmp(fieldName, "Vcer") == 0) return base+7;
-    if (fieldName[0] == 's' && strcmp(fieldName, "sendTime") == 0) return base+8;
-    if (fieldName[0] == 'a' && strcmp(fieldName, "arrivalTime") == 0) return base+9;
-    if (fieldName[0] == 'm' && strcmp(fieldName, "msgId") == 0) return base+10;
+    if (fieldName[0] == 'i' && strcmp(fieldName, "installView") == 0) return base+3;
+    if (fieldName[0] == 'S' && strcmp(fieldName, "SEQcv") == 0) return base+4;
+    if (fieldName[0] == 'j' && strcmp(fieldName, "join_or_leave") == 0) return base+5;
+    if (fieldName[0] == 't' && strcmp(fieldName, "type") == 0) return base+6;
+    if (fieldName[0] == 'c' && strcmp(fieldName, "cer") == 0) return base+7;
+    if (fieldName[0] == 'V' && strcmp(fieldName, "Vcer") == 0) return base+8;
+    if (fieldName[0] == 's' && strcmp(fieldName, "sendTime") == 0) return base+9;
+    if (fieldName[0] == 'a' && strcmp(fieldName, "arrivalTime") == 0) return base+10;
+    if (fieldName[0] == 'm' && strcmp(fieldName, "msgId") == 0) return base+11;
+    if (fieldName[0] == 'i' && strcmp(fieldName, "install_or_update") == 0) return base+12;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -993,6 +1029,7 @@ const char *MsgDescriptor::getFieldTypeString(int field) const
         "int",    // FIELD_id
         "string",    // FIELD_msg
         "IntVector",    // FIELD_view
+        "IntVector",    // FIELD_installView
         "IntVectorV",    // FIELD_SEQcv
         "int",    // FIELD_join_or_leave
         "int",    // FIELD_type
@@ -1001,8 +1038,9 @@ const char *MsgDescriptor::getFieldTypeString(int field) const
         "omnetpp::simtime_t",    // FIELD_sendTime
         "omnetpp::simtime_t",    // FIELD_arrivalTime
         "int",    // FIELD_msgId
+        "int",    // FIELD_install_or_update
     };
-    return (field >= 0 && field < 11) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 13) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **MsgDescriptor::getFieldPropertyNames(int field) const
@@ -1072,6 +1110,7 @@ std::string MsgDescriptor::getFieldValueAsString(void *object, int field, int i)
         case FIELD_id: return long2string(pp->getId());
         case FIELD_msg: return oppstring2string(pp->getMsg());
         case FIELD_view: {std::stringstream out; out << pp->getView(); return out.str();}
+        case FIELD_installView: {std::stringstream out; out << pp->getInstallView(); return out.str();}
         case FIELD_SEQcv: {std::stringstream out; out << pp->getSEQcv(); return out.str();}
         case FIELD_join_or_leave: return long2string(pp->getJoin_or_leave());
         case FIELD_type: return long2string(pp->getType());
@@ -1080,6 +1119,7 @@ std::string MsgDescriptor::getFieldValueAsString(void *object, int field, int i)
         case FIELD_sendTime: return simtime2string(pp->getSendTime());
         case FIELD_arrivalTime: return simtime2string(pp->getArrivalTime());
         case FIELD_msgId: return long2string(pp->getMsgId());
+        case FIELD_install_or_update: return long2string(pp->getInstall_or_update());
         default: return "";
     }
 }
@@ -1101,6 +1141,7 @@ bool MsgDescriptor::setFieldValueAsString(void *object, int field, int i, const 
         case FIELD_cer: pp->setCer(string2long(value)); return true;
         case FIELD_Vcer: pp->setVcer(string2long(value)); return true;
         case FIELD_msgId: pp->setMsgId(string2long(value)); return true;
+        case FIELD_install_or_update: pp->setInstall_or_update(string2long(value)); return true;
         default: return false;
     }
 }
@@ -1115,6 +1156,7 @@ const char *MsgDescriptor::getFieldStructName(int field) const
     }
     switch (field) {
         case FIELD_view: return omnetpp::opp_typename(typeid(IntVector));
+        case FIELD_installView: return omnetpp::opp_typename(typeid(IntVector));
         case FIELD_SEQcv: return omnetpp::opp_typename(typeid(IntVectorV));
         default: return nullptr;
     };
@@ -1131,6 +1173,7 @@ void *MsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) 
     Msg *pp = (Msg *)object; (void)pp;
     switch (field) {
         case FIELD_view: return toVoidPtr(&pp->getView()); break;
+        case FIELD_installView: return toVoidPtr(&pp->getInstallView()); break;
         case FIELD_SEQcv: return toVoidPtr(&pp->getSEQcv()); break;
         default: return nullptr;
     }

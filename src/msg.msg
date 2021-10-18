@@ -47,6 +47,8 @@ class Msg extends FieldsChunk {
     
     IntVector view; //current view or view 
     
+    IntVector installView; //current view or view 
+    
     IntVectorV SEQcv; //in case of PROPOSE
     
     int join_or_leave; //in case of RECONFIG (1 -> join, 0 -> leave)
@@ -62,5 +64,7 @@ class Msg extends FieldsChunk {
     simtime_t arrivalTime; //arrival time
     
     int msgId;
+    
+    int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
 
 }
