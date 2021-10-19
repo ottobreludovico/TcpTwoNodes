@@ -70,6 +70,8 @@ namespace inet {
  * 
  *     int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
  * 
+ *     string typeS;
+ * 
  * }
  * </pre>
  */
@@ -89,6 +91,7 @@ class Msg : public ::inet::FieldsChunk
     omnetpp::simtime_t arrivalTime = SIMTIME_ZERO;
     int msgId = 0;
     int install_or_update = 0;
+    omnetpp::opp_string typeS;
 
   private:
     void copy(const Msg& other);
@@ -136,6 +139,8 @@ class Msg : public ::inet::FieldsChunk
     virtual void setMsgId(int msgId);
     virtual int getInstall_or_update() const;
     virtual void setInstall_or_update(int install_or_update);
+    virtual const char * getTypeS() const;
+    virtual void setTypeS(const char * typeS);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const Msg& obj) {obj.parsimPack(b);}

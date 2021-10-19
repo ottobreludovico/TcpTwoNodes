@@ -681,6 +681,7 @@ void Msg::copy(const Msg& other)
     this->arrivalTime = other.arrivalTime;
     this->msgId = other.msgId;
     this->install_or_update = other.install_or_update;
+    this->typeS = other.typeS;
 }
 
 void Msg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -699,6 +700,7 @@ void Msg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->arrivalTime);
     doParsimPacking(b,this->msgId);
     doParsimPacking(b,this->install_or_update);
+    doParsimPacking(b,this->typeS);
 }
 
 void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -717,6 +719,7 @@ void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->arrivalTime);
     doParsimUnpacking(b,this->msgId);
     doParsimUnpacking(b,this->install_or_update);
+    doParsimUnpacking(b,this->typeS);
 }
 
 int Msg::getId() const
@@ -862,6 +865,17 @@ void Msg::setInstall_or_update(int install_or_update)
     this->install_or_update = install_or_update;
 }
 
+const char * Msg::getTypeS() const
+{
+    return this->typeS.c_str();
+}
+
+void Msg::setTypeS(const char * typeS)
+{
+    handleChange();
+    this->typeS = typeS;
+}
+
 class MsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -880,6 +894,7 @@ class MsgDescriptor : public omnetpp::cClassDescriptor
         FIELD_arrivalTime,
         FIELD_msgId,
         FIELD_install_or_update,
+        FIELD_typeS,
     };
   public:
     MsgDescriptor();
@@ -942,7 +957,7 @@ const char *MsgDescriptor::getProperty(const char *propertyname) const
 int MsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 13+basedesc->getFieldCount() : 13;
+    return basedesc ? 14+basedesc->getFieldCount() : 14;
 }
 
 unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
@@ -967,8 +982,9 @@ unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
         0,    // FIELD_arrivalTime
         FD_ISEDITABLE,    // FIELD_msgId
         FD_ISEDITABLE,    // FIELD_install_or_update
+        FD_ISEDITABLE,    // FIELD_typeS
     };
-    return (field >= 0 && field < 13) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 14) ? fieldTypeFlags[field] : 0;
 }
 
 const char *MsgDescriptor::getFieldName(int field) const
@@ -993,8 +1009,9 @@ const char *MsgDescriptor::getFieldName(int field) const
         "arrivalTime",
         "msgId",
         "install_or_update",
+        "typeS",
     };
-    return (field >= 0 && field < 13) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 14) ? fieldNames[field] : nullptr;
 }
 
 int MsgDescriptor::findField(const char *fieldName) const
@@ -1014,6 +1031,7 @@ int MsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0] == 'a' && strcmp(fieldName, "arrivalTime") == 0) return base+10;
     if (fieldName[0] == 'm' && strcmp(fieldName, "msgId") == 0) return base+11;
     if (fieldName[0] == 'i' && strcmp(fieldName, "install_or_update") == 0) return base+12;
+    if (fieldName[0] == 't' && strcmp(fieldName, "typeS") == 0) return base+13;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1039,8 +1057,9 @@ const char *MsgDescriptor::getFieldTypeString(int field) const
         "omnetpp::simtime_t",    // FIELD_arrivalTime
         "int",    // FIELD_msgId
         "int",    // FIELD_install_or_update
+        "string",    // FIELD_typeS
     };
-    return (field >= 0 && field < 13) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 14) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **MsgDescriptor::getFieldPropertyNames(int field) const
@@ -1120,6 +1139,7 @@ std::string MsgDescriptor::getFieldValueAsString(void *object, int field, int i)
         case FIELD_arrivalTime: return simtime2string(pp->getArrivalTime());
         case FIELD_msgId: return long2string(pp->getMsgId());
         case FIELD_install_or_update: return long2string(pp->getInstall_or_update());
+        case FIELD_typeS: return oppstring2string(pp->getTypeS());
         default: return "";
     }
 }
@@ -1142,6 +1162,7 @@ bool MsgDescriptor::setFieldValueAsString(void *object, int field, int i, const 
         case FIELD_Vcer: pp->setVcer(string2long(value)); return true;
         case FIELD_msgId: pp->setMsgId(string2long(value)); return true;
         case FIELD_install_or_update: pp->setInstall_or_update(string2long(value)); return true;
+        case FIELD_typeS: pp->setTypeS((value)); return true;
         default: return false;
     }
 }

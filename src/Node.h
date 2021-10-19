@@ -105,15 +105,16 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     int cer;
     int ** v_cer;
-    bool allowed_ack;
+    vector<Msg*> allowed_ack;
     bool stored = false;
     bool stored_value;
     bool can_leave = false;
     bool delivered = false;
 
-    int ** acks; //bool?
+    vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> acks;
     int ** sigma; //bool?
     int ** deliver; //bool?
+    vector<Msg*> msg_to_send;
 
     int state;
 
@@ -127,6 +128,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     int count_req_join_or_leave;
 
     bool stop_processing=false;
+
+    int msgId;
 
 
   public:
@@ -199,7 +202,14 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual bool isReceivedI(vector<pair<int,int>> v);
     virtual bool isInstalled(vector<pair<int,int>> v1);
     virtual bool contains(vector<pair<int,int>> v1, vector<pair<int,int>> v2);
+    virtual bool isAllowed(Msg * m );
+    virtual bool acksMsg(Msg* m, int id, vector<pair<int,int>> v);
+    virtual void addAcksMsg(Msg* m, int id, vector<pair<int,int>> v);
+    virtual bool equalMsg(Msg* m1, Msg* m2);
+    virtual Msg * returnMsg();
+    virtual bool checkMsg();
 
+    virtual void broadcast(int x);
 };
 
 } // namespace inet

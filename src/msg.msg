@@ -66,5 +66,7 @@ class Msg extends FieldsChunk {
     int msgId;
     
     int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
+    
+    string typeS;
 
 }
