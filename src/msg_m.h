@@ -60,7 +60,7 @@ namespace inet {
  * 
  *     int cer; //message certificate in case of COMMIT or ACK
  * 
- *     int Vcer; //view in which certificate is collected in case of COMMIT
+ *     IntVector Vcer; //view in which certificate is collected in case of COMMIT
  * 
  *     simtime_t sendTime; //send time
  * 
@@ -86,7 +86,7 @@ class Msg : public ::inet::FieldsChunk
     int join_or_leave = 0;
     int type = 0;
     int cer = 0;
-    int Vcer = 0;
+    IntVector Vcer;
     omnetpp::simtime_t sendTime = SIMTIME_ZERO;
     omnetpp::simtime_t arrivalTime = SIMTIME_ZERO;
     int msgId = 0;
@@ -129,8 +129,9 @@ class Msg : public ::inet::FieldsChunk
     virtual void setType(int type);
     virtual int getCer() const;
     virtual void setCer(int cer);
-    virtual int getVcer() const;
-    virtual void setVcer(int Vcer);
+    virtual const IntVector& getVcer() const;
+    virtual IntVector& getVcerForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<Msg*>(this)->getVcer());}
+    virtual void setVcer(const IntVector& Vcer);
     virtual omnetpp::simtime_t getSendTime() const;
     virtual void setSendTime(omnetpp::simtime_t sendTime);
     virtual omnetpp::simtime_t getArrivalTime() const;

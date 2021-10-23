@@ -810,12 +810,12 @@ void Msg::setCer(int cer)
     this->cer = cer;
 }
 
-int Msg::getVcer() const
+const IntVector& Msg::getVcer() const
 {
     return this->Vcer;
 }
 
-void Msg::setVcer(int Vcer)
+void Msg::setVcer(const IntVector& Vcer)
 {
     handleChange();
     this->Vcer = Vcer;
@@ -977,7 +977,7 @@ unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_join_or_leave
         FD_ISEDITABLE,    // FIELD_type
         FD_ISEDITABLE,    // FIELD_cer
-        FD_ISEDITABLE,    // FIELD_Vcer
+        FD_ISCOMPOUND,    // FIELD_Vcer
         0,    // FIELD_sendTime
         0,    // FIELD_arrivalTime
         FD_ISEDITABLE,    // FIELD_msgId
@@ -1052,7 +1052,7 @@ const char *MsgDescriptor::getFieldTypeString(int field) const
         "int",    // FIELD_join_or_leave
         "int",    // FIELD_type
         "int",    // FIELD_cer
-        "int",    // FIELD_Vcer
+        "IntVector",    // FIELD_Vcer
         "omnetpp::simtime_t",    // FIELD_sendTime
         "omnetpp::simtime_t",    // FIELD_arrivalTime
         "int",    // FIELD_msgId
@@ -1134,7 +1134,7 @@ std::string MsgDescriptor::getFieldValueAsString(void *object, int field, int i)
         case FIELD_join_or_leave: return long2string(pp->getJoin_or_leave());
         case FIELD_type: return long2string(pp->getType());
         case FIELD_cer: return long2string(pp->getCer());
-        case FIELD_Vcer: return long2string(pp->getVcer());
+        case FIELD_Vcer: {std::stringstream out; out << pp->getVcer(); return out.str();}
         case FIELD_sendTime: return simtime2string(pp->getSendTime());
         case FIELD_arrivalTime: return simtime2string(pp->getArrivalTime());
         case FIELD_msgId: return long2string(pp->getMsgId());
@@ -1159,7 +1159,6 @@ bool MsgDescriptor::setFieldValueAsString(void *object, int field, int i, const 
         case FIELD_join_or_leave: pp->setJoin_or_leave(string2long(value)); return true;
         case FIELD_type: pp->setType(string2long(value)); return true;
         case FIELD_cer: pp->setCer(string2long(value)); return true;
-        case FIELD_Vcer: pp->setVcer(string2long(value)); return true;
         case FIELD_msgId: pp->setMsgId(string2long(value)); return true;
         case FIELD_install_or_update: pp->setInstall_or_update(string2long(value)); return true;
         case FIELD_typeS: pp->setTypeS((value)); return true;
@@ -1179,6 +1178,7 @@ const char *MsgDescriptor::getFieldStructName(int field) const
         case FIELD_view: return omnetpp::opp_typename(typeid(IntVector));
         case FIELD_installView: return omnetpp::opp_typename(typeid(IntVector));
         case FIELD_SEQcv: return omnetpp::opp_typename(typeid(IntVectorV));
+        case FIELD_Vcer: return omnetpp::opp_typename(typeid(IntVector));
         default: return nullptr;
     };
 }
@@ -1196,6 +1196,7 @@ void *MsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) 
         case FIELD_view: return toVoidPtr(&pp->getView()); break;
         case FIELD_installView: return toVoidPtr(&pp->getInstallView()); break;
         case FIELD_SEQcv: return toVoidPtr(&pp->getSEQcv()); break;
+        case FIELD_Vcer: return toVoidPtr(&pp->getVcer()); break;
         default: return nullptr;
     }
 }

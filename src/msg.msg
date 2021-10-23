@@ -57,7 +57,7 @@ class Msg extends FieldsChunk {
     
     int cer; //message certificate in case of COMMIT or ACK
     
-    int Vcer; //view in which certificate is collected in case of COMMIT
+    IntVector Vcer; //view in which certificate is collected in case of COMMIT
     
     simtime_t sendTime; //send time
     

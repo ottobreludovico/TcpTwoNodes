@@ -62,6 +62,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<vector<pair<int,int>>> installReceived;
 
     vector<vector<pair<int,int>>> installedView;
+    vector<Msg*> mio;
 
   protected:
     TcpSocket socketL;
@@ -104,17 +105,20 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector< vector<pair<int,int>> > FORMATv;
 
     int cer;
-    int ** v_cer;
+    vector<pair<int,int>> v_cer;
     vector<Msg*> allowed_ack;
     bool stored = false;
-    bool stored_value;
+    Msg * stored_value;
     bool can_leave = false;
     bool delivered = false;
+    bool first_time_deliver=false;
 
     vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> acks;
+    vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> deliver;
     int ** sigma; //bool?
-    int ** deliver; //bool?
     vector<Msg*> msg_to_send;
+    vector<Msg*> msg_to_send2;
+    vector<Msg*> quorum_msg;
 
     int state;
 
@@ -130,6 +134,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     bool stop_processing=false;
 
     int msgId;
+
+    bool first_time=true;
 
 
   public:
@@ -209,7 +215,12 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual Msg * returnMsg();
     virtual bool checkMsg();
 
+    virtual void addDeliverMsg(Msg* m, int id, vector<pair<int,int>> v);
+    virtual Msg * returnDeliverMsg();
+    virtual bool checkDeliverMsg();
+
     virtual void broadcast(int x);
+    virtual bool quorumMsg(Msg *m);
 };
 
 } // namespace inet
