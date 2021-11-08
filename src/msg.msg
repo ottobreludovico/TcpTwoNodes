@@ -25,6 +25,21 @@ cplusplus {{
 #include <vector>
 typedef std::vector<std::pair<int,int>> IntVector;
 typedef std::vector<std::vector<std::pair<int,int>>> IntVectorV;
+typedef struct msg_{
+	int id; //sender
+    std::string msg; //message  
+    std::vector<std::pair<int,int>> view; //current view or view     
+    std::vector<std::pair<int,int>> installView; //current view or view     
+    std::vector<std::vector<std::pair<int,int>>> SEQcv; //in case of PROPOSE
+    int join_or_leave; //in case of RECONFIG (1 -> join, 0 -> leave)
+    int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
+    int cer; //message certificate in case of COMMIT or ACK
+    std::vector<std::pair<int,int>> Vcer; //view in which certificate is collected in case of COMMIT
+    int msgId;
+    int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
+    std::string typeS;
+    int sender;
+};
 }}
 
 class IntVector {
@@ -32,6 +47,10 @@ class IntVector {
 }
 
 class IntVectorV {
+    @existingClass;
+}
+
+class msg_ {
     @existingClass;
 }
 
@@ -68,5 +87,15 @@ class Msg extends FieldsChunk {
     int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
     
     string typeS;
+    
+    int sender;
+    
+    bool allowed_ack; //current view or view 
+    
+    msg_ allowed_ack_value;
+    
+    bool stored;
+    
+    msg_ stored_value;
 
 }

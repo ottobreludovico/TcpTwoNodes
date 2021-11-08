@@ -32,13 +32,28 @@ class Msg;
 #include <vector>
 typedef std::vector<std::pair<int,int>> IntVector;
 typedef std::vector<std::vector<std::pair<int,int>>> IntVectorV;
+typedef struct msg_{
+	int id; //sender
+    std::string msg; //message  
+    std::vector<std::pair<int,int>> view; //current view or view     
+    std::vector<std::pair<int,int>> installView; //current view or view     
+    std::vector<std::vector<std::pair<int,int>>> SEQcv; //in case of PROPOSE
+    int join_or_leave; //in case of RECONFIG (1 -> join, 0 -> leave)
+    int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
+    int cer; //message certificate in case of COMMIT or ACK
+    std::vector<std::pair<int,int>> Vcer; //view in which certificate is collected in case of COMMIT
+    int msgId;
+    int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
+    std::string typeS;
+    int sender;
+};
 // }}
 
 
 namespace inet {
 
 /**
- * Class generated from <tt>msg.msg:40</tt> by nedtool.
+ * Class generated from <tt>msg.msg:59</tt> by nedtool.
  * <pre>
  * class Msg extends FieldsChunk
  * {
@@ -72,6 +87,16 @@ namespace inet {
  * 
  *     string typeS;
  * 
+ *     int sender;
+ * 
+ *     bool allowed_ack; //current view or view 
+ * 
+ *     msg_ allowed_ack_value;
+ * 
+ *     bool stored;
+ * 
+ *     msg_ stored_value;
+ * 
  * }
  * </pre>
  */
@@ -92,6 +117,11 @@ class Msg : public ::inet::FieldsChunk
     int msgId = 0;
     int install_or_update = 0;
     omnetpp::opp_string typeS;
+    int sender = 0;
+    bool allowed_ack = false;
+    msg_ allowed_ack_value;
+    bool stored = false;
+    msg_ stored_value;
 
   private:
     void copy(const Msg& other);
@@ -142,6 +172,18 @@ class Msg : public ::inet::FieldsChunk
     virtual void setInstall_or_update(int install_or_update);
     virtual const char * getTypeS() const;
     virtual void setTypeS(const char * typeS);
+    virtual int getSender() const;
+    virtual void setSender(int sender);
+    virtual bool getAllowed_ack() const;
+    virtual void setAllowed_ack(bool allowed_ack);
+    virtual const msg_& getAllowed_ack_value() const;
+    virtual msg_& getAllowed_ack_valueForUpdate() { handleChange();return const_cast<msg_&>(const_cast<Msg*>(this)->getAllowed_ack_value());}
+    virtual void setAllowed_ack_value(const msg_& allowed_ack_value);
+    virtual bool getStored() const;
+    virtual void setStored(bool stored);
+    virtual const msg_& getStored_value() const;
+    virtual msg_& getStored_valueForUpdate() { handleChange();return const_cast<msg_&>(const_cast<Msg*>(this)->getStored_value());}
+    virtual void setStored_value(const msg_& stored_value);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const Msg& obj) {obj.parsimPack(b);}

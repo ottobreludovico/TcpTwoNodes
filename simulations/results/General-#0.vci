@@ -1,15 +1,15 @@
-file 53358 1635011963                                           
+file 102278 1636395169                                          
 version 2
-run General-0-20211023-19:59:21-5352
+run General-0-20211108-19:12:46-2960
 attr configname General
-attr datetime 20211023-19:59:21
+attr datetime 20211108-19:12:46
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network scenario
-attr processid 5352
+attr processid 2960
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -26,7 +26,6 @@ param **.client0.app[0].localPort 1000
 param **.client0.app[0].localPortL 1234
 param **.client0.app[0].connectAddress "\"\""
 param **.client0.app[0].connectPort 1234
-param **.client0.app[0].broadcast 0
 param **.client1.app[*].typename "\"Node\""
 param **.client1.app[0].localPort 1001
 param **.client1.app[0].localPortL 1234
@@ -42,6 +41,7 @@ param **.client3.app[0].localPort 1003
 param **.client3.app[0].localPortL 1234
 param **.client3.app[0].connectAddress "\"\""
 param **.client3.app[0].connectPort 1234
+param **.client3.app[0].join 0.0
 param **.client4.app[*].typename "\"Node\""
 param **.client4.app[0].localPort 1004
 param **.client4.app[0].localPortL 1234
@@ -128,744 +128,1452 @@ vector 19 scenario.client4.ppp[3].ppp transmissionState:vector ETV
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, vector"
-vector 20 scenario.client0.tcp.conn-30 tcpRcvQueueBytes:vector ETV
+vector 20 scenario.client3.tcp.conn-30 tcpRcvQueueBytes:vector ETV
 attr interpolationmode sample-hold
-vector 21 scenario.client0.tcp.conn-30 rcvAdv:vector ETV
+vector 21 scenario.client3.tcp.conn-30 rcvAdv:vector ETV
 attr interpolationmode sample-hold
-vector 22 scenario.client0.tcp.conn-30 rcvWnd:vector ETV
+vector 22 scenario.client3.tcp.conn-30 rcvWnd:vector ETV
 attr interpolationmode sample-hold
-vector 23 scenario.client0.tcp.conn-30 sndAck:vector ETV
+vector 23 scenario.client3.tcp.conn-30 sndAck:vector ETV
 attr interpolationmode sample-hold
-vector 24 scenario.client0.tcp.conn-31 tcpRcvQueueBytes:vector ETV
+vector 24 scenario.client3.tcp.conn-31 tcpRcvQueueBytes:vector ETV
 attr interpolationmode sample-hold
-vector 25 scenario.client0.tcp.conn-31 rcvAdv:vector ETV
+vector 25 scenario.client3.tcp.conn-31 rcvAdv:vector ETV
 attr interpolationmode sample-hold
-vector 26 scenario.client0.tcp.conn-31 rcvWnd:vector ETV
+vector 26 scenario.client3.tcp.conn-31 rcvWnd:vector ETV
 attr interpolationmode sample-hold
-vector 27 scenario.client0.tcp.conn-31 sndAck:vector ETV
+vector 27 scenario.client3.tcp.conn-31 sndAck:vector ETV
 attr interpolationmode sample-hold
-vector 28 scenario.client0.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
+vector 28 scenario.client3.tcp.conn-32 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 29 scenario.client3.tcp.conn-32 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 30 scenario.client3.tcp.conn-32 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 31 scenario.client3.tcp.conn-32 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 32 scenario.client3.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, vector(packetBytes)"
-vector 29 scenario.client0.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
+vector 33 scenario.client3.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet pushed, vector(packetBytes)"
-vector 30 scenario.client0.ppp[0].ppp.queue queueLength:vector ETV
+vector 34 scenario.client3.ppp[0].ppp.queue queueLength:vector ETV
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, vector"
-vector 31 scenario.client0.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
+vector 35 scenario.client3.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet popped, vector(packetBytes)"
-vector 32 scenario.client0.ppp[0].ppp.queue queueingTime:vector ETV
+vector 36 scenario.client3.ppp[0].ppp.queue queueingTime:vector ETV
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, vector"
 attr unit s
-vector 33 scenario.client0.ppp[0].ppp txPk:vector(packetBytes) ETV
+vector 37 scenario.client3.ppp[0].ppp txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, vector(packetBytes)"
-vector 34 scenario.client0.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
+vector 38 scenario.client3.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, vector(packetBytes)"
-vector 35 scenario.client0.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
+vector 39 scenario.client3.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet pushed, vector(packetBytes)"
-vector 36 scenario.client0.ppp[1].ppp.queue queueLength:vector ETV
+vector 40 scenario.client3.ppp[1].ppp.queue queueLength:vector ETV
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, vector"
-vector 37 scenario.client0.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
+vector 41 scenario.client3.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet popped, vector(packetBytes)"
-vector 38 scenario.client0.ppp[1].ppp.queue queueingTime:vector ETV
+vector 42 scenario.client3.ppp[1].ppp.queue queueingTime:vector ETV
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, vector"
 attr unit s
-vector 39 scenario.client0.ppp[1].ppp txPk:vector(packetBytes) ETV
+vector 43 scenario.client3.ppp[1].ppp txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, vector(packetBytes)"
-vector 40 scenario.client1.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, vector(packetBytes)"
-vector 41 scenario.client1.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, vector(packetBytes)"
-vector 42 scenario.client2.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, vector(packetBytes)"
-vector 43 scenario.client2.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, vector(packetBytes)"
-vector 44 scenario.client1.tcp.conn-26 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 45 scenario.client1.tcp.conn-26 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 46 scenario.client1.tcp.conn-32 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 47 scenario.client1.tcp.conn-32 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 48 scenario.client1.tcp.conn-32 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 49 scenario.client1.tcp.conn-32 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 50 scenario.client1.tcp.conn-32 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 51 scenario.client2.tcp.conn-27 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 52 scenario.client2.tcp.conn-27 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 53 scenario.client2.tcp.conn-33 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 54 scenario.client2.tcp.conn-33 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 55 scenario.client2.tcp.conn-33 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 56 scenario.client2.tcp.conn-33 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 57 scenario.client2.tcp.conn-33 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 58 scenario.client1.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
+vector 44 scenario.client3.ppp[2].ppp rcvdPkFromHl:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, vector(packetBytes)"
-vector 59 scenario.client1.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
+vector 45 scenario.client3.ppp[2].ppp.queue packetPushed:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet pushed, vector(packetBytes)"
-vector 60 scenario.client1.ppp[0].ppp.queue queueLength:vector ETV
+vector 46 scenario.client3.ppp[2].ppp.queue queueLength:vector ETV
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, vector"
-vector 61 scenario.client1.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
+vector 47 scenario.client3.ppp[2].ppp.queue packetPopped:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet popped, vector(packetBytes)"
-vector 62 scenario.client1.ppp[0].ppp.queue queueingTime:vector ETV
+vector 48 scenario.client3.ppp[2].ppp.queue queueingTime:vector ETV
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, vector"
 attr unit s
-vector 63 scenario.client1.ppp[0].ppp txPk:vector(packetBytes) ETV
+vector 49 scenario.client3.ppp[2].ppp txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, vector(packetBytes)"
-vector 64 scenario.client2.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
+vector 50 scenario.client0.ppp[2].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 51 scenario.client0.ppp[2].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 52 scenario.client1.ppp[2].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 53 scenario.client1.ppp[2].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 54 scenario.client2.ppp[2].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 55 scenario.client2.ppp[2].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 56 scenario.client0.tcp.conn-25 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 57 scenario.client0.tcp.conn-25 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 58 scenario.client0.tcp.conn-33 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 59 scenario.client0.tcp.conn-33 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 60 scenario.client0.tcp.conn-33 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 61 scenario.client0.tcp.conn-33 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 62 scenario.client0.tcp.conn-33 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 63 scenario.client1.tcp.conn-26 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 64 scenario.client1.tcp.conn-26 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 65 scenario.client1.tcp.conn-34 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 66 scenario.client1.tcp.conn-34 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 67 scenario.client1.tcp.conn-34 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 68 scenario.client1.tcp.conn-34 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 69 scenario.client1.tcp.conn-34 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 70 scenario.client2.tcp.conn-27 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 71 scenario.client2.tcp.conn-27 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 72 scenario.client2.tcp.conn-35 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 73 scenario.client2.tcp.conn-35 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 74 scenario.client2.tcp.conn-35 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 75 scenario.client2.tcp.conn-35 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 76 scenario.client2.tcp.conn-35 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 77 scenario.client0.ppp[2].ppp rcvdPkFromHl:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, vector(packetBytes)"
-vector 65 scenario.client2.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
+vector 78 scenario.client0.ppp[2].ppp.queue packetPushed:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet pushed, vector(packetBytes)"
-vector 66 scenario.client2.ppp[0].ppp.queue queueLength:vector ETV
+vector 79 scenario.client0.ppp[2].ppp.queue queueLength:vector ETV
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, vector"
-vector 67 scenario.client2.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
+vector 80 scenario.client0.ppp[2].ppp.queue packetPopped:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet popped, vector(packetBytes)"
-vector 68 scenario.client2.ppp[0].ppp.queue queueingTime:vector ETV
+vector 81 scenario.client0.ppp[2].ppp.queue queueingTime:vector ETV
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, vector"
 attr unit s
-vector 69 scenario.client2.ppp[0].ppp txPk:vector(packetBytes) ETV
+vector 82 scenario.client0.ppp[2].ppp txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, vector(packetBytes)"
-vector 70 scenario.client0.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, vector(packetBytes)"
-vector 71 scenario.client0.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, vector(packetBytes)"
-vector 72 scenario.client0.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, vector(packetBytes)"
-vector 73 scenario.client0.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, vector(packetBytes)"
-vector 74 scenario.client0.tcp.conn-30 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 75 scenario.client0.tcp.conn-30 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 76 scenario.client0.tcp.conn-30 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 77 scenario.client0.tcp.conn-30 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 78 scenario.client0.tcp.conn-31 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 79 scenario.client0.tcp.conn-31 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 80 scenario.client0.tcp.conn-31 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 81 scenario.client0.tcp.conn-31 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 82 scenario.client1.tcp.conn-32 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 83 scenario.client1.tcp.conn-32 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 84 scenario.client1.tcp.conn-32 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 85 scenario.client1.tcp.conn-32 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 86 scenario.client1.tcp.conn-32 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 87 scenario.client1.tcp.conn-32 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 88 scenario.client2.tcp.conn-33 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 89 scenario.client2.tcp.conn-33 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 90 scenario.client2.tcp.conn-33 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 91 scenario.client2.tcp.conn-33 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 92 scenario.client2.tcp.conn-33 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 93 scenario.client2.tcp.conn-33 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 94 scenario.client1.tcp.conn-34 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 95 scenario.client1.tcp.conn-34 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 96 scenario.client1.tcp.conn-34 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 97 scenario.client1.tcp.conn-34 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 98 scenario.client2.tcp.conn-35 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 99 scenario.client2.tcp.conn-35 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 100 scenario.client2.tcp.conn-35 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 101 scenario.client2.tcp.conn-35 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 102 scenario.client0.tcp.conn-30 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 103 scenario.client0.tcp.conn-30 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 104 scenario.client0.tcp.conn-30 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 105 scenario.client0.tcp.conn-30 rto:vector ETV
-attr interpolationmode sample-hold
-vector 106 scenario.client0.tcp.conn-30 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 107 scenario.client0.tcp.conn-30 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 108 scenario.client0.tcp.conn-30 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 109 scenario.client0.tcp.conn-31 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 110 scenario.client0.tcp.conn-31 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 111 scenario.client0.tcp.conn-31 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 112 scenario.client0.tcp.conn-31 rto:vector ETV
-attr interpolationmode sample-hold
-vector 113 scenario.client0.tcp.conn-31 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 114 scenario.client0.tcp.conn-31 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 115 scenario.client0.tcp.conn-31 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 116 scenario.client0.tcp.conn-25 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 117 scenario.client0.tcp.conn-25 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 118 scenario.client0.tcp.conn-36 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 119 scenario.client0.tcp.conn-36 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 120 scenario.client0.tcp.conn-36 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 121 scenario.client0.tcp.conn-36 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 122 scenario.client0.tcp.conn-36 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 123 scenario.client0.tcp.conn-37 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 124 scenario.client0.tcp.conn-37 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 125 scenario.client0.tcp.conn-37 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 126 scenario.client0.tcp.conn-37 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 127 scenario.client0.tcp.conn-37 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 128 scenario.client1.tcp.conn-34 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 129 scenario.client1.tcp.conn-34 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 130 scenario.client1.tcp.conn-34 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 131 scenario.client1.tcp.conn-34 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 132 scenario.client2.tcp.conn-35 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 133 scenario.client2.tcp.conn-35 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 134 scenario.client2.tcp.conn-35 sndWnd:vector ETV
-attr interpolationmode sample-hold
-vector 135 scenario.client2.tcp.conn-35 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 136 scenario.client0.tcp.conn-36 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 137 scenario.client0.tcp.conn-36 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 138 scenario.client0.tcp.conn-36 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 139 scenario.client0.tcp.conn-36 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 140 scenario.client0.tcp.conn-36 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 141 scenario.client0.tcp.conn-36 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 142 scenario.client0.tcp.conn-37 rcvSeq:vector ETV
-attr interpolationmode sample-hold
-vector 143 scenario.client0.tcp.conn-37 rcvAck:vector ETV
-attr interpolationmode sample-hold
-vector 144 scenario.client0.tcp.conn-37 unacked:vector ETV
-attr interpolationmode sample-hold
-vector 145 scenario.client0.tcp.conn-37 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 146 scenario.client0.tcp.conn-37 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 147 scenario.client0.tcp.conn-37 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 148 scenario.client1.tcp.conn-34 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 149 scenario.client1.tcp.conn-34 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 150 scenario.client1.tcp.conn-34 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 151 scenario.client1.tcp.conn-34 rto:vector ETV
-attr interpolationmode sample-hold
-vector 152 scenario.client1.tcp.conn-34 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 153 scenario.client1.tcp.conn-34 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 154 scenario.client1.tcp.conn-34 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 155 scenario.client2.tcp.conn-35 rtt:vector ETV
-attr interpolationmode sample-hold
-vector 156 scenario.client2.tcp.conn-35 srtt:vector ETV
-attr interpolationmode sample-hold
-vector 157 scenario.client2.tcp.conn-35 rttvar:vector ETV
-attr interpolationmode sample-hold
-vector 158 scenario.client2.tcp.conn-35 rto:vector ETV
-attr interpolationmode sample-hold
-vector 159 scenario.client2.tcp.conn-35 cwnd:vector ETV
-attr interpolationmode sample-hold
-vector 160 scenario.client2.tcp.conn-35 ssthresh:vector ETV
-attr interpolationmode sample-hold
-vector 161 scenario.client2.tcp.conn-35 dupAcks:vector ETV
-attr interpolationmode sample-hold
-vector 162 scenario.client1.tcp.conn-38 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 163 scenario.client1.tcp.conn-38 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 164 scenario.client1.tcp.conn-38 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 165 scenario.client1.tcp.conn-38 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 166 scenario.client2.tcp.conn-39 tcpRcvQueueBytes:vector ETV
-attr interpolationmode sample-hold
-vector 167 scenario.client2.tcp.conn-39 rcvAdv:vector ETV
-attr interpolationmode sample-hold
-vector 168 scenario.client2.tcp.conn-39 rcvWnd:vector ETV
-attr interpolationmode sample-hold
-vector 169 scenario.client2.tcp.conn-39 sndAck:vector ETV
-attr interpolationmode sample-hold
-vector 170 scenario.client1.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
+vector 83 scenario.client1.ppp[2].ppp rcvdPkFromHl:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, vector(packetBytes)"
-vector 171 scenario.client1.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
+vector 84 scenario.client1.ppp[2].ppp.queue packetPushed:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet pushed, vector(packetBytes)"
-vector 172 scenario.client1.ppp[1].ppp.queue queueLength:vector ETV
+vector 85 scenario.client1.ppp[2].ppp.queue queueLength:vector ETV
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, vector"
-vector 173 scenario.client1.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
+vector 86 scenario.client1.ppp[2].ppp.queue packetPopped:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet popped, vector(packetBytes)"
-vector 174 scenario.client1.ppp[1].ppp.queue queueingTime:vector ETV
+vector 87 scenario.client1.ppp[2].ppp.queue queueingTime:vector ETV
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, vector"
 attr unit s
-vector 175 scenario.client1.ppp[1].ppp txPk:vector(packetBytes) ETV
+vector 88 scenario.client1.ppp[2].ppp txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, vector(packetBytes)"
-vector 176 scenario.client2.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
+vector 89 scenario.client2.ppp[2].ppp rcvdPkFromHl:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, vector(packetBytes)"
-vector 177 scenario.client2.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
+vector 90 scenario.client2.ppp[2].ppp.queue packetPushed:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet pushed, vector(packetBytes)"
-vector 178 scenario.client2.ppp[1].ppp.queue queueLength:vector ETV
+vector 91 scenario.client2.ppp[2].ppp.queue queueLength:vector ETV
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, vector"
-vector 179 scenario.client2.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
+vector 92 scenario.client2.ppp[2].ppp.queue packetPopped:vector(packetBytes) ETV
 attr interpolationmode none
 attr title "packet popped, vector(packetBytes)"
-vector 180 scenario.client2.ppp[1].ppp.queue queueingTime:vector ETV
+vector 93 scenario.client2.ppp[2].ppp.queue queueingTime:vector ETV
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, vector"
 attr unit s
-vector 181 scenario.client2.ppp[1].ppp txPk:vector(packetBytes) ETV
+vector 94 scenario.client2.ppp[2].ppp txPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, vector(packetBytes)"
-vector 182 scenario.client2.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+vector 95 scenario.client3.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, vector(packetBytes)"
-vector 183 scenario.client2.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+vector 96 scenario.client3.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, vector(packetBytes)"
-vector 184 scenario.client1.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+vector 97 scenario.client3.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, vector(packetBytes)"
-vector 185 scenario.client1.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+vector 98 scenario.client3.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, vector(packetBytes)"
-vector 186 scenario.client2.tcp.conn-40 rcvAdv:vector ETV
+vector 99 scenario.client3.ppp[2].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 100 scenario.client3.ppp[2].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 101 scenario.client3.tcp.conn-30 rcvSeq:vector ETV
 attr interpolationmode sample-hold
-vector 187 scenario.client2.tcp.conn-40 sndWnd:vector ETV
+vector 102 scenario.client3.tcp.conn-30 rcvAck:vector ETV
 attr interpolationmode sample-hold
-vector 188 scenario.client2.tcp.conn-40 tcpRcvQueueBytes:vector ETV
+vector 103 scenario.client3.tcp.conn-30 sndWnd:vector ETV
 attr interpolationmode sample-hold
-vector 189 scenario.client2.tcp.conn-40 rcvWnd:vector ETV
+vector 104 scenario.client3.tcp.conn-30 unacked:vector ETV
 attr interpolationmode sample-hold
-vector 190 scenario.client2.tcp.conn-40 sndAck:vector ETV
+vector 105 scenario.client3.tcp.conn-31 rcvSeq:vector ETV
 attr interpolationmode sample-hold
-vector 191 scenario.client1.tcp.conn-41 rcvAdv:vector ETV
+vector 106 scenario.client3.tcp.conn-31 rcvAck:vector ETV
 attr interpolationmode sample-hold
-vector 192 scenario.client1.tcp.conn-41 sndWnd:vector ETV
+vector 107 scenario.client3.tcp.conn-31 sndWnd:vector ETV
 attr interpolationmode sample-hold
-vector 193 scenario.client1.tcp.conn-41 tcpRcvQueueBytes:vector ETV
+vector 108 scenario.client3.tcp.conn-31 unacked:vector ETV
 attr interpolationmode sample-hold
-vector 194 scenario.client1.tcp.conn-41 rcvWnd:vector ETV
+vector 109 scenario.client3.tcp.conn-32 rcvSeq:vector ETV
 attr interpolationmode sample-hold
-vector 195 scenario.client1.tcp.conn-41 sndAck:vector ETV
+vector 110 scenario.client3.tcp.conn-32 rcvAck:vector ETV
 attr interpolationmode sample-hold
-vector 196 scenario.client1.tcp.conn-38 rcvSeq:vector ETV
+vector 111 scenario.client3.tcp.conn-32 sndWnd:vector ETV
 attr interpolationmode sample-hold
-vector 197 scenario.client1.tcp.conn-38 rcvAck:vector ETV
+vector 112 scenario.client3.tcp.conn-32 unacked:vector ETV
 attr interpolationmode sample-hold
-vector 198 scenario.client1.tcp.conn-38 sndWnd:vector ETV
+vector 113 scenario.client0.tcp.conn-33 rcvSeq:vector ETV
 attr interpolationmode sample-hold
-vector 199 scenario.client1.tcp.conn-38 unacked:vector ETV
+vector 114 scenario.client0.tcp.conn-33 rcvAck:vector ETV
 attr interpolationmode sample-hold
-vector 200 scenario.client2.tcp.conn-39 rcvSeq:vector ETV
+vector 115 scenario.client0.tcp.conn-33 unacked:vector ETV
 attr interpolationmode sample-hold
-vector 201 scenario.client2.tcp.conn-39 rcvAck:vector ETV
+vector 116 scenario.client0.tcp.conn-33 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 202 scenario.client2.tcp.conn-39 sndWnd:vector ETV
+vector 117 scenario.client0.tcp.conn-33 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 203 scenario.client2.tcp.conn-39 unacked:vector ETV
+vector 118 scenario.client0.tcp.conn-33 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 204 scenario.client2.tcp.conn-40 rcvSeq:vector ETV
+vector 119 scenario.client1.tcp.conn-34 rcvSeq:vector ETV
 attr interpolationmode sample-hold
-vector 205 scenario.client2.tcp.conn-40 rcvAck:vector ETV
+vector 120 scenario.client1.tcp.conn-34 rcvAck:vector ETV
 attr interpolationmode sample-hold
-vector 206 scenario.client2.tcp.conn-40 unacked:vector ETV
+vector 121 scenario.client1.tcp.conn-34 unacked:vector ETV
 attr interpolationmode sample-hold
-vector 207 scenario.client2.tcp.conn-40 cwnd:vector ETV
+vector 122 scenario.client1.tcp.conn-34 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 208 scenario.client2.tcp.conn-40 ssthresh:vector ETV
+vector 123 scenario.client1.tcp.conn-34 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 209 scenario.client2.tcp.conn-40 dupAcks:vector ETV
+vector 124 scenario.client1.tcp.conn-34 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 210 scenario.client1.tcp.conn-41 rcvSeq:vector ETV
+vector 125 scenario.client2.tcp.conn-35 rcvSeq:vector ETV
 attr interpolationmode sample-hold
-vector 211 scenario.client1.tcp.conn-41 rcvAck:vector ETV
+vector 126 scenario.client2.tcp.conn-35 rcvAck:vector ETV
 attr interpolationmode sample-hold
-vector 212 scenario.client1.tcp.conn-41 unacked:vector ETV
+vector 127 scenario.client2.tcp.conn-35 unacked:vector ETV
 attr interpolationmode sample-hold
-vector 213 scenario.client1.tcp.conn-41 cwnd:vector ETV
+vector 128 scenario.client2.tcp.conn-35 cwnd:vector ETV
 attr interpolationmode sample-hold
-vector 214 scenario.client1.tcp.conn-41 ssthresh:vector ETV
+vector 129 scenario.client2.tcp.conn-35 ssthresh:vector ETV
 attr interpolationmode sample-hold
-vector 215 scenario.client1.tcp.conn-41 dupAcks:vector ETV
+vector 130 scenario.client2.tcp.conn-35 dupAcks:vector ETV
 attr interpolationmode sample-hold
-vector 216 scenario.client1.tcp.conn-38 rtt:vector ETV
+vector 131 scenario.client0.tcp.conn-36 tcpRcvQueueBytes:vector ETV
 attr interpolationmode sample-hold
-vector 217 scenario.client1.tcp.conn-38 srtt:vector ETV
+vector 132 scenario.client0.tcp.conn-36 rcvAdv:vector ETV
 attr interpolationmode sample-hold
-vector 218 scenario.client1.tcp.conn-38 rttvar:vector ETV
+vector 133 scenario.client0.tcp.conn-36 rcvWnd:vector ETV
 attr interpolationmode sample-hold
-vector 219 scenario.client1.tcp.conn-38 rto:vector ETV
+vector 134 scenario.client0.tcp.conn-36 sndAck:vector ETV
 attr interpolationmode sample-hold
-vector 220 scenario.client1.tcp.conn-38 cwnd:vector ETV
+vector 135 scenario.client0.tcp.conn-37 tcpRcvQueueBytes:vector ETV
 attr interpolationmode sample-hold
-vector 221 scenario.client1.tcp.conn-38 ssthresh:vector ETV
+vector 136 scenario.client0.tcp.conn-37 rcvAdv:vector ETV
 attr interpolationmode sample-hold
-vector 222 scenario.client1.tcp.conn-38 dupAcks:vector ETV
+vector 137 scenario.client0.tcp.conn-37 rcvWnd:vector ETV
 attr interpolationmode sample-hold
-vector 223 scenario.client2.tcp.conn-39 rtt:vector ETV
+vector 138 scenario.client0.tcp.conn-37 sndAck:vector ETV
 attr interpolationmode sample-hold
-vector 224 scenario.client2.tcp.conn-39 srtt:vector ETV
+vector 139 scenario.client0.tcp.conn-38 tcpRcvQueueBytes:vector ETV
 attr interpolationmode sample-hold
-vector 225 scenario.client2.tcp.conn-39 rttvar:vector ETV
+vector 140 scenario.client0.tcp.conn-38 rcvAdv:vector ETV
 attr interpolationmode sample-hold
-vector 226 scenario.client2.tcp.conn-39 rto:vector ETV
+vector 141 scenario.client0.tcp.conn-38 rcvWnd:vector ETV
 attr interpolationmode sample-hold
-vector 227 scenario.client2.tcp.conn-39 cwnd:vector ETV
+vector 142 scenario.client0.tcp.conn-38 sndAck:vector ETV
 attr interpolationmode sample-hold
-vector 228 scenario.client2.tcp.conn-39 ssthresh:vector ETV
+vector 143 scenario.client1.tcp.conn-39 tcpRcvQueueBytes:vector ETV
 attr interpolationmode sample-hold
-vector 229 scenario.client2.tcp.conn-39 dupAcks:vector ETV
+vector 144 scenario.client1.tcp.conn-39 rcvAdv:vector ETV
 attr interpolationmode sample-hold
-0	29700 352 0 369 0 0.011192 21 0 1 10 10
-1	30052 352 0 370 0 0.011192 21 0 1 10 10
-2	30404 9 0 0 0 0 1 0 0 0 0
-3	30413 9 0 0 0 0 1 0 0 0 0
-4	30422 360 0 341 0 0.010692 21 0 1 10 10
-5	30782 225 0 375 0 0.011372 13 0 1 6 6
-6	31007 9 0 0 0 0 1 0 0 0 0
-7	31016 9 0 0 0 0 1 0 0 0 0
-8	31025 360 0 342 0 0.010692 21 0 1 10 10
-9	31385 225 0 376 0 0.011372 13 0 1 6 6
-10	31610 10 0 0 0 0 1 0 0 0 0
-11	31620 10 0 0 0 0 1 0 0 0 0
-12	31630 10 0 0 0 0 1 0 0 0 0
-13	31640 10 0 0 0 0 1 0 0 0 0
-14	31650 10 0 0 0 0 1 0 0 0 0
-15	31660 10 0 0 0 0 1 0 0 0 0
-16	31670 10 0 0 0 0 1 0 0 0 0
-17	31680 10 0 0 0 0 1 0 0 0 0
-18	31690 10 0 0 0 0 1 0 0 0 0
-19	31700 10 0 0 0 0 1 0 0 0 0
-20	31710 85 7 207 0 0.008296 5 0 0 0 0
-21	31795 121 7 207 0 0.008296 6 7504 7732 46164 355229136
-22	31916 100 7 207 0 0.008296 5 7504 7504 37520 281550080
-23	32016 93 7 207 0 0.008296 5 0 228 912 207936
-24	32109 85 9 209 0 0.008296 5 0 0 0 0
-25	32194 121 9 209 0 0.008296 6 7504 7732 46164 355229136
-26	32315 100 9 209 0 0.008296 5 7504 7504 37520 281550080
-27	32415 93 9 209 0 0.008296 5 0 228 912 207936
-28	32508 189 13 353 0 0.010816 10 40 44 412 16996
-29	32697 189 13 353 0 0.010816 10 40 44 412 16996
-30	32886 358 13 353 0 0.010816 20 0 2 14 18
-31	33244 189 13 353 0 0.010816 10 40 44 412 16996
-32	33433 205 13 353 0 0.010816 10 0 0.00076 0.002272 1.437952e-006
-33	33638 189 13 353 0 0.010816 10 47 51 482 23254
-34	33827 189 14 354 0 0.010816 10 40 44 412 16996
-35	34016 189 14 354 0 0.010816 10 40 44 412 16996
-36	34205 358 14 354 0 0.010816 20 0 2 14 18
-37	34563 189 14 354 0 0.010816 10 40 44 412 16996
-38	34752 205 14 354 0 0.010816 10 0 0.00076 0.002272 1.437952e-006
-39	34957 189 14 354 0 0.010816 10 47 51 482 23254
-40	35146 194 17 377 0.000908 0.011692 10 47 51 482 23254
-41	35340 194 17 377 0.000908 0.011692 10 40 44 412 16996
-42	35534 194 18 378 0.000908 0.011692 10 47 51 482 23254
-43	35728 194 18 378 0.000908 0.011692 10 40 44 412 16996
-44	35922 40 21 188 0.000908 0.007944 2 0 1759 1759 3094081
-45	35962 37 21 188 0.000908 0.007944 2 0 0 0 0
-46	35999 126 21 309 0.000908 0.00994 6 7505 7509 45039 338085269
-47	36125 40 21 47 0.000908 0.0027 2 7504 7504 15008 112620032
-48	36165 162 21 309 0.000908 0.00994 9 0 1 1 1
-49	36327 105 21 309 0.000908 0.00994 5 7503 7504 37519 281535073
-50	36432 90 21 309 0.000908 0.00994 5 1 5 15 55
-51	36522 40 22 187 0.000908 0.007944 2 0 1759 1759 3094081
-52	36562 37 22 187 0.000908 0.007944 2 0 0 0 0
-53	36599 126 22 310 0.000908 0.00994 6 7505 7509 45039 338085269
-54	36725 40 22 48 0.000908 0.0027 2 7504 7504 15008 112620032
-55	36765 162 22 310 0.000908 0.00994 9 0 1 1 1
-56	36927 105 22 310 0.000908 0.00994 5 7503 7504 37519 281535073
-57	37032 90 22 310 0.000908 0.00994 5 1 5 15 55
-58	37122 192 25 315 0.000908 0.00994 10 40 44 412 16996
-59	37314 192 25 315 0.000908 0.00994 10 40 44 412 16996
-60	37506 367 25 321 0.000908 0.010316 20 0 2 12 14
-61	37873 195 25 321 0.000908 0.010316 10 40 44 412 16996
-62	38068 219 25 321 0.000908 0.010316 10 0 0.00076 0.002264 1.143104e-006
-63	38287 195 25 321 0.000908 0.010316 10 47 51 482 23254
-64	38482 192 26 316 0.000908 0.00994 10 40 44 412 16996
-65	38674 192 26 316 0.000908 0.00994 10 40 44 412 16996
-66	38866 367 26 322 0.000908 0.010316 20 0 2 12 14
-67	39233 195 26 322 0.000908 0.010316 10 40 44 412 16996
-68	39428 219 26 322 0.000908 0.010316 10 0 0.00076 0.002264 1.143104e-006
-69	39647 195 26 322 0.000908 0.010316 10 47 51 482 23254
-70	39842 196 29 367 0.001816 0.011192 10 47 51 482 23254
-71	40038 196 29 367 0.001816 0.011192 10 40 44 412 16996
-72	40234 196 30 368 0.001816 0.011192 10 47 51 482 23254
-73	40430 196 30 368 0.001816 0.011192 10 40 44 412 16996
-74	40626 103 33 373 0.001816 0.011192 5 227 228 1139 259465
-75	40729 93 33 373 0.001816 0.011192 5 1 5 15 55
-76	40822 108 33 373 0.001816 0.011192 5 7503 7504 37519 281535073
-77	40930 150 33 373 0.001816 0.011192 8 0 2 6 8
-78	41080 103 34 374 0.001816 0.011192 5 227 228 1139 259465
-79	41183 93 34 374 0.001816 0.011192 5 1 5 15 55
-80	41276 108 34 374 0.001816 0.011192 5 7503 7504 37519 281535073
-81	41384 150 34 374 0.001816 0.011192 8 0 2 6 8
-82	41534 72 47 309 0.0027 0.00994 4 1 4 10 30
-83	41606 80 47 309 0.0027 0.00994 4 228 228 912 207936
-84	41686 16 47 47 0.0027 0.0027 1 0 0 0 0
-85	41702 19 47 47 0.0027 0.0027 1 1072 1072 1072 1149184
-86	41721 25 47 47 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-87	41746 72 47 309 0.0027 0.00994 4 0 0 0 0
-88	41818 72 48 310 0.0027 0.00994 4 1 4 10 30
-89	41890 80 48 310 0.0027 0.00994 4 228 228 912 207936
-90	41970 16 48 48 0.0027 0.0027 1 0 0 0 0
-91	41986 19 48 48 0.0027 0.0027 1 1072 1072 1072 1149184
-92	42005 25 48 48 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
-93	42030 72 48 310 0.0027 0.00994 4 0 0 0 0
-94	42102 91 61 269 0.0027 0.009556 5 0 0 0 0
-95	42193 127 61 269 0.0027 0.009556 6 7504 8500 50004 417560016
-96	42320 106 61 269 0.0027 0.009556 5 7504 7504 37520 281550080
-97	42426 99 61 269 0.0027 0.009556 5 0 996 3984 3968064
-98	42525 91 63 271 0.0027 0.009556 5 0 0 0 0
-99	42616 127 63 271 0.0027 0.009556 6 7504 8500 50004 417560016
-100	42743 111 63 271 0.0027 0.009556 5 7504 7504 37520 281550080
-101	42854 104 63 271 0.0027 0.009556 5 0 996 3984 3968064
-102	42958 79 77 331 0.003576 0.010432 3 0.00176 0.002136 0.006032 1.2222592e-005
-103	43037 84 77 331 0.003576 0.010432 3 0.00022 0.0006690625 0.0013485625 7.0718487890625e-007
-104	43121 86 77 331 0.003576 0.010432 3 0.50302896875 0.65647 1.73414971875 1.0142144887773
-105	43207 83 77 331 0.003576 0.010432 3 2.0127849375 2.6261 6.9379474375 16.233392793533
-106	43290 91 77 373 0.003576 0.011192 4 1072 2680 7504 15513984
-107	43381 115 77 373 0.003576 0.011192 4 4294967295 4294967295 17179869180 7.3786976260478e+019
-108	43496 79 77 373 0.003576 0.011192 4 0 0 0 0
-109	43575 79 78 332 0.003576 0.010432 3 0.00176 0.002136 0.006032 1.2222592e-005
-110	43654 84 78 332 0.003576 0.010432 3 0.00022 0.0006690625 0.0013485625 7.0718487890625e-007
-111	43738 86 78 332 0.003576 0.010432 3 0.50302896875 0.65647 1.73414971875 1.0142144887773
-112	43824 83 78 332 0.003576 0.010432 3 2.0127849375 2.6261 6.9379474375 16.233392793533
-113	43907 91 78 374 0.003576 0.011192 4 1072 2680 7504 15513984
-114	43998 115 78 374 0.003576 0.011192 4 4294967295 4294967295 17179869180 7.3786976260478e+019
-115	44113 79 78 374 0.003576 0.011192 4 0 0 0 0
-116	44192 42 83 84 0.003984 0.003984 2 675 675 1350 911250
-117	44234 38 83 84 0.003984 0.003984 2 0 0 0 0
-118	44272 135 83 347 0.003984 0.010816 6 8180 8184 49089 401621669
-119	44407 45 83 109 0.003984 0.005776 2 7504 7504 15008 112620032
-120	44452 177 83 347 0.003984 0.010816 9 0 1 1 1
-121	44629 113 83 347 0.003984 0.010816 5 7503 7504 37519 281535073
-122	44742 108 83 347 0.003984 0.010816 5 676 680 3390 2298430
-123	44850 135 84 348 0.003984 0.010816 6 8180 8184 49089 401621669
-124	44985 45 84 110 0.003984 0.005776 2 7504 7504 15008 112620032
-125	45030 177 84 348 0.003984 0.010816 9 0 1 1 1
-126	45207 113 84 348 0.003984 0.010816 5 7503 7504 37519 281535073
-127	45320 108 84 348 0.003984 0.010816 5 676 680 3390 2298430
-128	45428 109 95 381 0.004892 0.011692 5 995 996 4979 4958089
-129	45537 109 95 381 0.004892 0.011692 5 676 680 3390 2298430
-130	45646 114 95 381 0.004892 0.011692 5 7503 7504 37519 281535073
-131	45760 159 95 381 0.004892 0.011692 8 0 2 8 12
-132	45919 109 96 382 0.004892 0.011692 5 995 996 4979 4958089
-133	46028 109 96 382 0.004892 0.011692 5 676 680 3390 2298430
-134	46137 114 96 382 0.004892 0.011692 5 7503 7504 37519 281535073
-135	46251 159 96 382 0.004892 0.011692 8 0 2 8 12
-136	46410 87 109 347 0.005776 0.010816 4 676 679 2710 1836030
-137	46497 87 109 347 0.005776 0.010816 4 996 996 3984 3968064
-138	46584 20 109 109 0.005776 0.005776 1 0 0 0 0
-139	46604 23 109 109 0.005776 0.005776 1 1072 1072 1072 1149184
-140	46627 29 109 109 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
-141	46656 79 109 347 0.005776 0.010816 4 0 0 0 0
-142	46735 87 110 348 0.005776 0.010816 4 676 679 2710 1836030
-143	46822 87 110 348 0.005776 0.010816 4 996 996 3984 3968064
-144	46909 20 110 110 0.005776 0.005776 1 0 0 0 0
-145	46929 23 110 110 0.005776 0.005776 1 1072 1072 1072 1149184
-146	46952 29 110 110 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
-147	46981 79 110 348 0.005776 0.010816 4 0 0 0 0
-148	47060 80 137 381 0.006652 0.011692 3 0.00176 0.002136 0.006032 1.2222592e-005
-149	47140 85 137 381 0.006652 0.011692 3 0.00022 0.0006690625 0.0013485625 7.0718487890625e-007
-150	47225 87 137 381 0.006652 0.011692 3 0.50302896875 0.65647 1.73414971875 1.0142144887773
-151	47312 84 137 381 0.006652 0.011692 3 2.0127849375 2.6261 6.9379474375 16.233392793533
-152	47396 92 137 381 0.006652 0.011692 4 1072 2680 7504 15513984
-153	47488 116 137 381 0.006652 0.011692 4 4294967295 4294967295 17179869180 7.3786976260478e+019
-154	47604 80 137 381 0.006652 0.011692 4 0 0 0 0
-155	47684 80 138 382 0.006652 0.011692 3 0.00176 0.002136 0.006032 1.2222592e-005
-156	47764 85 138 382 0.006652 0.011692 3 0.00022 0.0006690625 0.0013485625 7.0718487890625e-007
-157	47849 87 138 382 0.006652 0.011692 3 0.50302896875 0.65647 1.73414971875 1.0142144887773
-158	47936 84 138 382 0.006652 0.011692 3 2.0127849375 2.6261 6.9379474375 16.233392793533
-159	48020 92 138 382 0.006652 0.011692 4 1072 2680 7504 15513984
-160	48112 116 138 382 0.006652 0.011692 4 4294967295 4294967295 17179869180 7.3786976260478e+019
-161	48228 80 138 382 0.006652 0.011692 4 0 0 0 0
-162	48308 60 150 296 0.007036 0.009736 3 0 0 0 0
-163	48368 92 150 296 0.007036 0.009736 4 7504 9491 35977 326547259
-164	48460 69 150 296 0.007036 0.009736 3 7504 7504 22512 168930048
-165	48529 66 150 296 0.007036 0.009736 3 0 1987 3974 7896338
-166	48595 60 155 295 0.007036 0.009736 3 0 0 0 0
-167	48655 92 155 295 0.007036 0.009736 4 7504 9491 35977 326547259
-168	48747 69 155 295 0.007036 0.009736 3 7504 7504 22512 168930048
-169	48816 66 155 295 0.007036 0.009736 3 0 1987 3974 7896338
-170	48882 126 166 365 0.007036 0.010996 6 40 44 250 10434
-171	49008 126 166 365 0.007036 0.010996 6 40 44 250 10434
-172	49134 240 166 365 0.007036 0.010996 12 0 1 6 6
-173	49374 126 166 365 0.007036 0.010996 6 40 44 250 10434
-174	49500 127 166 365 0.007036 0.010996 6 0 0.000376 0.000376 1.41376e-007
-175	49627 126 166 365 0.007036 0.010996 6 47 51 292 14228
-176	49753 126 169 366 0.007036 0.010996 6 40 44 250 10434
-177	49879 126 169 366 0.007036 0.010996 6 40 44 250 10434
-178	50005 240 169 366 0.007036 0.010996 12 0 1 6 6
-179	50245 126 169 366 0.007036 0.010996 6 40 44 250 10434
-180	50371 127 169 366 0.007036 0.010996 6 0 0.000376 0.000376 1.41376e-007
-181	50498 126 169 366 0.007036 0.010996 6 47 51 292 14228
-182	50624 126 183 383 0.007944 0.011872 6 47 51 292 14228
-183	50750 126 183 383 0.007944 0.011872 6 40 44 250 10434
-184	50876 126 184 384 0.007944 0.011872 6 47 51 292 14228
-185	51002 126 184 384 0.007944 0.011872 6 40 44 250 10434
-186	51128 92 187 360 0.007944 0.010996 4 9264 9266 37058 343323844
-187	51220 46 187 281 0.007944 0.009736 2 7504 7504 15008 112620032
-188	51266 100 187 360 0.007944 0.010996 5 0 1 1 1
-189	51366 69 187 360 0.007944 0.010996 3 7503 7504 22511 168915041
-190	51435 69 187 360 0.007944 0.010996 3 1760 1762 5283 9303365
-191	51504 92 188 359 0.007944 0.010996 4 9264 9266 37058 343323844
-192	51596 46 188 282 0.007944 0.009736 2 7504 7504 15008 112620032
-193	51642 100 188 359 0.007944 0.010996 5 0 1 1 1
-194	51742 69 188 359 0.007944 0.010996 3 7503 7504 22511 168915041
-195	51811 69 188 359 0.007944 0.010996 3 1760 1762 5283 9303365
-196	51880 69 239 388 0.008852 0.011872 3 1986 1987 5960 11840534
-197	51949 69 239 388 0.008852 0.011872 3 1760 1762 5283 9303365
-198	52018 69 239 388 0.008852 0.011872 3 7503 7504 22511 168915041
-199	52087 80 239 388 0.008852 0.011872 4 0 2 4 6
-200	52167 69 240 387 0.008852 0.011872 3 1986 1987 5960 11840534
-201	52236 69 240 387 0.008852 0.011872 3 1760 1762 5283 9303365
-202	52305 69 240 387 0.008852 0.011872 3 7503 7504 22511 168915041
-203	52374 80 240 387 0.008852 0.011872 4 0 2 4 6
-204	52454 46 281 360 0.009736 0.010996 2 1760 1761 3521 6198721
-205	52500 46 281 360 0.009736 0.010996 2 1987 1987 3974 7896338
-206	52546 20 281 281 0.009736 0.009736 1 0 0 0 0
-207	52566 23 281 281 0.009736 0.009736 1 1072 1072 1072 1149184
-208	52589 29 281 281 0.009736 0.009736 1 4294967295 4294967295 4294967295 1.844674406512e+019
-209	52618 40 281 360 0.009736 0.010996 2 0 0 0 0
-210	52658 46 282 359 0.009736 0.010996 2 1760 1761 3521 6198721
-211	52704 46 282 359 0.009736 0.010996 2 1987 1987 3974 7896338
-212	52750 20 282 282 0.009736 0.009736 1 0 0 0 0
-213	52770 23 282 282 0.009736 0.009736 1 1072 1072 1072 1149184
-214	52793 29 282 282 0.009736 0.009736 1 4294967295 4294967295 4294967295 1.844674406512e+019
-215	52822 40 282 359 0.009736 0.010996 2 0 0 0 0
-216	52862 26 339 339 0.010612 0.010612 1 0.00176 0.00176 0.00176 3.0976e-006
-217	52888 26 339 339 0.010612 0.010612 1 0.00022 0.00022 0.00022 4.84e-008
-218	52914 26 339 339 0.010612 0.010612 1 0.65647 0.65647 0.65647 0.4309528609
-219	52940 25 339 339 0.010612 0.010612 1 2.6261 2.6261 2.6261 6.89640121
-220	52965 46 339 388 0.010612 0.011872 2 1072 1608 2680 3734848
-221	53011 58 339 388 0.010612 0.011872 2 4294967295 4294967295 8589934590 3.6893488130239e+019
-222	53069 40 339 388 0.010612 0.011872 2 0 0 0 0
-223	53109 26 340 340 0.010612 0.010612 1 0.00176 0.00176 0.00176 3.0976e-006
-224	53135 26 340 340 0.010612 0.010612 1 0.00022 0.00022 0.00022 4.84e-008
-225	53161 26 340 340 0.010612 0.010612 1 0.65647 0.65647 0.65647 0.4309528609
-226	53187 25 340 340 0.010612 0.010612 1 2.6261 2.6261 2.6261 6.89640121
-227	53212 46 340 387 0.010612 0.011872 2 1072 1608 2680 3734848
-228	53258 58 340 387 0.010612 0.011872 2 4294967295 4294967295 8589934590 3.6893488130239e+019
-229	53316 40 340 387 0.010612 0.011872 2 0 0 0 0
+vector 145 scenario.client1.tcp.conn-39 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 146 scenario.client1.tcp.conn-39 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 147 scenario.client1.tcp.conn-40 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 148 scenario.client1.tcp.conn-40 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 149 scenario.client1.tcp.conn-40 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 150 scenario.client1.tcp.conn-40 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 151 scenario.client1.tcp.conn-41 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 152 scenario.client1.tcp.conn-41 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 153 scenario.client1.tcp.conn-41 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 154 scenario.client1.tcp.conn-41 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 155 scenario.client2.tcp.conn-42 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 156 scenario.client2.tcp.conn-42 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 157 scenario.client2.tcp.conn-42 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 158 scenario.client2.tcp.conn-42 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 159 scenario.client2.tcp.conn-43 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 160 scenario.client2.tcp.conn-43 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 161 scenario.client2.tcp.conn-43 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 162 scenario.client2.tcp.conn-43 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 163 scenario.client2.tcp.conn-44 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 164 scenario.client2.tcp.conn-44 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 165 scenario.client2.tcp.conn-44 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 166 scenario.client2.tcp.conn-44 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 167 scenario.client0.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 168 scenario.client0.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 169 scenario.client0.ppp[0].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 170 scenario.client0.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 171 scenario.client0.ppp[0].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 172 scenario.client0.ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 173 scenario.client0.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 174 scenario.client0.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 175 scenario.client0.ppp[1].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 176 scenario.client0.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 177 scenario.client0.ppp[1].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 178 scenario.client0.ppp[1].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 179 scenario.client1.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 180 scenario.client1.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 181 scenario.client1.ppp[0].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 182 scenario.client1.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 183 scenario.client1.ppp[0].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 184 scenario.client1.ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 185 scenario.client1.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 186 scenario.client1.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 187 scenario.client1.ppp[1].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 188 scenario.client1.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 189 scenario.client1.ppp[1].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 190 scenario.client1.ppp[1].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 191 scenario.client2.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 192 scenario.client2.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 193 scenario.client2.ppp[0].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 194 scenario.client2.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 195 scenario.client2.ppp[0].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 196 scenario.client2.ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 197 scenario.client2.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 198 scenario.client2.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 199 scenario.client2.ppp[1].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 200 scenario.client2.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 201 scenario.client2.ppp[1].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 202 scenario.client2.ppp[1].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 203 scenario.client3.tcp.conn-30 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 204 scenario.client3.tcp.conn-30 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 205 scenario.client3.tcp.conn-30 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 206 scenario.client3.tcp.conn-30 rto:vector ETV
+attr interpolationmode sample-hold
+vector 207 scenario.client3.tcp.conn-30 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 208 scenario.client3.tcp.conn-30 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 209 scenario.client3.tcp.conn-30 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 210 scenario.client3.tcp.conn-31 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 211 scenario.client3.tcp.conn-31 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 212 scenario.client3.tcp.conn-31 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 213 scenario.client3.tcp.conn-31 rto:vector ETV
+attr interpolationmode sample-hold
+vector 214 scenario.client3.tcp.conn-31 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 215 scenario.client3.tcp.conn-31 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 216 scenario.client3.tcp.conn-31 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 217 scenario.client3.tcp.conn-32 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 218 scenario.client3.tcp.conn-32 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 219 scenario.client3.tcp.conn-32 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 220 scenario.client3.tcp.conn-32 rto:vector ETV
+attr interpolationmode sample-hold
+vector 221 scenario.client3.tcp.conn-32 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 222 scenario.client3.tcp.conn-32 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 223 scenario.client3.tcp.conn-32 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 224 scenario.client1.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 225 scenario.client1.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 226 scenario.client2.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 227 scenario.client2.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 228 scenario.client0.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 229 scenario.client0.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 230 scenario.client2.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 231 scenario.client2.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 232 scenario.client0.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 233 scenario.client0.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 234 scenario.client1.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 235 scenario.client1.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 236 scenario.client1.tcp.conn-45 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 237 scenario.client1.tcp.conn-45 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 238 scenario.client1.tcp.conn-45 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 239 scenario.client1.tcp.conn-45 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 240 scenario.client1.tcp.conn-45 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 241 scenario.client2.tcp.conn-46 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 242 scenario.client2.tcp.conn-46 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 243 scenario.client2.tcp.conn-46 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 244 scenario.client2.tcp.conn-46 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 245 scenario.client2.tcp.conn-46 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 246 scenario.client0.tcp.conn-47 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 247 scenario.client0.tcp.conn-47 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 248 scenario.client0.tcp.conn-47 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 249 scenario.client0.tcp.conn-47 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 250 scenario.client0.tcp.conn-47 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 251 scenario.client2.tcp.conn-48 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 252 scenario.client2.tcp.conn-48 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 253 scenario.client2.tcp.conn-48 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 254 scenario.client2.tcp.conn-48 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 255 scenario.client2.tcp.conn-48 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 256 scenario.client0.tcp.conn-49 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 257 scenario.client0.tcp.conn-49 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 258 scenario.client0.tcp.conn-49 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 259 scenario.client0.tcp.conn-49 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 260 scenario.client0.tcp.conn-49 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 261 scenario.client1.tcp.conn-50 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 262 scenario.client1.tcp.conn-50 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 263 scenario.client1.tcp.conn-50 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 264 scenario.client1.tcp.conn-50 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 265 scenario.client1.tcp.conn-50 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 266 scenario.client3.tcp.conn-28 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 267 scenario.client3.tcp.conn-28 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 268 scenario.client3.tcp.conn-51 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 269 scenario.client3.tcp.conn-51 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 270 scenario.client3.tcp.conn-51 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 271 scenario.client3.tcp.conn-51 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 272 scenario.client3.tcp.conn-51 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 273 scenario.client3.tcp.conn-52 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 274 scenario.client3.tcp.conn-52 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 275 scenario.client3.tcp.conn-52 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 276 scenario.client3.tcp.conn-52 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 277 scenario.client3.tcp.conn-52 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 278 scenario.client3.tcp.conn-53 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 279 scenario.client3.tcp.conn-53 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 280 scenario.client3.tcp.conn-53 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 281 scenario.client3.tcp.conn-53 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 282 scenario.client3.tcp.conn-53 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 283 scenario.client0.tcp.conn-37 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 284 scenario.client0.tcp.conn-37 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 285 scenario.client0.tcp.conn-37 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 286 scenario.client0.tcp.conn-37 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 287 scenario.client0.tcp.conn-38 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 288 scenario.client0.tcp.conn-38 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 289 scenario.client0.tcp.conn-38 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 290 scenario.client0.tcp.conn-38 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 291 scenario.client1.tcp.conn-40 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 292 scenario.client1.tcp.conn-40 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 293 scenario.client1.tcp.conn-40 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 294 scenario.client1.tcp.conn-40 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 295 scenario.client1.tcp.conn-41 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 296 scenario.client1.tcp.conn-41 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 297 scenario.client1.tcp.conn-41 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 298 scenario.client1.tcp.conn-41 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 299 scenario.client2.tcp.conn-43 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 300 scenario.client2.tcp.conn-43 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 301 scenario.client2.tcp.conn-43 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 302 scenario.client2.tcp.conn-43 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 303 scenario.client2.tcp.conn-44 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 304 scenario.client2.tcp.conn-44 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 305 scenario.client2.tcp.conn-44 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 306 scenario.client2.tcp.conn-44 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 307 scenario.client0.tcp.conn-36 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 308 scenario.client0.tcp.conn-36 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 309 scenario.client0.tcp.conn-36 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 310 scenario.client0.tcp.conn-36 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 311 scenario.client1.tcp.conn-39 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 312 scenario.client1.tcp.conn-39 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 313 scenario.client1.tcp.conn-39 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 314 scenario.client1.tcp.conn-39 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 315 scenario.client2.tcp.conn-42 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 316 scenario.client2.tcp.conn-42 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 317 scenario.client2.tcp.conn-42 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 318 scenario.client2.tcp.conn-42 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 319 scenario.client1.tcp.conn-45 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 320 scenario.client1.tcp.conn-45 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 321 scenario.client1.tcp.conn-45 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 322 scenario.client1.tcp.conn-45 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 323 scenario.client1.tcp.conn-45 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 324 scenario.client1.tcp.conn-45 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 325 scenario.client2.tcp.conn-46 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 326 scenario.client2.tcp.conn-46 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 327 scenario.client2.tcp.conn-46 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 328 scenario.client2.tcp.conn-46 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 329 scenario.client2.tcp.conn-46 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 330 scenario.client2.tcp.conn-46 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 331 scenario.client0.tcp.conn-47 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 332 scenario.client0.tcp.conn-47 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 333 scenario.client0.tcp.conn-47 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 334 scenario.client0.tcp.conn-47 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 335 scenario.client0.tcp.conn-47 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 336 scenario.client0.tcp.conn-47 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 337 scenario.client2.tcp.conn-48 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 338 scenario.client2.tcp.conn-48 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 339 scenario.client2.tcp.conn-48 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 340 scenario.client2.tcp.conn-48 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 341 scenario.client2.tcp.conn-48 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 342 scenario.client2.tcp.conn-48 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 343 scenario.client0.tcp.conn-49 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 344 scenario.client0.tcp.conn-49 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 345 scenario.client0.tcp.conn-49 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 346 scenario.client0.tcp.conn-49 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 347 scenario.client0.tcp.conn-49 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 348 scenario.client0.tcp.conn-49 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 349 scenario.client1.tcp.conn-50 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 350 scenario.client1.tcp.conn-50 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 351 scenario.client1.tcp.conn-50 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 352 scenario.client1.tcp.conn-50 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 353 scenario.client1.tcp.conn-50 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 354 scenario.client1.tcp.conn-50 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 355 scenario.client3.tcp.conn-51 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 356 scenario.client3.tcp.conn-51 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 357 scenario.client3.tcp.conn-51 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 358 scenario.client3.tcp.conn-51 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 359 scenario.client3.tcp.conn-51 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 360 scenario.client3.tcp.conn-51 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 361 scenario.client3.tcp.conn-52 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 362 scenario.client3.tcp.conn-52 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 363 scenario.client3.tcp.conn-52 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 364 scenario.client3.tcp.conn-52 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 365 scenario.client3.tcp.conn-52 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 366 scenario.client3.tcp.conn-52 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 367 scenario.client3.tcp.conn-53 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 368 scenario.client3.tcp.conn-53 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 369 scenario.client3.tcp.conn-53 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 370 scenario.client3.tcp.conn-53 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 371 scenario.client3.tcp.conn-53 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 372 scenario.client3.tcp.conn-53 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 373 scenario.client0.tcp.conn-37 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 374 scenario.client0.tcp.conn-37 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 375 scenario.client0.tcp.conn-37 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 376 scenario.client0.tcp.conn-37 rto:vector ETV
+attr interpolationmode sample-hold
+vector 377 scenario.client0.tcp.conn-37 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 378 scenario.client0.tcp.conn-37 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 379 scenario.client0.tcp.conn-37 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 380 scenario.client0.tcp.conn-38 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 381 scenario.client0.tcp.conn-38 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 382 scenario.client0.tcp.conn-38 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 383 scenario.client0.tcp.conn-38 rto:vector ETV
+attr interpolationmode sample-hold
+vector 384 scenario.client0.tcp.conn-38 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 385 scenario.client0.tcp.conn-38 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 386 scenario.client0.tcp.conn-38 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 387 scenario.client1.tcp.conn-40 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 388 scenario.client1.tcp.conn-40 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 389 scenario.client1.tcp.conn-40 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 390 scenario.client1.tcp.conn-40 rto:vector ETV
+attr interpolationmode sample-hold
+vector 391 scenario.client1.tcp.conn-40 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 392 scenario.client1.tcp.conn-40 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 393 scenario.client1.tcp.conn-40 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 394 scenario.client1.tcp.conn-41 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 395 scenario.client1.tcp.conn-41 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 396 scenario.client1.tcp.conn-41 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 397 scenario.client1.tcp.conn-41 rto:vector ETV
+attr interpolationmode sample-hold
+vector 398 scenario.client1.tcp.conn-41 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 399 scenario.client1.tcp.conn-41 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 400 scenario.client1.tcp.conn-41 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 401 scenario.client2.tcp.conn-43 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 402 scenario.client2.tcp.conn-43 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 403 scenario.client2.tcp.conn-43 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 404 scenario.client2.tcp.conn-43 rto:vector ETV
+attr interpolationmode sample-hold
+vector 405 scenario.client2.tcp.conn-43 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 406 scenario.client2.tcp.conn-43 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 407 scenario.client2.tcp.conn-43 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 408 scenario.client2.tcp.conn-44 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 409 scenario.client2.tcp.conn-44 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 410 scenario.client2.tcp.conn-44 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 411 scenario.client2.tcp.conn-44 rto:vector ETV
+attr interpolationmode sample-hold
+vector 412 scenario.client2.tcp.conn-44 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 413 scenario.client2.tcp.conn-44 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 414 scenario.client2.tcp.conn-44 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 415 scenario.client0.tcp.conn-36 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 416 scenario.client0.tcp.conn-36 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 417 scenario.client0.tcp.conn-36 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 418 scenario.client0.tcp.conn-36 rto:vector ETV
+attr interpolationmode sample-hold
+vector 419 scenario.client0.tcp.conn-36 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 420 scenario.client0.tcp.conn-36 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 421 scenario.client0.tcp.conn-36 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 422 scenario.client1.tcp.conn-39 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 423 scenario.client1.tcp.conn-39 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 424 scenario.client1.tcp.conn-39 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 425 scenario.client1.tcp.conn-39 rto:vector ETV
+attr interpolationmode sample-hold
+vector 426 scenario.client1.tcp.conn-39 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 427 scenario.client1.tcp.conn-39 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 428 scenario.client1.tcp.conn-39 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 429 scenario.client2.tcp.conn-42 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 430 scenario.client2.tcp.conn-42 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 431 scenario.client2.tcp.conn-42 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 432 scenario.client2.tcp.conn-42 rto:vector ETV
+attr interpolationmode sample-hold
+vector 433 scenario.client2.tcp.conn-42 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 434 scenario.client2.tcp.conn-42 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 435 scenario.client2.tcp.conn-42 dupAcks:vector ETV
+attr interpolationmode sample-hold
+0	53965 427 0 769 0 0.00994 25 0 1 12 12
+1	54392 427 0 770 0 0.00994 25 0 1 12 12
+2	54819 220 0 678 0 0.008688 13 0 1 6 6
+3	55039 9 0 0 0 0 1 0 0 0 0
+4	55048 427 0 771 0 0.00994 25 0 1 12 12
+5	55475 427 0 772 0 0.00994 25 0 1 12 12
+6	55902 220 0 676 0 0.008688 13 0 1 6 6
+7	56122 9 0 0 0 0 1 0 0 0 0
+8	56131 427 0 773 0 0.00994 25 0 1 12 12
+9	56558 427 0 774 0 0.00994 25 0 1 12 12
+10	56985 233 0 677 0 0.008688 13 0 1 6 6
+11	57218 10 0 0 0 0 1 0 0 0 0
+12	57228 225 0 738 0 0.009564 13 0 1 6 6
+13	57453 225 0 736 0 0.009564 13 0 1 6 6
+14	57678 225 0 737 0 0.009564 13 0 1 6 6
+15	57903 10 0 0 0 0 1 0 0 0 0
+16	57913 10 0 0 0 0 1 0 0 0 0
+17	57923 10 0 0 0 0 1 0 0 0 0
+18	57933 10 0 0 0 0 1 0 0 0 0
+19	57943 10 0 0 0 0 1 0 0 0 0
+20	57953 29 10 49 0 0.001816 2 0 0 0 0
+21	57982 56 10 49 0 0.001816 3 7504 7732 22968 175877664
+22	58038 35 10 49 0 0.001816 2 7504 7504 15008 112620032
+23	58073 31 10 49 0 0.001816 2 0 228 228 51984
+24	58104 29 12 50 0 0.001816 2 0 0 0 0
+25	58133 56 12 50 0 0.001816 3 7504 7732 22968 175877664
+26	58189 35 12 50 0 0.001816 2 7504 7504 15008 112620032
+27	58224 31 12 50 0 0.001816 2 0 228 228 51984
+28	58255 29 14 51 0 0.001816 2 0 0 0 0
+29	58284 56 14 51 0 0.001816 3 7504 7732 22968 175877664
+30	58340 35 14 51 0 0.001816 2 7504 7504 15008 112620032
+31	58375 31 14 51 0 0.001816 2 0 228 228 51984
+32	58406 111 19 729 0 0.009188 6 40 44 249 10353
+33	58517 111 19 729 0 0.009188 6 40 44 249 10353
+34	58628 210 19 729 0 0.009188 12 0 1 6 6
+35	58838 111 19 729 0 0.009188 6 40 44 249 10353
+36	58949 105 19 729 0 0.009188 6 0 0 0 0
+37	59054 111 19 729 0 0.009188 6 47 51 291 14133
+38	59165 111 20 727 0 0.009188 6 40 44 249 10353
+39	59276 111 20 727 0 0.009188 6 40 44 249 10353
+40	59387 210 20 727 0 0.009188 12 0 1 6 6
+41	59597 111 20 727 0 0.009188 6 40 44 249 10353
+42	59708 105 20 727 0 0.009188 6 0 0 0 0
+43	59813 111 20 727 0 0.009188 6 47 51 291 14133
+44	59924 111 21 728 0 0.009188 6 40 44 249 10353
+45	60035 111 21 728 0 0.009188 6 40 44 249 10353
+46	60146 210 21 728 0 0.009188 12 0 1 6 6
+47	60356 111 21 728 0 0.009188 6 40 44 249 10353
+48	60467 105 21 728 0 0.009188 6 0 0 0 0
+49	60572 111 21 728 0 0.009188 6 47 51 291 14133
+50	60683 116 25 777 0.000908 0.010064 6 47 51 291 14133
+51	60799 116 25 777 0.000908 0.010064 6 40 44 249 10353
+52	60915 116 26 775 0.000908 0.010064 6 47 51 291 14133
+53	61031 116 26 775 0.000908 0.010064 6 40 44 249 10353
+54	61147 116 27 776 0.000908 0.010064 6 47 51 291 14133
+55	61263 116 27 776 0.000908 0.010064 6 40 44 249 10353
+56	61379 60 31 164 0.000908 0.003608 3 0 675 1350 911250
+57	61439 56 31 164 0.000908 0.003608 3 0 0 0 0
+58	61495 61 31 70 0.000908 0.0027 3 7505 7505 22515 168975075
+59	61556 40 31 70 0.000908 0.0027 2 7504 7504 15008 112620032
+60	61596 50 31 70 0.000908 0.0027 3 0 1 1 1
+61	61646 40 31 70 0.000908 0.0027 2 7503 7504 15007 112605025
+62	61686 34 31 70 0.000908 0.0027 2 1 2 3 5
+63	61720 60 32 165 0.000908 0.003608 3 0 675 1350 911250
+64	61780 56 32 165 0.000908 0.003608 3 0 0 0 0
+65	61836 61 32 71 0.000908 0.0027 3 7505 7505 22515 168975075
+66	61897 40 32 71 0.000908 0.0027 2 7504 7504 15008 112620032
+67	61937 50 32 71 0.000908 0.0027 3 0 1 1 1
+68	61987 40 32 71 0.000908 0.0027 2 7503 7504 15007 112605025
+69	62027 34 32 71 0.000908 0.0027 2 1 2 3 5
+70	62061 60 33 163 0.000908 0.003608 3 0 675 1350 911250
+71	62121 56 33 163 0.000908 0.003608 3 0 0 0 0
+72	62177 61 33 72 0.000908 0.0027 3 7505 7505 22515 168975075
+73	62238 40 33 72 0.000908 0.0027 2 7504 7504 15008 112620032
+74	62278 50 33 72 0.000908 0.0027 3 0 1 1 1
+75	62328 40 33 72 0.000908 0.0027 2 7503 7504 15007 112605025
+76	62368 34 33 72 0.000908 0.0027 2 1 2 3 5
+77	62402 114 37 669 0.000908 0.008304 6 40 44 251 10515
+78	62516 114 37 669 0.000908 0.008304 6 40 44 251 10515
+79	62630 218 37 669 0.000908 0.008304 12 0 1 6 6
+80	62848 116 37 669 0.000908 0.008304 6 40 44 251 10515
+81	62964 117 37 669 0.000908 0.008304 6 0 0.000376 0.000376 1.41376e-007
+82	63081 116 37 669 0.000908 0.008304 6 47 51 293 14323
+83	63197 114 38 663 0.000908 0.008304 6 40 44 251 10515
+84	63311 114 38 663 0.000908 0.008304 6 40 44 251 10515
+85	63425 218 38 663 0.000908 0.008304 12 0 1 6 6
+86	63643 116 38 663 0.000908 0.008304 6 40 44 251 10515
+87	63759 117 38 663 0.000908 0.008304 6 0 0.000376 0.000376 1.41376e-007
+88	63876 116 38 663 0.000908 0.008304 6 47 51 293 14323
+89	63992 114 39 666 0.000908 0.008304 6 40 44 251 10515
+90	64106 114 39 666 0.000908 0.008304 6 40 44 251 10515
+91	64220 218 39 666 0.000908 0.008304 12 0 1 6 6
+92	64438 116 39 666 0.000908 0.008304 6 40 44 251 10515
+93	64554 117 39 666 0.000908 0.008304 6 0 0.000376 0.000376 1.41376e-007
+94	64671 116 39 666 0.000908 0.008304 6 47 51 293 14323
+95	64787 119 43 714 0.001816 0.009188 6 47 51 293 14323
+96	64906 119 43 714 0.001816 0.009188 6 40 44 251 10515
+97	65025 119 44 712 0.001816 0.009188 6 47 51 293 14323
+98	65144 119 44 712 0.001816 0.009188 6 40 44 251 10515
+99	65263 119 45 713 0.001816 0.009188 6 47 51 293 14323
+100	65382 125 45 713 0.001816 0.009188 6 40 44 251 10515
+101	65507 43 49 145 0.001816 0.003576 2 227 228 455 103513
+102	65550 39 49 145 0.001816 0.003576 2 1 2 3 5
+103	65589 45 49 145 0.001816 0.003576 2 7503 7504 15007 112605025
+104	65634 39 49 145 0.001816 0.003576 2 0 1 1 1
+105	65673 43 50 146 0.001816 0.003576 2 227 228 455 103513
+106	65716 39 50 146 0.001816 0.003576 2 1 2 3 5
+107	65755 45 50 146 0.001816 0.003576 2 7503 7504 15007 112605025
+108	65800 39 50 146 0.001816 0.003576 2 0 1 1 1
+109	65839 43 51 147 0.001816 0.003576 2 227 228 455 103513
+110	65882 39 51 147 0.001816 0.003576 2 1 2 3 5
+111	65921 45 51 147 0.001816 0.003576 2 7503 7504 15007 112605025
+112	65966 39 51 147 0.001816 0.003576 2 0 1 1 1
+113	66005 17 70 70 0.0027 0.0027 1 1 1 1 1
+114	66022 19 70 70 0.0027 0.0027 1 228 228 228 51984
+115	66041 17 70 70 0.0027 0.0027 1 0 0 0 0
+116	66058 20 70 70 0.0027 0.0027 1 1072 1072 1072 1149184
+117	66078 26 70 70 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+118	66104 17 70 70 0.0027 0.0027 1 0 0 0 0
+119	66121 17 71 71 0.0027 0.0027 1 1 1 1 1
+120	66138 19 71 71 0.0027 0.0027 1 228 228 228 51984
+121	66157 17 71 71 0.0027 0.0027 1 0 0 0 0
+122	66174 20 71 71 0.0027 0.0027 1 1072 1072 1072 1149184
+123	66194 26 71 71 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+124	66220 17 71 71 0.0027 0.0027 1 0 0 0 0
+125	66237 17 72 72 0.0027 0.0027 1 1 1 1 1
+126	66254 19 72 72 0.0027 0.0027 1 228 228 228 51984
+127	66273 17 72 72 0.0027 0.0027 1 0 0 0 0
+128	66290 20 72 72 0.0027 0.0027 1 1072 1072 1072 1149184
+129	66310 26 72 72 0.0027 0.0027 1 4294967295 4294967295 4294967295 1.844674406512e+019
+130	66336 17 72 72 0.0027 0.0027 1 0 0 0 0
+131	66353 77 91 647 0.0027 0.008304 4 0 0 0 0
+132	66430 112 91 647 0.0027 0.008304 5 7504 8500 41504 345310016
+133	66542 89 91 647 0.0027 0.008304 4 7504 7504 30016 225240064
+134	66631 83 91 647 0.0027 0.008304 4 0 996 2988 2976048
+135	66714 113 93 645 0.0027 0.008304 6 0 0 0 0
+136	66827 154 93 645 0.0027 0.008304 7 7504 8407 57946 480375910
+137	66981 131 93 645 0.0027 0.008304 6 7504 7504 45024 337860096
+138	67112 123 93 645 0.0027 0.008304 6 0 903 4515 4077045
+139	67235 113 95 646 0.0027 0.008304 6 0 0 0 0
+140	67348 154 95 646 0.0027 0.008304 7 7504 8407 57946 480375910
+141	67502 131 95 646 0.0027 0.008304 6 7504 7504 45024 337860096
+142	67633 123 95 646 0.0027 0.008304 6 0 903 4515 4077045
+143	67756 77 97 639 0.0027 0.008304 4 0 0 0 0
+144	67833 112 97 639 0.0027 0.008304 5 7504 8500 41504 345310016
+145	67945 89 97 639 0.0027 0.008304 4 7504 7504 30016 225240064
+146	68034 83 97 639 0.0027 0.008304 4 0 996 2988 2976048
+147	68117 113 99 637 0.0027 0.008304 6 0 0 0 0
+148	68230 154 99 637 0.0027 0.008304 7 7504 8407 57946 480375910
+149	68384 131 99 637 0.0027 0.008304 6 7504 7504 45024 337860096
+150	68515 123 99 637 0.0027 0.008304 6 0 903 4515 4077045
+151	68638 114 101 638 0.0027 0.008304 6 0 0 0 0
+152	68752 155 101 638 0.0027 0.008304 7 7504 8407 57946 480375910
+153	68907 132 101 638 0.0027 0.008304 6 7504 7504 45024 337860096
+154	69039 124 101 638 0.0027 0.008304 6 0 903 4515 4077045
+155	69163 78 103 643 0.0027 0.008304 4 0 0 0 0
+156	69241 113 103 643 0.0027 0.008304 5 7504 8500 41504 345310016
+157	69354 90 103 643 0.0027 0.008304 4 7504 7504 30016 225240064
+158	69444 84 103 643 0.0027 0.008304 4 0 996 2988 2976048
+159	69528 114 105 641 0.0027 0.008304 6 0 0 0 0
+160	69642 155 105 641 0.0027 0.008304 7 7504 8407 57946 480375910
+161	69797 132 105 641 0.0027 0.008304 6 7504 7504 45024 337860096
+162	69929 124 105 641 0.0027 0.008304 6 0 903 4515 4077045
+163	70053 114 107 642 0.0027 0.008304 6 0 0 0 0
+164	70167 155 107 642 0.0027 0.008304 7 7504 8407 57946 480375910
+165	70322 132 107 642 0.0027 0.008304 6 7504 7504 45024 337860096
+166	70454 124 107 642 0.0027 0.008304 6 0 903 4515 4077045
+167	70578 243 119 763 0.0027 0.009564 12 40 44 493 20277
+168	70821 243 119 763 0.0027 0.009564 12 40 44 493 20277
+169	71064 463 119 763 0.0027 0.009564 24 0 2 14 16
+170	71527 244 119 763 0.0027 0.009564 12 40 44 493 20277
+171	71771 259 119 763 0.0027 0.009564 12 0 0.00076 0.001888 1.001728e-006
+172	72030 244 119 763 0.0027 0.009564 12 47 51 577 27767
+173	72274 243 120 764 0.0027 0.009564 12 40 44 493 20277
+174	72517 243 120 764 0.0027 0.009564 12 40 44 493 20277
+175	72760 463 120 764 0.0027 0.009564 24 0 2 14 16
+176	73223 244 120 764 0.0027 0.009564 12 40 44 493 20277
+177	73467 259 120 764 0.0027 0.009564 12 0 0.00076 0.001888 1.001728e-006
+178	73726 244 120 764 0.0027 0.009564 12 47 51 577 27767
+179	73970 243 122 765 0.0027 0.009564 12 40 44 493 20277
+180	74213 243 122 765 0.0027 0.009564 12 40 44 493 20277
+181	74456 463 122 765 0.0027 0.009564 24 0 2 14 16
+182	74919 244 122 765 0.0027 0.009564 12 40 44 493 20277
+183	75163 259 122 765 0.0027 0.009564 12 0 0.00076 0.001888 1.001728e-006
+184	75422 244 122 765 0.0027 0.009564 12 47 51 577 27767
+185	75666 243 123 766 0.0027 0.009564 12 40 44 493 20277
+186	75909 243 123 766 0.0027 0.009564 12 40 44 493 20277
+187	76152 463 123 766 0.0027 0.009564 24 0 2 14 16
+188	76615 244 123 766 0.0027 0.009564 12 40 44 493 20277
+189	76859 259 123 766 0.0027 0.009564 12 0 0.00076 0.001888 1.001728e-006
+190	77118 244 123 766 0.0027 0.009564 12 47 51 577 27767
+191	77362 243 125 767 0.0027 0.009564 12 40 44 493 20277
+192	77605 243 125 767 0.0027 0.009564 12 40 44 493 20277
+193	77848 463 125 767 0.0027 0.009564 24 0 2 14 16
+194	78311 244 125 767 0.0027 0.009564 12 40 44 493 20277
+195	78555 259 125 767 0.0027 0.009564 12 0 0.00076 0.001888 1.001728e-006
+196	78814 244 125 767 0.0027 0.009564 12 47 51 577 27767
+197	79058 243 126 768 0.0027 0.009564 12 40 44 493 20277
+198	79301 243 126 768 0.0027 0.009564 12 40 44 493 20277
+199	79544 463 126 768 0.0027 0.009564 24 0 2 14 16
+200	80007 244 126 768 0.0027 0.009564 12 40 44 493 20277
+201	80251 259 126 768 0.0027 0.009564 12 0 0.00076 0.001888 1.001728e-006
+202	80510 244 126 768 0.0027 0.009564 12 47 51 577 27767
+203	80754 26 145 145 0.003576 0.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+204	80780 26 145 145 0.003576 0.003576 1 0.00022 0.00022 0.00022 4.84e-008
+205	80806 26 145 145 0.003576 0.003576 1 0.65647 0.65647 0.65647 0.4309528609
+206	80832 25 145 145 0.003576 0.003576 1 2.6261 2.6261 2.6261 6.89640121
+207	80857 23 145 145 0.003576 0.003576 1 1072 1072 1072 1149184
+208	80880 29 145 145 0.003576 0.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+209	80909 20 145 145 0.003576 0.003576 1 0 0 0 0
+210	80929 26 146 146 0.003576 0.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+211	80955 26 146 146 0.003576 0.003576 1 0.00022 0.00022 0.00022 4.84e-008
+212	80981 26 146 146 0.003576 0.003576 1 0.65647 0.65647 0.65647 0.4309528609
+213	81007 25 146 146 0.003576 0.003576 1 2.6261 2.6261 2.6261 6.89640121
+214	81032 23 146 146 0.003576 0.003576 1 1072 1072 1072 1149184
+215	81055 29 146 146 0.003576 0.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+216	81084 20 146 146 0.003576 0.003576 1 0 0 0 0
+217	81104 26 147 147 0.003576 0.003576 1 0.00176 0.00176 0.00176 3.0976e-006
+218	81130 26 147 147 0.003576 0.003576 1 0.00022 0.00022 0.00022 4.84e-008
+219	81156 26 147 147 0.003576 0.003576 1 0.65647 0.65647 0.65647 0.4309528609
+220	81182 25 147 147 0.003576 0.003576 1 2.6261 2.6261 2.6261 6.89640121
+221	81207 23 147 147 0.003576 0.003576 1 1072 1072 1072 1149184
+222	81230 29 147 147 0.003576 0.003576 1 4294967295 4294967295 4294967295 1.844674406512e+019
+223	81259 20 147 147 0.003576 0.003576 1 0 0 0 0
+224	81279 246 148 784 0.003608 0.01044 12 47 51 577 27767
+225	81525 246 148 784 0.003608 0.01044 12 40 44 493 20277
+226	81771 246 149 785 0.003608 0.01044 12 47 51 577 27767
+227	82017 246 149 785 0.003608 0.01044 12 40 44 493 20277
+228	82263 246 150 786 0.003608 0.01044 12 47 51 577 27767
+229	82509 246 150 786 0.003608 0.01044 12 40 44 493 20277
+230	82755 246 151 787 0.003608 0.01044 12 47 51 577 27767
+231	83001 246 151 787 0.003608 0.01044 12 40 44 493 20277
+232	83247 246 152 788 0.003608 0.01044 12 47 51 577 27767
+233	83493 246 152 788 0.003608 0.01044 12 40 44 493 20277
+234	83739 246 153 789 0.003608 0.01044 12 47 51 577 27767
+235	83985 246 153 789 0.003608 0.01044 12 40 44 493 20277
+236	84231 158 160 747 0.003608 0.009564 7 8180 8185 57274 468615894
+237	84389 44 160 277 0.003608 0.0054 2 7504 7504 15008 112620032
+238	84433 214 160 747 0.003608 0.009564 11 0 1 1 1
+239	84647 135 160 747 0.003608 0.009564 6 7503 7504 45023 337845089
+240	84782 129 160 747 0.003608 0.009564 6 676 681 4071 2762191
+241	84911 158 161 749 0.003608 0.009564 7 8180 8185 57274 468615894
+242	85069 44 161 278 0.003608 0.0054 2 7504 7504 15008 112620032
+243	85113 214 161 749 0.003608 0.009564 11 0 1 1 1
+244	85327 135 161 749 0.003608 0.009564 6 7503 7504 45023 337845089
+245	85462 129 161 749 0.003608 0.009564 6 676 681 4071 2762191
+246	85591 158 162 745 0.003608 0.009564 7 8180 8185 57274 468615894
+247	85749 44 162 279 0.003608 0.0054 2 7504 7504 15008 112620032
+248	85793 214 162 745 0.003608 0.009564 11 0 1 1 1
+249	86007 135 162 745 0.003608 0.009564 6 7503 7504 45023 337845089
+250	86142 129 162 745 0.003608 0.009564 6 676 681 4071 2762191
+251	86271 158 163 750 0.003608 0.009564 7 8180 8185 57274 468615894
+252	86429 44 163 280 0.003608 0.0054 2 7504 7504 15008 112620032
+253	86473 214 163 750 0.003608 0.009564 11 0 1 1 1
+254	86687 135 163 750 0.003608 0.009564 6 7503 7504 45023 337845089
+255	86822 129 163 750 0.003608 0.009564 6 676 681 4071 2762191
+256	86951 158 164 746 0.003608 0.009564 7 8180 8185 57274 468615894
+257	87109 44 164 281 0.003608 0.0054 2 7504 7504 15008 112620032
+258	87153 214 164 746 0.003608 0.009564 11 0 1 1 1
+259	87367 135 164 746 0.003608 0.009564 6 7503 7504 45023 337845089
+260	87502 129 164 746 0.003608 0.009564 6 676 681 4071 2762191
+261	87631 158 165 748 0.003608 0.009564 7 8180 8185 57274 468615894
+262	87789 44 165 282 0.003608 0.0054 2 7504 7504 15008 112620032
+263	87833 214 165 748 0.003608 0.009564 11 0 1 1 1
+264	88047 135 165 748 0.003608 0.009564 6 7503 7504 45023 337845089
+265	88182 129 165 748 0.003608 0.009564 6 676 681 4071 2762191
+266	88311 66 184 186 0.003984 0.003984 3 675 675 2025 1366875
+267	88377 60 184 186 0.003984 0.003984 3 0 0 0 0
+268	88437 115 184 720 0.003984 0.009188 5 8180 8183 40905 334643813
+269	88552 46 184 367 0.003984 0.005776 2 7504 7504 15008 112620032
+270	88598 140 184 720 0.003984 0.009188 7 0 1 1 1
+271	88738 92 184 720 0.003984 0.009188 4 7503 7504 30015 225225057
+272	88830 88 184 720 0.003984 0.009188 4 676 679 2710 1836030
+273	88918 115 185 718 0.003984 0.009188 5 8180 8183 40905 334643813
+274	89033 46 185 368 0.003984 0.005776 2 7504 7504 15008 112620032
+275	89079 140 185 718 0.003984 0.009188 7 0 1 1 1
+276	89219 92 185 718 0.003984 0.009188 4 7503 7504 30015 225225057
+277	89311 88 185 718 0.003984 0.009188 4 676 679 2710 1836030
+278	89399 115 186 719 0.003984 0.009188 5 8180 8183 40905 334643813
+279	89514 46 186 369 0.003984 0.005776 2 7504 7504 15008 112620032
+280	89560 140 186 719 0.003984 0.009188 7 0 1 1 1
+281	89700 92 186 719 0.003984 0.009188 4 7503 7504 30015 225225057
+282	89792 88 186 719 0.003984 0.009188 4 676 679 2710 1836030
+283	89880 129 214 798 0.004516 0.01044 6 902 903 5417 4890649
+284	90009 129 214 798 0.004516 0.01044 6 676 681 4071 2762191
+285	90138 135 214 798 0.004516 0.01044 6 7503 7504 45023 337845089
+286	90273 193 214 798 0.004516 0.01044 10 0 3 17 37
+287	90466 129 215 800 0.004516 0.01044 6 902 903 5417 4890649
+288	90595 129 215 800 0.004516 0.01044 6 676 681 4071 2762191
+289	90724 135 215 800 0.004516 0.01044 6 7503 7504 45023 337845089
+290	90859 193 215 800 0.004516 0.01044 10 0 3 17 37
+291	91052 129 216 796 0.004516 0.01044 6 902 903 5417 4890649
+292	91181 129 216 796 0.004516 0.01044 6 676 681 4071 2762191
+293	91310 135 216 796 0.004516 0.01044 6 7503 7504 45023 337845089
+294	91445 193 216 796 0.004516 0.01044 10 0 3 17 37
+295	91638 129 217 801 0.004516 0.01044 6 902 903 5417 4890649
+296	91767 129 217 801 0.004516 0.01044 6 676 681 4071 2762191
+297	91896 135 217 801 0.004516 0.01044 6 7503 7504 45023 337845089
+298	92031 193 217 801 0.004516 0.01044 10 0 3 17 37
+299	92224 129 218 797 0.004516 0.01044 6 902 903 5417 4890649
+300	92353 129 218 797 0.004516 0.01044 6 676 681 4071 2762191
+301	92482 135 218 797 0.004516 0.01044 6 7503 7504 45023 337845089
+302	92617 193 218 797 0.004516 0.01044 10 0 3 17 37
+303	92810 129 219 799 0.004516 0.01044 6 902 903 5417 4890649
+304	92939 129 219 799 0.004516 0.01044 6 676 681 4071 2762191
+305	93068 135 219 799 0.004516 0.01044 6 7503 7504 45023 337845089
+306	93203 193 219 799 0.004516 0.01044 10 0 3 17 37
+307	93396 88 244 783 0.004892 0.010064 4 995 996 3983 3966073
+308	93484 88 244 783 0.004892 0.010064 4 676 679 2710 1836030
+309	93572 92 244 783 0.004892 0.010064 4 7503 7504 30015 225225057
+310	93664 120 244 783 0.004892 0.010064 6 0 2 5 7
+311	93784 88 245 781 0.004892 0.010064 4 995 996 3983 3966073
+312	93872 88 245 781 0.004892 0.010064 4 676 679 2710 1836030
+313	93960 92 245 781 0.004892 0.010064 4 7503 7504 30015 225225057
+314	94052 120 245 781 0.004892 0.010064 6 0 2 5 7
+315	94172 88 246 782 0.004892 0.010064 4 995 996 3983 3966073
+316	94260 88 246 782 0.004892 0.010064 4 676 679 2710 1836030
+317	94348 92 246 782 0.004892 0.010064 4 7503 7504 30015 225225057
+318	94440 120 246 782 0.004892 0.010064 6 0 2 5 7
+319	94560 107 277 747 0.0054 0.009564 5 676 680 3390 2298430
+320	94667 107 277 747 0.0054 0.009564 5 903 903 4515 4077045
+321	94774 18 277 277 0.0054 0.0054 1 0 0 0 0
+322	94792 21 277 277 0.0054 0.0054 1 1072 1072 1072 1149184
+323	94813 27 277 277 0.0054 0.0054 1 4294967295 4294967295 4294967295 1.844674406512e+019
+324	94840 97 277 747 0.0054 0.009564 5 0 0 0 0
+325	94937 107 278 749 0.0054 0.009564 5 676 680 3390 2298430
+326	95044 107 278 749 0.0054 0.009564 5 903 903 4515 4077045
+327	95151 18 278 278 0.0054 0.0054 1 0 0 0 0
+328	95169 21 278 278 0.0054 0.0054 1 1072 1072 1072 1149184
+329	95190 27 278 278 0.0054 0.0054 1 4294967295 4294967295 4294967295 1.844674406512e+019
+330	95217 97 278 749 0.0054 0.009564 5 0 0 0 0
+331	95314 107 279 745 0.0054 0.009564 5 676 680 3390 2298430
+332	95421 107 279 745 0.0054 0.009564 5 903 903 4515 4077045
+333	95528 18 279 279 0.0054 0.0054 1 0 0 0 0
+334	95546 21 279 279 0.0054 0.0054 1 1072 1072 1072 1149184
+335	95567 27 279 279 0.0054 0.0054 1 4294967295 4294967295 4294967295 1.844674406512e+019
+336	95594 97 279 745 0.0054 0.009564 5 0 0 0 0
+337	95691 107 280 750 0.0054 0.009564 5 676 680 3390 2298430
+338	95798 107 280 750 0.0054 0.009564 5 903 903 4515 4077045
+339	95905 18 280 280 0.0054 0.0054 1 0 0 0 0
+340	95923 21 280 280 0.0054 0.0054 1 1072 1072 1072 1149184
+341	95944 27 280 280 0.0054 0.0054 1 4294967295 4294967295 4294967295 1.844674406512e+019
+342	95971 97 280 750 0.0054 0.009564 5 0 0 0 0
+343	96068 107 281 746 0.0054 0.009564 5 676 680 3390 2298430
+344	96175 107 281 746 0.0054 0.009564 5 903 903 4515 4077045
+345	96282 18 281 281 0.0054 0.0054 1 0 0 0 0
+346	96300 21 281 281 0.0054 0.0054 1 1072 1072 1072 1149184
+347	96321 27 281 281 0.0054 0.0054 1 4294967295 4294967295 4294967295 1.844674406512e+019
+348	96348 97 281 746 0.0054 0.009564 5 0 0 0 0
+349	96445 107 282 748 0.0054 0.009564 5 676 680 3390 2298430
+350	96552 107 282 748 0.0054 0.009564 5 903 903 4515 4077045
+351	96659 18 282 282 0.0054 0.0054 1 0 0 0 0
+352	96677 21 282 282 0.0054 0.0054 1 1072 1072 1072 1149184
+353	96698 27 282 282 0.0054 0.0054 1 4294967295 4294967295 4294967295 1.844674406512e+019
+354	96725 97 282 748 0.0054 0.009564 5 0 0 0 0
+355	96822 66 367 720 0.005776 0.009188 3 676 678 2031 1374989
+356	96888 66 367 720 0.005776 0.009188 3 996 996 2988 2976048
+357	96954 20 367 367 0.005776 0.005776 1 0 0 0 0
+358	96974 23 367 367 0.005776 0.005776 1 1072 1072 1072 1149184
+359	96997 29 367 367 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
+360	97026 60 367 720 0.005776 0.009188 3 0 0 0 0
+361	97086 66 368 718 0.005776 0.009188 3 676 678 2031 1374989
+362	97152 66 368 718 0.005776 0.009188 3 996 996 2988 2976048
+363	97218 20 368 368 0.005776 0.005776 1 0 0 0 0
+364	97238 23 368 368 0.005776 0.005776 1 1072 1072 1072 1149184
+365	97261 29 368 368 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
+366	97290 60 368 718 0.005776 0.009188 3 0 0 0 0
+367	97350 66 369 719 0.005776 0.009188 3 676 678 2031 1374989
+368	97416 66 369 719 0.005776 0.009188 3 996 996 2988 2976048
+369	97482 20 369 369 0.005776 0.005776 1 0 0 0 0
+370	97502 23 369 369 0.005776 0.005776 1 1072 1072 1072 1149184
+371	97525 29 369 369 0.005776 0.005776 1 4294967295 4294967295 4294967295 1.844674406512e+019
+372	97554 60 369 719 0.005776 0.009188 3 0 0 0 0
+373	97614 52 409 706 0.006276 0.00918 2 0.00176 0.002136 0.003896 7.660096e-006
+374	97666 53 409 706 0.006276 0.00918 2 0.00022 0.0004595 0.0006795 2.5954025e-007
+375	97719 54 409 706 0.006276 0.00918 2 0.57465075 0.65647 1.23112075 0.76117634537556
+376	97773 52 409 706 0.006276 0.00918 2 2.2990625 2.6261 4.9251625 12.182089588906
+377	97825 112 409 798 0.006276 0.01044 5 1072 3216 10720 25856640
+378	97937 142 409 798 0.006276 0.01044 5 4294967295 4294967295 21474836475 9.2233720325598e+019
+379	98079 97 409 798 0.006276 0.01044 5 0 0 0 0
+380	98176 52 410 707 0.006276 0.00918 2 0.00176 0.002136 0.003896 7.660096e-006
+381	98228 53 410 707 0.006276 0.00918 2 0.00022 0.0004595 0.0006795 2.5954025e-007
+382	98281 54 410 707 0.006276 0.00918 2 0.57465075 0.65647 1.23112075 0.76117634537556
+383	98335 52 410 707 0.006276 0.00918 2 2.2990625 2.6261 4.9251625 12.182089588906
+384	98387 112 410 800 0.006276 0.01044 5 1072 3216 10720 25856640
+385	98499 142 410 800 0.006276 0.01044 5 4294967295 4294967295 21474836475 9.2233720325598e+019
+386	98641 97 410 800 0.006276 0.01044 5 0 0 0 0
+387	98738 52 411 708 0.006276 0.00918 2 0.00176 0.002136 0.003896 7.660096e-006
+388	98790 53 411 708 0.006276 0.00918 2 0.00022 0.0004595 0.0006795 2.5954025e-007
+389	98843 54 411 708 0.006276 0.00918 2 0.57465075 0.65647 1.23112075 0.76117634537556
+390	98897 52 411 708 0.006276 0.00918 2 2.2990625 2.6261 4.9251625 12.182089588906
+391	98949 112 411 796 0.006276 0.01044 5 1072 3216 10720 25856640
+392	99061 142 411 796 0.006276 0.01044 5 4294967295 4294967295 21474836475 9.2233720325598e+019
+393	99203 97 411 796 0.006276 0.01044 5 0 0 0 0
+394	99300 52 412 709 0.006276 0.00918 2 0.00176 0.002136 0.003896 7.660096e-006
+395	99352 53 412 709 0.006276 0.00918 2 0.00022 0.0004595 0.0006795 2.5954025e-007
+396	99405 54 412 709 0.006276 0.00918 2 0.57465075 0.65647 1.23112075 0.76117634537556
+397	99459 52 412 709 0.006276 0.00918 2 2.2990625 2.6261 4.9251625 12.182089588906
+398	99511 112 412 801 0.006276 0.01044 5 1072 3216 10720 25856640
+399	99623 142 412 801 0.006276 0.01044 5 4294967295 4294967295 21474836475 9.2233720325598e+019
+400	99765 97 412 801 0.006276 0.01044 5 0 0 0 0
+401	99862 52 413 710 0.006276 0.00918 2 0.00176 0.002136 0.003896 7.660096e-006
+402	99914 53 413 710 0.006276 0.00918 2 0.00022 0.0004595 0.0006795 2.5954025e-007
+403	99967 54 413 710 0.006276 0.00918 2 0.57465075 0.65647 1.23112075 0.76117634537556
+404	100021 52 413 710 0.006276 0.00918 2 2.2990625 2.6261 4.9251625 12.182089588906
+405	100073 112 413 797 0.006276 0.01044 5 1072 3216 10720 25856640
+406	100185 142 413 797 0.006276 0.01044 5 4294967295 4294967295 21474836475 9.2233720325598e+019
+407	100327 97 413 797 0.006276 0.01044 5 0 0 0 0
+408	100424 52 414 711 0.006276 0.00918 2 0.00176 0.002136 0.003896 7.660096e-006
+409	100476 53 414 711 0.006276 0.00918 2 0.00022 0.0004595 0.0006795 2.5954025e-007
+410	100529 54 414 711 0.006276 0.00918 2 0.57465075 0.65647 1.23112075 0.76117634537556
+411	100583 52 414 711 0.006276 0.00918 2 2.2990625 2.6261 4.9251625 12.182089588906
+412	100635 112 414 799 0.006276 0.01044 5 1072 3216 10720 25856640
+413	100747 142 414 799 0.006276 0.01044 5 4294967295 4294967295 21474836475 9.2233720325598e+019
+414	100889 97 414 799 0.006276 0.01044 5 0 0 0 0
+415	100986 52 427 685 0.006652 0.008804 2 0.00176 0.00176 0.00352 6.1952e-006
+416	101038 54 427 685 0.006652 0.008804 2 0.00022 0.0004125 0.0006325 2.1855625e-007
+417	101092 55 427 685 0.006652 0.008804 2 0.57460375 0.65647 1.23107375 0.76112233041406
+418	101147 53 427 685 0.006652 0.008804 2 2.2988275 2.6261 4.9249275 12.181009084756
+419	101200 69 427 783 0.006652 0.010064 3 1072 2144 4824 8331584
+420	101269 87 427 783 0.006652 0.010064 3 4294967295 4294967295 12884901885 5.5340232195359e+019
+421	101356 60 427 783 0.006652 0.010064 3 0 0 0 0
+422	101416 52 428 686 0.006652 0.008804 2 0.00176 0.00176 0.00352 6.1952e-006
+423	101468 54 428 686 0.006652 0.008804 2 0.00022 0.0004125 0.0006325 2.1855625e-007
+424	101522 55 428 686 0.006652 0.008804 2 0.57460375 0.65647 1.23107375 0.76112233041406
+425	101577 53 428 686 0.006652 0.008804 2 2.2988275 2.6261 4.9249275 12.181009084756
+426	101630 69 428 781 0.006652 0.010064 3 1072 2144 4824 8331584
+427	101699 87 428 781 0.006652 0.010064 3 4294967295 4294967295 12884901885 5.5340232195359e+019
+428	101786 60 428 781 0.006652 0.010064 3 0 0 0 0
+429	101846 52 429 687 0.006652 0.008804 2 0.00176 0.00176 0.00352 6.1952e-006
+430	101898 54 429 687 0.006652 0.008804 2 0.00022 0.0004125 0.0006325 2.1855625e-007
+431	101952 55 429 687 0.006652 0.008804 2 0.57460375 0.65647 1.23107375 0.76112233041406
+432	102007 53 429 687 0.006652 0.008804 2 2.2988275 2.6261 4.9249275 12.181009084756
+433	102060 69 429 782 0.006652 0.010064 3 1072 2144 4824 8331584
+434	102129 87 429 782 0.006652 0.010064 3 4294967295 4294967295 12884901885 5.5340232195359e+019
+435	102216 60 429 782 0.006652 0.010064 3 0 0 0 0
 

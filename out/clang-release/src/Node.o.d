@@ -47,8 +47,8 @@
   ../../inet4/src\inet/common/packet/chunk/SequenceChunk.h \
   ../../inet4/src\inet/common/packet/chunk/SliceChunk.h \
   ../../inet4/src\inet/common/packet/chunk/FieldsChunk.h \
-  ../../inet4/src\inet/networklayer/contract/ipv4/Ipv4Address_m.h base.h \
-  ../../inet4/src\inet/common/socket/SocketMap.h \
+  ../../inet4/src\inet/networklayer/contract/ipv4/Ipv4Address_m.h \
+  messageL_m.h base.h ../../inet4/src\inet/common/socket/SocketMap.h \
   ../../inet4/src\inet/networklayer/common/L3AddressResolver.h \
   ../../inet4/src\inet/networklayer/contract/IRoutingTable.h \
   ../../inet4/src\inet/networklayer/contract/IRoute.h \
@@ -172,6 +172,8 @@ msg_m.h:
 ../../inet4/src\inet/common/packet/chunk/FieldsChunk.h:
 
 ../../inet4/src\inet/networklayer/contract/ipv4/Ipv4Address_m.h:
+
+messageL_m.h:
 
 base.h:
 

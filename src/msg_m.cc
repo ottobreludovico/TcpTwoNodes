@@ -607,6 +607,223 @@ void *IntVectorVDescriptor::getFieldStructValuePointer(void *object, int field, 
     }
 }
 
+class msg_Descriptor : public omnetpp::cClassDescriptor
+{
+  private:
+    mutable const char **propertynames;
+    enum FieldConstants {
+    };
+  public:
+    msg_Descriptor();
+    virtual ~msg_Descriptor();
+
+    virtual bool doesSupport(omnetpp::cObject *obj) const override;
+    virtual const char **getPropertyNames() const override;
+    virtual const char *getProperty(const char *propertyname) const override;
+    virtual int getFieldCount() const override;
+    virtual const char *getFieldName(int field) const override;
+    virtual int findField(const char *fieldName) const override;
+    virtual unsigned int getFieldTypeFlags(int field) const override;
+    virtual const char *getFieldTypeString(int field) const override;
+    virtual const char **getFieldPropertyNames(int field) const override;
+    virtual const char *getFieldProperty(int field, const char *propertyname) const override;
+    virtual int getFieldArraySize(void *object, int field) const override;
+
+    virtual const char *getFieldDynamicTypeString(void *object, int field, int i) const override;
+    virtual std::string getFieldValueAsString(void *object, int field, int i) const override;
+    virtual bool setFieldValueAsString(void *object, int field, int i, const char *value) const override;
+
+    virtual const char *getFieldStructName(int field) const override;
+    virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
+};
+
+Register_ClassDescriptor(msg_Descriptor)
+
+msg_Descriptor::msg_Descriptor() : omnetpp::cClassDescriptor(omnetpp::opp_typename(typeid(msg_)), "")
+{
+    propertynames = nullptr;
+}
+
+msg_Descriptor::~msg_Descriptor()
+{
+    delete[] propertynames;
+}
+
+bool msg_Descriptor::doesSupport(omnetpp::cObject *obj) const
+{
+    return dynamic_cast<msg_ *>(obj)!=nullptr;
+}
+
+const char **msg_Descriptor::getPropertyNames() const
+{
+    if (!propertynames) {
+        static const char *names[] = { "existingClass",  nullptr };
+        omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+        const char **basenames = basedesc ? basedesc->getPropertyNames() : nullptr;
+        propertynames = mergeLists(basenames, names);
+    }
+    return propertynames;
+}
+
+const char *msg_Descriptor::getProperty(const char *propertyname) const
+{
+    if (!strcmp(propertyname, "existingClass")) return "";
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->getProperty(propertyname) : nullptr;
+}
+
+int msg_Descriptor::getFieldCount() const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? 0+basedesc->getFieldCount() : 0;
+}
+
+unsigned int msg_Descriptor::getFieldTypeFlags(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeFlags(field);
+        field -= basedesc->getFieldCount();
+    }
+    return 0;
+}
+
+const char *msg_Descriptor::getFieldName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldName(field);
+        field -= basedesc->getFieldCount();
+    }
+    return nullptr;
+}
+
+int msg_Descriptor::findField(const char *fieldName) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->findField(fieldName) : -1;
+}
+
+const char *msg_Descriptor::getFieldTypeString(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeString(field);
+        field -= basedesc->getFieldCount();
+    }
+    return nullptr;
+}
+
+const char **msg_Descriptor::getFieldPropertyNames(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldPropertyNames(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+const char *msg_Descriptor::getFieldProperty(int field, const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldProperty(field, propertyname);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+int msg_Descriptor::getFieldArraySize(void *object, int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldArraySize(object, field);
+        field -= basedesc->getFieldCount();
+    }
+    msg_ *pp = (msg_ *)object; (void)pp;
+    switch (field) {
+        default: return 0;
+    }
+}
+
+const char *msg_Descriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldDynamicTypeString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    msg_ *pp = (msg_ *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+std::string msg_Descriptor::getFieldValueAsString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldValueAsString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    msg_ *pp = (msg_ *)object; (void)pp;
+    switch (field) {
+        default: return "";
+    }
+}
+
+bool msg_Descriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->setFieldValueAsString(object,field,i,value);
+        field -= basedesc->getFieldCount();
+    }
+    msg_ *pp = (msg_ *)object; (void)pp;
+    switch (field) {
+        default: return false;
+    }
+}
+
+const char *msg_Descriptor::getFieldStructName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructName(field);
+        field -= basedesc->getFieldCount();
+    }
+    return nullptr;
+}
+
+void *msg_Descriptor::getFieldStructValuePointer(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructValuePointer(object, field, i);
+        field -= basedesc->getFieldCount();
+    }
+    msg_ *pp = (msg_ *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
 namespace inet {
 
 // forward
@@ -682,6 +899,11 @@ void Msg::copy(const Msg& other)
     this->msgId = other.msgId;
     this->install_or_update = other.install_or_update;
     this->typeS = other.typeS;
+    this->sender = other.sender;
+    this->allowed_ack = other.allowed_ack;
+    this->allowed_ack_value = other.allowed_ack_value;
+    this->stored = other.stored;
+    this->stored_value = other.stored_value;
 }
 
 void Msg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -701,6 +923,11 @@ void Msg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->msgId);
     doParsimPacking(b,this->install_or_update);
     doParsimPacking(b,this->typeS);
+    doParsimPacking(b,this->sender);
+    doParsimPacking(b,this->allowed_ack);
+    doParsimPacking(b,this->allowed_ack_value);
+    doParsimPacking(b,this->stored);
+    doParsimPacking(b,this->stored_value);
 }
 
 void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -720,6 +947,11 @@ void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->msgId);
     doParsimUnpacking(b,this->install_or_update);
     doParsimUnpacking(b,this->typeS);
+    doParsimUnpacking(b,this->sender);
+    doParsimUnpacking(b,this->allowed_ack);
+    doParsimUnpacking(b,this->allowed_ack_value);
+    doParsimUnpacking(b,this->stored);
+    doParsimUnpacking(b,this->stored_value);
 }
 
 int Msg::getId() const
@@ -876,6 +1108,61 @@ void Msg::setTypeS(const char * typeS)
     this->typeS = typeS;
 }
 
+int Msg::getSender() const
+{
+    return this->sender;
+}
+
+void Msg::setSender(int sender)
+{
+    handleChange();
+    this->sender = sender;
+}
+
+bool Msg::getAllowed_ack() const
+{
+    return this->allowed_ack;
+}
+
+void Msg::setAllowed_ack(bool allowed_ack)
+{
+    handleChange();
+    this->allowed_ack = allowed_ack;
+}
+
+const msg_& Msg::getAllowed_ack_value() const
+{
+    return this->allowed_ack_value;
+}
+
+void Msg::setAllowed_ack_value(const msg_& allowed_ack_value)
+{
+    handleChange();
+    this->allowed_ack_value = allowed_ack_value;
+}
+
+bool Msg::getStored() const
+{
+    return this->stored;
+}
+
+void Msg::setStored(bool stored)
+{
+    handleChange();
+    this->stored = stored;
+}
+
+const msg_& Msg::getStored_value() const
+{
+    return this->stored_value;
+}
+
+void Msg::setStored_value(const msg_& stored_value)
+{
+    handleChange();
+    this->stored_value = stored_value;
+}
+
 class MsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -895,6 +1182,11 @@ class MsgDescriptor : public omnetpp::cClassDescriptor
         FIELD_msgId,
         FIELD_install_or_update,
         FIELD_typeS,
+        FIELD_sender,
+        FIELD_allowed_ack,
+        FIELD_allowed_ack_value,
+        FIELD_stored,
+        FIELD_stored_value,
     };
   public:
     MsgDescriptor();
@@ -957,7 +1249,7 @@ const char *MsgDescriptor::getProperty(const char *propertyname) const
 int MsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 14+basedesc->getFieldCount() : 14;
+    return basedesc ? 19+basedesc->getFieldCount() : 19;
 }
 
 unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
@@ -983,8 +1275,13 @@ unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_msgId
         FD_ISEDITABLE,    // FIELD_install_or_update
         FD_ISEDITABLE,    // FIELD_typeS
+        FD_ISEDITABLE,    // FIELD_sender
+        FD_ISEDITABLE,    // FIELD_allowed_ack
+        FD_ISCOMPOUND,    // FIELD_allowed_ack_value
+        FD_ISEDITABLE,    // FIELD_stored
+        FD_ISCOMPOUND,    // FIELD_stored_value
     };
-    return (field >= 0 && field < 14) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 19) ? fieldTypeFlags[field] : 0;
 }
 
 const char *MsgDescriptor::getFieldName(int field) const
@@ -1010,8 +1307,13 @@ const char *MsgDescriptor::getFieldName(int field) const
         "msgId",
         "install_or_update",
         "typeS",
+        "sender",
+        "allowed_ack",
+        "allowed_ack_value",
+        "stored",
+        "stored_value",
     };
-    return (field >= 0 && field < 14) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 19) ? fieldNames[field] : nullptr;
 }
 
 int MsgDescriptor::findField(const char *fieldName) const
@@ -1032,6 +1334,11 @@ int MsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0] == 'm' && strcmp(fieldName, "msgId") == 0) return base+11;
     if (fieldName[0] == 'i' && strcmp(fieldName, "install_or_update") == 0) return base+12;
     if (fieldName[0] == 't' && strcmp(fieldName, "typeS") == 0) return base+13;
+    if (fieldName[0] == 's' && strcmp(fieldName, "sender") == 0) return base+14;
+    if (fieldName[0] == 'a' && strcmp(fieldName, "allowed_ack") == 0) return base+15;
+    if (fieldName[0] == 'a' && strcmp(fieldName, "allowed_ack_value") == 0) return base+16;
+    if (fieldName[0] == 's' && strcmp(fieldName, "stored") == 0) return base+17;
+    if (fieldName[0] == 's' && strcmp(fieldName, "stored_value") == 0) return base+18;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1058,8 +1365,13 @@ const char *MsgDescriptor::getFieldTypeString(int field) const
         "int",    // FIELD_msgId
         "int",    // FIELD_install_or_update
         "string",    // FIELD_typeS
+        "int",    // FIELD_sender
+        "bool",    // FIELD_allowed_ack
+        "msg_",    // FIELD_allowed_ack_value
+        "bool",    // FIELD_stored
+        "msg_",    // FIELD_stored_value
     };
-    return (field >= 0 && field < 14) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 19) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **MsgDescriptor::getFieldPropertyNames(int field) const
@@ -1140,6 +1452,11 @@ std::string MsgDescriptor::getFieldValueAsString(void *object, int field, int i)
         case FIELD_msgId: return long2string(pp->getMsgId());
         case FIELD_install_or_update: return long2string(pp->getInstall_or_update());
         case FIELD_typeS: return oppstring2string(pp->getTypeS());
+        case FIELD_sender: return long2string(pp->getSender());
+        case FIELD_allowed_ack: return bool2string(pp->getAllowed_ack());
+        case FIELD_allowed_ack_value: {std::stringstream out; out << pp->getAllowed_ack_value(); return out.str();}
+        case FIELD_stored: return bool2string(pp->getStored());
+        case FIELD_stored_value: {std::stringstream out; out << pp->getStored_value(); return out.str();}
         default: return "";
     }
 }
@@ -1162,6 +1479,9 @@ bool MsgDescriptor::setFieldValueAsString(void *object, int field, int i, const 
         case FIELD_msgId: pp->setMsgId(string2long(value)); return true;
         case FIELD_install_or_update: pp->setInstall_or_update(string2long(value)); return true;
         case FIELD_typeS: pp->setTypeS((value)); return true;
+        case FIELD_sender: pp->setSender(string2long(value)); return true;
+        case FIELD_allowed_ack: pp->setAllowed_ack(string2bool(value)); return true;
+        case FIELD_stored: pp->setStored(string2bool(value)); return true;
         default: return false;
     }
 }
@@ -1179,6 +1499,8 @@ const char *MsgDescriptor::getFieldStructName(int field) const
         case FIELD_installView: return omnetpp::opp_typename(typeid(IntVector));
         case FIELD_SEQcv: return omnetpp::opp_typename(typeid(IntVectorV));
         case FIELD_Vcer: return omnetpp::opp_typename(typeid(IntVector));
+        case FIELD_allowed_ack_value: return omnetpp::opp_typename(typeid(msg_));
+        case FIELD_stored_value: return omnetpp::opp_typename(typeid(msg_));
         default: return nullptr;
     };
 }
@@ -1197,6 +1519,8 @@ void *MsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) 
         case FIELD_installView: return toVoidPtr(&pp->getInstallView()); break;
         case FIELD_SEQcv: return toVoidPtr(&pp->getSEQcv()); break;
         case FIELD_Vcer: return toVoidPtr(&pp->getVcer()); break;
+        case FIELD_allowed_ack_value: return toVoidPtr(&pp->getAllowed_ack_value()); break;
+        case FIELD_stored_value: return toVoidPtr(&pp->getStored_value()); break;
         default: return nullptr;
     }
 }

@@ -11,6 +11,7 @@ const int PREPARE = 5;
 const int COMMIT = 6;
 const int INSTALL = 7;
 const int DELIVER = 8;
+const int STATE_UPDATE = 9;
 
 const int PARTECIPANT = 0;
 const int NON_PARTECIPANT = 1;
@@ -21,6 +22,7 @@ const int N=5;
 const int MSGKIND_JOIN=1;
 const int MSGKIND_LEAVE=2;
 const int MSGKIND_BROADCAST=3;
+const int MSGKIND_SEND=4;
 
 
 

@@ -16,6 +16,7 @@
 #include "Node.h"
 #include "base.h"
 #include "msg_m.h"
+#include "messageL_m.h"
 #include "inet/networklayer/common/L3AddressResolver.h"
 #include "inet/transportlayer/contract/tcp/TcpSocket.h"
 #include "inet/common/socket/SocketMap.h"
@@ -41,6 +42,21 @@
 
 using namespace std;
 
+struct msg_update {
+    int id; //sender
+    std::string msg; //message
+    std::vector<std::pair<int,int>> view; //current view or view
+    std::vector<std::pair<int,int>> installView; //current view or view
+    std::vector<std::vector<std::pair<int,int>>> SEQcv; //in case of PROPOSE
+    int join_or_leave; //in case of RECONFIG (1 -> join, 0 -> leave)
+    int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
+    int cer; //message certificate in case of COMMIT or ACK
+    std::vector<std::pair<int,int>> Vcer; //view in which certificate is collected in case of COMMIT
+    int msgId;
+    int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
+    std::string typeS;
+    int sender;
+};
 
 namespace inet {
 
@@ -48,6 +64,24 @@ simsignal_t Node::connectSignal = registerSignal("connect");
 
 Define_Module(Node);
 map<L3Address, int> Node::addrToId;
+
+
+/*
+ * The initialize() and finish() methods are declared as part of cComponent,
+ * and provide the user the opportunity of running code at the beginning and
+ * at successful termination of the simulation.The reason initialize() exists
+ * is that usually you cannot put simulation-related code into the simple
+ * module constructor, because the simulation model is still being setup when
+ * the constructor runs, and many required objects are not yet available.
+ *
+ * In contrast, initialize() is called just before the simulation starts executing,
+ * when everything else has been set up already.
+ *
+ *
+ * Durante l'inizializzazione dello strato di applizaione apro un socket TCP nella
+ * porta localPortL in cui mi metto in ascolto.
+ */
+
 
 void Node::initialize(int stage)
 {
@@ -82,6 +116,20 @@ void Node::handleTimer(cMessage *msg) {
 }
 
 
+/*
+ * The idea is that at each event (message arrival) we simply call a user-defined function.
+ * This function, handleMessage(cMessage *msg) is a virtual member function of cSimpleModule
+ * which does nothing by default -- the user has to redefine it in subclasses and add the
+ * message processing code.The handleMessage() function will be called for every message
+ * that arrives at the module. The function should process the message and return
+ * immediately after that. The simulation time is potentially different in each call.
+ * No simulation time elapses within a call to handleMessage().
+ *
+ *
+ *
+ *
+ */
+
 void Node::handleMessageWhenUp(cMessage *msg)
 {
     if (msg->isSelfMessage()){
@@ -104,8 +152,13 @@ void Node::handleMessageWhenUp(cMessage *msg)
                         Msg &tmp = *bp;
                         const auto& payload = makeShared<Msg>(tmp);
                         briefPacket->insertAtBack(payload);
-                        EV << "\n\n\n\n [Client"<< selfId <<"]RECONFIG inviato a: " << simTime() << "\n\n\n";
-                        sendP(briefPacket, destId);
+                        //EV << "\n\n\n\n [Client"<< selfId <<"]RECONFIG inviato a: " << simTime() << "\n\n\n";
+                        //sendP(briefPacket, destId);
+                        MessageL * timer = new MessageL();
+                        timer->setDestId(destId);
+                        timer->setKind(MSGKIND_SEND);
+                        timer->setM(bp);
+                        scheduleAt(simTime(),timer);
                     }
                 }
 
@@ -130,6 +183,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
                         bp->setView(current_view);
                         bp->setType(PREPARE);
                         bp->setTypeS("PREPARE");
+                        bp->setSender(selfId);
                         bp->setMsgId(msgId);
                         if(first_time==true){
                             msg_to_send.push_back(bp);
@@ -143,8 +197,19 @@ void Node::handleMessageWhenUp(cMessage *msg)
                         sendP(briefPacket, destId);
                     }
                     msgId++;
+                    first_time=true;
                 }
                 break;
+
+         case MSGKIND_SEND:
+             auto briefPacket = new Packet();
+             Msg &tmp = *((MessageL*)msg)->getM();
+             const auto& payload = makeShared<Msg>(tmp);
+             briefPacket->insertAtBack(payload);
+             EV << "\n\n\n\n [Client"<< selfId <<"]RECONFIG inviato a: " << simTime() << "\n\n\n";
+             sendP(briefPacket, ((MessageL*)msg)->getDestId());
+             break;
+
         }
    }
     else{
@@ -262,341 +327,42 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
             if(x->getType()==RECONFIG){
                 x->setArrivalTime(simTime());
                 receivedMsg.push_back(x);
-                EV << "\n\n\n\n [Client"<< selfId <<"]RECONFIG ricevuto a: " << simTime() << "\n\n\n";
-                if(x->getView()==current_view){
-                    bool condition = false;
-                    if(x->getJoin_or_leave()==1 || (x->getJoin_or_leave()==0 && checkPropose(x->getId(),current_view))){
-
-                        if(contain(x->getId(),RECV)==false){
-                            RECV.push_back(std::make_pair(x->getId(),x->getJoin_or_leave()));
-                            condition=true;
-                        }
-
-                        Msg * bp = new Msg();
-                        bp->setId(selfId);
-                        bp->setMsg("Join reply");
-                        bp->setSendTime(simTime());
-                        bp->setView(current_view);
-                        bp->setType(REC_CONFIRM);
-                        bp->setTypeS("REC_CONFIRM");
-                        auto briefPacket = new Packet();
-                        Msg &tmp = *bp;
-                        const auto& payload = makeShared<Msg>(tmp);
-                        briefPacket->insertAtBack(payload);
-                        EV << "\n\n\n\n [Client"<< selfId <<"]REC-CONFIRM inviato a: " << simTime() << "\n\n\n";
-                        sendP(briefPacket, x->getId());
-                    }
-                    if(condition==true){
-                        uponRECV();
-                    }
-                }
+                reconfig_f(x);
             }else if(x->getType()==REC_CONFIRM){
-                //TODO fare array e salvarli solo una volta
                 x->setArrivalTime(simTime());
                 receivedMsg.push_back(x);
-                EV << "\n\n\n\n [Client"<< selfId <<"]REC-CONFIRM ricevuto a: " << simTime() << "\n\n\n";
-                if(req_join_or_leave[x->getId()]==0){
-                    req_join_or_leave[x->getId()]=1;
-                    count_req_join_or_leave++;
-                    if(count_req_join_or_leave>=quorumSize){
-                        rec_cond=true; //non devo più inviare richieste
-                    }
-                }
-            }else if(x->getType()==PROPOSE){ //todo WARNING: Cannot send, not enough data for a full segment -> Nagle alg
-                //TODO controllare se ho gia inviato lo stesso messaggio
-                if(isReceivedP(x->getSEQcv(),x->getId())==false){
-                    x->setArrivalTime(simTime());
-                    receivedMsg.push_back(x);
-                    EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE ricevuto a: " << simTime() << "\n\n\n";
-                    updatePropose(x->getSEQcv(),x->getId());
-                    if(checkPropose()==true){
-                        LCSEQv = returnPropose();
-                        for (int destId = 0; destId < nodesNbr; destId++) {
-                          if(destId==selfId) continue;
-                          if(contain(destId,x->getView())==false) continue;
-                          Msg * bp = new Msg();
-                          bp->setId(selfId);
-                          bp->setMsg("Converged");
-                          bp->setSendTime(simTime());
-                          bp->setView(x->getView());
-                          bp->setType(CONVERGED);
-                          bp->setTypeS("CONVERGED");
-                          bp->setSEQcv(x->getSEQcv());
-                          auto briefPacket = new Packet();
-                          Msg &tmp = *bp;
-                          const auto& payload = makeShared<Msg>(tmp);
-                          briefPacket->insertAtBack(payload);
-                          EV << "\n\n\n\n [Client"<< selfId <<"]CONVERGED inviato a: " << simTime() << "\n\n\n";
-                          sendP(briefPacket, destId);
-                        }
-                    }
-                    else if(FORMATv.empty()==true || isContainedIn(x->getSEQcv(),FORMATv)){
-                        //TODO check if SEQ is valid or not
-                        //TODO conflitto IMPORTANTE
-                        if(conflictS(x->getSEQcv(),SEQv)){
-                            vector<pair<int,int>> w = mostRecent(x->getSEQcv());
-                            vector<pair<int,int>> w1 = mostRecent(SEQv);
-
-                            vector<vector<pair<int,int>>> ww={};
-                            ww.push_back(w);
-
-                            vector<vector<pair<int,int>>> ww1={};
-                            ww1.push_back(w1);
-                            SEQv=LCSEQv;
-                            SEQv=unionS(SEQv,ww);
-                            SEQv=unionS(SEQv,ww1);
-                        }
-                        else{
-                            vector<vector<pair<int,int>>> q = x->getSEQcv();
-                            SEQv=unionS(SEQv,q);
-                        }
-
-                        for (int destId = 0; destId < nodesNbr; destId++) {
-                           if(destId==selfId) continue;
-                           if(contain(destId,x->getView())==false) continue;
-                           Msg * bp = new Msg();
-                           bp->setId(selfId);
-                           bp->setMsg("Propose");
-                           bp->setSendTime(simTime());
-                           bp->setView(current_view);
-                           bp->setType(PROPOSE);
-                           bp->setTypeS("PROPOSE");
-                           bp->setSEQcv(x->getSEQcv());
-                           auto briefPacket = new Packet();
-                           Msg &tmp = *bp;
-                           const auto& payload = makeShared<Msg>(tmp);
-                           briefPacket->insertAtBack(payload);
-                           EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE messaggio inviato a: " << simTime() << "\n\n\n";
-                           sendP(briefPacket, destId);
-                        }
-                     }
-                }
+                rec_confirm_f(x);
+            }else if(x->getType()==PROPOSE){
+                x->setArrivalTime(simTime());
+                receivedMsg.push_back(x);
+                propose_f(x);
             }else if(x->getType()==CONVERGED){
-                //TODO controllare se ho gia inviato lo stesso messaggio
-                if(isReceivedC(x->getSEQcv(),x->getId())==false){
-                    x->setArrivalTime(simTime());
-                    receivedMsg.push_back(x);
-                    EV << "\n\n\n\n [Client"<< selfId <<"]CONVERGED ricevuto a: " << simTime() << "\n\n\n";
-                    updateConverge(x->getSEQcv(),x->getId());
-                    if(checkConverge()==true){
-                        vector<vector<pair<int,int>>> k = returnPropose();
-                        vector<pair<int,int>> w = leastRecent(k);
-                        for (int destId = 0; destId < nodesNbr; destId++) {
-                          if(destId==selfId) continue;
-                          if(contain(destId,w)==true || contain(destId,current_view)==true){
-                            Msg * bp = new Msg();
-                            bp->setId(selfId);
-                            bp->setMsg("Install");
-                            bp->setSendTime(simTime());
-                            bp->setInstallView(w);
-                            bp->setType(INSTALL);
-                            bp->setTypeS("INSTALL");
-                            bp->setSEQcv(x->getSEQcv());
-                            bp->setView(x->getView());
-                            auto briefPacket = new Packet();
-                            Msg &tmp = *bp;
-                            const auto& payload = makeShared<Msg>(tmp);
-                            briefPacket->insertAtBack(payload);
-                            EV << "\n\n\n\n [Client"<< selfId <<"]INSTALL inviato a: " << simTime() << "\n\n\n";
-                            sendP(briefPacket, destId);
-                          }
-                        }
-                    }
-                }
+                x->setArrivalTime(simTime());
+                receivedMsg.push_back(x);
+                converge_f(x);
             }else if(x->getType()==ACK){
                 x->setArrivalTime(simTime());
                 receivedMsg.push_back(x);
-
-                if(acksMsg(x, x->getId(), x->getView())==true){ //TODO verify signature
-                  //  EV << "DEBUG1";
-                    addAcksMsg(x, x->getId(), x->getView()); //TODO wait for return!
-                    //TODO add sigma
-
-                }
-
-                EV << "ludo";
-                for(auto it:acks){
-                    for(auto it2:it.second){
-                        for(auto it3:it2.second){
-                            EV<<it3;
-                        }
-                    }
-                }
-                if(checkMsg()==true){
-                    Msg * m = returnMsg();
-                    if(quorumMsg(m)==false){
-                        v_cer = m->getView();
-                          if(isInstalled(current_view)==true){
-                              //TODO add cer
-                              for (int destId = 0; destId < nodesNbr; destId++) {
-                                if(destId==selfId) continue;
-                                if(contain(destId,current_view)==true){
-                                  Msg * bp = new Msg();
-                                  bp->setId(selfId);
-                                  bp->setMsg(m->getMsg());
-                                  bp->setMsgId(m->getMsgId());
-                                  bp->setSendTime(simTime());
-                                  bp->setType(COMMIT);
-                                  bp->setTypeS("COMMIT");
-                                  bp->setView(current_view);
-                                  auto briefPacket = new Packet();
-                                  Msg &tmp = *bp;
-                                  const auto& payload = makeShared<Msg>(tmp);
-                                  briefPacket->insertAtBack(payload);
-                                  EV << "\n\n\n\n [Client"<< selfId <<"]COMMIT inviato a: " << simTime() << "\n\n\n";
-                                  sendP(briefPacket, destId);
-                                }
-                              }
-                          }
-                    }
-                }
+                ack_f(x);
             }else if(x->getType()==PREPARE){
                 x->setArrivalTime(simTime());
                 receivedMsg.push_back(x);
-                msg_to_send.push_back(x);
-                if(allowed_ack.empty() || isAllowed(x)==true ){
-                    if(isAllowed(x)==false){
-                        allowed_ack.push_back(x);
-                    }
-                    //TODO update_if_bot
-                    //TODO sign
-                    Msg * bp = new Msg();
-                    bp->setId(selfId);
-                    bp->setMsg("ack");
-                    bp->setSendTime(simTime());
-                    bp->setType(ACK);
-                    bp->setTypeS("ACK");
-                    bp->setMsgId(x->getMsgId());
-                    bp->setView(current_view);
-                    auto briefPacket = new Packet();
-                    Msg &tmp = *bp;
-                    const auto& payload = makeShared<Msg>(tmp);
-                    briefPacket->insertAtBack(payload);
-                    EV << "\n\n\n\n [Client"<< selfId <<"]ACK inviato a: " << simTime() << "\n\n\n";
-                    sendP(briefPacket, x->getId());
-                }
+                prepare_f(x);
             }else if(x->getType()==COMMIT){
                 x->setArrivalTime(simTime());
                 receivedMsg.push_back(x);
-                if(equalVec(x->getView(),current_view)){
-                    //TODO verify CER
-                    if(stored==false){
-                        stored=true;
-                        stored_value=x;
-                        //TODO update if bot
-                        for (int destId = 0; destId < nodesNbr; destId++) {
-                           if(destId==selfId) continue;
-                           if(contain(destId,current_view)==false) continue;
-                           Msg * bp = new Msg();
-                           bp->setId(selfId);
-                           bp->setMsg(x->getMsg());
-                           bp->setSendTime(simTime());
-                           bp->setView(current_view);
-                           bp->setType(COMMIT);
-                           bp->setTypeS("COMMIT");
-                           bp->setVcer(v_cer);
-                           bp->setMsgId(x->getMsgId());
-                           auto briefPacket = new Packet();
-                           Msg &tmp = *bp;
-                           const auto& payload = makeShared<Msg>(tmp);
-                           briefPacket->insertAtBack(payload);
-                           EV << "\n\n\n\n [Client"<< selfId <<"]COMMIT messaggio inviato a: " << simTime() << "\n\n\n";
-                           sendP(briefPacket, destId);
-                        }
-                    }
-                    Msg * bp = new Msg();
-                    bp->setId(selfId);
-                    bp->setMsg(x->getMsg());
-                    bp->setSendTime(simTime());
-                    bp->setView(current_view);
-                    bp->setType(DELIVER);
-                    bp->setTypeS("DELIVER");
-                    bp->setMsgId(x->getMsgId());
-                    auto briefPacket = new Packet();
-                    Msg &tmp = *bp;
-                    const auto& payload = makeShared<Msg>(tmp);
-                    briefPacket->insertAtBack(payload);
-                    EV << "\n\n\n\n [Client"<< selfId <<"]DELIVER messaggio inviato a: " << simTime() << "\n\n\n";
-                    sendP(briefPacket, x->getId());
-                }
+                commit_f(x);
             }else if(x->getType()==INSTALL){
                 x->setArrivalTime(simTime());
                 receivedMsg.push_back(x);
-                EV << "\n\n\n\n\n";
-                EV << "Client" << selfId << "\n";
-                for(auto it : x->getInstallView()){
-                    EV << it.first << "\n";
-                }
-                if(isReceivedI(x->getView())==false){
-                    //TODO FORMAT
-                    if(isMember(selfId,x->getView())){
-                        if(contains(x->getInstallView(),current_view)==true){
-                            stop_processing=true;
-                            //TODO mandare state update
-                        }
-                    }if(contains(x->getInstallView(),current_view)==true){
-                        //TODO state update
-                        if(isMember(selfId,x->getInstallView())){
-
-                            current_view=x->getInstallView();
-                            if(isMember(selfId,x->getView())){
-                                join_complete=true;
-                            }
-                            vector<vector<pair<int,int>>> seq=x->getSEQcv();
-                            vector<vector<pair<int,int>>> seq_={};
-                            int c=0;
-                            for(auto it : seq){
-                                if(contains(it,current_view)==true){
-                                    seq_.push_back(it);
-                                }
-                            }
-                            if(seq_.empty()==false){
-                                //TODO cambio SEQ ?
-                                SEQv = seq_;
-                                for (int destId = 0; destId < nodesNbr; destId++) {
-                                   if(destId==selfId) continue;
-                                   if(contain(destId,current_view)==false) continue;
-                                   Msg * bp = new Msg();
-                                   bp->setId(selfId);
-                                   bp->setMsg("Propose");
-                                   bp->setSendTime(simTime());
-                                   bp->setView(current_view);
-                                   bp->setType(PROPOSE);
-                                   bp->setTypeS("PROPOSE");
-                                   bp->setSEQcv(SEQv);
-                                   auto briefPacket = new Packet();
-                                   Msg &tmp = *bp;
-                                   const auto& payload = makeShared<Msg>(tmp);
-                                   briefPacket->insertAtBack(payload);
-                                   EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE messaggio inviato a: " << simTime() << "\n\n\n";
-                                   sendP(briefPacket, destId);
-                                }
-                            }else{
-                                installedView.push_back(current_view);
-                                stop_processing = false;
-                                //TODO new_view()
-                            }
-                        }else{
-                            //TODO LEAVE
-                        }
-                    }
-                }
+                install_f(x);
             }else if(x->getType()==DELIVER){
                 x->setArrivalTime(simTime());
                 receivedMsg.push_back(x);
-                addDeliverMsg(x,x->getId(),x->getView());
-                if(checkDeliverMsg()==true && first_time_deliver==false){
-                    first_time_deliver=true;
-                    if(msg_to_send.empty()==false){
-                        Msg * m = returnDeliverMsg();
-                        delivered=true;
-                        for(auto it:msg_to_send){
-                            EV<< it->getMsgId() << " da Client" << it->getId();
-                        }
-                        EV << "\n\n\n\n [Client"<< selfId <<"]DELIVERED di " << m->getMsgId()  << "da parte di" << m->getId() << " FINISHED a: " << simTime() << "\n\n\n";
-                        can_leave=true;
-                    }
-                }
+                deliver_f(x);
+            }else if(x->getType()==STATE_UPDATE){
+                x->setArrivalTime(simTime());
+                receivedMsg.push_back(x);
             }
         }
     }
@@ -686,15 +452,24 @@ void Node::finish()
     EV_INFO << "Time finish: " << simTime() << "\n";
     EV_INFO << "Messaggi ricevuti: \n";
     for (int i = 0; i < receivedMsg.size(); i++) {
-       EV << i << " : " << receivedMsg.at(i)->getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i)->getId() << " inviato a " << receivedMsg.at(i)->getSendTime()<<" e arrivato a " << receivedMsg.at(i)->getArrivalTime()<< "----> seq";
-       for(auto it:receivedMsg.at(i)->getSEQcv()){
-           EV<<"[";
-           for(auto it2:it){
-               EV<<it2.first<<",";
-           }
-           EV<<"]";
+       if(strcmp(receivedMsg.at(i)->getTypeS(),"PROPOSE")==0 || strcmp(receivedMsg.at(i)->getTypeS(),"CONVERGED")==0 ||  strcmp(receivedMsg.at(i)->getTypeS(),"INSTALL")==0){
+           EV << i << " : " << receivedMsg.at(i)->getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i)->getId() << " inviato a " << receivedMsg.at(i)->getSendTime()<<" e arrivato a " << receivedMsg.at(i)->getArrivalTime()<< "----> seq";
+                  for(auto it:receivedMsg.at(i)->getSEQcv()){
+                      EV<<"[";
+                      for(auto it2:it){
+                          EV<<it2.first<<",";
+                      }
+                      EV<<"]";
+                  }
+                  EV<<"\n";
+       }else{
+           EV << i << " : " << receivedMsg.at(i)->getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i)->getId() << " inviato a " << receivedMsg.at(i)->getSendTime()<<" e arrivato a " << receivedMsg.at(i)->getArrivalTime() << "\n";
        }
-       EV<<"\n";
+
+    }
+    EV<< "Messaggi deliverati: \n";
+    for(auto it:deliverati){
+        EV<< it->getMsgId() << " da Client" << it->getId() << "\n";
     }
     EV_INFO << modulePath << ": opened " << numSessions << " sessions\n";
     EV_INFO << modulePath << ": sent " << bytesSent << " bytes in " << packetsSent << " packets\n";
@@ -711,7 +486,7 @@ void Node::handleStopOperation(LifecycleOperation *operation) {
 }
 
 void Node::handleCrashOperation(LifecycleOperation *operation) {
-    socketL.destroy();    //TODO  in real operating systems, program crash detected by OS and OS closes sockets of crashed programs.
+    socketL.destroy();
 }
 
 
@@ -746,7 +521,7 @@ bool Node::checkDeliverMsg() {
                         c++;
                     }
                 }
-                if(c>=quorumSize){
+                if(c>=quorumSize && firstTimeDeliver(it2.first)==false){
                     return true;
                 }
             }
@@ -768,17 +543,22 @@ Msg * Node::returnDeliverMsg() {
                     }
                     i++;
                 }
-                if(c>=quorumSize){
+                if(c>=quorumSize && firstTimeDeliver(it2.first)==false){
                     j=it2.first->getMsgId();
                     break;
                     //return it2.first;
                 }
             }
          }
+         int k=0;
+         Msg * temp;
          for(auto it:msg_to_send){
              if(it->getMsgId()==j){
-                 return it;
+                 temp=it;
+                 msg_to_send.erase(msg_to_send.begin() + k);
+                 return temp;
              }
+             k++;
          }
     }
 }
@@ -844,6 +624,7 @@ bool Node::isContainedIn(vector<vector<pair<int,int>>> s1, vector<vector<pair<in
     return true;
 }
 
+/*
 bool Node::isAllowed(Msg * m ) {
     for(Msg * i : allowed_ack){
        if(equalMsg(i,m)){
@@ -851,7 +632,7 @@ bool Node::isAllowed(Msg * m ) {
        }
     }
     return false;
-}
+}*/
 
 bool Node::acksMsg(Msg* m, int id, vector<pair<int,int>> v){
     for(auto it = acks.begin(); it!=acks.end(); ++it){
@@ -926,7 +707,7 @@ void Node::addDeliverMsg(Msg* m, int id, vector<pair<int,int>> v){
     return;
 }
 
-void Node::updatePropose(vector<vector<pair<int,int>>> s1,int id) { //TODO verificare chi invia propose
+void Node::updatePropose(vector<vector<pair<int,int>>> s1,int id) {
     int count=0;
     for(auto it = propose.begin(); it!=propose.end(); ++it) {
         if(equalSeq(it->first,s1)){
@@ -984,7 +765,6 @@ bool Node::equalVec(vector<pair<int,int>>s1, vector<pair<int,int>> s2){
 }
 
 bool Node::equalSeq(vector<vector<pair<int,int>>>s1, vector<vector<pair<int,int>>> s2){
-    //TODO stampare SEQ
     int count=0;
     if(s1.size()!=s2.size()) return false;
     for(vector<pair<int,int>> v1 : s1){
@@ -1045,6 +825,15 @@ bool Node::isReceivedI(vector<pair<int,int>> v) {
         }
     }
     installReceived.push_back(v);
+    return false;
+}
+
+bool Node::firstTimeDeliver(Msg * m) {
+    for(auto it : first_time_deliver) {
+        if(equalMsg(m,it)){
+            return false;
+        }
+    }
     return false;
 }
 
@@ -1128,8 +917,10 @@ int Node::sizeCV(vector<pair<int,int>> v1){
 
 bool Node::isInstalled(vector<pair<int,int>> v1){
     for (auto it : installedView) {
-        if(equalVec(it,v1)){
-            return true;
+        if(equalVec(it.first,v1)){
+            if(it.second==1){
+                return true;
+            }
         }
     }
     return false;
@@ -1240,8 +1031,8 @@ bool Node::isMember(int id, vector<pair<int,int>> v){
 }
 
 bool Node::equalMsg(Msg* m1, Msg* m2){
-    if(m1->getMsgId()!=m2->getMsgId() && m1->getId()==m2->getId()) return false;
-    else return true;
+    if(m1->getMsgId()==m2->getMsgId() && m1->getSender()==m2->getSender()) return true;
+    else return false;
 }
 
 
@@ -1276,6 +1067,403 @@ void Node::uponRECV(){
    }
 }
 
+void Node::reconfig_f(Msg * x){
+    EV << "\n\n\n\n [Client"<< selfId <<"]RECONFIG ricevuto a: " << simTime() << "\n\n\n";
+    if(x->getView()==current_view){
+        bool condition = false;
+        if(x->getJoin_or_leave()==1 || (x->getJoin_or_leave()==0 && checkPropose(x->getId(),current_view))){
+
+            if(contain(x->getId(),RECV)==false){
+                RECV.push_back(std::make_pair(x->getId(),x->getJoin_or_leave()));
+                condition=true;
+            }
+
+            Msg * bp = new Msg();
+            bp->setId(selfId);
+            bp->setMsg("Join reply");
+            bp->setSendTime(simTime());
+            bp->setView(current_view);
+            bp->setType(REC_CONFIRM);
+            bp->setTypeS("REC_CONFIRM");
+            auto briefPacket = new Packet();
+            Msg &tmp = *bp;
+            const auto& payload = makeShared<Msg>(tmp);
+            briefPacket->insertAtBack(payload);
+            EV << "\n\n\n\n [Client"<< selfId <<"]REC-CONFIRM inviato a: " << simTime() << "\n\n\n";
+            sendP(briefPacket, x->getId());
+        }
+        if(condition==true){
+            uponRECV();
+        }
+    }
+}
+
+void Node::rec_confirm_f(Msg * x){
+    EV << "\n\n\n\n [Client"<< selfId <<"]REC-CONFIRM ricevuto a: " << simTime() << "\n\n\n";
+    if(req_join_or_leave[x->getId()]==0){
+        req_join_or_leave[x->getId()]=1;
+        count_req_join_or_leave++;
+        if(count_req_join_or_leave>=quorumSize){
+            rec_cond=true;
+        }
+    }
+}
+
+void Node::propose_f(Msg * x){
+    if(isReceivedP(x->getSEQcv(),x->getId())==false){
+        EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE ricevuto a: " << simTime() << "\n\n\n";
+        updatePropose(x->getSEQcv(),x->getId());
+        if(checkPropose()==true){
+            LCSEQv = returnPropose();
+            for (int destId = 0; destId < nodesNbr; destId++) {
+              if(destId==selfId) continue;
+              if(contain(destId,x->getView())==false) continue;
+              Msg * bp = new Msg();
+              bp->setId(selfId);
+              bp->setMsg("Converged");
+              bp->setSendTime(simTime());
+              bp->setView(x->getView());
+              bp->setType(CONVERGED);
+              bp->setTypeS("CONVERGED");
+              bp->setSEQcv(x->getSEQcv());
+              auto briefPacket = new Packet();
+              Msg &tmp = *bp;
+              const auto& payload = makeShared<Msg>(tmp);
+              briefPacket->insertAtBack(payload);
+              EV << "\n\n\n\n [Client"<< selfId <<"]CONVERGED inviato a: " << simTime() << "\n\n\n";
+              sendP(briefPacket, destId);
+            }
+        }
+        else if(FORMATv.empty()==true || isContainedIn(x->getSEQcv(),FORMATv)){
+            //TODO check if SEQ is valid or not
+            if(conflictS(x->getSEQcv(),SEQv)){
+                vector<pair<int,int>> w = mostRecent(x->getSEQcv());
+                vector<pair<int,int>> w1 = mostRecent(SEQv);
+
+                vector<vector<pair<int,int>>> ww={};
+                ww.push_back(w);
+
+                vector<vector<pair<int,int>>> ww1={};
+                ww1.push_back(w1);
+                SEQv=LCSEQv;
+                SEQv=unionS(SEQv,ww);
+                SEQv=unionS(SEQv,ww1);
+            }
+            else{
+                vector<vector<pair<int,int>>> q = x->getSEQcv();
+                SEQv=unionS(SEQv,q);
+            }
+
+            for (int destId = 0; destId < nodesNbr; destId++) {
+               if(destId==selfId) continue;
+               if(contain(destId,x->getView())==false) continue;
+               Msg * bp = new Msg();
+               bp->setId(selfId);
+               bp->setMsg("Propose");
+               bp->setSendTime(simTime());
+               bp->setView(current_view);
+               bp->setType(PROPOSE);
+               bp->setTypeS("PROPOSE");
+               bp->setSEQcv(x->getSEQcv());
+               auto briefPacket = new Packet();
+               Msg &tmp = *bp;
+               const auto& payload = makeShared<Msg>(tmp);
+               briefPacket->insertAtBack(payload);
+               EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE messaggio inviato a: " << simTime() << "\n\n\n";
+               sendP(briefPacket, destId);
+            }
+         }
+    }
+}
+
+void Node::converge_f(Msg * x){
+    if(isReceivedC(x->getSEQcv(),x->getId())==false){
+    EV << "\n\n\n\n [Client"<< selfId <<"]CONVERGED ricevuto a: " << simTime() << "\n\n\n";
+    updateConverge(x->getSEQcv(),x->getId());
+    if(checkConverge()==true){
+        vector<vector<pair<int,int>>> k = returnPropose();
+        vector<pair<int,int>> w = leastRecent(k);
+        for (int destId = 0; destId < nodesNbr; destId++) {
+          if(destId==selfId) continue;
+          if(contain(destId,w)==true || contain(destId,current_view)==true){
+            Msg * bp = new Msg();
+            bp->setId(selfId);
+            bp->setMsg("Install");
+            bp->setSendTime(simTime());
+            bp->setInstallView(w);
+            bp->setType(INSTALL);
+            bp->setTypeS("INSTALL");
+            bp->setSEQcv(x->getSEQcv());
+            bp->setView(x->getView());
+            auto briefPacket = new Packet();
+            Msg &tmp = *bp;
+            const auto& payload = makeShared<Msg>(tmp);
+            briefPacket->insertAtBack(payload);
+            EV << "\n\n\n\n [Client"<< selfId <<"]INSTALL inviato a: " << simTime() << "\n\n\n";
+            sendP(briefPacket, destId);
+          }
+        }
+    }
+}
+}
+
+void Node::prepare_f(Msg * x){
+    msg_to_send.push_back(x);
+    if(allowed_ack==true || allowed_ack_value==x ){
+        allowed_ack_value=x;
+
+        //TODO update_if_bot
+        //TODO sign
+        Msg * bp = new Msg();
+        bp->setId(selfId);
+        bp->setMsg("ack");
+        bp->setSendTime(simTime());
+        bp->setType(ACK);
+        bp->setTypeS("ACK");
+        bp->setMsgId(x->getMsgId());
+        bp->setView(current_view);
+        bp->setSender(x->getSender());
+        auto briefPacket = new Packet();
+        Msg &tmp = *bp;
+        const auto& payload = makeShared<Msg>(tmp);
+        briefPacket->insertAtBack(payload);
+        EV << "\n\n\n\n [Client"<< selfId <<"]ACK inviato a: " << simTime() << "\n\n\n";
+        sendP(briefPacket, x->getId());
+    }
+}
+
+void Node::install_f(Msg * x){
+    EV << "\n\n\n\n\n";
+    EV << "Client" << selfId << "\n";
+    for(auto it : x->getInstallView()){
+        EV << it.first << "\n";
+    }
+    if(isReceivedI(x->getView())==false){
+        //TODO FORMAT
+        if(isMember(selfId,x->getView())){
+            if(contains(x->getInstallView(),current_view)==true){
+                stop_processing=true;
+                //TODO mandare state update
+            }
+            msg_ stored_msg;
+        if(stored_value!=nullptr){
+            stored_msg.SEQcv=stored_value->getSEQcv();
+            stored_msg.Vcer=stored_value->getVcer();
+            stored_msg.cer=stored_value->getCer();
+            stored_msg.id=stored_value->getId();
+            stored_msg.installView=stored_value->getInstallView();
+            stored_msg.install_or_update=stored_value->getInstall_or_update();
+            stored_msg.join_or_leave=stored_value->getJoin_or_leave();
+            stored_msg.msg=stored_value->getMsg();
+            stored_msg.msgId=stored_value->getMsgId();
+            stored_msg.sender=stored_value->getSender();
+            stored_msg.type=stored_value->getType();
+            stored_msg.typeS=stored_value->getTypeS();
+            stored_msg.view=stored_value->getView();
+        }
+
+        msg_ allowed_msg;
+        if(allowed_ack_value!=nullptr){
+               allowed_msg.SEQcv=allowed_ack_value->getSEQcv();
+               allowed_msg.Vcer=allowed_ack_value->getVcer();
+               allowed_msg.cer=allowed_ack_value->getCer();
+               allowed_msg.id=allowed_ack_value->getId();
+               allowed_msg.installView=allowed_ack_value->getInstallView();
+               allowed_msg.install_or_update=allowed_ack_value->getInstall_or_update();
+               allowed_msg.join_or_leave=allowed_ack_value->getJoin_or_leave();
+               allowed_msg.msg=allowed_ack_value->getMsg();
+               allowed_msg.msgId=allowed_ack_value->getMsgId();
+               allowed_msg.sender=allowed_ack_value->getSender();
+               allowed_msg.type=allowed_ack_value->getType();
+               allowed_msg.typeS=allowed_ack_value->getTypeS();
+               allowed_msg.view=allowed_ack_value->getView();
+        }
+
+        for (int destId = 0; destId < nodesNbr; destId++) {
+           if(destId==selfId) continue;
+           if(contain(destId,x->getView())==true || contain(destId,x->getInstallView())==true){
+               Msg * bp = new Msg();
+                  bp->setSendTime(simTime());
+                  bp->setAllowed_ack(allowed_ack);
+                  bp->setAllowed_ack_value(allowed_msg);
+                  bp->setId(selfId);
+                  bp->setType(STATE_UPDATE);
+                  bp->setTypeS("STATE_UPDATE");
+                  bp->setStored(stored);
+                  bp->setStored_value(stored_msg);
+                  auto briefPacket = new Packet();
+                  Msg &tmp = *bp;
+                  const auto& payload = makeShared<Msg>(tmp);
+                  briefPacket->insertAtBack(payload);
+                  sendP(briefPacket, destId);
+           }
+        }
+        }if(contains(x->getInstallView(),current_view)==true){
+            //TODO state update
+            if(states_update.size()<=quorumSize){
+                //wait
+            }
+            //req= function to retrieve req
+            //RECV=  union and function to delet w from req
+            //states = function to retrieve states
+            //function to de-install view
+            if(isMember(selfId,x->getInstallView())){
+
+                current_view=x->getInstallView();
+                if(isMember(selfId,x->getView())){
+                    join_complete=true;
+                }
+                vector<vector<pair<int,int>>> seq=x->getSEQcv();
+                vector<vector<pair<int,int>>> seq_={};
+                int c=0;
+                for(auto it : seq){
+                    if(contains(it,current_view)==true){
+                        seq_.push_back(it);
+                    }
+                }
+                if(seq_.empty()==false){
+                    SEQv = seq_;
+                    for (int destId = 0; destId < nodesNbr; destId++) {
+                       if(destId==selfId) continue;
+                       if(contain(destId,current_view)==false) continue;
+                       Msg * bp = new Msg();
+                       bp->setId(selfId);
+                       bp->setMsg("Propose");
+                       bp->setSendTime(simTime());
+                       bp->setView(current_view);
+                       bp->setType(PROPOSE);
+                       bp->setTypeS("PROPOSE");
+                       bp->setSEQcv(SEQv);
+                       auto briefPacket = new Packet();
+                       Msg &tmp = *bp;
+                       const auto& payload = makeShared<Msg>(tmp);
+                       briefPacket->insertAtBack(payload);
+                       EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE messaggio inviato a: " << simTime() << "\n\n\n";
+                       sendP(briefPacket, destId);
+                    }
+                }else{
+                    installedView.push_back(make_pair(current_view,1));
+                    stop_processing = false;
+                    //TODO new_view()
+                }
+            }else{
+                //TODO LEAVE
+            }
+        }
+    }
+}
+
+void Node::state_update_f(Msg * x){
+
+}
+
+void Node::commit_f(Msg * x){
+    if(equalVec(x->getView(),current_view)){
+    //TODO verify CER
+    if(stored==false){
+        stored=true;
+        stored_value=x;
+        //TODO update if bot
+        for (int destId = 0; destId < nodesNbr; destId++) {
+           if(destId==selfId) continue;
+           if(contain(destId,current_view)==false) continue;
+           Msg * bp = new Msg();
+           bp->setId(selfId);
+           bp->setMsg(x->getMsg());
+           bp->setSendTime(simTime());
+           bp->setView(current_view);
+           bp->setType(COMMIT);
+           bp->setTypeS("COMMIT");
+           bp->setVcer(v_cer);
+           bp->setSender(x->getSender());
+           bp->setMsgId(x->getMsgId());
+           auto briefPacket = new Packet();
+           Msg &tmp = *bp;
+           const auto& payload = makeShared<Msg>(tmp);
+           briefPacket->insertAtBack(payload);
+           EV << "\n\n\n\n [Client"<< selfId <<"]COMMIT messaggio inviato a: " << simTime() << "\n\n\n";
+           sendP(briefPacket, destId);
+        }
+    }
+    Msg * bp = new Msg();
+    bp->setId(selfId);
+    bp->setMsg(x->getMsg());
+    bp->setSendTime(simTime());
+    bp->setView(current_view);
+    bp->setType(DELIVER);
+    bp->setTypeS("DELIVER");
+    bp->setSender(x->getSender());
+    bp->setMsgId(x->getMsgId());
+    auto briefPacket = new Packet();
+    Msg &tmp = *bp;
+    const auto& payload = makeShared<Msg>(tmp);
+    briefPacket->insertAtBack(payload);
+    EV << "\n\n\n\n [Client"<< selfId <<"]DELIVER messaggio inviato a: " << simTime() << "\n\n\n";
+    sendP(briefPacket, x->getId());
+}
+}
+
+void Node::ack_f(Msg * x){
+    if(acksMsg(x, x->getId(), x->getView())==true){ //TODO verify signature
+      //  EV << "DEBUG1";
+        addAcksMsg(x, x->getId(), x->getView()); //TODO wait for return!
+        //TODO add sigma
+
+    }
+
+    EV << "ludo";
+    for(auto it:acks){
+        for(auto it2:it.second){
+            for(auto it3:it2.second){
+                EV<<it3;
+            }
+        }
+    }
+    if(checkMsg()==true){
+        Msg * m = returnMsg();
+        if(quorumMsg(m)==false){
+            v_cer = m->getView();
+              if(isInstalled(current_view)==true){
+                  //TODO add cer
+                  for (int destId = 0; destId < nodesNbr; destId++) {
+                    if(destId==selfId) continue;
+                    if(contain(destId,current_view)==true){
+                      Msg * bp = new Msg();
+                      bp->setId(selfId);
+                      bp->setMsg(m->getMsg());
+                      bp->setMsgId(m->getMsgId());
+                      bp->setSendTime(simTime());
+                      bp->setType(COMMIT);
+                      bp->setTypeS("COMMIT");
+                      bp->setView(current_view);
+                      bp->setSender(x->getSender());
+                      auto briefPacket = new Packet();
+                      Msg &tmp = *bp;
+                      const auto& payload = makeShared<Msg>(tmp);
+                      briefPacket->insertAtBack(payload);
+                      EV << "\n\n\n\n [Client"<< selfId <<"]COMMIT inviato a: " << simTime() << "\n\n\n";
+                      sendP(briefPacket, destId);
+                    }
+                  }
+              }
+        }
+    }
+}
+
+void Node::deliver_f(Msg * x){
+    addDeliverMsg(x,x->getId(),x->getView());
+    if(checkDeliverMsg()==true){
+        if(msg_to_send.empty()==false){
+            Msg * m = returnDeliverMsg();
+            first_time_deliver.push_back(m);
+            delivered=true;
+            EV << "\n\n\n\n [Client"<< selfId <<"]DELIVERED di " << m->getMsgId()  << "da parte di" << m->getId() << " FINISHED a: " << simTime() << "\n\n\n";
+            can_leave=true;
+            deliverati.push_back(m);
+        }
+    }
+}
+
 void Node::handleStartOperation(LifecycleOperation *operation) {
     EV << "\n\n\n HandleStartTime: " << startTime << "\n\n\n";
 
@@ -1301,7 +1489,7 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
 
     current_view = {{0,1}, {1,1}, {2,1}}; //fixed current view
 
-    installedView={current_view};
+    installedView={{current_view,1}};
 
     int tmp = sizeCV(current_view) + f + 1;
     if (tmp % 2 == 1){
@@ -1323,21 +1511,25 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
     installReceived={};
     FORMATv={};
     LCSEQv={};
-    allowed_ack={};
+    //allowed_ack={};
     acks={};
-    msg_to_send={}; //TODO IMPORTANT -> Error RNG gen 14
+    msg_to_send={};
     msgId=0;
     deliver={};
     quorum_msg={};
+    first_time_deliver={};
+    states_update={};
+    states={};
+    msg_to_send={};
 
-    int m=par("join");
+    double m=par("join");
     if(m!=-1){
         rec_cond=false;
         join_complete=false;
         join(m);
     }
 
-    int m2=par("broadcast");
+    double m2=par("broadcast");
     if(m2!=-1){
         broadcast(m2);
     }

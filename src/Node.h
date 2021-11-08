@@ -22,6 +22,7 @@
 #include "inet/transportlayer/contract/tcp/TcpSocket.h"
 
 #include "msg_m.h"
+#include "messageL_m.h"
 #include <vector>
 #include <set>
 #include <map>
@@ -33,6 +34,16 @@
 
 #include <chrono>
 #include "inet/common/socket/SocketMap.h"
+
+typedef struct State{
+    bool allowed_ack; //current view or view
+
+    msg_ allowed_ack_value;
+
+    bool stored;
+
+    msg_ stored_value;
+};
 
 using namespace std;
 using namespace std::chrono;
@@ -61,7 +72,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     vector<vector<pair<int,int>>> installReceived;
 
-    vector<vector<pair<int,int>>> installedView;
+    vector<pair<vector<pair<int,int>>,int>> installedView;
     vector<Msg*> mio;
 
   protected:
@@ -106,12 +117,13 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     int cer;
     vector<pair<int,int>> v_cer;
-    vector<Msg*> allowed_ack;
+    bool allowed_ack=true;
+    Msg * allowed_ack_value=nullptr;
     bool stored = false;
-    Msg * stored_value;
+    Msg * stored_value=nullptr;
     bool can_leave = false;
     bool delivered = false;
-    bool first_time_deliver=false;
+    vector <Msg *> first_time_deliver;
 
     vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> acks;
     vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> deliver;
@@ -137,6 +149,13 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     bool first_time=true;
 
+    vector<Msg*> deliverati;
+
+    vector<Msg*> states_update;
+
+    vector<pair<int,int>> req;
+
+    vector<State*> states;
 
   public:
       Node() { }
@@ -208,12 +227,13 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual bool isReceivedI(vector<pair<int,int>> v);
     virtual bool isInstalled(vector<pair<int,int>> v1);
     virtual bool contains(vector<pair<int,int>> v1, vector<pair<int,int>> v2);
-    virtual bool isAllowed(Msg * m );
+    //virtual bool isAllowed(Msg * m );
     virtual bool acksMsg(Msg* m, int id, vector<pair<int,int>> v);
     virtual void addAcksMsg(Msg* m, int id, vector<pair<int,int>> v);
     virtual bool equalMsg(Msg* m1, Msg* m2);
     virtual Msg * returnMsg();
     virtual bool checkMsg();
+    virtual bool firstTimeDeliver(Msg* m);
 
     virtual void addDeliverMsg(Msg* m, int id, vector<pair<int,int>> v);
     virtual Msg * returnDeliverMsg();
@@ -221,6 +241,17 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     virtual void broadcast(int x);
     virtual bool quorumMsg(Msg *m);
+
+    virtual void reconfig_f(Msg * x);
+    virtual void rec_confirm_f(Msg * x);
+    virtual void propose_f(Msg * x);
+    virtual void converge_f(Msg * x);
+    virtual void install_f(Msg * x);
+    virtual void state_update_f(Msg * x);
+    virtual void commit_f(Msg * x);
+    virtual void ack_f(Msg * x);
+    virtual void deliver_f(Msg * x);
+    virtual void prepare_f(Msg * x);
 };
 
 } // namespace inet
