@@ -89,13 +89,45 @@ class Msg extends FieldsChunk {
     string typeS;
     
     int sender;
+
+}
+
+class StateUpdateMessage extends FieldsChunk {
     
-    bool allowed_ack; //current view or view 
+    chunkLength = B(2);
     
-    msg_ allowed_ack_value;
+    int id; //sender
+    
+    string msg; //message
+    
+    IntVector view; //current view or view 
+    
+    IntVector RECV; //current view or view 
+    
+    IntVector installView; //current view or view 
+    
+    IntVectorV SEQcv; //in case of PROPOSE
+    
+    int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
+    
+    bool ack;
+    
+    Msg* ack_value;
+    
+    bool conflicting;
+    
+    Msg* conflicting_value_1;
+    
+    Msg* conflicting_value_2;
     
     bool stored;
     
-    msg_ stored_value;
-
+    Msg* stored_value;
+    
+    simtime_t sendTime; //send time
+    
+    simtime_t arrivalTime; //arrival time
+    
+    string typeS;
+    
 }

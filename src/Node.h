@@ -23,6 +23,7 @@
 
 #include "msg_m.h"
 #include "messageL_m.h"
+//#include "StateUpdateMessage_m.h"
 #include <vector>
 #include <set>
 #include <map>
@@ -35,15 +36,6 @@
 #include <chrono>
 #include "inet/common/socket/SocketMap.h"
 
-typedef struct State{
-    bool allowed_ack; //current view or view
-
-    msg_ allowed_ack_value;
-
-    bool stored;
-
-    msg_ stored_value;
-};
 
 using namespace std;
 using namespace std::chrono;
@@ -59,6 +51,19 @@ namespace inet {
  *
  * It needs the following NED parameters: localAddress, localPort, connectAddress, connectPort.
  */
+
+struct StateUpdate{
+    bool ack;
+    Msg * ack_value;
+
+    bool conflicting;
+    Msg * conflicting_value_1;
+    Msg * conflicting_value_2;
+
+    bool stored;
+    Msg * stored_value;
+};
+
 class Node : public ApplicationBase, public TcpSocket::ICallback
 {
   public:
@@ -118,7 +123,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     int cer;
     vector<pair<int,int>> v_cer;
     bool allowed_ack=true;
-    Msg * allowed_ack_value=nullptr;
+    Msg * allowed_ack_value;
     bool stored = false;
     Msg * stored_value=nullptr;
     bool can_leave = false;
@@ -131,8 +136,6 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<Msg*> msg_to_send;
     vector<Msg*> msg_to_send2;
     vector<Msg*> quorum_msg;
-
-    int state;
 
     bool join_complete;
     bool leave_complete;
@@ -151,11 +154,15 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     vector<Msg*> deliverati;
 
-    vector<Msg*> states_update;
+    vector<StateUpdateMessage*> states_update;
 
     vector<pair<int,int>> req;
 
-    vector<State*> states;
+    vector<StateUpdate*> states;
+
+    bool first_time_state_update=true;
+
+    StateUpdate state;
 
   public:
       Node() { }
@@ -226,6 +233,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     virtual bool isReceivedI(vector<pair<int,int>> v);
     virtual bool isInstalled(vector<pair<int,int>> v1);
+    virtual void deInstall(vector<pair<int,int>> v1);
+    virtual void install(vector<pair<int,int>> v1);
     virtual bool contains(vector<pair<int,int>> v1, vector<pair<int,int>> v2);
     //virtual bool isAllowed(Msg * m );
     virtual bool acksMsg(Msg* m, int id, vector<pair<int,int>> v);
@@ -247,11 +256,15 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void propose_f(Msg * x);
     virtual void converge_f(Msg * x);
     virtual void install_f(Msg * x);
-    virtual void state_update_f(Msg * x);
+    virtual void state_update_f(StateUpdateMessage * x);
     virtual void commit_f(Msg * x);
     virtual void ack_f(Msg * x);
     virtual void deliver_f(Msg * x);
     virtual void prepare_f(Msg * x);
+
+    virtual void newView();
+    virtual void stateTransfer();
+    virtual msg_ castMsgToMsg_(Msg* m);
 };
 
 } // namespace inet

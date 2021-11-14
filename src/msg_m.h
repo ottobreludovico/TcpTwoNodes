@@ -20,6 +20,7 @@
 namespace inet {
 
 class Msg;
+class StateUpdateMessage;
 } // namespace inet
 
 #include "inet/common/INETDefs_m.h" // import inet.common.INETDefs
@@ -89,14 +90,6 @@ namespace inet {
  * 
  *     int sender;
  * 
- *     bool allowed_ack; //current view or view 
- * 
- *     msg_ allowed_ack_value;
- * 
- *     bool stored;
- * 
- *     msg_ stored_value;
- * 
  * }
  * </pre>
  */
@@ -118,10 +111,6 @@ class Msg : public ::inet::FieldsChunk
     int install_or_update = 0;
     omnetpp::opp_string typeS;
     int sender = 0;
-    bool allowed_ack = false;
-    msg_ allowed_ack_value;
-    bool stored = false;
-    msg_ stored_value;
 
   private:
     void copy(const Msg& other);
@@ -174,20 +163,139 @@ class Msg : public ::inet::FieldsChunk
     virtual void setTypeS(const char * typeS);
     virtual int getSender() const;
     virtual void setSender(int sender);
-    virtual bool getAllowed_ack() const;
-    virtual void setAllowed_ack(bool allowed_ack);
-    virtual const msg_& getAllowed_ack_value() const;
-    virtual msg_& getAllowed_ack_valueForUpdate() { handleChange();return const_cast<msg_&>(const_cast<Msg*>(this)->getAllowed_ack_value());}
-    virtual void setAllowed_ack_value(const msg_& allowed_ack_value);
-    virtual bool getStored() const;
-    virtual void setStored(bool stored);
-    virtual const msg_& getStored_value() const;
-    virtual msg_& getStored_valueForUpdate() { handleChange();return const_cast<msg_&>(const_cast<Msg*>(this)->getStored_value());}
-    virtual void setStored_value(const msg_& stored_value);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const Msg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, Msg& obj) {obj.parsimUnpack(b);}
+
+/**
+ * Class generated from <tt>msg.msg:95</tt> by nedtool.
+ * <pre>
+ * class StateUpdateMessage extends FieldsChunk
+ * {
+ *     chunkLength = B(2);
+ * 
+ *     int id; //sender
+ * 
+ *     string msg; //message
+ * 
+ *     IntVector view; //current view or view 
+ * 
+ *     IntVector RECV; //current view or view 
+ * 
+ *     IntVector installView; //current view or view 
+ * 
+ *     IntVectorV SEQcv; //in case of PROPOSE
+ * 
+ *     int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
+ * 
+ *     bool ack;
+ * 
+ *     Msg *ack_value;
+ * 
+ *     bool conflicting;
+ * 
+ *     Msg *conflicting_value_1;
+ * 
+ *     Msg *conflicting_value_2;
+ * 
+ *     bool stored;
+ * 
+ *     Msg *stored_value;
+ * 
+ *     simtime_t sendTime; //send time
+ * 
+ *     simtime_t arrivalTime; //arrival time
+ * 
+ *     string typeS;
+ * 
+ * }
+ * </pre>
+ */
+class StateUpdateMessage : public ::inet::FieldsChunk
+{
+  protected:
+    int id = 0;
+    omnetpp::opp_string msg;
+    IntVector view;
+    IntVector RECV;
+    IntVector installView;
+    IntVectorV SEQcv;
+    int type = 0;
+    bool ack = false;
+    Msg * ack_value = nullptr;
+    bool conflicting = false;
+    Msg * conflicting_value_1 = nullptr;
+    Msg * conflicting_value_2 = nullptr;
+    bool stored = false;
+    Msg * stored_value = nullptr;
+    omnetpp::simtime_t sendTime = SIMTIME_ZERO;
+    omnetpp::simtime_t arrivalTime = SIMTIME_ZERO;
+    omnetpp::opp_string typeS;
+
+  private:
+    void copy(const StateUpdateMessage& other);
+
+  protected:
+    // protected and unimplemented operator==(), to prevent accidental usage
+    bool operator==(const StateUpdateMessage&);
+
+  public:
+    StateUpdateMessage();
+    StateUpdateMessage(const StateUpdateMessage& other);
+    virtual ~StateUpdateMessage();
+    StateUpdateMessage& operator=(const StateUpdateMessage& other);
+    virtual StateUpdateMessage *dup() const override {return new StateUpdateMessage(*this);}
+    virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
+    virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
+
+    // field getter/setter methods
+    virtual int getId() const;
+    virtual void setId(int id);
+    virtual const char * getMsg() const;
+    virtual void setMsg(const char * msg);
+    virtual const IntVector& getView() const;
+    virtual IntVector& getViewForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<StateUpdateMessage*>(this)->getView());}
+    virtual void setView(const IntVector& view);
+    virtual const IntVector& getRECV() const;
+    virtual IntVector& getRECVForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<StateUpdateMessage*>(this)->getRECV());}
+    virtual void setRECV(const IntVector& RECV);
+    virtual const IntVector& getInstallView() const;
+    virtual IntVector& getInstallViewForUpdate() { handleChange();return const_cast<IntVector&>(const_cast<StateUpdateMessage*>(this)->getInstallView());}
+    virtual void setInstallView(const IntVector& installView);
+    virtual const IntVectorV& getSEQcv() const;
+    virtual IntVectorV& getSEQcvForUpdate() { handleChange();return const_cast<IntVectorV&>(const_cast<StateUpdateMessage*>(this)->getSEQcv());}
+    virtual void setSEQcv(const IntVectorV& SEQcv);
+    virtual int getType() const;
+    virtual void setType(int type);
+    virtual bool getAck() const;
+    virtual void setAck(bool ack);
+    virtual const Msg * getAck_value() const;
+    virtual Msg * getAck_valueForUpdate() { handleChange();return const_cast<Msg *>(const_cast<StateUpdateMessage*>(this)->getAck_value());}
+    virtual void setAck_value(Msg * ack_value);
+    virtual bool getConflicting() const;
+    virtual void setConflicting(bool conflicting);
+    virtual const Msg * getConflicting_value_1() const;
+    virtual Msg * getConflicting_value_1ForUpdate() { handleChange();return const_cast<Msg *>(const_cast<StateUpdateMessage*>(this)->getConflicting_value_1());}
+    virtual void setConflicting_value_1(Msg * conflicting_value_1);
+    virtual const Msg * getConflicting_value_2() const;
+    virtual Msg * getConflicting_value_2ForUpdate() { handleChange();return const_cast<Msg *>(const_cast<StateUpdateMessage*>(this)->getConflicting_value_2());}
+    virtual void setConflicting_value_2(Msg * conflicting_value_2);
+    virtual bool getStored() const;
+    virtual void setStored(bool stored);
+    virtual const Msg * getStored_value() const;
+    virtual Msg * getStored_valueForUpdate() { handleChange();return const_cast<Msg *>(const_cast<StateUpdateMessage*>(this)->getStored_value());}
+    virtual void setStored_value(Msg * stored_value);
+    virtual omnetpp::simtime_t getSendTime() const;
+    virtual void setSendTime(omnetpp::simtime_t sendTime);
+    virtual omnetpp::simtime_t getArrivalTime() const;
+    virtual void setArrivalTime(omnetpp::simtime_t arrivalTime);
+    virtual const char * getTypeS() const;
+    virtual void setTypeS(const char * typeS);
+};
+
+inline void doParsimPacking(omnetpp::cCommBuffer *b, const StateUpdateMessage& obj) {obj.parsimPack(b);}
+inline void doParsimUnpacking(omnetpp::cCommBuffer *b, StateUpdateMessage& obj) {obj.parsimUnpack(b);}
 
 } // namespace inet
 
