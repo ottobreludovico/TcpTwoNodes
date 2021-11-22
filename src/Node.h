@@ -54,14 +54,14 @@ namespace inet {
 
 struct StateUpdate{
     bool ack;
-    Msg * ack_value;
+    vector<Msg *> ack_value;
 
     bool conflicting;
-    Msg * conflicting_value_1;
-    Msg * conflicting_value_2;
+    vector<Msg*> conflicting_value;
+
 
     bool stored;
-    Msg * stored_value;
+    vector<Msg *> stored_value;
 };
 
 class Node : public ApplicationBase, public TcpSocket::ICallback
@@ -115,6 +115,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     int status;
     int quorumSize;
     vector<pair<int,int>> current_view;
+    vector<pair<int,int>> init_view;
     vector<pair<int,int>> RECV;
     vector< vector<pair<int,int>> > SEQv;
     vector< vector<pair<int,int>> > LCSEQv;
@@ -122,10 +123,10 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     int cer;
     vector<pair<int,int>> v_cer;
-    bool allowed_ack=true;
-    Msg * allowed_ack_value;
+    bool allowed_ack=false;
+    vector<Msg *> allowed_ack_value;
     bool stored = false;
-    Msg * stored_value=nullptr;
+    vector<Msg *> stored_value;
     bool can_leave = false;
     bool delivered = false;
     vector <Msg *> first_time_deliver;
@@ -164,6 +165,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     StateUpdate state;
 
+    double timerDelay;
+
   public:
       Node() { }
       virtual ~Node() { }
@@ -198,7 +201,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void handleCrashOperation(LifecycleOperation *operation) override;
 
     //DBRB
-    virtual void join(int x);
+    virtual void join(double x);
     virtual bool contain(int x, vector<pair<int,int>> cv);
     virtual vector<pair<int,int>> mostRecent(vector<vector<pair<int,int>>> seq);
     virtual vector<pair<int,int>> leastRecent(vector<vector<pair<int,int>>> seq);
@@ -207,7 +210,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void updatePropose(vector<vector<pair<int,int>>> s1,int i);
     virtual void updateConverge(vector<vector<pair<int,int>>> s1,int i);
 
-    virtual bool checkPropose(int x, vector<pair<int,int>> cv);
+    virtual bool checkPropose(int x, int join_or_leave, vector<pair<int,int>> cv);
 
     virtual bool checkPropose() ;
     virtual vector<vector<pair<int,int>>>returnPropose() ;
@@ -248,7 +251,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual Msg * returnDeliverMsg();
     virtual bool checkDeliverMsg();
 
-    virtual void broadcast(int x);
+    virtual void broadcast(double x);
     virtual bool quorumMsg(Msg *m);
 
     virtual void reconfig_f(Msg * x);
@@ -265,6 +268,21 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void newView();
     virtual void stateTransfer();
     virtual msg_ castMsgToMsg_(Msg* m);
+
+    virtual void timer(double x);
+    virtual double fRand(double fMin, double fMax);
+
+    virtual bool isAllowed(Msg * m);
+
+    virtual bool isStored(Msg * m);
+
+    virtual bool isAllowedS(Msg * m);
+
+    virtual bool isStoredS(Msg * m);
+
+    virtual bool isDelivered(Msg * m);
+
+    virtual void view_discovery();
 };
 
 } // namespace inet

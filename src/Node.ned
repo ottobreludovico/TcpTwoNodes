@@ -69,6 +69,7 @@ simple Node like IApp
         double 			join = default(-1); // time to call a join req
         double 			leave = default(-1); // time to call a leave req
         double 			broadcast = default(-1); // time to call a broadcast req
+        double 			timer = default(3); 
         int nPar; 
         int fPar;
         @display("i=block/app");

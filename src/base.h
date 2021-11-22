@@ -23,7 +23,7 @@ const int MSGKIND_JOIN=1;
 const int MSGKIND_LEAVE=2;
 const int MSGKIND_BROADCAST=3;
 const int MSGKIND_SEND=4;
-
+const int MSGKIND_TIMER=5;
 
 
 #endif

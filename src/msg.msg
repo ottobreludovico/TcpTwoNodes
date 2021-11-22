@@ -92,6 +92,16 @@ class Msg extends FieldsChunk {
 
 }
 
+cplusplus {{
+#include <vector>
+typedef std::vector<Msg*> MsgVector;
+}}
+
+class MsgVector {
+    @existingClass;
+}
+
+
 class StateUpdateMessage extends FieldsChunk {
     
     chunkLength = B(2);
@@ -112,17 +122,15 @@ class StateUpdateMessage extends FieldsChunk {
     
     bool ack;
     
-    Msg* ack_value;
+    MsgVector ack_value;
     
     bool conflicting;
     
-    Msg* conflicting_value_1;
-    
-    Msg* conflicting_value_2;
+    MsgVector conflicting_value;
     
     bool stored;
     
-    Msg* stored_value;
+    MsgVector stored_value;
     
     simtime_t sendTime; //send time
     

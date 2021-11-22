@@ -168,8 +168,13 @@ class Msg : public ::inet::FieldsChunk
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const Msg& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, Msg& obj) {obj.parsimUnpack(b);}
 
+// cplusplus {{
+#include <vector>
+typedef std::vector<Msg*> MsgVector;
+// }}
+
 /**
- * Class generated from <tt>msg.msg:95</tt> by nedtool.
+ * Class generated from <tt>msg.msg:105</tt> by nedtool.
  * <pre>
  * class StateUpdateMessage extends FieldsChunk
  * {
@@ -191,17 +196,15 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, Msg& obj) {obj.parsimUnpa
  * 
  *     bool ack;
  * 
- *     Msg *ack_value;
+ *     MsgVector ack_value;
  * 
  *     bool conflicting;
  * 
- *     Msg *conflicting_value_1;
- * 
- *     Msg *conflicting_value_2;
+ *     MsgVector conflicting_value;
  * 
  *     bool stored;
  * 
- *     Msg *stored_value;
+ *     MsgVector stored_value;
  * 
  *     simtime_t sendTime; //send time
  * 
@@ -223,12 +226,11 @@ class StateUpdateMessage : public ::inet::FieldsChunk
     IntVectorV SEQcv;
     int type = 0;
     bool ack = false;
-    Msg * ack_value = nullptr;
+    MsgVector ack_value;
     bool conflicting = false;
-    Msg * conflicting_value_1 = nullptr;
-    Msg * conflicting_value_2 = nullptr;
+    MsgVector conflicting_value;
     bool stored = false;
-    Msg * stored_value = nullptr;
+    MsgVector stored_value;
     omnetpp::simtime_t sendTime = SIMTIME_ZERO;
     omnetpp::simtime_t arrivalTime = SIMTIME_ZERO;
     omnetpp::opp_string typeS;
@@ -270,22 +272,19 @@ class StateUpdateMessage : public ::inet::FieldsChunk
     virtual void setType(int type);
     virtual bool getAck() const;
     virtual void setAck(bool ack);
-    virtual const Msg * getAck_value() const;
-    virtual Msg * getAck_valueForUpdate() { handleChange();return const_cast<Msg *>(const_cast<StateUpdateMessage*>(this)->getAck_value());}
-    virtual void setAck_value(Msg * ack_value);
+    virtual const MsgVector& getAck_value() const;
+    virtual MsgVector& getAck_valueForUpdate() { handleChange();return const_cast<MsgVector&>(const_cast<StateUpdateMessage*>(this)->getAck_value());}
+    virtual void setAck_value(const MsgVector& ack_value);
     virtual bool getConflicting() const;
     virtual void setConflicting(bool conflicting);
-    virtual const Msg * getConflicting_value_1() const;
-    virtual Msg * getConflicting_value_1ForUpdate() { handleChange();return const_cast<Msg *>(const_cast<StateUpdateMessage*>(this)->getConflicting_value_1());}
-    virtual void setConflicting_value_1(Msg * conflicting_value_1);
-    virtual const Msg * getConflicting_value_2() const;
-    virtual Msg * getConflicting_value_2ForUpdate() { handleChange();return const_cast<Msg *>(const_cast<StateUpdateMessage*>(this)->getConflicting_value_2());}
-    virtual void setConflicting_value_2(Msg * conflicting_value_2);
+    virtual const MsgVector& getConflicting_value() const;
+    virtual MsgVector& getConflicting_valueForUpdate() { handleChange();return const_cast<MsgVector&>(const_cast<StateUpdateMessage*>(this)->getConflicting_value());}
+    virtual void setConflicting_value(const MsgVector& conflicting_value);
     virtual bool getStored() const;
     virtual void setStored(bool stored);
-    virtual const Msg * getStored_value() const;
-    virtual Msg * getStored_valueForUpdate() { handleChange();return const_cast<Msg *>(const_cast<StateUpdateMessage*>(this)->getStored_value());}
-    virtual void setStored_value(Msg * stored_value);
+    virtual const MsgVector& getStored_value() const;
+    virtual MsgVector& getStored_valueForUpdate() { handleChange();return const_cast<MsgVector&>(const_cast<StateUpdateMessage*>(this)->getStored_value());}
+    virtual void setStored_value(const MsgVector& stored_value);
     virtual omnetpp::simtime_t getSendTime() const;
     virtual void setSendTime(omnetpp::simtime_t sendTime);
     virtual omnetpp::simtime_t getArrivalTime() const;

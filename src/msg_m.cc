@@ -1439,6 +1439,223 @@ void *MsgDescriptor::getFieldStructValuePointer(void *object, int field, int i) 
     }
 }
 
+class MsgVectorDescriptor : public omnetpp::cClassDescriptor
+{
+  private:
+    mutable const char **propertynames;
+    enum FieldConstants {
+    };
+  public:
+    MsgVectorDescriptor();
+    virtual ~MsgVectorDescriptor();
+
+    virtual bool doesSupport(omnetpp::cObject *obj) const override;
+    virtual const char **getPropertyNames() const override;
+    virtual const char *getProperty(const char *propertyname) const override;
+    virtual int getFieldCount() const override;
+    virtual const char *getFieldName(int field) const override;
+    virtual int findField(const char *fieldName) const override;
+    virtual unsigned int getFieldTypeFlags(int field) const override;
+    virtual const char *getFieldTypeString(int field) const override;
+    virtual const char **getFieldPropertyNames(int field) const override;
+    virtual const char *getFieldProperty(int field, const char *propertyname) const override;
+    virtual int getFieldArraySize(void *object, int field) const override;
+
+    virtual const char *getFieldDynamicTypeString(void *object, int field, int i) const override;
+    virtual std::string getFieldValueAsString(void *object, int field, int i) const override;
+    virtual bool setFieldValueAsString(void *object, int field, int i, const char *value) const override;
+
+    virtual const char *getFieldStructName(int field) const override;
+    virtual void *getFieldStructValuePointer(void *object, int field, int i) const override;
+};
+
+Register_ClassDescriptor(MsgVectorDescriptor)
+
+MsgVectorDescriptor::MsgVectorDescriptor() : omnetpp::cClassDescriptor(omnetpp::opp_typename(typeid(inet::MsgVector)), "")
+{
+    propertynames = nullptr;
+}
+
+MsgVectorDescriptor::~MsgVectorDescriptor()
+{
+    delete[] propertynames;
+}
+
+bool MsgVectorDescriptor::doesSupport(omnetpp::cObject *obj) const
+{
+    return dynamic_cast<MsgVector *>(obj)!=nullptr;
+}
+
+const char **MsgVectorDescriptor::getPropertyNames() const
+{
+    if (!propertynames) {
+        static const char *names[] = { "existingClass",  nullptr };
+        omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+        const char **basenames = basedesc ? basedesc->getPropertyNames() : nullptr;
+        propertynames = mergeLists(basenames, names);
+    }
+    return propertynames;
+}
+
+const char *MsgVectorDescriptor::getProperty(const char *propertyname) const
+{
+    if (!strcmp(propertyname, "existingClass")) return "";
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->getProperty(propertyname) : nullptr;
+}
+
+int MsgVectorDescriptor::getFieldCount() const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? 0+basedesc->getFieldCount() : 0;
+}
+
+unsigned int MsgVectorDescriptor::getFieldTypeFlags(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeFlags(field);
+        field -= basedesc->getFieldCount();
+    }
+    return 0;
+}
+
+const char *MsgVectorDescriptor::getFieldName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldName(field);
+        field -= basedesc->getFieldCount();
+    }
+    return nullptr;
+}
+
+int MsgVectorDescriptor::findField(const char *fieldName) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    return basedesc ? basedesc->findField(fieldName) : -1;
+}
+
+const char *MsgVectorDescriptor::getFieldTypeString(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldTypeString(field);
+        field -= basedesc->getFieldCount();
+    }
+    return nullptr;
+}
+
+const char **MsgVectorDescriptor::getFieldPropertyNames(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldPropertyNames(field);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+const char *MsgVectorDescriptor::getFieldProperty(int field, const char *propertyname) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldProperty(field, propertyname);
+        field -= basedesc->getFieldCount();
+    }
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+int MsgVectorDescriptor::getFieldArraySize(void *object, int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldArraySize(object, field);
+        field -= basedesc->getFieldCount();
+    }
+    MsgVector *pp = (MsgVector *)object; (void)pp;
+    switch (field) {
+        default: return 0;
+    }
+}
+
+const char *MsgVectorDescriptor::getFieldDynamicTypeString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldDynamicTypeString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    MsgVector *pp = (MsgVector *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
+std::string MsgVectorDescriptor::getFieldValueAsString(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldValueAsString(object,field,i);
+        field -= basedesc->getFieldCount();
+    }
+    MsgVector *pp = (MsgVector *)object; (void)pp;
+    switch (field) {
+        default: return "";
+    }
+}
+
+bool MsgVectorDescriptor::setFieldValueAsString(void *object, int field, int i, const char *value) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->setFieldValueAsString(object,field,i,value);
+        field -= basedesc->getFieldCount();
+    }
+    MsgVector *pp = (MsgVector *)object; (void)pp;
+    switch (field) {
+        default: return false;
+    }
+}
+
+const char *MsgVectorDescriptor::getFieldStructName(int field) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructName(field);
+        field -= basedesc->getFieldCount();
+    }
+    return nullptr;
+}
+
+void *MsgVectorDescriptor::getFieldStructValuePointer(void *object, int field, int i) const
+{
+    omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
+    if (basedesc) {
+        if (field < basedesc->getFieldCount())
+            return basedesc->getFieldStructValuePointer(object, field, i);
+        field -= basedesc->getFieldCount();
+    }
+    MsgVector *pp = (MsgVector *)object; (void)pp;
+    switch (field) {
+        default: return nullptr;
+    }
+}
+
 Register_Class(StateUpdateMessage)
 
 StateUpdateMessage::StateUpdateMessage() : ::inet::FieldsChunk()
@@ -1476,8 +1693,7 @@ void StateUpdateMessage::copy(const StateUpdateMessage& other)
     this->ack = other.ack;
     this->ack_value = other.ack_value;
     this->conflicting = other.conflicting;
-    this->conflicting_value_1 = other.conflicting_value_1;
-    this->conflicting_value_2 = other.conflicting_value_2;
+    this->conflicting_value = other.conflicting_value;
     this->stored = other.stored;
     this->stored_value = other.stored_value;
     this->sendTime = other.sendTime;
@@ -1498,8 +1714,7 @@ void StateUpdateMessage::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->ack);
     doParsimPacking(b,this->ack_value);
     doParsimPacking(b,this->conflicting);
-    doParsimPacking(b,this->conflicting_value_1);
-    doParsimPacking(b,this->conflicting_value_2);
+    doParsimPacking(b,this->conflicting_value);
     doParsimPacking(b,this->stored);
     doParsimPacking(b,this->stored_value);
     doParsimPacking(b,this->sendTime);
@@ -1520,8 +1735,7 @@ void StateUpdateMessage::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->ack);
     doParsimUnpacking(b,this->ack_value);
     doParsimUnpacking(b,this->conflicting);
-    doParsimUnpacking(b,this->conflicting_value_1);
-    doParsimUnpacking(b,this->conflicting_value_2);
+    doParsimUnpacking(b,this->conflicting_value);
     doParsimUnpacking(b,this->stored);
     doParsimUnpacking(b,this->stored_value);
     doParsimUnpacking(b,this->sendTime);
@@ -1617,12 +1831,12 @@ void StateUpdateMessage::setAck(bool ack)
     this->ack = ack;
 }
 
-const Msg * StateUpdateMessage::getAck_value() const
+const MsgVector& StateUpdateMessage::getAck_value() const
 {
     return this->ack_value;
 }
 
-void StateUpdateMessage::setAck_value(Msg * ack_value)
+void StateUpdateMessage::setAck_value(const MsgVector& ack_value)
 {
     handleChange();
     this->ack_value = ack_value;
@@ -1639,26 +1853,15 @@ void StateUpdateMessage::setConflicting(bool conflicting)
     this->conflicting = conflicting;
 }
 
-const Msg * StateUpdateMessage::getConflicting_value_1() const
+const MsgVector& StateUpdateMessage::getConflicting_value() const
 {
-    return this->conflicting_value_1;
+    return this->conflicting_value;
 }
 
-void StateUpdateMessage::setConflicting_value_1(Msg * conflicting_value_1)
+void StateUpdateMessage::setConflicting_value(const MsgVector& conflicting_value)
 {
     handleChange();
-    this->conflicting_value_1 = conflicting_value_1;
-}
-
-const Msg * StateUpdateMessage::getConflicting_value_2() const
-{
-    return this->conflicting_value_2;
-}
-
-void StateUpdateMessage::setConflicting_value_2(Msg * conflicting_value_2)
-{
-    handleChange();
-    this->conflicting_value_2 = conflicting_value_2;
+    this->conflicting_value = conflicting_value;
 }
 
 bool StateUpdateMessage::getStored() const
@@ -1672,12 +1875,12 @@ void StateUpdateMessage::setStored(bool stored)
     this->stored = stored;
 }
 
-const Msg * StateUpdateMessage::getStored_value() const
+const MsgVector& StateUpdateMessage::getStored_value() const
 {
     return this->stored_value;
 }
 
-void StateUpdateMessage::setStored_value(Msg * stored_value)
+void StateUpdateMessage::setStored_value(const MsgVector& stored_value)
 {
     handleChange();
     this->stored_value = stored_value;
@@ -1731,8 +1934,7 @@ class StateUpdateMessageDescriptor : public omnetpp::cClassDescriptor
         FIELD_ack,
         FIELD_ack_value,
         FIELD_conflicting,
-        FIELD_conflicting_value_1,
-        FIELD_conflicting_value_2,
+        FIELD_conflicting_value,
         FIELD_stored,
         FIELD_stored_value,
         FIELD_sendTime,
@@ -1800,7 +2002,7 @@ const char *StateUpdateMessageDescriptor::getProperty(const char *propertyname) 
 int StateUpdateMessageDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 17+basedesc->getFieldCount() : 17;
+    return basedesc ? 16+basedesc->getFieldCount() : 16;
 }
 
 unsigned int StateUpdateMessageDescriptor::getFieldTypeFlags(int field) const
@@ -1820,17 +2022,16 @@ unsigned int StateUpdateMessageDescriptor::getFieldTypeFlags(int field) const
         FD_ISCOMPOUND,    // FIELD_SEQcv
         FD_ISEDITABLE,    // FIELD_type
         FD_ISEDITABLE,    // FIELD_ack
-        FD_ISCOMPOUND | FD_ISPOINTER | FD_ISCOBJECT,    // FIELD_ack_value
+        FD_ISCOMPOUND,    // FIELD_ack_value
         FD_ISEDITABLE,    // FIELD_conflicting
-        FD_ISCOMPOUND | FD_ISPOINTER | FD_ISCOBJECT,    // FIELD_conflicting_value_1
-        FD_ISCOMPOUND | FD_ISPOINTER | FD_ISCOBJECT,    // FIELD_conflicting_value_2
+        FD_ISCOMPOUND,    // FIELD_conflicting_value
         FD_ISEDITABLE,    // FIELD_stored
-        FD_ISCOMPOUND | FD_ISPOINTER | FD_ISCOBJECT,    // FIELD_stored_value
+        FD_ISCOMPOUND,    // FIELD_stored_value
         0,    // FIELD_sendTime
         0,    // FIELD_arrivalTime
         FD_ISEDITABLE,    // FIELD_typeS
     };
-    return (field >= 0 && field < 17) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 16) ? fieldTypeFlags[field] : 0;
 }
 
 const char *StateUpdateMessageDescriptor::getFieldName(int field) const
@@ -1852,15 +2053,14 @@ const char *StateUpdateMessageDescriptor::getFieldName(int field) const
         "ack",
         "ack_value",
         "conflicting",
-        "conflicting_value_1",
-        "conflicting_value_2",
+        "conflicting_value",
         "stored",
         "stored_value",
         "sendTime",
         "arrivalTime",
         "typeS",
     };
-    return (field >= 0 && field < 17) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 16) ? fieldNames[field] : nullptr;
 }
 
 int StateUpdateMessageDescriptor::findField(const char *fieldName) const
@@ -1877,13 +2077,12 @@ int StateUpdateMessageDescriptor::findField(const char *fieldName) const
     if (fieldName[0] == 'a' && strcmp(fieldName, "ack") == 0) return base+7;
     if (fieldName[0] == 'a' && strcmp(fieldName, "ack_value") == 0) return base+8;
     if (fieldName[0] == 'c' && strcmp(fieldName, "conflicting") == 0) return base+9;
-    if (fieldName[0] == 'c' && strcmp(fieldName, "conflicting_value_1") == 0) return base+10;
-    if (fieldName[0] == 'c' && strcmp(fieldName, "conflicting_value_2") == 0) return base+11;
-    if (fieldName[0] == 's' && strcmp(fieldName, "stored") == 0) return base+12;
-    if (fieldName[0] == 's' && strcmp(fieldName, "stored_value") == 0) return base+13;
-    if (fieldName[0] == 's' && strcmp(fieldName, "sendTime") == 0) return base+14;
-    if (fieldName[0] == 'a' && strcmp(fieldName, "arrivalTime") == 0) return base+15;
-    if (fieldName[0] == 't' && strcmp(fieldName, "typeS") == 0) return base+16;
+    if (fieldName[0] == 'c' && strcmp(fieldName, "conflicting_value") == 0) return base+10;
+    if (fieldName[0] == 's' && strcmp(fieldName, "stored") == 0) return base+11;
+    if (fieldName[0] == 's' && strcmp(fieldName, "stored_value") == 0) return base+12;
+    if (fieldName[0] == 's' && strcmp(fieldName, "sendTime") == 0) return base+13;
+    if (fieldName[0] == 'a' && strcmp(fieldName, "arrivalTime") == 0) return base+14;
+    if (fieldName[0] == 't' && strcmp(fieldName, "typeS") == 0) return base+15;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1904,17 +2103,16 @@ const char *StateUpdateMessageDescriptor::getFieldTypeString(int field) const
         "IntVectorV",    // FIELD_SEQcv
         "int",    // FIELD_type
         "bool",    // FIELD_ack
-        "inet::Msg",    // FIELD_ack_value
+        "inet::MsgVector",    // FIELD_ack_value
         "bool",    // FIELD_conflicting
-        "inet::Msg",    // FIELD_conflicting_value_1
-        "inet::Msg",    // FIELD_conflicting_value_2
+        "inet::MsgVector",    // FIELD_conflicting_value
         "bool",    // FIELD_stored
-        "inet::Msg",    // FIELD_stored_value
+        "inet::MsgVector",    // FIELD_stored_value
         "omnetpp::simtime_t",    // FIELD_sendTime
         "omnetpp::simtime_t",    // FIELD_arrivalTime
         "string",    // FIELD_typeS
     };
-    return (field >= 0 && field < 17) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 16) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **StateUpdateMessageDescriptor::getFieldPropertyNames(int field) const
@@ -1967,10 +2165,6 @@ const char *StateUpdateMessageDescriptor::getFieldDynamicTypeString(void *object
     }
     StateUpdateMessage *pp = (StateUpdateMessage *)object; (void)pp;
     switch (field) {
-        case FIELD_ack_value: { const Msg * value = pp->getAck_value(); return omnetpp::opp_typename(typeid(*value)); }
-        case FIELD_conflicting_value_1: { const Msg * value = pp->getConflicting_value_1(); return omnetpp::opp_typename(typeid(*value)); }
-        case FIELD_conflicting_value_2: { const Msg * value = pp->getConflicting_value_2(); return omnetpp::opp_typename(typeid(*value)); }
-        case FIELD_stored_value: { const Msg * value = pp->getStored_value(); return omnetpp::opp_typename(typeid(*value)); }
         default: return nullptr;
     }
 }
@@ -1995,8 +2189,7 @@ std::string StateUpdateMessageDescriptor::getFieldValueAsString(void *object, in
         case FIELD_ack: return bool2string(pp->getAck());
         case FIELD_ack_value: {std::stringstream out; out << pp->getAck_value(); return out.str();}
         case FIELD_conflicting: return bool2string(pp->getConflicting());
-        case FIELD_conflicting_value_1: {std::stringstream out; out << pp->getConflicting_value_1(); return out.str();}
-        case FIELD_conflicting_value_2: {std::stringstream out; out << pp->getConflicting_value_2(); return out.str();}
+        case FIELD_conflicting_value: {std::stringstream out; out << pp->getConflicting_value(); return out.str();}
         case FIELD_stored: return bool2string(pp->getStored());
         case FIELD_stored_value: {std::stringstream out; out << pp->getStored_value(); return out.str();}
         case FIELD_sendTime: return simtime2string(pp->getSendTime());
@@ -2040,10 +2233,9 @@ const char *StateUpdateMessageDescriptor::getFieldStructName(int field) const
         case FIELD_RECV: return omnetpp::opp_typename(typeid(IntVector));
         case FIELD_installView: return omnetpp::opp_typename(typeid(IntVector));
         case FIELD_SEQcv: return omnetpp::opp_typename(typeid(IntVectorV));
-        case FIELD_ack_value: return omnetpp::opp_typename(typeid(Msg));
-        case FIELD_conflicting_value_1: return omnetpp::opp_typename(typeid(Msg));
-        case FIELD_conflicting_value_2: return omnetpp::opp_typename(typeid(Msg));
-        case FIELD_stored_value: return omnetpp::opp_typename(typeid(Msg));
+        case FIELD_ack_value: return omnetpp::opp_typename(typeid(MsgVector));
+        case FIELD_conflicting_value: return omnetpp::opp_typename(typeid(MsgVector));
+        case FIELD_stored_value: return omnetpp::opp_typename(typeid(MsgVector));
         default: return nullptr;
     };
 }
@@ -2062,10 +2254,9 @@ void *StateUpdateMessageDescriptor::getFieldStructValuePointer(void *object, int
         case FIELD_RECV: return toVoidPtr(&pp->getRECV()); break;
         case FIELD_installView: return toVoidPtr(&pp->getInstallView()); break;
         case FIELD_SEQcv: return toVoidPtr(&pp->getSEQcv()); break;
-        case FIELD_ack_value: return toVoidPtr(pp->getAck_value()); break;
-        case FIELD_conflicting_value_1: return toVoidPtr(pp->getConflicting_value_1()); break;
-        case FIELD_conflicting_value_2: return toVoidPtr(pp->getConflicting_value_2()); break;
-        case FIELD_stored_value: return toVoidPtr(pp->getStored_value()); break;
+        case FIELD_ack_value: return toVoidPtr(&pp->getAck_value()); break;
+        case FIELD_conflicting_value: return toVoidPtr(&pp->getConflicting_value()); break;
+        case FIELD_stored_value: return toVoidPtr(&pp->getStored_value()); break;
         default: return nullptr;
     }
 }
