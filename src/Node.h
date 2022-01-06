@@ -83,7 +83,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
   protected:
     TcpSocket socketL;
     SocketMap socketMap;
-    TcpSocket* socketV[5];
+    pair<int,TcpSocket *> socketV[5];
 
     // statistics
     int numSessions;
@@ -128,15 +128,17 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     bool stored = false;
     vector<Msg *> stored_value;
     bool can_leave = false;
-    bool delivered = false;
-    vector <Msg *> first_time_deliver;
+    vector<pair<Msg *,bool>> delivered;
+    vector<pair<vector<pair<int,int>>,vector<Msg*>>> first_time_deliver;
+    vector<pair<vector<pair<int,int>>,vector<Msg*>>> first_time_ack;
 
     vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> acks;
     vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> deliver;
     int ** sigma; //bool?
     vector<Msg*> msg_to_send;
-    vector<Msg*> msg_to_send2;
+    vector<Msg*> msg_to_ack;
     vector<Msg*> quorum_msg;
+    vector<Msg*> msg4view;
 
     bool join_complete;
     bool leave_complete;
@@ -155,6 +157,12 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     vector<Msg*> deliverati;
 
+    vector<Msg*> inviati;
+
+    vector<Msg*> prepare_to_send;
+
+    vector<Msg*> commit_to_send;
+
     vector<StateUpdateMessage*> states_update;
 
     vector<pair<int,int>> req;
@@ -166,6 +174,12 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     StateUpdate state;
 
     double timerDelay;
+
+    vector<pair<Msg *,vector<pair<int,int>>>> certificati;
+
+    vector<Msg* > msg_prepare;
+
+    vector<StateUpdateMessage*> states_update_rec;
 
   public:
       Node() { }
@@ -188,7 +202,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     /* TcpSocket::ICallback callback methods */
     virtual void socketDataArrived(TcpSocket *socket, Packet *msg, bool urgent) override;
-    virtual void socketAvailable(TcpSocket *socket, TcpAvailableInfo *availableInfo) override { socket->accept(availableInfo->getNewSocketId()); }
+    virtual void socketAvailable(TcpSocket *socket, TcpAvailableInfo *availableInfo) override;
     virtual void socketEstablished(TcpSocket *socket) override;
     virtual void socketPeerClosed(TcpSocket *socket) override;
     virtual void socketClosed(TcpSocket *socket) override;
@@ -244,7 +258,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void addAcksMsg(Msg* m, int id, vector<pair<int,int>> v);
     virtual bool equalMsg(Msg* m1, Msg* m2);
     virtual Msg * returnMsg();
-    virtual bool checkMsg();
+    virtual bool checkAckMsg();
     virtual bool firstTimeDeliver(Msg* m);
 
     virtual void addDeliverMsg(Msg* m, int id, vector<pair<int,int>> v);
@@ -283,6 +297,27 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual bool isDelivered(Msg * m);
 
     virtual void view_discovery();
+
+    virtual void insertInMsg(Msg * x);
+
+    virtual bool firstTimeAck(Msg * m);
+
+    virtual void ftdInsert(Msg* m);
+
+    virtual void ftaInsert(Msg* m);
+
+    virtual void removeMsgFromStored(Msg * m);
+
+    virtual void removeMsgFromAck(Msg * m);
+
+    virtual void removeMsgFromStoredS(Msg * m);
+
+    virtual void removeMsgFromAckS(Msg * m);
+
+    virtual void changeCV(vector<pair<int,int>> v1);
+
+    virtual int sizeS(vector<vector<pair<int,int>>> s);
+
 };
 
 } // namespace inet

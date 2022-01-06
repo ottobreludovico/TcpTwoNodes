@@ -1,0 +1,2202 @@
+version 2
+run B_0-0-20220105-15:46:48-9184
+attr configname B_0
+attr datetime 20220105-15:46:48
+attr experiment B_0
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network scenario
+attr processid 9184
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param **.client0.app[0].broadcast 0.0
+param **.tcp.typename "\"Tcp\""
+param **.cli*.app[*].nPar 5
+param **.cli*.app[*].fPar 0
+param **.numApps 1
+param **.client0.app[*].typename "\"Node\""
+param **.client0.app[0].localPort 1000
+param **.client0.app[0].localPortL 1234
+param **.client0.app[0].connectAddress "\"\""
+param **.client0.app[0].connectPort 1234
+param **.client1.app[*].typename "\"Node\""
+param **.client1.app[0].localPort 1001
+param **.client1.app[0].localPortL 1234
+param **.client1.app[0].connectAddress "\"\""
+param **.client1.app[0].connectPort 1234
+param **.client2.app[*].typename "\"Node\""
+param **.client2.app[0].localPort 1002
+param **.client2.app[0].localPortL 1234
+param **.client2.app[0].connectAddress "\"\""
+param **.client2.app[0].connectPort 1234
+param **.client3.app[*].typename "\"Node\""
+param **.client3.app[0].localPort 1003
+param **.client3.app[0].localPortL 1234
+param **.client3.app[0].connectAddress "\"\""
+param **.client3.app[0].connectPort 1234
+param **.client4.app[*].typename "\"Node\""
+param **.client4.app[0].localPort 1004
+param **.client4.app[0].localPortL 1234
+param **.client4.app[0].connectAddress "\"\""
+param **.client4.app[0].connectPort 1234
+param *.configurator.dumpAddresses true
+param *.configurator.dumpTopology true
+param *.configurator.dumpLinks true
+param *.configurator.dumpRoutes true
+
+vector 0 scenario.client0.ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 1 scenario.client0.ppp[1].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 2 scenario.client0.ppp[2].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 3 scenario.client0.ppp[3].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 4 scenario.client1.ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 5 scenario.client1.ppp[1].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 6 scenario.client1.ppp[2].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 7 scenario.client1.ppp[3].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 8 scenario.client2.ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 9 scenario.client2.ppp[1].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 10 scenario.client2.ppp[2].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 11 scenario.client2.ppp[3].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 12 scenario.client3.ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 13 scenario.client3.ppp[1].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 14 scenario.client3.ppp[2].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 15 scenario.client3.ppp[3].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 16 scenario.client4.ppp[0].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 17 scenario.client4.ppp[1].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 18 scenario.client4.ppp[2].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 19 scenario.client4.ppp[3].ppp transmissionState:vector ETV
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, vector"
+vector 20 scenario.client0.tcp.conn-25 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 21 scenario.client0.tcp.conn-25 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 22 scenario.client0.tcp.conn-25 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 23 scenario.client0.tcp.conn-25 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 24 scenario.client0.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 25 scenario.client0.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 26 scenario.client0.ppp[0].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 27 scenario.client0.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 28 scenario.client0.ppp[0].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 29 scenario.client0.ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 30 scenario.client1.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 31 scenario.client1.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 32 scenario.client1.tcp.conn-1 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 33 scenario.client1.tcp.conn-1 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 34 scenario.client1.tcp.conn-26 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 35 scenario.client1.tcp.conn-26 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 36 scenario.client1.tcp.conn-26 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 37 scenario.client1.tcp.conn-26 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 38 scenario.client1.tcp.conn-26 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 39 scenario.client1.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 40 scenario.client1.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 41 scenario.client1.ppp[0].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 42 scenario.client1.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 43 scenario.client1.ppp[0].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 44 scenario.client1.ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 45 scenario.client0.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 46 scenario.client0.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 47 scenario.client0.tcp.conn-25 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 48 scenario.client0.tcp.conn-25 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 49 scenario.client0.tcp.conn-25 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 50 scenario.client0.tcp.conn-25 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 51 scenario.client1.tcp.conn-26 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 52 scenario.client1.tcp.conn-26 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 53 scenario.client1.tcp.conn-26 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 54 scenario.client1.tcp.conn-26 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 55 scenario.client1.tcp.conn-26 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 56 scenario.client1.tcp.conn-26 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 57 scenario.client0.tcp.conn-25 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 58 scenario.client0.tcp.conn-25 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 59 scenario.client0.tcp.conn-25 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 60 scenario.client0.tcp.conn-25 rto:vector ETV
+attr interpolationmode sample-hold
+vector 61 scenario.client0.tcp.conn-25 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 62 scenario.client0.tcp.conn-25 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 63 scenario.client0.tcp.conn-25 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 64 scenario.client0.tcp.conn-27 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 65 scenario.client0.tcp.conn-27 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 66 scenario.client0.tcp.conn-27 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 67 scenario.client0.tcp.conn-27 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 68 scenario.client0.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 69 scenario.client0.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 70 scenario.client0.ppp[1].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 71 scenario.client0.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 72 scenario.client0.ppp[1].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 73 scenario.client0.ppp[1].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 74 scenario.client2.ppp[0].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 75 scenario.client2.ppp[0].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 76 scenario.client2.tcp.conn-2 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 77 scenario.client2.tcp.conn-2 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 78 scenario.client2.tcp.conn-28 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 79 scenario.client2.tcp.conn-28 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 80 scenario.client2.tcp.conn-28 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 81 scenario.client2.tcp.conn-28 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 82 scenario.client2.tcp.conn-28 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 83 scenario.client2.ppp[0].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 84 scenario.client2.ppp[0].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 85 scenario.client2.ppp[0].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 86 scenario.client2.ppp[0].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 87 scenario.client2.ppp[0].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 88 scenario.client2.ppp[0].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 89 scenario.client0.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 90 scenario.client0.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 91 scenario.client0.tcp.conn-27 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 92 scenario.client0.tcp.conn-27 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 93 scenario.client0.tcp.conn-27 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 94 scenario.client0.tcp.conn-27 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 95 scenario.client2.tcp.conn-28 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 96 scenario.client2.tcp.conn-28 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 97 scenario.client2.tcp.conn-28 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 98 scenario.client2.tcp.conn-28 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 99 scenario.client2.tcp.conn-28 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 100 scenario.client2.tcp.conn-28 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 101 scenario.client0.tcp.conn-27 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 102 scenario.client0.tcp.conn-27 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 103 scenario.client0.tcp.conn-27 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 104 scenario.client0.tcp.conn-27 rto:vector ETV
+attr interpolationmode sample-hold
+vector 105 scenario.client0.tcp.conn-27 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 106 scenario.client0.tcp.conn-27 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 107 scenario.client0.tcp.conn-27 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 108 scenario.client2.tcp.conn-29 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 109 scenario.client2.tcp.conn-29 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 110 scenario.client2.tcp.conn-29 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 111 scenario.client2.tcp.conn-29 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 112 scenario.client0.tcp.conn-0 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 113 scenario.client0.tcp.conn-0 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 114 scenario.client0.tcp.conn-30 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 115 scenario.client0.tcp.conn-30 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 116 scenario.client0.tcp.conn-30 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 117 scenario.client0.tcp.conn-30 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 118 scenario.client0.tcp.conn-30 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 119 scenario.client2.tcp.conn-29 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 120 scenario.client2.tcp.conn-29 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 121 scenario.client2.tcp.conn-29 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 122 scenario.client2.tcp.conn-29 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 123 scenario.client0.tcp.conn-30 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 124 scenario.client0.tcp.conn-30 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 125 scenario.client0.tcp.conn-30 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 126 scenario.client0.tcp.conn-30 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 127 scenario.client0.tcp.conn-30 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 128 scenario.client0.tcp.conn-30 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 129 scenario.client2.tcp.conn-29 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 130 scenario.client2.tcp.conn-29 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 131 scenario.client2.tcp.conn-29 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 132 scenario.client2.tcp.conn-29 rto:vector ETV
+attr interpolationmode sample-hold
+vector 133 scenario.client2.tcp.conn-29 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 134 scenario.client2.tcp.conn-29 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 135 scenario.client2.tcp.conn-29 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 136 scenario.client1.tcp.conn-31 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 137 scenario.client1.tcp.conn-31 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 138 scenario.client1.tcp.conn-31 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 139 scenario.client1.tcp.conn-31 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 140 scenario.client0.tcp.conn-32 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 141 scenario.client0.tcp.conn-32 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 142 scenario.client0.tcp.conn-32 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 143 scenario.client0.tcp.conn-32 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 144 scenario.client0.tcp.conn-32 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 145 scenario.client1.tcp.conn-31 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 146 scenario.client1.tcp.conn-31 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 147 scenario.client1.tcp.conn-31 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 148 scenario.client1.tcp.conn-31 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 149 scenario.client0.tcp.conn-32 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 150 scenario.client0.tcp.conn-32 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 151 scenario.client0.tcp.conn-32 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 152 scenario.client0.tcp.conn-32 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 153 scenario.client0.tcp.conn-32 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 154 scenario.client0.tcp.conn-32 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 155 scenario.client1.tcp.conn-31 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 156 scenario.client1.tcp.conn-31 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 157 scenario.client1.tcp.conn-31 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 158 scenario.client1.tcp.conn-31 rto:vector ETV
+attr interpolationmode sample-hold
+vector 159 scenario.client1.tcp.conn-31 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 160 scenario.client1.tcp.conn-31 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 161 scenario.client1.tcp.conn-31 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 162 scenario.client1.tcp.conn-33 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 163 scenario.client1.tcp.conn-33 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 164 scenario.client1.tcp.conn-33 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 165 scenario.client1.tcp.conn-33 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 166 scenario.client1.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 167 scenario.client1.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 168 scenario.client1.ppp[1].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 169 scenario.client1.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 170 scenario.client1.ppp[1].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 171 scenario.client1.ppp[1].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 172 scenario.client2.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 173 scenario.client2.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 174 scenario.client2.tcp.conn-34 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 175 scenario.client2.tcp.conn-34 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 176 scenario.client2.tcp.conn-34 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 177 scenario.client2.tcp.conn-34 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 178 scenario.client2.tcp.conn-34 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 179 scenario.client2.ppp[1].ppp rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, vector(packetBytes)"
+vector 180 scenario.client2.ppp[1].ppp.queue packetPushed:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet pushed, vector(packetBytes)"
+vector 181 scenario.client2.ppp[1].ppp.queue queueLength:vector ETV
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, vector"
+vector 182 scenario.client2.ppp[1].ppp.queue packetPopped:vector(packetBytes) ETV
+attr interpolationmode none
+attr title "packet popped, vector(packetBytes)"
+vector 183 scenario.client2.ppp[1].ppp.queue queueingTime:vector ETV
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, vector"
+attr unit s
+vector 184 scenario.client2.ppp[1].ppp txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, vector(packetBytes)"
+vector 185 scenario.client1.ppp[1].ppp rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, vector(packetBytes)"
+vector 186 scenario.client1.ppp[1].ppp passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, vector(packetBytes)"
+vector 187 scenario.client1.tcp.conn-33 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 188 scenario.client1.tcp.conn-33 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 189 scenario.client1.tcp.conn-33 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 190 scenario.client1.tcp.conn-33 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 191 scenario.client2.tcp.conn-34 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 192 scenario.client2.tcp.conn-34 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 193 scenario.client2.tcp.conn-34 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 194 scenario.client2.tcp.conn-34 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 195 scenario.client2.tcp.conn-34 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 196 scenario.client2.tcp.conn-34 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 197 scenario.client1.tcp.conn-33 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 198 scenario.client1.tcp.conn-33 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 199 scenario.client1.tcp.conn-33 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 200 scenario.client1.tcp.conn-33 rto:vector ETV
+attr interpolationmode sample-hold
+vector 201 scenario.client1.tcp.conn-33 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 202 scenario.client1.tcp.conn-33 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 203 scenario.client1.tcp.conn-33 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 204 scenario.client2.tcp.conn-35 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 205 scenario.client2.tcp.conn-35 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 206 scenario.client2.tcp.conn-35 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 207 scenario.client2.tcp.conn-35 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 208 scenario.client1.tcp.conn-36 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+vector 209 scenario.client1.tcp.conn-36 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 210 scenario.client1.tcp.conn-36 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+vector 211 scenario.client1.tcp.conn-36 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+vector 212 scenario.client1.tcp.conn-36 sndAck:vector ETV
+attr interpolationmode sample-hold
+vector 213 scenario.client2.tcp.conn-35 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 214 scenario.client2.tcp.conn-35 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 215 scenario.client2.tcp.conn-35 sndWnd:vector ETV
+attr interpolationmode sample-hold
+vector 216 scenario.client2.tcp.conn-35 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 217 scenario.client1.tcp.conn-36 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+vector 218 scenario.client1.tcp.conn-36 rcvAck:vector ETV
+attr interpolationmode sample-hold
+vector 219 scenario.client1.tcp.conn-36 unacked:vector ETV
+attr interpolationmode sample-hold
+vector 220 scenario.client1.tcp.conn-36 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 221 scenario.client1.tcp.conn-36 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 222 scenario.client1.tcp.conn-36 dupAcks:vector ETV
+attr interpolationmode sample-hold
+vector 223 scenario.client2.tcp.conn-35 rtt:vector ETV
+attr interpolationmode sample-hold
+vector 224 scenario.client2.tcp.conn-35 srtt:vector ETV
+attr interpolationmode sample-hold
+vector 225 scenario.client2.tcp.conn-35 rttvar:vector ETV
+attr interpolationmode sample-hold
+vector 226 scenario.client2.tcp.conn-35 rto:vector ETV
+attr interpolationmode sample-hold
+vector 227 scenario.client2.tcp.conn-35 cwnd:vector ETV
+attr interpolationmode sample-hold
+vector 228 scenario.client2.tcp.conn-35 ssthresh:vector ETV
+attr interpolationmode sample-hold
+vector 229 scenario.client2.tcp.conn-35 dupAcks:vector ETV
+attr interpolationmode sample-hold
+0	0	0	0
+0	11	0.709830011902	1
+0	12	0.710238011902	0
+0	24	0.711646011902	1
+0	25	0.712030011902	0
+0	113	1.253371481551	1
+0	114	1.253779481551	0
+0	128	1.255163481551	1
+0	131	1.255539481551	0
+0	138	1.58018560747	1
+0	139	1.58056960747	0
+0	160	1.763019924191	1
+0	161	1.763395924191	0
+0	190	2.209994013977	1
+0	191	2.210370013977	0
+0	245	2.62156663277	1
+0	246	2.62195063277	0
+0	372	3.159028103152	1
+0	373	3.159412103152	0
+0	439	3.429450542069	1
+0	440	3.429826542069	0
+0	499	4.404973660695	1
+0	500	4.405349660695	0
+0	507	4.855579453108	1
+0	508	4.855963453108	0
+1	0	0	0
+1	43	0.896237067782	1
+1	44	0.896645067782	0
+1	56	0.898053067782	1
+1	57	0.898437067782	0
+1	81	0.977514674398	1
+1	82	0.977922674398	0
+1	96	0.979306674398	1
+1	99	0.979682674398	0
+1	168	1.955105496383	1
+1	169	1.955489496383	0
+1	205	2.379829519211	1
+1	206	2.380205519211	0
+1	264	2.622848410168	1
+1	265	2.623224410168	0
+1	275	2.755451333842	1
+1	276	2.755835333842	0
+1	322	2.849661972594	1
+1	323	2.850045972594	0
+1	394	3.177978023987	1
+1	395	3.178354023987	0
+1	409	3.251008817163	1
+1	410	3.251384817163	0
+1	417	3.307376504165	1
+1	418	3.307760504165	0
+2	0	0	0
+3	0	0	0
+4	0	0	0
+4	17	0.710738011902	1
+4	18	0.711146011902	0
+4	32	0.712530011902	1
+4	35	0.712906011902	0
+4	107	1.252463481551	1
+4	108	1.252871481551	0
+4	120	1.254279481551	1
+4	121	1.254663481551	0
+4	145	1.58106960747	1
+4	146	1.58144560747	0
+4	153	1.762135924191	1
+4	154	1.762519924191	0
+4	183	2.209110013977	1
+4	184	2.209494013977	0
+4	257	2.62245063277	1
+4	258	2.62282663277	0
+4	379	3.159912103152	1
+4	380	3.160288103152	0
+4	432	3.428566542069	1
+4	433	3.428950542069	0
+4	492	4.404089660695	1
+4	493	4.404473660695	0
+4	514	4.856463453108	1
+4	515	4.856839453108	0
+5	0	0	0
+5	214	2.554793170811	1
+5	215	2.555201170811	0
+5	227	2.556609170811	1
+5	228	2.556993170811	0
+5	297	2.770795625598	1
+5	298	2.771203625598	0
+5	312	2.772587625598	1
+5	315	2.772963625598	0
+5	337	2.98911645033	1
+5	338	2.98950045033	0
+5	364	3.083844866969	1
+5	365	3.084220866969	0
+5	454	3.444618241279	1
+5	455	3.444994241279	0
+5	462	3.886953517624	1
+5	463	3.887337517624	0
+5	477	4.270174441114	1
+5	478	4.270558441114	0
+5	529	4.896045959898	1
+5	530	4.896421959898	0
+6	0	0	0
+7	0	0	0
+8	0	0	0
+8	49	0.897145067782	1
+8	50	0.897553067782	0
+8	64	0.898937067782	1
+8	67	0.899313067782	0
+8	75	0.976606674398	1
+8	76	0.977014674398	0
+8	88	0.978422674398	1
+8	89	0.978806674398	0
+8	175	1.955989496383	1
+8	176	1.956365496383	0
+8	198	2.378945519211	1
+8	199	2.379329519211	0
+8	250	2.621964410168	1
+8	251	2.622348410168	0
+8	282	2.756335333842	1
+8	283	2.756711333842	0
+8	329	2.850545972594	1
+8	330	2.850921972594	0
+8	387	3.177094023987	1
+8	388	3.177478023987	0
+8	402	3.250124817163	1
+8	403	3.250508817163	0
+8	424	3.308260504165	1
+8	425	3.308636504165	0
+9	0	0	0
+9	220	2.555701170811	1
+9	221	2.556109170811	0
+9	235	2.557493170811	1
+9	238	2.557869170811	0
+9	291	2.769887625598	1
+9	292	2.770295625598	0
+9	304	2.771703625598	1
+9	305	2.772087625598	0
+9	344	2.99000045033	1
+9	345	2.99037645033	0
+9	357	3.082960866969	1
+9	358	3.083344866969	0
+9	447	3.443734241279	1
+9	448	3.444118241279	0
+9	469	3.887837517624	1
+9	470	3.888213517624	0
+9	484	4.271058441114	1
+9	485	4.271434441114	0
+9	522	4.895161959898	1
+9	523	4.895545959898	0
+10	0	0	0
+11	0	0	0
+12	0	0	0
+13	0	0	0
+14	0	0	0
+15	0	0	0
+16	0	0	0
+17	0	0	0
+18	0	0	0
+19	0	0	0
+20	8	0.709830011902	0
+20	21	0.711646011902	0
+20	136	1.58018560747	0
+20	243	2.62156663277	0
+20	370	3.159028103152	0
+20	505	4.855579453108	0
+21	8	0.709830011902	7504
+21	21	0.711646011902	185189
+21	21	0.711646011902	185189
+21	136	1.58018560747	185189
+21	243	2.62156663277	185189
+21	370	3.159028103152	185189
+21	505	4.855579453108	185189
+22	8	0.709830011902	7504
+22	21	0.711646011902	7504
+22	136	1.58018560747	7504
+22	243	2.62156663277	7504
+22	370	3.159028103152	7504
+22	505	4.855579453108	7504
+23	8	0.709830011902	0
+23	21	0.711646011902	177685
+23	136	1.58018560747	177685
+23	243	2.62156663277	177685
+23	370	3.159028103152	177685
+23	505	4.855579453108	177685
+24	11	0.709830011902	44
+24	24	0.711646011902	41
+24	113	1.253371481551	44
+24	128	1.255163481551	40
+24	138	1.58018560747	41
+24	160	1.763019924191	40
+24	190	2.209994013977	40
+24	245	2.62156663277	41
+24	372	3.159028103152	41
+24	439	3.429450542069	40
+24	499	4.404973660695	40
+24	507	4.855579453108	41
+25	11	0.709830011902	44
+25	24	0.711646011902	41
+25	113	1.253371481551	44
+25	128	1.255163481551	40
+25	138	1.58018560747	41
+25	160	1.763019924191	40
+25	190	2.209994013977	40
+25	245	2.62156663277	41
+25	372	3.159028103152	41
+25	439	3.429450542069	40
+25	499	4.404973660695	40
+25	507	4.855579453108	41
+26	11	0.709830011902	1
+26	11	0.709830011902	0
+26	24	0.711646011902	1
+26	24	0.711646011902	0
+26	113	1.253371481551	1
+26	113	1.253371481551	0
+26	128	1.255163481551	1
+26	128	1.255163481551	0
+26	138	1.58018560747	1
+26	138	1.58018560747	0
+26	160	1.763019924191	1
+26	160	1.763019924191	0
+26	190	2.209994013977	1
+26	190	2.209994013977	0
+26	245	2.62156663277	1
+26	245	2.62156663277	0
+26	372	3.159028103152	1
+26	372	3.159028103152	0
+26	439	3.429450542069	1
+26	439	3.429450542069	0
+26	499	4.404973660695	1
+26	499	4.404973660695	0
+26	507	4.855579453108	1
+26	507	4.855579453108	0
+27	11	0.709830011902	44
+27	24	0.711646011902	41
+27	113	1.253371481551	44
+27	128	1.255163481551	40
+27	138	1.58018560747	41
+27	160	1.763019924191	40
+27	190	2.209994013977	40
+27	245	2.62156663277	41
+27	372	3.159028103152	41
+27	439	3.429450542069	40
+27	499	4.404973660695	40
+27	507	4.855579453108	41
+28	11	0.709830011902	0
+28	24	0.711646011902	0
+28	113	1.253371481551	0
+28	128	1.255163481551	0
+28	138	1.58018560747	0
+28	160	1.763019924191	0
+28	190	2.209994013977	0
+28	245	2.62156663277	0
+28	372	3.159028103152	0
+28	439	3.429450542069	0
+28	499	4.404973660695	0
+28	507	4.855579453108	0
+29	11	0.709830011902	51
+29	24	0.711646011902	48
+29	113	1.253371481551	51
+29	128	1.255163481551	47
+29	138	1.58018560747	48
+29	160	1.763019924191	47
+29	190	2.209994013977	47
+29	245	2.62156663277	48
+29	372	3.159028103152	48
+29	439	3.429450542069	47
+29	499	4.404973660695	47
+29	507	4.855579453108	48
+30	13	0.710738011902	51
+30	26	0.712530011902	48
+30	115	1.254279481551	51
+30	132	1.256039481551	47
+30	140	1.58106960747	48
+30	162	1.763895924191	47
+30	192	2.210870013977	47
+30	252	2.62245063277	48
+30	374	3.159912103152	48
+30	441	3.430326542069	47
+30	501	4.405849660695	47
+30	509	4.856463453108	48
+31	13	0.710738011902	44
+31	26	0.712530011902	41
+31	115	1.254279481551	44
+31	132	1.256039481551	40
+31	140	1.58106960747	41
+31	162	1.763895924191	40
+31	192	2.210870013977	40
+31	252	2.62245063277	41
+31	374	3.159912103152	41
+31	441	3.430326542069	40
+31	501	4.405849660695	40
+31	509	4.856463453108	41
+32	15	0.710738011902	177457
+32	295	2.770795625598	692471
+33	15	0.710738011902	0
+33	295	2.770795625598	0
+34	15	0.710738011902	184962
+34	15	0.710738011902	184962
+34	28	0.712530011902	184962
+34	142	1.58106960747	184964
+34	254	2.62245063277	184965
+34	376	3.159912103152	184966
+34	511	4.856463453108	184967
+35	15	0.710738011902	7504
+35	28	0.712530011902	7504
+36	15	0.710738011902	0
+36	28	0.712530011902	0
+36	28	0.712530011902	1
+36	142	1.58106960747	0
+36	142	1.58106960747	0
+36	254	2.62245063277	0
+36	254	2.62245063277	0
+36	376	3.159912103152	0
+36	376	3.159912103152	0
+36	511	4.856463453108	0
+36	511	4.856463453108	0
+37	15	0.710738011902	7504
+37	28	0.712530011902	7503
+37	142	1.58106960747	7504
+37	254	2.62245063277	7504
+37	376	3.159912103152	7504
+37	511	4.856463453108	7504
+38	15	0.710738011902	177458
+38	28	0.712530011902	177459
+38	142	1.58106960747	177460
+38	254	2.62245063277	177461
+38	376	3.159912103152	177462
+38	511	4.856463453108	177463
+39	17	0.710738011902	44
+39	32	0.712530011902	40
+39	107	1.252463481551	44
+39	120	1.254279481551	41
+39	145	1.58106960747	40
+39	153	1.762135924191	41
+39	183	2.209110013977	41
+39	257	2.62245063277	40
+39	379	3.159912103152	40
+39	432	3.428566542069	41
+39	492	4.404089660695	41
+39	514	4.856463453108	40
+40	17	0.710738011902	44
+40	32	0.712530011902	40
+40	107	1.252463481551	44
+40	120	1.254279481551	41
+40	145	1.58106960747	40
+40	153	1.762135924191	41
+40	183	2.209110013977	41
+40	257	2.62245063277	40
+40	379	3.159912103152	40
+40	432	3.428566542069	41
+40	492	4.404089660695	41
+40	514	4.856463453108	40
+41	17	0.710738011902	1
+41	17	0.710738011902	0
+41	32	0.712530011902	1
+41	32	0.712530011902	0
+41	107	1.252463481551	1
+41	107	1.252463481551	0
+41	120	1.254279481551	1
+41	120	1.254279481551	0
+41	145	1.58106960747	1
+41	145	1.58106960747	0
+41	153	1.762135924191	1
+41	153	1.762135924191	0
+41	183	2.209110013977	1
+41	183	2.209110013977	0
+41	257	2.62245063277	1
+41	257	2.62245063277	0
+41	379	3.159912103152	1
+41	379	3.159912103152	0
+41	432	3.428566542069	1
+41	432	3.428566542069	0
+41	492	4.404089660695	1
+41	492	4.404089660695	0
+41	514	4.856463453108	1
+41	514	4.856463453108	0
+42	17	0.710738011902	44
+42	32	0.712530011902	40
+42	107	1.252463481551	44
+42	120	1.254279481551	41
+42	145	1.58106960747	40
+42	153	1.762135924191	41
+42	183	2.209110013977	41
+42	257	2.62245063277	40
+42	379	3.159912103152	40
+42	432	3.428566542069	41
+42	492	4.404089660695	41
+42	514	4.856463453108	40
+43	17	0.710738011902	0
+43	32	0.712530011902	0
+43	107	1.252463481551	0
+43	120	1.254279481551	0
+43	145	1.58106960747	0
+43	153	1.762135924191	0
+43	183	2.209110013977	0
+43	257	2.62245063277	0
+43	379	3.159912103152	0
+43	432	3.428566542069	0
+43	492	4.404089660695	0
+43	514	4.856463453108	0
+44	17	0.710738011902	51
+44	32	0.712530011902	47
+44	107	1.252463481551	51
+44	120	1.254279481551	48
+44	145	1.58106960747	47
+44	153	1.762135924191	48
+44	183	2.209110013977	48
+44	257	2.62245063277	47
+44	379	3.159912103152	47
+44	432	3.428566542069	48
+44	492	4.404089660695	48
+44	514	4.856463453108	47
+45	19	0.711646011902	51
+45	36	0.713406011902	47
+45	109	1.253371481551	51
+45	122	1.255163481551	48
+45	147	1.58194560747	47
+45	155	1.763019924191	48
+45	185	2.209994013977	48
+45	266	2.62332663277	47
+45	381	3.160788103152	47
+45	434	3.429450542069	48
+45	494	4.404973660695	48
+45	516	4.857339453108	47
+46	19	0.711646011902	44
+46	36	0.713406011902	40
+46	109	1.253371481551	44
+46	122	1.255163481551	41
+46	147	1.58194560747	40
+46	155	1.763019924191	41
+46	185	2.209994013977	41
+46	266	2.62332663277	40
+46	381	3.160788103152	40
+46	434	3.429450542069	41
+46	494	4.404973660695	41
+46	516	4.857339453108	40
+47	21	0.711646011902	177684
+47	38	0.713406011902	177685
+47	149	1.58194560747	177685
+47	268	2.62332663277	177685
+47	383	3.160788103152	177685
+47	518	4.857339453108	177685
+48	21	0.711646011902	177458
+48	38	0.713406011902	177459
+48	149	1.58194560747	177460
+48	268	2.62332663277	177461
+48	383	3.160788103152	177462
+48	518	4.857339453108	177463
+49	21	0.711646011902	7504
+49	38	0.713406011902	7503
+49	149	1.58194560747	7504
+49	268	2.62332663277	7504
+49	383	3.160788103152	7504
+49	518	4.857339453108	7504
+50	21	0.711646011902	1
+50	38	0.713406011902	0
+50	136	1.58018560747	1
+50	149	1.58194560747	0
+50	243	2.62156663277	1
+50	268	2.62332663277	0
+50	370	3.159028103152	1
+50	383	3.160788103152	0
+50	505	4.855579453108	1
+50	518	4.857339453108	0
+51	28	0.712530011902	177458
+51	142	1.58106960747	177459
+51	254	2.62245063277	177460
+51	376	3.159912103152	177461
+51	511	4.856463453108	177462
+52	28	0.712530011902	177685
+52	142	1.58106960747	177685
+52	254	2.62245063277	177685
+52	376	3.159912103152	177685
+52	511	4.856463453108	177685
+53	28	0.712530011902	0
+54	28	0.712530011902	1072
+55	28	0.712530011902	4294967295
+56	28	0.712530011902	0
+56	142	1.58106960747	0
+56	254	2.62245063277	0
+56	376	3.159912103152	0
+56	511	4.856463453108	0
+57	38	0.713406011902	0.00176
+57	149	1.58194560747	0.00176
+57	268	2.62332663277	0.00176
+57	383	3.160788103152	0.00176
+57	518	4.857339453108	0.00176
+58	38	0.713406011902	0.00022
+58	149	1.58194560747	0.0004125
+58	268	2.62332663277	0.0005809375
+58	383	3.160788103152	0.000728320313
+58	518	4.857339453108	0.000857280274
+59	38	0.713406011902	0.65647
+59	149	1.58194560747	0.57460375
+59	268	2.62332663277	0.50294671875
+59	383	3.160788103152	0.440225761719
+59	518	4.857339453108	0.385326501465
+60	38	0.713406011902	2.6261
+60	149	1.58194560747	2.2988275
+60	268	2.62332663277	2.0123678125
+60	383	3.160788103152	1.761631367189
+60	518	4.857339453108	1.542163286134
+61	38	0.713406011902	1072
+61	149	1.58194560747	1608
+61	268	2.62332663277	2144
+61	383	3.160788103152	2680
+61	518	4.857339453108	3216
+62	38	0.713406011902	4294967295
+62	149	1.58194560747	4294967295
+62	268	2.62332663277	4294967295
+62	383	3.160788103152	4294967295
+62	518	4.857339453108	4294967295
+63	38	0.713406011902	0
+63	149	1.58194560747	0
+63	268	2.62332663277	0
+63	383	3.160788103152	0
+63	518	4.857339453108	0
+64	40	0.896237067782	0
+64	53	0.898053067782	0
+64	166	1.955105496383	0
+64	273	2.755451333842	0
+64	320	2.849661972594	0
+64	415	3.307376504165	0
+65	40	0.896237067782	7504
+65	53	0.898053067782	231791
+65	53	0.898053067782	231791
+65	166	1.955105496383	231791
+65	273	2.755451333842	231791
+65	320	2.849661972594	231791
+65	415	3.307376504165	231791
+66	40	0.896237067782	7504
+66	53	0.898053067782	7504
+66	166	1.955105496383	7504
+66	273	2.755451333842	7504
+66	320	2.849661972594	7504
+66	415	3.307376504165	7504
+67	40	0.896237067782	0
+67	53	0.898053067782	224287
+67	166	1.955105496383	224287
+67	273	2.755451333842	224287
+67	320	2.849661972594	224287
+67	415	3.307376504165	224287
+68	43	0.896237067782	44
+68	56	0.898053067782	41
+68	81	0.977514674398	44
+68	96	0.979306674398	40
+68	168	1.955105496383	41
+68	205	2.379829519211	40
+68	264	2.622848410168	40
+68	275	2.755451333842	41
+68	322	2.849661972594	41
+68	394	3.177978023987	40
+68	409	3.251008817163	40
+68	417	3.307376504165	41
+69	43	0.896237067782	44
+69	56	0.898053067782	41
+69	81	0.977514674398	44
+69	96	0.979306674398	40
+69	168	1.955105496383	41
+69	205	2.379829519211	40
+69	264	2.622848410168	40
+69	275	2.755451333842	41
+69	322	2.849661972594	41
+69	394	3.177978023987	40
+69	409	3.251008817163	40
+69	417	3.307376504165	41
+70	43	0.896237067782	1
+70	43	0.896237067782	0
+70	56	0.898053067782	1
+70	56	0.898053067782	0
+70	81	0.977514674398	1
+70	81	0.977514674398	0
+70	96	0.979306674398	1
+70	96	0.979306674398	0
+70	168	1.955105496383	1
+70	168	1.955105496383	0
+70	205	2.379829519211	1
+70	205	2.379829519211	0
+70	264	2.622848410168	1
+70	264	2.622848410168	0
+70	275	2.755451333842	1
+70	275	2.755451333842	0
+70	322	2.849661972594	1
+70	322	2.849661972594	0
+70	394	3.177978023987	1
+70	394	3.177978023987	0
+70	409	3.251008817163	1
+70	409	3.251008817163	0
+70	417	3.307376504165	1
+70	417	3.307376504165	0
+71	43	0.896237067782	44
+71	56	0.898053067782	41
+71	81	0.977514674398	44
+71	96	0.979306674398	40
+71	168	1.955105496383	41
+71	205	2.379829519211	40
+71	264	2.622848410168	40
+71	275	2.755451333842	41
+71	322	2.849661972594	41
+71	394	3.177978023987	40
+71	409	3.251008817163	40
+71	417	3.307376504165	41
+72	43	0.896237067782	0
+72	56	0.898053067782	0
+72	81	0.977514674398	0
+72	96	0.979306674398	0
+72	168	1.955105496383	0
+72	205	2.379829519211	0
+72	264	2.622848410168	0
+72	275	2.755451333842	0
+72	322	2.849661972594	0
+72	394	3.177978023987	0
+72	409	3.251008817163	0
+72	417	3.307376504165	0
+73	43	0.896237067782	51
+73	56	0.898053067782	48
+73	81	0.977514674398	51
+73	96	0.979306674398	47
+73	168	1.955105496383	48
+73	205	2.379829519211	47
+73	264	2.622848410168	47
+73	275	2.755451333842	48
+73	322	2.849661972594	48
+73	394	3.177978023987	47
+73	409	3.251008817163	47
+73	417	3.307376504165	48
+74	45	0.897145067782	51
+74	58	0.898937067782	48
+74	83	0.978422674398	51
+74	100	0.980182674398	47
+74	170	1.955989496383	48
+74	207	2.380705519211	47
+74	269	2.623724410168	47
+74	277	2.756335333842	48
+74	324	2.850545972594	48
+74	396	3.178854023987	47
+74	411	3.251884817163	47
+74	419	3.308260504165	48
+75	45	0.897145067782	44
+75	58	0.898937067782	41
+75	83	0.978422674398	44
+75	100	0.980182674398	40
+75	170	1.955989496383	41
+75	207	2.380705519211	40
+75	269	2.623724410168	40
+75	277	2.756335333842	41
+75	324	2.850545972594	41
+75	396	3.178854023987	40
+75	411	3.251884817163	40
+75	419	3.308260504165	41
+76	47	0.897145067782	224059
+76	218	2.555701170811	638698
+77	47	0.897145067782	0
+77	218	2.555701170811	0
+78	47	0.897145067782	231564
+78	47	0.897145067782	231564
+78	60	0.898937067782	231564
+78	172	1.955989496383	231566
+78	279	2.756335333842	231567
+78	326	2.850545972594	231568
+78	421	3.308260504165	231569
+79	47	0.897145067782	7504
+79	60	0.898937067782	7504
+80	47	0.897145067782	0
+80	60	0.898937067782	0
+80	60	0.898937067782	1
+80	172	1.955989496383	0
+80	172	1.955989496383	0
+80	279	2.756335333842	0
+80	279	2.756335333842	0
+80	326	2.850545972594	0
+80	326	2.850545972594	0
+80	421	3.308260504165	0
+80	421	3.308260504165	0
+81	47	0.897145067782	7504
+81	60	0.898937067782	7503
+81	172	1.955989496383	7504
+81	279	2.756335333842	7504
+81	326	2.850545972594	7504
+81	421	3.308260504165	7504
+82	47	0.897145067782	224060
+82	60	0.898937067782	224061
+82	172	1.955989496383	224062
+82	279	2.756335333842	224063
+82	326	2.850545972594	224064
+82	421	3.308260504165	224065
+83	49	0.897145067782	44
+83	64	0.898937067782	40
+83	75	0.976606674398	44
+83	88	0.978422674398	41
+83	175	1.955989496383	40
+83	198	2.378945519211	41
+83	250	2.621964410168	41
+83	282	2.756335333842	40
+83	329	2.850545972594	40
+83	387	3.177094023987	41
+83	402	3.250124817163	41
+83	424	3.308260504165	40
+84	49	0.897145067782	44
+84	64	0.898937067782	40
+84	75	0.976606674398	44
+84	88	0.978422674398	41
+84	175	1.955989496383	40
+84	198	2.378945519211	41
+84	250	2.621964410168	41
+84	282	2.756335333842	40
+84	329	2.850545972594	40
+84	387	3.177094023987	41
+84	402	3.250124817163	41
+84	424	3.308260504165	40
+85	49	0.897145067782	1
+85	49	0.897145067782	0
+85	64	0.898937067782	1
+85	64	0.898937067782	0
+85	75	0.976606674398	1
+85	75	0.976606674398	0
+85	88	0.978422674398	1
+85	88	0.978422674398	0
+85	175	1.955989496383	1
+85	175	1.955989496383	0
+85	198	2.378945519211	1
+85	198	2.378945519211	0
+85	250	2.621964410168	1
+85	250	2.621964410168	0
+85	282	2.756335333842	1
+85	282	2.756335333842	0
+85	329	2.850545972594	1
+85	329	2.850545972594	0
+85	387	3.177094023987	1
+85	387	3.177094023987	0
+85	402	3.250124817163	1
+85	402	3.250124817163	0
+85	424	3.308260504165	1
+85	424	3.308260504165	0
+86	49	0.897145067782	44
+86	64	0.898937067782	40
+86	75	0.976606674398	44
+86	88	0.978422674398	41
+86	175	1.955989496383	40
+86	198	2.378945519211	41
+86	250	2.621964410168	41
+86	282	2.756335333842	40
+86	329	2.850545972594	40
+86	387	3.177094023987	41
+86	402	3.250124817163	41
+86	424	3.308260504165	40
+87	49	0.897145067782	0
+87	64	0.898937067782	0
+87	75	0.976606674398	0
+87	88	0.978422674398	0
+87	175	1.955989496383	0
+87	198	2.378945519211	0
+87	250	2.621964410168	0
+87	282	2.756335333842	0
+87	329	2.850545972594	0
+87	387	3.177094023987	0
+87	402	3.250124817163	0
+87	424	3.308260504165	0
+88	49	0.897145067782	51
+88	64	0.898937067782	47
+88	75	0.976606674398	51
+88	88	0.978422674398	48
+88	175	1.955989496383	47
+88	198	2.378945519211	48
+88	250	2.621964410168	48
+88	282	2.756335333842	47
+88	329	2.850545972594	47
+88	387	3.177094023987	48
+88	402	3.250124817163	48
+88	424	3.308260504165	47
+89	51	0.898053067782	51
+89	68	0.899813067782	47
+89	77	0.977514674398	51
+89	90	0.979306674398	48
+89	177	1.956865496383	47
+89	200	2.379829519211	48
+89	259	2.622848410168	48
+89	284	2.757211333842	47
+89	331	2.851421972594	47
+89	389	3.177978023987	48
+89	404	3.251008817163	48
+89	426	3.309136504165	47
+90	51	0.898053067782	44
+90	68	0.899813067782	40
+90	77	0.977514674398	44
+90	90	0.979306674398	41
+90	177	1.956865496383	40
+90	200	2.379829519211	41
+90	259	2.622848410168	41
+90	284	2.757211333842	40
+90	331	2.851421972594	40
+90	389	3.177978023987	41
+90	404	3.251008817163	41
+90	426	3.309136504165	40
+91	53	0.898053067782	224286
+91	70	0.899813067782	224287
+91	179	1.956865496383	224287
+91	286	2.757211333842	224287
+91	333	2.851421972594	224287
+91	428	3.309136504165	224287
+92	53	0.898053067782	224060
+92	70	0.899813067782	224061
+92	179	1.956865496383	224062
+92	286	2.757211333842	224063
+92	333	2.851421972594	224064
+92	428	3.309136504165	224065
+93	53	0.898053067782	7504
+93	70	0.899813067782	7503
+93	179	1.956865496383	7504
+93	286	2.757211333842	7504
+93	333	2.851421972594	7504
+93	428	3.309136504165	7504
+94	53	0.898053067782	1
+94	70	0.899813067782	0
+94	166	1.955105496383	1
+94	179	1.956865496383	0
+94	273	2.755451333842	1
+94	286	2.757211333842	0
+94	320	2.849661972594	1
+94	333	2.851421972594	0
+94	415	3.307376504165	1
+94	428	3.309136504165	0
+95	60	0.898937067782	224060
+95	172	1.955989496383	224061
+95	279	2.756335333842	224062
+95	326	2.850545972594	224063
+95	421	3.308260504165	224064
+96	60	0.898937067782	224287
+96	172	1.955989496383	224287
+96	279	2.756335333842	224287
+96	326	2.850545972594	224287
+96	421	3.308260504165	224287
+97	60	0.898937067782	0
+98	60	0.898937067782	1072
+99	60	0.898937067782	4294967295
+100	60	0.898937067782	0
+100	172	1.955989496383	0
+100	279	2.756335333842	0
+100	326	2.850545972594	0
+100	421	3.308260504165	0
+101	70	0.899813067782	0.00176
+101	179	1.956865496383	0.00176
+101	286	2.757211333842	0.00176
+101	333	2.851421972594	0.00176
+101	428	3.309136504165	0.00176
+102	70	0.899813067782	0.00022
+102	179	1.956865496383	0.0004125
+102	286	2.757211333842	0.0005809375
+102	333	2.851421972594	0.000728320313
+102	428	3.309136504165	0.000857280274
+103	70	0.899813067782	0.65647
+103	179	1.956865496383	0.57460375
+103	286	2.757211333842	0.50294671875
+103	333	2.851421972594	0.440225761719
+103	428	3.309136504165	0.385326501465
+104	70	0.899813067782	2.6261
+104	179	1.956865496383	2.2988275
+104	286	2.757211333842	2.0123678125
+104	333	2.851421972594	1.761631367189
+104	428	3.309136504165	1.542163286134
+105	70	0.899813067782	1072
+105	179	1.956865496383	1608
+105	286	2.757211333842	2144
+105	333	2.851421972594	2680
+105	428	3.309136504165	3216
+106	70	0.899813067782	4294967295
+106	179	1.956865496383	4294967295
+106	286	2.757211333842	4294967295
+106	333	2.851421972594	4294967295
+106	428	3.309136504165	4294967295
+107	70	0.899813067782	0
+107	179	1.956865496383	0
+107	286	2.757211333842	0
+107	333	2.851421972594	0
+107	428	3.309136504165	0
+108	72	0.976606674398	0
+108	85	0.978422674398	0
+108	196	2.378945519211	0
+108	248	2.621964410168	0
+108	385	3.177094023987	0
+108	400	3.250124817163	0
+109	72	0.976606674398	7504
+109	85	0.978422674398	251883
+109	85	0.978422674398	251883
+109	196	2.378945519211	251883
+109	248	2.621964410168	251883
+109	385	3.177094023987	251883
+109	400	3.250124817163	251883
+110	72	0.976606674398	7504
+110	85	0.978422674398	7504
+110	196	2.378945519211	7504
+110	248	2.621964410168	7504
+110	385	3.177094023987	7504
+110	400	3.250124817163	7504
+111	72	0.976606674398	0
+111	85	0.978422674398	244379
+111	196	2.378945519211	244379
+111	248	2.621964410168	244379
+111	385	3.177094023987	244379
+111	400	3.250124817163	244379
+112	79	0.977514674398	244151
+112	111	1.253371481551	313115
+113	79	0.977514674398	0
+113	111	1.253371481551	0
+114	79	0.977514674398	251656
+114	79	0.977514674398	251656
+114	92	0.979306674398	251656
+114	202	2.379829519211	251658
+114	261	2.622848410168	251659
+114	391	3.177978023987	251660
+114	406	3.251008817163	251661
+115	79	0.977514674398	7504
+115	92	0.979306674398	7504
+116	79	0.977514674398	0
+116	92	0.979306674398	0
+116	92	0.979306674398	1
+116	202	2.379829519211	0
+116	202	2.379829519211	0
+116	261	2.622848410168	0
+116	261	2.622848410168	0
+116	391	3.177978023987	0
+116	391	3.177978023987	0
+116	406	3.251008817163	0
+116	406	3.251008817163	0
+117	79	0.977514674398	7504
+117	92	0.979306674398	7503
+117	202	2.379829519211	7504
+117	261	2.622848410168	7504
+117	391	3.177978023987	7504
+117	406	3.251008817163	7504
+118	79	0.977514674398	244152
+118	92	0.979306674398	244153
+118	202	2.379829519211	244154
+118	261	2.622848410168	244155
+118	391	3.177978023987	244156
+118	406	3.251008817163	244157
+119	85	0.978422674398	244378
+119	102	0.980182674398	244379
+119	209	2.380705519211	244379
+119	271	2.623724410168	244379
+119	398	3.178854023987	244379
+119	413	3.251884817163	244379
+120	85	0.978422674398	244152
+120	102	0.980182674398	244153
+120	209	2.380705519211	244154
+120	271	2.623724410168	244155
+120	398	3.178854023987	244156
+120	413	3.251884817163	244157
+121	85	0.978422674398	7504
+121	102	0.980182674398	7503
+121	209	2.380705519211	7504
+121	271	2.623724410168	7504
+121	398	3.178854023987	7504
+121	413	3.251884817163	7504
+122	85	0.978422674398	1
+122	102	0.980182674398	0
+122	196	2.378945519211	1
+122	209	2.380705519211	0
+122	248	2.621964410168	1
+122	271	2.623724410168	0
+122	385	3.177094023987	1
+122	398	3.178854023987	0
+122	400	3.250124817163	1
+122	413	3.251884817163	0
+123	92	0.979306674398	244152
+123	202	2.379829519211	244153
+123	261	2.622848410168	244154
+123	391	3.177978023987	244155
+123	406	3.251008817163	244156
+124	92	0.979306674398	244379
+124	202	2.379829519211	244379
+124	261	2.622848410168	244379
+124	391	3.177978023987	244379
+124	406	3.251008817163	244379
+125	92	0.979306674398	0
+126	92	0.979306674398	1072
+127	92	0.979306674398	4294967295
+128	92	0.979306674398	0
+128	202	2.379829519211	0
+128	261	2.622848410168	0
+128	391	3.177978023987	0
+128	406	3.251008817163	0
+129	102	0.980182674398	0.00176
+129	209	2.380705519211	0.00176
+129	271	2.623724410168	0.00176
+129	398	3.178854023987	0.00176
+129	413	3.251884817163	0.00176
+130	102	0.980182674398	0.00022
+130	209	2.380705519211	0.0004125
+130	271	2.623724410168	0.0005809375
+130	398	3.178854023987	0.000728320313
+130	413	3.251884817163	0.000857280274
+131	102	0.980182674398	0.65647
+131	209	2.380705519211	0.57460375
+131	271	2.623724410168	0.50294671875
+131	398	3.178854023987	0.440225761719
+131	413	3.251884817163	0.385326501465
+132	102	0.980182674398	2.6261
+132	209	2.380705519211	2.2988275
+132	271	2.623724410168	2.0123678125
+132	398	3.178854023987	1.761631367189
+132	413	3.251884817163	1.542163286134
+133	102	0.980182674398	1072
+133	209	2.380705519211	1608
+133	271	2.623724410168	2144
+133	398	3.178854023987	2680
+133	413	3.251884817163	3216
+134	102	0.980182674398	4294967295
+134	209	2.380705519211	4294967295
+134	271	2.623724410168	4294967295
+134	398	3.178854023987	4294967295
+134	413	3.251884817163	4294967295
+135	102	0.980182674398	0
+135	209	2.380705519211	0
+135	271	2.623724410168	0
+135	398	3.178854023987	0
+135	413	3.251884817163	0
+136	104	1.252463481551	0
+136	117	1.254279481551	0
+136	151	1.762135924191	0
+136	181	2.209110013977	0
+136	430	3.428566542069	0
+136	490	4.404089660695	0
+137	104	1.252463481551	7504
+137	117	1.254279481551	320847
+137	117	1.254279481551	320847
+137	151	1.762135924191	320847
+137	181	2.209110013977	320847
+137	430	3.428566542069	320847
+137	490	4.404089660695	320847
+138	104	1.252463481551	7504
+138	117	1.254279481551	7504
+138	151	1.762135924191	7504
+138	181	2.209110013977	7504
+138	430	3.428566542069	7504
+138	490	4.404089660695	7504
+139	104	1.252463481551	0
+139	117	1.254279481551	313343
+139	151	1.762135924191	313343
+139	181	2.209110013977	313343
+139	430	3.428566542069	313343
+139	490	4.404089660695	313343
+140	111	1.253371481551	320620
+140	111	1.253371481551	320620
+140	124	1.255163481551	320620
+140	157	1.763019924191	320622
+140	187	2.209994013977	320623
+140	436	3.429450542069	320624
+140	496	4.404973660695	320625
+141	111	1.253371481551	7504
+141	124	1.255163481551	7504
+142	111	1.253371481551	0
+142	124	1.255163481551	0
+142	124	1.255163481551	1
+142	157	1.763019924191	0
+142	157	1.763019924191	0
+142	187	2.209994013977	0
+142	187	2.209994013977	0
+142	436	3.429450542069	0
+142	436	3.429450542069	0
+142	496	4.404973660695	0
+142	496	4.404973660695	0
+143	111	1.253371481551	7504
+143	124	1.255163481551	7503
+143	157	1.763019924191	7504
+143	187	2.209994013977	7504
+143	436	3.429450542069	7504
+143	496	4.404973660695	7504
+144	111	1.253371481551	313116
+144	124	1.255163481551	313117
+144	157	1.763019924191	313118
+144	187	2.209994013977	313119
+144	436	3.429450542069	313120
+144	496	4.404973660695	313121
+145	117	1.254279481551	313342
+145	134	1.256039481551	313343
+145	164	1.763895924191	313343
+145	194	2.210870013977	313343
+145	443	3.430326542069	313343
+145	503	4.405849660695	313343
+146	117	1.254279481551	313116
+146	134	1.256039481551	313117
+146	164	1.763895924191	313118
+146	194	2.210870013977	313119
+146	443	3.430326542069	313120
+146	503	4.405849660695	313121
+147	117	1.254279481551	7504
+147	134	1.256039481551	7503
+147	164	1.763895924191	7504
+147	194	2.210870013977	7504
+147	443	3.430326542069	7504
+147	503	4.405849660695	7504
+148	117	1.254279481551	1
+148	134	1.256039481551	0
+148	151	1.762135924191	1
+148	164	1.763895924191	0
+148	181	2.209110013977	1
+148	194	2.210870013977	0
+148	430	3.428566542069	1
+148	443	3.430326542069	0
+148	490	4.404089660695	1
+148	503	4.405849660695	0
+149	124	1.255163481551	313116
+149	157	1.763019924191	313117
+149	187	2.209994013977	313118
+149	436	3.429450542069	313119
+149	496	4.404973660695	313120
+150	124	1.255163481551	313343
+150	157	1.763019924191	313343
+150	187	2.209994013977	313343
+150	436	3.429450542069	313343
+150	496	4.404973660695	313343
+151	124	1.255163481551	0
+152	124	1.255163481551	1072
+153	124	1.255163481551	4294967295
+154	124	1.255163481551	0
+154	157	1.763019924191	0
+154	187	2.209994013977	0
+154	436	3.429450542069	0
+154	496	4.404973660695	0
+155	134	1.256039481551	0.00176
+155	164	1.763895924191	0.00176
+155	194	2.210870013977	0.00176
+155	443	3.430326542069	0.00176
+155	503	4.405849660695	0.00176
+156	134	1.256039481551	0.00022
+156	164	1.763895924191	0.0004125
+156	194	2.210870013977	0.0005809375
+156	443	3.430326542069	0.000728320313
+156	503	4.405849660695	0.000857280274
+157	134	1.256039481551	0.65647
+157	164	1.763895924191	0.57460375
+157	194	2.210870013977	0.50294671875
+157	443	3.430326542069	0.440225761719
+157	503	4.405849660695	0.385326501465
+158	134	1.256039481551	2.6261
+158	164	1.763895924191	2.2988275
+158	194	2.210870013977	2.0123678125
+158	443	3.430326542069	1.761631367189
+158	503	4.405849660695	1.542163286134
+159	134	1.256039481551	1072
+159	164	1.763895924191	1608
+159	194	2.210870013977	2144
+159	443	3.430326542069	2680
+159	503	4.405849660695	3216
+160	134	1.256039481551	4294967295
+160	164	1.763895924191	4294967295
+160	194	2.210870013977	4294967295
+160	443	3.430326542069	4294967295
+160	503	4.405849660695	4294967295
+161	134	1.256039481551	0
+161	164	1.763895924191	0
+161	194	2.210870013977	0
+161	443	3.430326542069	0
+161	503	4.405849660695	0
+162	211	2.554793170811	0
+162	224	2.556609170811	0
+162	335	2.98911645033	0
+162	460	3.886953517624	0
+162	475	4.270174441114	0
+163	211	2.554793170811	7504
+163	224	2.556609170811	646430
+163	224	2.556609170811	646430
+163	335	2.98911645033	646430
+163	460	3.886953517624	646430
+163	475	4.270174441114	646430
+164	211	2.554793170811	7504
+164	224	2.556609170811	7504
+164	335	2.98911645033	7504
+164	460	3.886953517624	7504
+164	475	4.270174441114	7504
+165	211	2.554793170811	0
+165	224	2.556609170811	638926
+165	335	2.98911645033	638926
+165	460	3.886953517624	638926
+165	475	4.270174441114	638926
+166	214	2.554793170811	44
+166	227	2.556609170811	41
+166	297	2.770795625598	44
+166	312	2.772587625598	40
+166	337	2.98911645033	41
+166	364	3.083844866969	40
+166	454	3.444618241279	40
+166	462	3.886953517624	41
+166	477	4.270174441114	41
+166	529	4.896045959898	40
+167	214	2.554793170811	44
+167	227	2.556609170811	41
+167	297	2.770795625598	44
+167	312	2.772587625598	40
+167	337	2.98911645033	41
+167	364	3.083844866969	40
+167	454	3.444618241279	40
+167	462	3.886953517624	41
+167	477	4.270174441114	41
+167	529	4.896045959898	40
+168	214	2.554793170811	1
+168	214	2.554793170811	0
+168	227	2.556609170811	1
+168	227	2.556609170811	0
+168	297	2.770795625598	1
+168	297	2.770795625598	0
+168	312	2.772587625598	1
+168	312	2.772587625598	0
+168	337	2.98911645033	1
+168	337	2.98911645033	0
+168	364	3.083844866969	1
+168	364	3.083844866969	0
+168	454	3.444618241279	1
+168	454	3.444618241279	0
+168	462	3.886953517624	1
+168	462	3.886953517624	0
+168	477	4.270174441114	1
+168	477	4.270174441114	0
+168	529	4.896045959898	1
+168	529	4.896045959898	0
+169	214	2.554793170811	44
+169	227	2.556609170811	41
+169	297	2.770795625598	44
+169	312	2.772587625598	40
+169	337	2.98911645033	41
+169	364	3.083844866969	40
+169	454	3.444618241279	40
+169	462	3.886953517624	41
+169	477	4.270174441114	41
+169	529	4.896045959898	40
+170	214	2.554793170811	0
+170	227	2.556609170811	0
+170	297	2.770795625598	0
+170	312	2.772587625598	0
+170	337	2.98911645033	0
+170	364	3.083844866969	0
+170	454	3.444618241279	0
+170	462	3.886953517624	0
+170	477	4.270174441114	0
+170	529	4.896045959898	0
+171	214	2.554793170811	51
+171	227	2.556609170811	48
+171	297	2.770795625598	51
+171	312	2.772587625598	47
+171	337	2.98911645033	48
+171	364	3.083844866969	47
+171	454	3.444618241279	47
+171	462	3.886953517624	48
+171	477	4.270174441114	48
+171	529	4.896045959898	47
+172	216	2.555701170811	51
+172	229	2.557493170811	48
+172	299	2.771703625598	51
+172	316	2.773463625598	47
+172	339	2.99000045033	48
+172	366	3.084720866969	47
+172	456	3.445494241279	47
+172	464	3.887837517624	48
+172	479	4.271058441114	48
+172	531	4.896921959898	47
+173	216	2.555701170811	44
+173	229	2.557493170811	41
+173	299	2.771703625598	44
+173	316	2.773463625598	40
+173	339	2.99000045033	41
+173	366	3.084720866969	40
+173	456	3.445494241279	40
+173	464	3.887837517624	41
+173	479	4.271058441114	41
+173	531	4.896921959898	40
+174	218	2.555701170811	646203
+174	218	2.555701170811	646203
+174	231	2.557493170811	646203
+174	341	2.99000045033	646205
+174	466	3.887837517624	646206
+174	481	4.271058441114	646207
+175	218	2.555701170811	7504
+175	231	2.557493170811	7504
+176	218	2.555701170811	0
+176	231	2.557493170811	0
+176	231	2.557493170811	1
+176	341	2.99000045033	0
+176	341	2.99000045033	0
+176	466	3.887837517624	0
+176	466	3.887837517624	0
+176	481	4.271058441114	0
+176	481	4.271058441114	0
+177	218	2.555701170811	7504
+177	231	2.557493170811	7503
+177	341	2.99000045033	7504
+177	466	3.887837517624	7504
+177	481	4.271058441114	7504
+178	218	2.555701170811	638699
+178	231	2.557493170811	638700
+178	341	2.99000045033	638701
+178	466	3.887837517624	638702
+178	481	4.271058441114	638703
+179	220	2.555701170811	44
+179	235	2.557493170811	40
+179	291	2.769887625598	44
+179	304	2.771703625598	41
+179	344	2.99000045033	40
+179	357	3.082960866969	41
+179	447	3.443734241279	41
+179	469	3.887837517624	40
+179	484	4.271058441114	40
+179	522	4.895161959898	41
+180	220	2.555701170811	44
+180	235	2.557493170811	40
+180	291	2.769887625598	44
+180	304	2.771703625598	41
+180	344	2.99000045033	40
+180	357	3.082960866969	41
+180	447	3.443734241279	41
+180	469	3.887837517624	40
+180	484	4.271058441114	40
+180	522	4.895161959898	41
+181	220	2.555701170811	1
+181	220	2.555701170811	0
+181	235	2.557493170811	1
+181	235	2.557493170811	0
+181	291	2.769887625598	1
+181	291	2.769887625598	0
+181	304	2.771703625598	1
+181	304	2.771703625598	0
+181	344	2.99000045033	1
+181	344	2.99000045033	0
+181	357	3.082960866969	1
+181	357	3.082960866969	0
+181	447	3.443734241279	1
+181	447	3.443734241279	0
+181	469	3.887837517624	1
+181	469	3.887837517624	0
+181	484	4.271058441114	1
+181	484	4.271058441114	0
+181	522	4.895161959898	1
+181	522	4.895161959898	0
+182	220	2.555701170811	44
+182	235	2.557493170811	40
+182	291	2.769887625598	44
+182	304	2.771703625598	41
+182	344	2.99000045033	40
+182	357	3.082960866969	41
+182	447	3.443734241279	41
+182	469	3.887837517624	40
+182	484	4.271058441114	40
+182	522	4.895161959898	41
+183	220	2.555701170811	0
+183	235	2.557493170811	0
+183	291	2.769887625598	0
+183	304	2.771703625598	0
+183	344	2.99000045033	0
+183	357	3.082960866969	0
+183	447	3.443734241279	0
+183	469	3.887837517624	0
+183	484	4.271058441114	0
+183	522	4.895161959898	0
+184	220	2.555701170811	51
+184	235	2.557493170811	47
+184	291	2.769887625598	51
+184	304	2.771703625598	48
+184	344	2.99000045033	47
+184	357	3.082960866969	48
+184	447	3.443734241279	48
+184	469	3.887837517624	47
+184	484	4.271058441114	47
+184	522	4.895161959898	48
+185	222	2.556609170811	51
+185	239	2.558369170811	47
+185	293	2.770795625598	51
+185	306	2.772587625598	48
+185	346	2.99087645033	47
+185	359	3.083844866969	48
+185	449	3.444618241279	48
+185	471	3.888713517624	47
+185	486	4.271934441114	47
+185	524	4.896045959898	48
+186	222	2.556609170811	44
+186	239	2.558369170811	40
+186	293	2.770795625598	44
+186	306	2.772587625598	41
+186	346	2.99087645033	40
+186	359	3.083844866969	41
+186	449	3.444618241279	41
+186	471	3.888713517624	40
+186	486	4.271934441114	40
+186	524	4.896045959898	41
+187	224	2.556609170811	638925
+187	241	2.558369170811	638926
+187	348	2.99087645033	638926
+187	473	3.888713517624	638926
+187	488	4.271934441114	638926
+188	224	2.556609170811	638699
+188	241	2.558369170811	638700
+188	348	2.99087645033	638701
+188	473	3.888713517624	638702
+188	488	4.271934441114	638703
+189	224	2.556609170811	7504
+189	241	2.558369170811	7503
+189	348	2.99087645033	7504
+189	473	3.888713517624	7504
+189	488	4.271934441114	7504
+190	224	2.556609170811	1
+190	241	2.558369170811	0
+190	335	2.98911645033	1
+190	348	2.99087645033	0
+190	460	3.886953517624	1
+190	473	3.888713517624	0
+190	475	4.270174441114	1
+190	488	4.271934441114	0
+191	231	2.557493170811	638699
+191	341	2.99000045033	638700
+191	466	3.887837517624	638701
+191	481	4.271058441114	638702
+192	231	2.557493170811	638926
+192	341	2.99000045033	638926
+192	466	3.887837517624	638926
+192	481	4.271058441114	638926
+193	231	2.557493170811	0
+194	231	2.557493170811	1072
+195	231	2.557493170811	4294967295
+196	231	2.557493170811	0
+196	341	2.99000045033	0
+196	466	3.887837517624	0
+196	481	4.271058441114	0
+197	241	2.558369170811	0.00176
+197	348	2.99087645033	0.00176
+197	473	3.888713517624	0.00176
+197	488	4.271934441114	0.00176
+198	241	2.558369170811	0.00022
+198	348	2.99087645033	0.0004125
+198	473	3.888713517624	0.0005809375
+198	488	4.271934441114	0.000728320313
+199	241	2.558369170811	0.65647
+199	348	2.99087645033	0.57460375
+199	473	3.888713517624	0.50294671875
+199	488	4.271934441114	0.440225761719
+200	241	2.558369170811	2.6261
+200	348	2.99087645033	2.2988275
+200	473	3.888713517624	2.0123678125
+200	488	4.271934441114	1.761631367189
+201	241	2.558369170811	1072
+201	348	2.99087645033	1608
+201	473	3.888713517624	2144
+201	488	4.271934441114	2680
+202	241	2.558369170811	4294967295
+202	348	2.99087645033	4294967295
+202	473	3.888713517624	4294967295
+202	488	4.271934441114	4294967295
+203	241	2.558369170811	0
+203	348	2.99087645033	0
+203	473	3.888713517624	0
+203	488	4.271934441114	0
+204	288	2.769887625598	0
+204	301	2.771703625598	0
+204	355	3.082960866969	0
+204	445	3.443734241279	0
+204	520	4.895161959898	0
+205	288	2.769887625598	7504
+205	301	2.771703625598	700203
+205	301	2.771703625598	700203
+205	355	3.082960866969	700203
+205	445	3.443734241279	700203
+205	520	4.895161959898	700203
+206	288	2.769887625598	7504
+206	301	2.771703625598	7504
+206	355	3.082960866969	7504
+206	445	3.443734241279	7504
+206	520	4.895161959898	7504
+207	288	2.769887625598	0
+207	301	2.771703625598	692699
+207	355	3.082960866969	692699
+207	445	3.443734241279	692699
+207	520	4.895161959898	692699
+208	295	2.770795625598	699976
+208	295	2.770795625598	699976
+208	308	2.772587625598	699976
+208	361	3.083844866969	699978
+208	451	3.444618241279	699979
+208	526	4.896045959898	699980
+209	295	2.770795625598	7504
+209	308	2.772587625598	7504
+210	295	2.770795625598	0
+210	308	2.772587625598	0
+210	308	2.772587625598	1
+210	361	3.083844866969	0
+210	361	3.083844866969	0
+210	451	3.444618241279	0
+210	451	3.444618241279	0
+210	526	4.896045959898	0
+210	526	4.896045959898	0
+211	295	2.770795625598	7504
+211	308	2.772587625598	7503
+211	361	3.083844866969	7504
+211	451	3.444618241279	7504
+211	526	4.896045959898	7504
+212	295	2.770795625598	692472
+212	308	2.772587625598	692473
+212	361	3.083844866969	692474
+212	451	3.444618241279	692475
+212	526	4.896045959898	692476
+213	301	2.771703625598	692698
+213	318	2.773463625598	692699
+213	368	3.084720866969	692699
+213	458	3.445494241279	692699
+213	533	4.896921959898	692699
+214	301	2.771703625598	692472
+214	318	2.773463625598	692473
+214	368	3.084720866969	692474
+214	458	3.445494241279	692475
+214	533	4.896921959898	692476
+215	301	2.771703625598	7504
+215	318	2.773463625598	7503
+215	368	3.084720866969	7504
+215	458	3.445494241279	7504
+215	533	4.896921959898	7504
+216	301	2.771703625598	1
+216	318	2.773463625598	0
+216	355	3.082960866969	1
+216	368	3.084720866969	0
+216	445	3.443734241279	1
+216	458	3.445494241279	0
+216	520	4.895161959898	1
+216	533	4.896921959898	0
+217	308	2.772587625598	692472
+217	361	3.083844866969	692473
+217	451	3.444618241279	692474
+217	526	4.896045959898	692475
+218	308	2.772587625598	692699
+218	361	3.083844866969	692699
+218	451	3.444618241279	692699
+218	526	4.896045959898	692699
+219	308	2.772587625598	0
+220	308	2.772587625598	1072
+221	308	2.772587625598	4294967295
+222	308	2.772587625598	0
+222	361	3.083844866969	0
+222	451	3.444618241279	0
+222	526	4.896045959898	0
+223	318	2.773463625598	0.00176
+223	368	3.084720866969	0.00176
+223	458	3.445494241279	0.00176
+223	533	4.896921959898	0.00176
+224	318	2.773463625598	0.00022
+224	368	3.084720866969	0.0004125
+224	458	3.445494241279	0.0005809375
+224	533	4.896921959898	0.000728320313
+225	318	2.773463625598	0.65647
+225	368	3.084720866969	0.57460375
+225	458	3.445494241279	0.50294671875
+225	533	4.896921959898	0.440225761719
+226	318	2.773463625598	2.6261
+226	368	3.084720866969	2.2988275
+226	458	3.445494241279	2.0123678125
+226	533	4.896921959898	1.761631367189
+227	318	2.773463625598	1072
+227	368	3.084720866969	1608
+227	458	3.445494241279	2144
+227	533	4.896921959898	2680
+228	318	2.773463625598	4294967295
+228	368	3.084720866969	4294967295
+228	458	3.445494241279	4294967295
+228	533	4.896921959898	4294967295
+229	318	2.773463625598	0
+229	368	3.084720866969	0
+229	458	3.445494241279	0
+229	533	4.896921959898	0
+

@@ -74,7 +74,7 @@ class Msg extends FieldsChunk {
     
     int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
     
-    int cer; //message certificate in case of COMMIT or ACK
+    int cer=-1; //message certificate in case of COMMIT or ACK
     
     IntVector Vcer; //view in which certificate is collected in case of COMMIT
     
@@ -82,13 +82,15 @@ class Msg extends FieldsChunk {
     
     simtime_t arrivalTime; //arrival time
     
-    int msgId;
+    int msgId=-1;
     
     int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
     
     string typeS;
     
-    int sender;
+    int sender=-1;
+    
+    int destId;
 
 }
 

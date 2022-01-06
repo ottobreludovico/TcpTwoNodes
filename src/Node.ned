@@ -73,6 +73,9 @@ simple Node like IApp
         int nPar; 
         int fPar;
         @display("i=block/app");
+        @signal[packetSent](type=inet::Packet);
+        @signal[packetReceived](type=inet::Packet);
+        @signal[connect](type=long);  // 1 for open, -1 for close
        
     gates:
         input socketIn @labels(TCPCommand/up);

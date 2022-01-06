@@ -74,7 +74,7 @@ namespace inet {
  * 
  *     int type; //type of messagge (PROPOSE, REC-CONFIRM, RECONFIG, ecc.)
  * 
- *     int cer; //message certificate in case of COMMIT or ACK
+ *     int cer = -1; //message certificate in case of COMMIT or ACK
  * 
  *     IntVector Vcer; //view in which certificate is collected in case of COMMIT
  * 
@@ -82,13 +82,15 @@ namespace inet {
  * 
  *     simtime_t arrivalTime; //arrival time
  * 
- *     int msgId;
+ *     int msgId = -1;
  * 
  *     int install_or_update; //in case of INSTALL (1 -> install, 0 -> update)
  * 
  *     string typeS;
  * 
- *     int sender;
+ *     int sender = -1;
+ * 
+ *     int destId;
  * 
  * }
  * </pre>
@@ -103,14 +105,15 @@ class Msg : public ::inet::FieldsChunk
     IntVectorV SEQcv;
     int join_or_leave = 0;
     int type = 0;
-    int cer = 0;
+    int cer = -1;
     IntVector Vcer;
     omnetpp::simtime_t sendTime = SIMTIME_ZERO;
     omnetpp::simtime_t arrivalTime = SIMTIME_ZERO;
-    int msgId = 0;
+    int msgId = -1;
     int install_or_update = 0;
     omnetpp::opp_string typeS;
-    int sender = 0;
+    int sender = -1;
+    int destId = 0;
 
   private:
     void copy(const Msg& other);
@@ -163,6 +166,8 @@ class Msg : public ::inet::FieldsChunk
     virtual void setTypeS(const char * typeS);
     virtual int getSender() const;
     virtual void setSender(int sender);
+    virtual int getDestId() const;
+    virtual void setDestId(int destId);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const Msg& obj) {obj.parsimPack(b);}
@@ -174,7 +179,7 @@ typedef std::vector<Msg*> MsgVector;
 // }}
 
 /**
- * Class generated from <tt>msg.msg:105</tt> by nedtool.
+ * Class generated from <tt>msg.msg:107</tt> by nedtool.
  * <pre>
  * class StateUpdateMessage extends FieldsChunk
  * {

@@ -1,14 +1,14 @@
 version 2
-run JOIN_after_BROADCAST-0-20211122-16:57:56-12644
+run JOIN_after_BROADCAST-0-20211125-17:07:35-11884
 attr configname JOIN_after_BROADCAST
-attr datetime 20211122-16:57:56
+attr datetime 20211125-17:07:35
 attr experiment JOIN_after_BROADCAST
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network scenario
-attr processid 12644
+attr processid 11884
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -72,70 +72,73 @@ attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client0.ppp[0].ppp.queue queueingTime:histogram
 field count 16
-field mean 2.35e-005
-field stddev 9.4e-005
+field mean 0
+field stddev 0
 field min 0
-field max 0.000376
-field sum 0.000376
-field sqrsum 1.41376e-007
+field max 0
+field sum 0
+field sqrsum 0
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, histogram"
 attr unit s
 bin	-inf	0
-bin	0	15
-bin	1e-005	0
-bin	2e-005	0
-bin	3e-005	0
-bin	4e-005	0
-bin	5e-005	0
-bin	6e-005	0
-bin	7e-005	0
-bin	8e-005	0
-bin	9e-005	0
-bin	0.0001	0
-bin	0.00011	0
-bin	0.00012	0
-bin	0.00013	0
-bin	0.00014	0
-bin	0.00015	0
-bin	0.00016	0
-bin	0.00017	0
-bin	0.00018	0
-bin	0.00019	0
-bin	0.0002	0
-bin	0.00021	0
-bin	0.00022	0
-bin	0.00023	0
-bin	0.00024	0
-bin	0.00025	0
-bin	0.00026	0
-bin	0.00027	0
-bin	0.00028	0
-bin	0.00029	0
-bin	0.0003	0
-bin	0.00031	0
-bin	0.00032	0
-bin	0.00033	0
-bin	0.00034	0
-bin	0.00035	0
-bin	0.00036	0
-bin	0.00037	1
-bin	0.00038	0
-bin	0.00039	0
-bin	0.0004	0
-bin	0.00041	0
-bin	0.00042	0
-bin	0.00043	0
-bin	0.00044	0
-bin	0.00045	0
-bin	0.00046	0
-bin	0.00047	0
+bin	-0.5	0
+bin	-0.48	0
+bin	-0.46	0
+bin	-0.44	0
+bin	-0.42	0
+bin	-0.4	0
+bin	-0.38	0
+bin	-0.36	0
+bin	-0.34	0
+bin	-0.32	0
+bin	-0.3	0
+bin	-0.28	0
+bin	-0.26	0
+bin	-0.24	0
+bin	-0.22	0
+bin	-0.2	0
+bin	-0.18	0
+bin	-0.16	0
+bin	-0.14	0
+bin	-0.12	0
+bin	-0.1	0
+bin	-0.08	0
+bin	-0.06	0
+bin	-0.04	0
+bin	-0.02	0
+bin	0	16
+bin	0.02	0
+bin	0.04	0
+bin	0.06	0
+bin	0.08	0
+bin	0.1	0
+bin	0.12	0
+bin	0.14	0
+bin	0.16	0
+bin	0.18	0
+bin	0.2	0
+bin	0.22	0
+bin	0.24	0
+bin	0.26	0
+bin	0.28	0
+bin	0.3	0
+bin	0.32	0
+bin	0.34	0
+bin	0.36	0
+bin	0.38	0
+bin	0.4	0
+bin	0.42	0
+bin	0.44	0
+bin	0.46	0
+bin	0.48	0
+bin	0.5	0
 scalar scenario.client0.ppp[0].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client0.ppp[0].ppp.queue queueLength:timeavg 1.2910530651909e-008
+scalar scenario.client0.ppp[0].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
@@ -207,7 +210,7 @@ scalar scenario.client0.ppp[0].ppp rxPkOk:sum(packetBytes) 768
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp transmissionState:timeavg 2.1091658084449e-007
+scalar scenario.client0.ppp[0].ppp transmissionState:timeavg 2.4262528136477e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -219,73 +222,70 @@ attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client0.ppp[1].ppp.queue queueingTime:histogram
 field count 16
-field mean 0
-field stddev 0
+field mean 2.35e-005
+field stddev 9.4e-005
 field min 0
-field max 0
-field sum 0
-field sqrsum 0
+field max 0.000376
+field sum 0.000376
+field sqrsum 1.41376e-007
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, histogram"
 attr unit s
 bin	-inf	0
-bin	-0.5	0
-bin	-0.48	0
-bin	-0.46	0
-bin	-0.44	0
-bin	-0.42	0
-bin	-0.4	0
-bin	-0.38	0
-bin	-0.36	0
-bin	-0.34	0
-bin	-0.32	0
-bin	-0.3	0
-bin	-0.28	0
-bin	-0.26	0
-bin	-0.24	0
-bin	-0.22	0
-bin	-0.2	0
-bin	-0.18	0
-bin	-0.16	0
-bin	-0.14	0
-bin	-0.12	0
-bin	-0.1	0
-bin	-0.08	0
-bin	-0.06	0
-bin	-0.04	0
-bin	-0.02	0
-bin	0	16
-bin	0.02	0
-bin	0.04	0
-bin	0.06	0
-bin	0.08	0
-bin	0.1	0
-bin	0.12	0
-bin	0.14	0
-bin	0.16	0
-bin	0.18	0
-bin	0.2	0
-bin	0.22	0
-bin	0.24	0
-bin	0.26	0
-bin	0.28	0
-bin	0.3	0
-bin	0.32	0
-bin	0.34	0
-bin	0.36	0
-bin	0.38	0
-bin	0.4	0
-bin	0.42	0
-bin	0.44	0
-bin	0.46	0
-bin	0.48	0
-bin	0.5	0
+bin	0	15
+bin	1e-005	0
+bin	2e-005	0
+bin	3e-005	0
+bin	4e-005	0
+bin	5e-005	0
+bin	6e-005	0
+bin	7e-005	0
+bin	8e-005	0
+bin	9e-005	0
+bin	0.0001	0
+bin	0.00011	0
+bin	0.00012	0
+bin	0.00013	0
+bin	0.00014	0
+bin	0.00015	0
+bin	0.00016	0
+bin	0.00017	0
+bin	0.00018	0
+bin	0.00019	0
+bin	0.0002	0
+bin	0.00021	0
+bin	0.00022	0
+bin	0.00023	0
+bin	0.00024	0
+bin	0.00025	0
+bin	0.00026	0
+bin	0.00027	0
+bin	0.00028	0
+bin	0.00029	0
+bin	0.0003	0
+bin	0.00031	0
+bin	0.00032	0
+bin	0.00033	0
+bin	0.00034	0
+bin	0.00035	0
+bin	0.00036	0
+bin	0.00037	1
+bin	0.00038	0
+bin	0.00039	0
+bin	0.0004	0
+bin	0.00041	0
+bin	0.00042	0
+bin	0.00043	0
+bin	0.00044	0
+bin	0.00045	0
+bin	0.00046	0
+bin	0.00047	0
 scalar scenario.client0.ppp[1].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client0.ppp[1].ppp.queue queueLength:timeavg 0
+scalar scenario.client0.ppp[1].ppp.queue queueLength:timeavg 1.4851992745336e-008
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
@@ -357,7 +357,7 @@ scalar scenario.client0.ppp[1].ppp rxPkOk:sum(packetBytes) 768
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp transmissionState:timeavg 2.1091658084449e-007
+scalar scenario.client0.ppp[1].ppp transmissionState:timeavg 2.4262528136477e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -507,7 +507,7 @@ scalar scenario.client0.ppp[2].ppp rxPkOk:sum(packetBytes) 671
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client0.ppp[2].ppp transmissionState:timeavg 1.8510127016821e-007
+scalar scenario.client0.ppp[2].ppp transmissionState:timeavg 2.1292895786439e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -868,7 +868,7 @@ scalar scenario.client1.ppp[0].ppp rxPkOk:sum(packetBytes) 768
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client1.ppp[0].ppp transmissionState:timeavg 2.1091658084449e-007
+scalar scenario.client1.ppp[0].ppp transmissionState:timeavg 2.4262528136477e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -943,7 +943,7 @@ scalar scenario.client1.ppp[1].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client1.ppp[1].ppp.queue queueLength:timeavg 1.2910424744913e-008
+scalar scenario.client1.ppp[1].ppp.queue queueLength:timeavg 1.4851768342646e-008
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
@@ -1015,7 +1015,7 @@ scalar scenario.client1.ppp[1].ppp rxPkOk:sum(packetBytes) 768
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client1.ppp[1].ppp transmissionState:timeavg 2.1091658084449e-007
+scalar scenario.client1.ppp[1].ppp transmissionState:timeavg 2.4262528136477e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -1165,7 +1165,7 @@ scalar scenario.client1.ppp[2].ppp rxPkOk:sum(packetBytes) 671
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client1.ppp[2].ppp transmissionState:timeavg 1.8510127016821e-007
+scalar scenario.client1.ppp[2].ppp transmissionState:timeavg 2.1292895786439e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -1388,70 +1388,73 @@ attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client2.ppp[0].ppp.queue queueingTime:histogram
 field count 16
-field mean 2.35e-005
-field stddev 9.4e-005
+field mean 0
+field stddev 0
 field min 0
-field max 0.000376
-field sum 0.000376
-field sqrsum 1.41376e-007
+field max 0
+field sum 0
+field sqrsum 0
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, histogram"
 attr unit s
 bin	-inf	0
-bin	0	15
-bin	1e-005	0
-bin	2e-005	0
-bin	3e-005	0
-bin	4e-005	0
-bin	5e-005	0
-bin	6e-005	0
-bin	7e-005	0
-bin	8e-005	0
-bin	9e-005	0
-bin	0.0001	0
-bin	0.00011	0
-bin	0.00012	0
-bin	0.00013	0
-bin	0.00014	0
-bin	0.00015	0
-bin	0.00016	0
-bin	0.00017	0
-bin	0.00018	0
-bin	0.00019	0
-bin	0.0002	0
-bin	0.00021	0
-bin	0.00022	0
-bin	0.00023	0
-bin	0.00024	0
-bin	0.00025	0
-bin	0.00026	0
-bin	0.00027	0
-bin	0.00028	0
-bin	0.00029	0
-bin	0.0003	0
-bin	0.00031	0
-bin	0.00032	0
-bin	0.00033	0
-bin	0.00034	0
-bin	0.00035	0
-bin	0.00036	0
-bin	0.00037	1
-bin	0.00038	0
-bin	0.00039	0
-bin	0.0004	0
-bin	0.00041	0
-bin	0.00042	0
-bin	0.00043	0
-bin	0.00044	0
-bin	0.00045	0
-bin	0.00046	0
-bin	0.00047	0
+bin	-0.5	0
+bin	-0.48	0
+bin	-0.46	0
+bin	-0.44	0
+bin	-0.42	0
+bin	-0.4	0
+bin	-0.38	0
+bin	-0.36	0
+bin	-0.34	0
+bin	-0.32	0
+bin	-0.3	0
+bin	-0.28	0
+bin	-0.26	0
+bin	-0.24	0
+bin	-0.22	0
+bin	-0.2	0
+bin	-0.18	0
+bin	-0.16	0
+bin	-0.14	0
+bin	-0.12	0
+bin	-0.1	0
+bin	-0.08	0
+bin	-0.06	0
+bin	-0.04	0
+bin	-0.02	0
+bin	0	16
+bin	0.02	0
+bin	0.04	0
+bin	0.06	0
+bin	0.08	0
+bin	0.1	0
+bin	0.12	0
+bin	0.14	0
+bin	0.16	0
+bin	0.18	0
+bin	0.2	0
+bin	0.22	0
+bin	0.24	0
+bin	0.26	0
+bin	0.28	0
+bin	0.3	0
+bin	0.32	0
+bin	0.34	0
+bin	0.36	0
+bin	0.38	0
+bin	0.4	0
+bin	0.42	0
+bin	0.44	0
+bin	0.46	0
+bin	0.48	0
+bin	0.5	0
 scalar scenario.client2.ppp[0].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client2.ppp[0].ppp.queue queueLength:timeavg 1.2910356252743e-008
+scalar scenario.client2.ppp[0].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
@@ -1523,7 +1526,7 @@ scalar scenario.client2.ppp[0].ppp rxPkOk:sum(packetBytes) 768
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp transmissionState:timeavg 2.1091658084449e-007
+scalar scenario.client2.ppp[0].ppp transmissionState:timeavg 2.4262528136477e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -1535,73 +1538,70 @@ attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client2.ppp[1].ppp.queue queueingTime:histogram
 field count 16
-field mean 0
-field stddev 0
+field mean 2.35e-005
+field stddev 9.4e-005
 field min 0
-field max 0
-field sum 0
-field sqrsum 0
+field max 0.000376
+field sum 0.000376
+field sqrsum 1.41376e-007
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, histogram"
 attr unit s
 bin	-inf	0
-bin	-0.5	0
-bin	-0.48	0
-bin	-0.46	0
-bin	-0.44	0
-bin	-0.42	0
-bin	-0.4	0
-bin	-0.38	0
-bin	-0.36	0
-bin	-0.34	0
-bin	-0.32	0
-bin	-0.3	0
-bin	-0.28	0
-bin	-0.26	0
-bin	-0.24	0
-bin	-0.22	0
-bin	-0.2	0
-bin	-0.18	0
-bin	-0.16	0
-bin	-0.14	0
-bin	-0.12	0
-bin	-0.1	0
-bin	-0.08	0
-bin	-0.06	0
-bin	-0.04	0
-bin	-0.02	0
-bin	0	16
-bin	0.02	0
-bin	0.04	0
-bin	0.06	0
-bin	0.08	0
-bin	0.1	0
-bin	0.12	0
-bin	0.14	0
-bin	0.16	0
-bin	0.18	0
-bin	0.2	0
-bin	0.22	0
-bin	0.24	0
-bin	0.26	0
-bin	0.28	0
-bin	0.3	0
-bin	0.32	0
-bin	0.34	0
-bin	0.36	0
-bin	0.38	0
-bin	0.4	0
-bin	0.42	0
-bin	0.44	0
-bin	0.46	0
-bin	0.48	0
-bin	0.5	0
+bin	0	15
+bin	1e-005	0
+bin	2e-005	0
+bin	3e-005	0
+bin	4e-005	0
+bin	5e-005	0
+bin	6e-005	0
+bin	7e-005	0
+bin	8e-005	0
+bin	9e-005	0
+bin	0.0001	0
+bin	0.00011	0
+bin	0.00012	0
+bin	0.00013	0
+bin	0.00014	0
+bin	0.00015	0
+bin	0.00016	0
+bin	0.00017	0
+bin	0.00018	0
+bin	0.00019	0
+bin	0.0002	0
+bin	0.00021	0
+bin	0.00022	0
+bin	0.00023	0
+bin	0.00024	0
+bin	0.00025	0
+bin	0.00026	0
+bin	0.00027	0
+bin	0.00028	0
+bin	0.00029	0
+bin	0.0003	0
+bin	0.00031	0
+bin	0.00032	0
+bin	0.00033	0
+bin	0.00034	0
+bin	0.00035	0
+bin	0.00036	0
+bin	0.00037	1
+bin	0.00038	0
+bin	0.00039	0
+bin	0.0004	0
+bin	0.00041	0
+bin	0.00042	0
+bin	0.00043	0
+bin	0.00044	0
+bin	0.00045	0
+bin	0.00046	0
+bin	0.00047	0
 scalar scenario.client2.ppp[1].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client2.ppp[1].ppp.queue queueLength:timeavg 0
+scalar scenario.client2.ppp[1].ppp.queue queueLength:timeavg 1.4851768875311e-008
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
@@ -1673,7 +1673,7 @@ scalar scenario.client2.ppp[1].ppp rxPkOk:sum(packetBytes) 768
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp transmissionState:timeavg 2.1091658084449e-007
+scalar scenario.client2.ppp[1].ppp transmissionState:timeavg 2.4262528136477e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -1823,7 +1823,7 @@ scalar scenario.client2.ppp[2].ppp rxPkOk:sum(packetBytes) 671
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client2.ppp[2].ppp transmissionState:timeavg 1.8510127016821e-007
+scalar scenario.client2.ppp[2].ppp transmissionState:timeavg 2.1292895786439e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -2184,7 +2184,7 @@ scalar scenario.client3.ppp[0].ppp rxPkOk:sum(packetBytes) 674
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client3.ppp[0].ppp transmissionState:timeavg 1.8427737727429e-007
+scalar scenario.client3.ppp[0].ppp transmissionState:timeavg 2.1198120285906e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -2334,7 +2334,7 @@ scalar scenario.client3.ppp[1].ppp rxPkOk:sum(packetBytes) 674
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client3.ppp[1].ppp transmissionState:timeavg 1.8427737727429e-007
+scalar scenario.client3.ppp[1].ppp transmissionState:timeavg 2.1198120285906e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -2484,7 +2484,7 @@ scalar scenario.client3.ppp[2].ppp rxPkOk:sum(packetBytes) 674
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp transmissionState:timeavg 1.8427737727429e-007
+scalar scenario.client3.ppp[2].ppp transmissionState:timeavg 2.1198120285906e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"

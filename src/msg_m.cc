@@ -900,6 +900,7 @@ void Msg::copy(const Msg& other)
     this->install_or_update = other.install_or_update;
     this->typeS = other.typeS;
     this->sender = other.sender;
+    this->destId = other.destId;
 }
 
 void Msg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -920,6 +921,7 @@ void Msg::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->install_or_update);
     doParsimPacking(b,this->typeS);
     doParsimPacking(b,this->sender);
+    doParsimPacking(b,this->destId);
 }
 
 void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -940,6 +942,7 @@ void Msg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->install_or_update);
     doParsimUnpacking(b,this->typeS);
     doParsimUnpacking(b,this->sender);
+    doParsimUnpacking(b,this->destId);
 }
 
 int Msg::getId() const
@@ -1107,6 +1110,17 @@ void Msg::setSender(int sender)
     this->sender = sender;
 }
 
+int Msg::getDestId() const
+{
+    return this->destId;
+}
+
+void Msg::setDestId(int destId)
+{
+    handleChange();
+    this->destId = destId;
+}
+
 class MsgDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -1127,6 +1141,7 @@ class MsgDescriptor : public omnetpp::cClassDescriptor
         FIELD_install_or_update,
         FIELD_typeS,
         FIELD_sender,
+        FIELD_destId,
     };
   public:
     MsgDescriptor();
@@ -1189,7 +1204,7 @@ const char *MsgDescriptor::getProperty(const char *propertyname) const
 int MsgDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 15+basedesc->getFieldCount() : 15;
+    return basedesc ? 16+basedesc->getFieldCount() : 16;
 }
 
 unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
@@ -1216,8 +1231,9 @@ unsigned int MsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_install_or_update
         FD_ISEDITABLE,    // FIELD_typeS
         FD_ISEDITABLE,    // FIELD_sender
+        FD_ISEDITABLE,    // FIELD_destId
     };
-    return (field >= 0 && field < 15) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 16) ? fieldTypeFlags[field] : 0;
 }
 
 const char *MsgDescriptor::getFieldName(int field) const
@@ -1244,8 +1260,9 @@ const char *MsgDescriptor::getFieldName(int field) const
         "install_or_update",
         "typeS",
         "sender",
+        "destId",
     };
-    return (field >= 0 && field < 15) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 16) ? fieldNames[field] : nullptr;
 }
 
 int MsgDescriptor::findField(const char *fieldName) const
@@ -1267,6 +1284,7 @@ int MsgDescriptor::findField(const char *fieldName) const
     if (fieldName[0] == 'i' && strcmp(fieldName, "install_or_update") == 0) return base+12;
     if (fieldName[0] == 't' && strcmp(fieldName, "typeS") == 0) return base+13;
     if (fieldName[0] == 's' && strcmp(fieldName, "sender") == 0) return base+14;
+    if (fieldName[0] == 'd' && strcmp(fieldName, "destId") == 0) return base+15;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -1294,8 +1312,9 @@ const char *MsgDescriptor::getFieldTypeString(int field) const
         "int",    // FIELD_install_or_update
         "string",    // FIELD_typeS
         "int",    // FIELD_sender
+        "int",    // FIELD_destId
     };
-    return (field >= 0 && field < 15) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 16) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **MsgDescriptor::getFieldPropertyNames(int field) const
@@ -1377,6 +1396,7 @@ std::string MsgDescriptor::getFieldValueAsString(void *object, int field, int i)
         case FIELD_install_or_update: return long2string(pp->getInstall_or_update());
         case FIELD_typeS: return oppstring2string(pp->getTypeS());
         case FIELD_sender: return long2string(pp->getSender());
+        case FIELD_destId: return long2string(pp->getDestId());
         default: return "";
     }
 }
@@ -1400,6 +1420,7 @@ bool MsgDescriptor::setFieldValueAsString(void *object, int field, int i, const 
         case FIELD_install_or_update: pp->setInstall_or_update(string2long(value)); return true;
         case FIELD_typeS: pp->setTypeS((value)); return true;
         case FIELD_sender: pp->setSender(string2long(value)); return true;
+        case FIELD_destId: pp->setDestId(string2long(value)); return true;
         default: return false;
     }
 }
