@@ -59,7 +59,6 @@ struct StateUpdate{
     bool conflicting;
     vector<Msg*> conflicting_value;
 
-
     bool stored;
     vector<Msg *> stored_value;
 };
@@ -74,6 +73,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<pair<vector<vector<pair<int,int>>>,vector<int>>> proposeReceived;
     vector<pair<vector<vector<pair<int,int>>>,vector<int>>> converge;
     vector<pair<vector<vector<pair<int,int>>>,vector<int>>> convergeReceived;
+    vector<pair<vector<pair<int,int>>,vector<StateUpdate*>>> statesReceived;
 
     vector<vector<pair<int,int>>> installReceived;
 
@@ -98,6 +98,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     //ludo
     int f;
+    bool p;
     int localPort;
     int roundId;
     cMessage *timerEvent = nullptr;
@@ -116,6 +117,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     int quorumSize;
     vector<pair<int,int>> current_view;
     vector<pair<int,int>> init_view;
+    vector<vector<pair<int,int>>> init_view_;
     vector<pair<int,int>> RECV;
     vector< vector<pair<int,int>> > SEQv;
     vector< vector<pair<int,int>> > LCSEQv;
@@ -169,7 +171,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     vector<StateUpdate*> states;
 
-    bool first_time_state_update=true;
+    vector<vector<pair<int,int>>> first_time_state_update;
 
     StateUpdate state;
 
@@ -317,6 +319,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void changeCV(vector<pair<int,int>> v1);
 
     virtual int sizeS(vector<vector<pair<int,int>>> s);
+
+    virtual bool containVS(vector<pair<int,int>> cv,vector<vector<pair<int,int>>> seq);
 
 };
 

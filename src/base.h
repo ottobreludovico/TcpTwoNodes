@@ -12,6 +12,7 @@ const int COMMIT = 6;
 const int INSTALL = 7;
 const int DELIVER = 8;
 const int STATE_UPDATE = 9;
+const int CHANGE_VIEW = 10;
 
 const int PARTECIPANT = 0;
 const int NON_PARTECIPANT = 1;
