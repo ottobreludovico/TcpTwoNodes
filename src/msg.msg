@@ -140,4 +140,6 @@ class StateUpdateMessage extends FieldsChunk {
     
     string typeS;
     
+    int destId;
+    
 }

@@ -36,7 +36,6 @@
 #include <chrono>
 #include "inet/common/socket/SocketMap.h"
 
-
 using namespace std;
 using namespace std::chrono;
 
@@ -79,6 +78,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     vector<pair<vector<pair<int,int>>,int>> installedView;
     vector<Msg*> mio;
+    vector<int> leavedId;
 
   protected:
     TcpSocket socketL;
@@ -183,6 +183,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     vector<StateUpdateMessage*> states_update_rec;
 
+    vector<StateUpdateMessage*> states_update_sended;
+
   public:
       Node() { }
       virtual ~Node() { }
@@ -218,6 +220,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     //DBRB
     virtual void join(double x);
+    virtual void leave(double x);
     virtual bool contain(int x, vector<pair<int,int>> cv);
     virtual vector<pair<int,int>> mostRecent(vector<vector<pair<int,int>>> seq);
     virtual vector<pair<int,int>> leastRecent(vector<vector<pair<int,int>>> seq);
@@ -244,11 +247,16 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     virtual vector<pair<int,int>> merge(vector<pair<int,int>> v1, vector<pair<int,int>> v2);
     virtual int sizeCV(vector<pair<int,int>> v1);
+    template <typename T>
+    int sizeAny(vector<T> v1);
     virtual void uponRECV();
     virtual bool equalVec(vector<pair<int,int>>s1, vector<pair<int,int>> s2);
     virtual bool equalSeq(vector<vector<pair<int,int>>>s1, vector<vector<pair<int,int>>> s2);
 
     virtual bool isMember(int id, vector<pair<int,int>> v);
+    virtual bool isMember_(int id, vector<pair<int,int>> v);
+
+    virtual bool isValid(vector<vector<pair<int,int>>> seq, vector<pair<int,int>> v);
 
     virtual bool isReceivedI(vector<pair<int,int>> v);
     virtual bool isInstalled(vector<pair<int,int>> v1);
@@ -316,12 +324,13 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     virtual void removeMsgFromAckS(Msg * m);
 
-    virtual void changeCV(vector<pair<int,int>> v1);
+    virtual void updateCV();
 
     virtual int sizeS(vector<vector<pair<int,int>>> s);
 
     virtual bool containVS(vector<pair<int,int>> cv,vector<vector<pair<int,int>>> seq);
 
+    virtual bool canLeave();
 };
 
 } // namespace inet

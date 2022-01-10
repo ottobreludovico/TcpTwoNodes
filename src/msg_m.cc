@@ -1720,6 +1720,7 @@ void StateUpdateMessage::copy(const StateUpdateMessage& other)
     this->sendTime = other.sendTime;
     this->arrivalTime = other.arrivalTime;
     this->typeS = other.typeS;
+    this->destId = other.destId;
 }
 
 void StateUpdateMessage::parsimPack(omnetpp::cCommBuffer *b) const
@@ -1741,6 +1742,7 @@ void StateUpdateMessage::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->sendTime);
     doParsimPacking(b,this->arrivalTime);
     doParsimPacking(b,this->typeS);
+    doParsimPacking(b,this->destId);
 }
 
 void StateUpdateMessage::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -1762,6 +1764,7 @@ void StateUpdateMessage::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->sendTime);
     doParsimUnpacking(b,this->arrivalTime);
     doParsimUnpacking(b,this->typeS);
+    doParsimUnpacking(b,this->destId);
 }
 
 int StateUpdateMessage::getId() const
@@ -1940,6 +1943,17 @@ void StateUpdateMessage::setTypeS(const char * typeS)
     this->typeS = typeS;
 }
 
+int StateUpdateMessage::getDestId() const
+{
+    return this->destId;
+}
+
+void StateUpdateMessage::setDestId(int destId)
+{
+    handleChange();
+    this->destId = destId;
+}
+
 class StateUpdateMessageDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -1961,6 +1975,7 @@ class StateUpdateMessageDescriptor : public omnetpp::cClassDescriptor
         FIELD_sendTime,
         FIELD_arrivalTime,
         FIELD_typeS,
+        FIELD_destId,
     };
   public:
     StateUpdateMessageDescriptor();
@@ -2023,7 +2038,7 @@ const char *StateUpdateMessageDescriptor::getProperty(const char *propertyname) 
 int StateUpdateMessageDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 16+basedesc->getFieldCount() : 16;
+    return basedesc ? 17+basedesc->getFieldCount() : 17;
 }
 
 unsigned int StateUpdateMessageDescriptor::getFieldTypeFlags(int field) const
@@ -2051,8 +2066,9 @@ unsigned int StateUpdateMessageDescriptor::getFieldTypeFlags(int field) const
         0,    // FIELD_sendTime
         0,    // FIELD_arrivalTime
         FD_ISEDITABLE,    // FIELD_typeS
+        FD_ISEDITABLE,    // FIELD_destId
     };
-    return (field >= 0 && field < 16) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 17) ? fieldTypeFlags[field] : 0;
 }
 
 const char *StateUpdateMessageDescriptor::getFieldName(int field) const
@@ -2080,8 +2096,9 @@ const char *StateUpdateMessageDescriptor::getFieldName(int field) const
         "sendTime",
         "arrivalTime",
         "typeS",
+        "destId",
     };
-    return (field >= 0 && field < 16) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 17) ? fieldNames[field] : nullptr;
 }
 
 int StateUpdateMessageDescriptor::findField(const char *fieldName) const
@@ -2104,6 +2121,7 @@ int StateUpdateMessageDescriptor::findField(const char *fieldName) const
     if (fieldName[0] == 's' && strcmp(fieldName, "sendTime") == 0) return base+13;
     if (fieldName[0] == 'a' && strcmp(fieldName, "arrivalTime") == 0) return base+14;
     if (fieldName[0] == 't' && strcmp(fieldName, "typeS") == 0) return base+15;
+    if (fieldName[0] == 'd' && strcmp(fieldName, "destId") == 0) return base+16;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -2132,8 +2150,9 @@ const char *StateUpdateMessageDescriptor::getFieldTypeString(int field) const
         "omnetpp::simtime_t",    // FIELD_sendTime
         "omnetpp::simtime_t",    // FIELD_arrivalTime
         "string",    // FIELD_typeS
+        "int",    // FIELD_destId
     };
-    return (field >= 0 && field < 16) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 17) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **StateUpdateMessageDescriptor::getFieldPropertyNames(int field) const
@@ -2216,6 +2235,7 @@ std::string StateUpdateMessageDescriptor::getFieldValueAsString(void *object, in
         case FIELD_sendTime: return simtime2string(pp->getSendTime());
         case FIELD_arrivalTime: return simtime2string(pp->getArrivalTime());
         case FIELD_typeS: return oppstring2string(pp->getTypeS());
+        case FIELD_destId: return long2string(pp->getDestId());
         default: return "";
     }
 }
@@ -2237,6 +2257,7 @@ bool StateUpdateMessageDescriptor::setFieldValueAsString(void *object, int field
         case FIELD_conflicting: pp->setConflicting(string2bool(value)); return true;
         case FIELD_stored: pp->setStored(string2bool(value)); return true;
         case FIELD_typeS: pp->setTypeS((value)); return true;
+        case FIELD_destId: pp->setDestId(string2long(value)); return true;
         default: return false;
     }
 }

@@ -217,6 +217,8 @@ typedef std::vector<Msg*> MsgVector;
  * 
  *     string typeS;
  * 
+ *     int destId;
+ * 
  * }
  * </pre>
  */
@@ -239,6 +241,7 @@ class StateUpdateMessage : public ::inet::FieldsChunk
     omnetpp::simtime_t sendTime = SIMTIME_ZERO;
     omnetpp::simtime_t arrivalTime = SIMTIME_ZERO;
     omnetpp::opp_string typeS;
+    int destId = 0;
 
   private:
     void copy(const StateUpdateMessage& other);
@@ -296,6 +299,8 @@ class StateUpdateMessage : public ::inet::FieldsChunk
     virtual void setArrivalTime(omnetpp::simtime_t arrivalTime);
     virtual const char * getTypeS() const;
     virtual void setTypeS(const char * typeS);
+    virtual int getDestId() const;
+    virtual void setDestId(int destId);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const StateUpdateMessage& obj) {obj.parsimPack(b);}
