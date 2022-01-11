@@ -142,6 +142,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<Msg*> quorum_msg;
     vector<Msg*> msg4view;
 
+    vector<vector<vector<pair<int,int>>>> msg_to_converge;
+    vector<vector<vector<pair<int,int>>>> msg_to_propose;
     bool join_complete;
     bool leave_complete;
     bool rec_cond;
@@ -331,6 +333,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual bool containVS(vector<pair<int,int>> cv,vector<vector<pair<int,int>>> seq);
 
     virtual bool canLeave();
+
+    virtual void cicleLeave(double x);
 };
 
 } // namespace inet

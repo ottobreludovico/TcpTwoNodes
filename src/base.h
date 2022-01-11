@@ -13,6 +13,7 @@ const int INSTALL = 7;
 const int DELIVER = 8;
 const int STATE_UPDATE = 9;
 const int CHANGE_VIEW = 10;
+const int LEAVE_ID = 11;
 
 const int PARTECIPANT = 0;
 const int NON_PARTECIPANT = 1;
@@ -25,6 +26,7 @@ const int MSGKIND_LEAVE=2;
 const int MSGKIND_BROADCAST=3;
 const int MSGKIND_SEND=4;
 const int MSGKIND_TIMER=5;
+const int MSGKIND_CICLE_LEAVE=6;
 
 
 #endif

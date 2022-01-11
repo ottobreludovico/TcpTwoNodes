@@ -210,7 +210,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
                 if(isInstalled(current_view)==true){
                     for (int destId = 0; destId < nodesNbr; destId++) {
                         if(destId==selfId) continue;
-                        if(isMember(destId,current_view)==false) continue;
+                        if(isMember_(destId,current_view)==false) continue;
                         Msg * bp = new Msg();
                         bp->setId(selfId);
                         bp->setMsg("Message");
@@ -255,6 +255,59 @@ void Node::handleMessageWhenUp(cMessage *msg)
              EV << "\n\n\n\n [Client"<< selfId <<"]"<< tmp.getTypeS() <<" inviato a: " << simTime() << "\n\n\n";
              sendP(briefPacket, ((MessageL*)msg)->getDestId());
              break;}
+
+         case MSGKIND_CICLE_LEAVE:{
+             EV<<"Cicle Leave";
+             if(canLeave()==true){
+                 EV<<"true";
+                 leave_complete=true;
+                 Msg * prova=new Msg();
+                 prova->setTypeS("EXIT FROM THE SYSTEM");
+                 prova->setView(current_view);
+                 prova->setSendTime(simTime());
+                 prova->setSender(-1);
+                 prova->setMsgId(-1);
+                 Msg * prova2=new Msg();
+                 prova2->setTypeS("EXIT FROM THE SYSTEM");
+                 prova2->setView(current_view);
+                 prova2->setSendTime(simTime());
+                 prova2->setSender(-1);
+                 prova2->setMsgId(-1);
+                 receivedMsg.push_back(prova);
+                 inviati.push_back(prova2);
+                 break;
+             }
+             else{
+                 view_discovery();
+                 for(auto it:stored_value){
+                     EV << "[" << it->getSender() << ", "<<it->getMsgId()<<"],";
+                     if(it->getSender()!=selfId && can_leave==false && isDelivered(it)==false){
+                         for (int destId = 0; destId < nodesNbr; destId++) {
+                            if(destId==selfId) continue;
+                            if(isMember(destId,current_view)==false) continue;
+                            Msg * bp = it->dup();
+                            bp->setId(selfId);
+                            simtime_t t=simTime()+fRand(0.0, 1.0);
+                            bp->setSendTime(t);
+                            bp->setView(current_view);
+                            auto briefPacket = new Packet();
+                            Msg &tmp = *bp;
+                            const auto& payload = makeShared<Msg>(tmp);
+                            briefPacket->insertAtBack(payload);
+                            //EV << "\n\n\n\n [Client"<< selfId <<"]COMMIT messaggio inviato a: " << simTime() << "\n\n\n";
+                            //sendP(briefPacket, destId);
+                            MessageL * timer = new MessageL();
+                            timer->setDestId(destId);
+                            timer->setKind(MSGKIND_SEND);
+                            timer->setM(bp);
+                            //scheduleAt(simTime(),timer);
+                            scheduleAt(t,timer);
+                         }
+                     }
+                 }
+                 cicleLeave(3);
+             }
+         }
 
          default:{
              EV<<"default";
@@ -402,20 +455,20 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
                     converge_f(x);
                 }else if(x->getType()==ACK){
                     //x->setArrivalTime(simTime());
-                    //ack_f(x);
+                    ack_f(x);
                 }else if(x->getType()==PREPARE && stop_processing==false){
                     //x->setArrivalTime(simTime());
-                    //prepare_f(x);
+                    prepare_f(x);
                 }else if(x->getType()==COMMIT && stop_processing==false){
                     //x->setArrivalTime(simTime());
-                    //commit_f(x);
+                    commit_f(x);
                 }else if(x->getType()==INSTALL){
                     //x->setArrivalTime(simTime());
                     //receivedMsg.push_back(x);
                     install_f(x);
                 }else if(x->getType()==DELIVER){
                     //x->setArrivalTime(simTime());
-                    //deliver_f(x);
+                    deliver_f(x);
                 }else if(x->getType()==CHANGE_VIEW){
                     //x->setArrivalTime(simTime());
                     receivedMsg.push_back(x);
@@ -432,7 +485,7 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
                         }
                     }
                     if(s==true){
-                        if(contains(init_view,x->getView())==false){
+                        if(contains(x->getView(),init_view)==false){
                             init_view=x->getView();
                             int tmp = sizeCV(init_view) + f + 1;
                             if (tmp % 2 == 1){
@@ -496,7 +549,7 @@ vector<pair<int,int>> Node::leastRecent(vector<vector<pair<int,int>>> seq)
             i++;
             continue;
         }
-        if(contains(seq[k],it)==true){
+        if(contains(it,seq[k])==true){
             i++;
             continue;
         }else{
@@ -742,6 +795,12 @@ void Node::finish()
             EV<< "["<<it.first<<","<<it.second<<"] ";
             }
         }
+        EV<<"\nStop processing: ";
+        if(stop_processing){
+            EV<<"True";
+        }else{
+            EV<<"False";
+        }
         EV << "\n-----------------------------------------------------------------------\n";
     }else{
         EV_INFO << "Time finish: " << simTime() << "\n\n";
@@ -933,6 +992,12 @@ void Node::finish()
             if(it.second==1){
             EV<< "["<<it.first<<","<<it.second<<"] ";
             }
+        }
+        EV<<"\nStop processing: ";
+        if(stop_processing){
+            EV<<"True";
+        }else{
+            EV<<"False";
         }
         EV << "\n-----------------------------------------------------------------------\n";
     }
@@ -1220,7 +1285,7 @@ bool Node::equalVec(vector<pair<int,int>>s1, vector<pair<int,int>> s2){
     if(s1.size()!=s2.size()) return false;
     for(pair<int,int> v1 : s1){
         for(pair<int,int> v2 : s2){
-            if(v1==v2){
+            if(v1.first==v2.first && v1.second==v2.second){
                 count+=1;
                 break;
             }
@@ -1246,14 +1311,14 @@ bool Node::equalSeq(vector<vector<pair<int,int>>>s1, vector<vector<pair<int,int>
 }
 
 bool Node::checkPropose() {
-    int c=0;
     for (auto it = propose.begin(); it!=propose.end(); ++it) {
+        int c=0;
         for(int i:it->second){
             c+=i;
         }
-    }
-    if(c>=quorumSize){
-        return true;
+        if(c>=quorumSize){
+            return true;
+        }
     }
     return false;
 }
@@ -1372,24 +1437,27 @@ bool Node::isDelivered(Msg * m) {
 }
 
 bool Node::isValid(vector<vector<pair<int,int>>> seq, vector<pair<int,int>> v) {
-    bool c=false;
+    int c=0;
     for(auto it : seq) {
         for(auto it2 : SEQv){
-            if(equalVec(it,it2)!=true){
-                c=true;
+            if(equalVec(it,it2)==false){
+                c=-1;
+                break;
             }
         }
-        if(c==true){
-            break;
-        }
     }
-    if(c==false){
+    if(c==0 && SEQv.size()!=0){
+        EV<<"d1";
         return false;
     }
     for(auto it : seq) {
+        for(auto i :it){
+            EV<<i.first<<","<<i.second<<" ";
+        }
         if(contains(it,v)==true){
             continue;
         }else{
+            EV<<"d2";
             return false;
         }
     }
@@ -1399,6 +1467,7 @@ bool Node::isValid(vector<vector<pair<int,int>>> seq, vector<pair<int,int>> v) {
                 if(contains(it,it2)==true || contains(it2,it)==true){
                     continue;
                 }else{
+                    EV<<"d3";
                     return false;
                 }
             }
@@ -1522,6 +1591,12 @@ void Node::broadcast(double x){
 void Node::leave(double x){
     timerEvent = new cMessage();
     timerEvent->setKind(MSGKIND_LEAVE);
+    scheduleAt(simTime()+x,timerEvent);
+}
+
+void Node::cicleLeave(double x){
+    timerEvent = new cMessage();
+    timerEvent->setKind(MSGKIND_CICLE_LEAVE);
     scheduleAt(simTime()+x,timerEvent);
 }
 
@@ -1697,7 +1772,7 @@ vector<vector<pair<int,int>>> Node::unionS(vector<vector<pair<int,int>>> s1, vec
     return s;
 }
 
-bool Node::contains(vector<pair<int,int>> v1, vector<pair<int,int>> v2){ //v1 contains v2 -> v2 is subset of v1
+bool Node::contains(vector<pair<int,int>> v1, vector<pair<int,int>> v2){ //v1 è più recente di v2 --> v2 c v1
     EV<<"CONTAINS\n";
     EV<<"v1:";
     for(auto it:v1){
@@ -1710,49 +1785,29 @@ bool Node::contains(vector<pair<int,int>> v1, vector<pair<int,int>> v2){ //v1 co
     if(sizeCV(v1)<sizeCV(v2)){
        EV<<"\nFalse";
        return false;
-    }else if(sizeCV(v1)==sizeCV(v2)){
-        sort(v1.begin(), v1.end(), less<pair<int,int> >());
-        sort(v2.begin(), v2.end(), less<pair<int,int> >());
-        int n=sizeCV(v1);
-        for(int i=0;i<n;i++){
-            if(v1[i].second==v2[i].second){
-                continue;
-            }else{
-                if(v2[i].second==1){
-                    EV<<"\nTrue";
-                    return true;
-                }
-            }
-        }
+    }
+    if(equalVec(v1,v2)==true){
         EV<<"\nFalse";
         return false;
     }
     int count=0;
-    for(pair<int,int> i:v2){
-        int n=0;
-        for(pair<int,int> j:v1){
+    for(pair<int,int> i:v1){
+        for(pair<int,int> j:v2){
             if(i.first==j.first){
                 if(i.second==j.second){
                     break;
                 }
                 else{
-                    count++;
+                    if(i.second==1){
+                        EV<<"\nFalse";
+                        return false;
+                    }
                 }
             }
-            n++;
-        }
-        if(n==sizeCV(v1)){
-            EV<<"\nFalse";
-            return false;
         }
     }
-    if(count>0){
-        EV<<"\nFalse";
-        return false;
-    }else{
-        EV<<"\nTrue";
-        return true;
-    }
+    EV<<"\nTrue";
+    return true;
 }
 /*
 bool Node::conflictV(vector<pair<int,int>> v1, vector<pair<int,int>> v2){
@@ -1948,12 +2003,14 @@ void Node::uponRECV(){
 
 void Node::reconfig_f(Msg * x){
     EV << "\n\n\n\n [Client"<< selfId <<"]RECONFIG ricevuto a: " << simTime() << "\n\n\n";
-    if(x->getView()==current_view){
+    if(equalVec(x->getView(),current_view)==true){
         //bool condition = false;
+        EV<<"R1";
         if(checkPropose(x->getId(),x->getJoin_or_leave(),current_view)){
-
+            EV<<"R2";
             receivedMsg.push_back(x);
             if(contain(x->getId(),RECV)==false){
+                EV<<"R3";
                 RECV.push_back(std::make_pair(x->getId(),x->getJoin_or_leave()));
                 sort(RECV.begin(), RECV.end(), less<pair<int,int> >());
                 //condition=true;
@@ -1983,6 +2040,16 @@ void Node::reconfig_f(Msg * x){
         /*if(condition==true){
             uponRECV();
         }*/
+    }else{
+        EV<<"NOR\n";
+        for(auto it2:x->getView()){
+            EV<<it2.first<<","<<it2.second<<" ";
+        }
+        EV<<"\n";
+        for(auto it2:current_view){
+            EV<<it2.first<<","<<it2.second<<" ";
+        }
+        EV<<"\n";
     }
 }
 
@@ -1998,11 +2065,26 @@ void Node::rec_confirm_f(Msg * x){
 }
 
 void Node::propose_f(Msg * x){
+    EV<<"Dpropose";
     if(isMember(x->getId(),x->getView())==true){
+        EV<<"-1-";
         if(FORMATv.empty()==true || isContainedIn(x->getSEQcv(),FORMATv)){
+            EV<<"-2-";
             //TODO check if SEQ is valid or not
             if(isValid(x->getSEQcv(),x->getView())==true){
-                receivedMsg.push_back(x);
+                EV<<"daje"<<selfId;
+                for(auto it:x->getSEQcv()){
+                    for(auto it2:it){
+                        EV<<it2.first<<","<<it2.second<<" ";
+                    }
+                    EV<<"\n";
+                }
+                EV<<"daje1";
+                for(auto it:x->getView()){
+                    EV<<it.first<<","<<it.second<<" ";
+                }
+                EV<<"\n";
+                //receivedMsg.push_back(x);
                 if(conflictS(x->getSEQcv(),SEQv)==true){
                     vector<pair<int,int>> w = mostRecent(x->getSEQcv());
                     vector<pair<int,int>> w1 = mostRecent(SEQv);
@@ -2075,64 +2157,64 @@ void Node::propose_f(Msg * x){
                        scheduleAt(t,timer);
                     }
                 }
-
-             }
-            //if(isReceivedP(x->getSEQcv(),x->getId())==false){
-            EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE ricevuto a: " << simTime() << "\n\n\n";
-            updatePropose(x->getSEQcv(),x->getId());
-            if(checkPropose()==true){
-                LCSEQv = returnPropose();
-
-                /*for(auto it:msg4view){
-                    if(it->getId()==selfId){
-                        if(it->getType()==CONVERGED){
-                            if(equalSeq(it->getSEQcv(),x->getSEQcv())==true){
-                                return;
-                            }
-                        }
-                    }
-                }
-                bool ft=true;*/
-                for (int destId = 0; destId < nodesNbr; destId++) {
-                  if(destId==selfId) continue;
-                  if(isMember(destId,x->getView())==false) continue;
-                  Msg * bp = new Msg();
-                  bp->setId(selfId);
-                  bp->setMsg("Converged");
-                  simtime_t t=simTime()+fRand(0.0, 1.0);
-                  bp->setSendTime(t);
-                  bp->setView(x->getView());
-                  bp->setType(CONVERGED);
-                  bp->setTypeS("CONVERGED");
-                  bp->setSEQcv(x->getSEQcv());
-                  auto briefPacket = new Packet();
-                  Msg &tmp = *bp;
-
-                  /*if(ft==true){
-                      msg4view.push_back(bp);
-                      ft=false;
-                  }*/
-
-                  const auto& payload = makeShared<Msg>(tmp);
-                  briefPacket->insertAtBack(payload);
-                  //EV << "\n\n\n\n [Client"<< selfId <<"]CONVERGED inviato a: " << simTime() << "\n\n\n";
-                  //sendP(briefPacket, destId);
-                  MessageL * timer = new MessageL();
-                  timer->setDestId(destId);
-                  timer->setKind(MSGKIND_SEND);
-                  timer->setM(bp);
-                  //scheduleAt(simTime(),timer);
-                  scheduleAt(t,timer);
-                }
             }
-
         }
         //}
+        //if(isReceivedP(x->getSEQcv(),x->getId())==false){
+       receivedMsg.push_back(x);
+       EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE ricevuto a: " << simTime() << "\n\n\n";
+       updatePropose(x->getSEQcv(),x->getId());
+       if(checkPropose()==true){
+           LCSEQv = returnPropose();
+
+           for(auto it:msg4view){
+               if(it->getId()==selfId){
+                   if(it->getType()==CONVERGED){
+                       if(equalSeq(it->getSEQcv(),x->getSEQcv())==true){
+                           return;
+                       }
+                   }
+               }
+           }
+           bool ft=true;
+           for (int destId = 0; destId < nodesNbr; destId++) {
+             if(destId==selfId) continue;
+             if(isMember(destId,x->getView())==false) continue;
+             Msg * bp = new Msg();
+             bp->setId(selfId);
+             bp->setMsg("Converged");
+             simtime_t t=simTime()+fRand(0.0, 1.0);
+             bp->setSendTime(t);
+             bp->setView(x->getView());
+             bp->setType(CONVERGED);
+             bp->setTypeS("CONVERGED");
+             bp->setSEQcv(x->getSEQcv());
+             auto briefPacket = new Packet();
+             Msg &tmp = *bp;
+
+             if(ft==true){
+                 msg4view.push_back(bp);
+                 ft=false;
+             }
+
+             const auto& payload = makeShared<Msg>(tmp);
+             briefPacket->insertAtBack(payload);
+             //EV << "\n\n\n\n [Client"<< selfId <<"]CONVERGED inviato a: " << simTime() << "\n\n\n";
+             //sendP(briefPacket, destId);
+             MessageL * timer = new MessageL();
+             timer->setDestId(destId);
+             timer->setKind(MSGKIND_SEND);
+             timer->setM(bp);
+             //scheduleAt(simTime(),timer);
+             scheduleAt(t,timer);
+           }
+       }
     }
 }
 
 void Node::converge_f(Msg * x){
     if(isMember(x->getId(),x->getView())==true){
+        EV<<"Rick"<<x->getId();
         if(isReceivedC(x->getSEQcv(),x->getId())==false){
 
             receivedMsg.push_back(x);
@@ -2140,8 +2222,18 @@ void Node::converge_f(Msg * x){
             updateConverge(x->getSEQcv(),x->getId());
             if(checkConverge()==true){
                 vector<vector<pair<int,int>>> k = returnConverge();
+                for(auto it:k){
+                    EV<<"[";
+                    for(auto it2:it){
+                        EV<< "["<<it2.first<<","<<it2.second<<"] ";
+                    }
+                    EV<<"]";
+                }
                 vector<pair<int,int>> w = leastRecent(k);
                 sort(w.begin(), w.end(), less<pair<int,int> >());
+                for(auto it2:w){
+                    EV<< "["<<it2.first<<","<<it2.second<<"] ";
+                }
 
                 /*for(auto it:msg4view){
                     if(it->getId()==selfId){
@@ -2246,9 +2338,10 @@ void Node::install_f(Msg * x){
     EV << "\n\n\n\n\n";
     EV << "Client" << selfId << "\n";
     for(auto it : x->getInstallView()){
-        EV << it.first << "\n";
+        EV<< "["<<it.first<<","<<it.second<<"] ";
     }
-    if(isReceivedI(x->getView())==false){
+    if(isReceivedI((vector<pair<int,int>>)x->getInstallView())==false){
+        EV<<"si";
         receivedMsg.push_back(x);
         for (int destId = 0; destId < nodesNbr; destId++) {
           if(destId==selfId) continue;
@@ -2281,6 +2374,7 @@ void Node::install_f(Msg * x){
         if(isMember_(selfId,x->getView())){
             if(contains(x->getInstallView(),current_view)==true){
                 stop_processing=true;
+                EV<<"\nstop true "<<selfId<<"\n";
                 //TODO mandare state update
             }
             vector<Msg*> temp={};
@@ -2338,6 +2432,7 @@ void Node::install_f(Msg * x){
             }
         }
     }
+    EV<<"no";
 }
 
 void Node::state_update_f(StateUpdateMessage * x){
@@ -2361,7 +2456,9 @@ void Node::state_update_f(StateUpdateMessage * x){
             if(equalVec(it.first,x->getInstallView())==true){
                 statesReceived[j].second.push_back(s);
                 cond=true;
+                EV<<"lux"<<quorumSize;
                 if(statesReceived[j].second.size()>=quorumSize && containVS(x->getInstallView(),first_time_state_update)==false ){
+                    EV<<"zyra"<<quorumSize;
                     i=j;
                     first_time_state_update.push_back(x->getInstallView());
                     break;
@@ -2468,7 +2565,7 @@ void Node::state_update_f(StateUpdateMessage * x){
                 }
             }
             if(s==true){
-                if(contains(init_view,x->getInstallView())==false){
+                if(contains(x->getInstallView(),init_view)==true){
                     init_view=x->getInstallView();
                 }
                 init_view_.push_back(x->getInstallView());
@@ -2546,10 +2643,6 @@ void Node::state_update_f(StateUpdateMessage * x){
             }else{
                 EV << "IN4" << selfId;
                 install(current_view);
-                msg4view={};
-                rec_cond=false;
-                count_req_join_or_leave=0;
-                req_join_or_leave ={0,0,0,0,0};
                 //init_view=current_view;
                 //init_view_.push_back(current_view);
                 EV<<"\n";
@@ -2559,7 +2652,7 @@ void Node::state_update_f(StateUpdateMessage * x){
                 EV<<"\n";
                 for (int destId = 0; destId < nodesNbr; destId++) {
                    if(destId==selfId) continue;
-                   if(contain(destId,current_view)==true) continue;
+                   if(isMember_(destId,current_view)==true) continue;
                    Msg * bp = new Msg();
                    bp->setId(selfId);
                    bp->setMsg("ChangeView");
@@ -2582,6 +2675,7 @@ void Node::state_update_f(StateUpdateMessage * x){
                    scheduleAt(t,timer);
                 }
                 stop_processing = false;
+                EV<<"\nstop false "<<selfId<<"\n";
                 //TODO new_view()
                 Msg * prova=new Msg();
                 prova->setTypeS("NEW VIEW");
@@ -2616,6 +2710,8 @@ void Node::state_update_f(StateUpdateMessage * x){
                 prova2->setMsgId(-1);
                 receivedMsg.push_back(prova);
                 inviati.push_back(prova2);
+            }else{
+                cicleLeave(0);
             }
         }
     }
@@ -2796,7 +2892,15 @@ void Node::newView(){
     }
     //states={};
     //states_update={};
-
+    //msg4view={};
+    rec_cond=false;
+    count_req_join_or_leave=0;
+    req_join_or_leave ={0,0,0,0,0};
+    SEQv={};
+    FORMATv={};
+    LCSEQv={};
+    propose={};
+    converge={};
 }
 
 
@@ -2949,7 +3053,7 @@ void Node::commit_f(Msg * x){
             }
             for (int destId = 0; destId < nodesNbr; destId++) {
                if(destId==selfId) continue;
-               if(isMember(destId,current_view)==false) continue;
+               if(isMember_(destId,current_view)==false) continue;
                Msg * bp = new Msg();
                bp->setId(selfId);
                bp->setMsg(x->getMsg());
@@ -3063,7 +3167,7 @@ void Node::ack_f(Msg * x){
 }
 
 void Node::deliver_f(Msg * x){
-    if(isMember(x->getId(),x->getView())==true){
+    if(contain(x->getId(),x->getView())==true){
         receivedMsg.push_back(x);
         addDeliverMsg(x,x->getId(),x->getView());
         msg_to_send={};
@@ -3082,13 +3186,13 @@ void Node::deliver_f(Msg * x){
                 removeMsgFromAckS(m);
                 Msg * prova=new Msg();
                 prova->setTypeS("NEW MESSAGE DELIVERED");
-                prova->setView(current_view);
+                prova->setView(x->getView());
                 prova->setSendTime(simTime());
                 prova->setSender(m->getSender());
                 prova->setMsgId(m->getMsgId());
                 Msg * prova2=new Msg();
                 prova2->setTypeS("NEW MESSAGE DELIVERED");
-                prova2->setView(current_view);
+                prova2->setView(x->getView());
                 prova2->setSendTime(simTime());
                 prova2->setSender(m->getSender());
                 prova2->setMsgId(m->getMsgId());
@@ -3194,7 +3298,7 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
     L3Address selfAddr = L3AddressResolver().addressOf(getParentModule(),L3AddressResolver().ADDR_IPv4);
     selfId = addrToId[selfAddr];
 
-    if(selfId==0 || selfId==1 || selfId==2){
+    if(selfId==0 || selfId==1 || selfId==2  ){
         current_view = {{0,1}, {1,1}, {2,1}}; //fixed current view
         installedView={{current_view,1}};
         p=true;
@@ -3218,12 +3322,13 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
 
 
     RECV={};
-    SEQv={};
+
     propose={};
     converge={};
     proposeReceived={};
     convergeReceived={};
     installReceived={};
+    SEQv={};
     FORMATv={};
     LCSEQv={};
     //allowed_ack={};

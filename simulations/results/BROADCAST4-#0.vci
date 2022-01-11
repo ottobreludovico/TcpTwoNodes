@@ -1,15 +1,15 @@
-file 5639 1641824341                                            
+file 5637 1641925239                                            
 version 2
-run BROADCAST4-0-20220110-15:18:58-10304
+run BROADCAST4-0-20220111-19:20:35-6136
 attr configname BROADCAST4
-attr datetime 20220110-15:18:58
+attr datetime 20220111-19:20:35
 attr experiment BROADCAST4
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network scenario
-attr processid 10304
+attr processid 6136
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -136,24 +136,24 @@ vector 19 scenario.client4.ppp[3].ppp transmissionState:vector ETV
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, vector"
-0	5447 9 0 0 0 0 1 0 0 0 0
-1	5456 9 0 0 0 0 1 0 0 0 0
-2	5465 9 0 0 0 0 1 0 0 0 0
-3	5474 9 0 0 0 0 1 0 0 0 0
-4	5483 9 0 0 0 0 1 0 0 0 0
-5	5492 9 0 0 0 0 1 0 0 0 0
-6	5501 9 0 0 0 0 1 0 0 0 0
-7	5510 9 0 0 0 0 1 0 0 0 0
-8	5519 9 0 0 0 0 1 0 0 0 0
-9	5528 9 0 0 0 0 1 0 0 0 0
-10	5537 10 0 0 0 0 1 0 0 0 0
-11	5547 10 0 0 0 0 1 0 0 0 0
-12	5557 10 0 0 0 0 1 0 0 0 0
-13	5567 10 0 0 0 0 1 0 0 0 0
-14	5577 10 0 0 0 0 1 0 0 0 0
-15	5587 10 0 0 0 0 1 0 0 0 0
-16	5597 10 0 0 0 0 1 0 0 0 0
-17	5607 10 0 0 0 0 1 0 0 0 0
-18	5617 10 0 0 0 0 1 0 0 0 0
-19	5627 10 0 0 0 0 1 0 0 0 0
+0	5445 9 0 0 0 0 1 0 0 0 0
+1	5454 9 0 0 0 0 1 0 0 0 0
+2	5463 9 0 0 0 0 1 0 0 0 0
+3	5472 9 0 0 0 0 1 0 0 0 0
+4	5481 9 0 0 0 0 1 0 0 0 0
+5	5490 9 0 0 0 0 1 0 0 0 0
+6	5499 9 0 0 0 0 1 0 0 0 0
+7	5508 9 0 0 0 0 1 0 0 0 0
+8	5517 9 0 0 0 0 1 0 0 0 0
+9	5526 9 0 0 0 0 1 0 0 0 0
+10	5535 10 0 0 0 0 1 0 0 0 0
+11	5545 10 0 0 0 0 1 0 0 0 0
+12	5555 10 0 0 0 0 1 0 0 0 0
+13	5565 10 0 0 0 0 1 0 0 0 0
+14	5575 10 0 0 0 0 1 0 0 0 0
+15	5585 10 0 0 0 0 1 0 0 0 0
+16	5595 10 0 0 0 0 1 0 0 0 0
+17	5605 10 0 0 0 0 1 0 0 0 0
+18	5615 10 0 0 0 0 1 0 0 0 0
+19	5625 10 0 0 0 0 1 0 0 0 0
 
