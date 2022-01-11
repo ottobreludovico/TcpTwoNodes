@@ -1,24 +1,22 @@
 version 2
-run BROADCAST-0-20220106-10:43:56-7828
+run BROADCAST-0-20220111-20:53:07-14368
 attr configname BROADCAST
-attr datetime 20220106-10:43:56
+attr datetime 20220111-20:53:07
 attr experiment BROADCAST
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network scenario
-attr processid 7828
+attr processid 14368
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-param **.client1.app[0].broadcast 0.0
-param **.client2.app[0].broadcast 2.0
-param **.client3.app[0].broadcast 0.0
-param **.client3.app[0].join 3.0
-param **.client4.app[0].join 5.0
+param **.client0.app[0].broadcast 0.7
+param **.client2.app[0].leave 0.40
+param **.client*.app[*].timer 0.2
 param **.ppp[*].ppp.queue.typename "\"DropTailQueue\""
 param **.tcp.typename "\"Tcp\""
 param **.tcp.nagleEnabled false
@@ -71,314 +69,14 @@ scalar scenario.client0.lo[0].lo passedUpPk:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp.queue packetPopped:count 505
+scalar scenario.client0.ppp[0].ppp.queue packetPopped:count 25
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client0.ppp[0].ppp.queue packetPopped:sum(packetBytes) 20456
+scalar scenario.client0.ppp[0].ppp.queue packetPopped:sum(packetBytes) 1021
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client0.ppp[0].ppp.queue queueingTime:histogram
-field count 505
-field mean 3.2417773124752e-005
-field stddev 9.8949559779874e-005
-field min 0
-field max 0.000776593034
-field sum 0.016370975428
-field sqrsum 5.4653823190938e-006
-attr interpolationmode none
-attr source queueingTime(packetPopped)
-attr title "queueing times, histogram"
-attr unit s
-bin	-inf	0
-bin	-0.5	0
-bin	-0.48	0
-bin	-0.46	0
-bin	-0.44	0
-bin	-0.42	0
-bin	-0.4	0
-bin	-0.38	0
-bin	-0.36	0
-bin	-0.34	0
-bin	-0.32	0
-bin	-0.3	0
-bin	-0.28	0
-bin	-0.26	0
-bin	-0.24	0
-bin	-0.22	0
-bin	-0.2	0
-bin	-0.18	0
-bin	-0.16	0
-bin	-0.14	0
-bin	-0.12	0
-bin	-0.1	0
-bin	-0.08	0
-bin	-0.06	0
-bin	-0.04	0
-bin	-0.02	0
-bin	0	505
-bin	0.02	0
-bin	0.04	0
-bin	0.06	0
-bin	0.08	0
-bin	0.1	0
-bin	0.12	0
-bin	0.14	0
-bin	0.16	0
-bin	0.18	0
-bin	0.2	0
-bin	0.22	0
-bin	0.24	0
-bin	0.26	0
-bin	0.28	0
-bin	0.3	0
-bin	0.32	0
-bin	0.34	0
-bin	0.36	0
-bin	0.38	0
-bin	0.4	0
-bin	0.42	0
-bin	0.44	0
-bin	0.46	0
-bin	0.48	0
-bin	0.5	0
-scalar scenario.client0.ppp[0].ppp.queue queueLength:max 3
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, max"
-scalar scenario.client0.ppp[0].ppp.queue queueLength:timeavg 0.0018683371007156
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, timeavg"
-scalar scenario.client0.ppp[0].ppp.queue packetPushed:count 505
-attr interpolationmode none
-attr title "packet pushed, count"
-scalar scenario.client0.ppp[0].ppp.queue packetPushed:sum(packetBytes) 20456
-attr interpolationmode none
-attr title "packet pushed, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp.queue packetDropQueueOverflow:count 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, count"
-scalar scenario.client0.ppp[0].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp.queue packetRemoved:count 0
-attr interpolationmode none
-attr title "packets removed, count"
-scalar scenario.client0.ppp[0].ppp.queue packetRemoved:sum(packetBytes) 0
-attr interpolationmode none
-attr title "packets removed, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp txPk:count 505
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, count"
-scalar scenario.client0.ppp[0].ppp txPk:sum(packetBytes) 23991
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp rcvdPkFromHl:count 505
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, count"
-scalar scenario.client0.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 20456
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp passedUpPk:count 506
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, count"
-scalar scenario.client0.ppp[0].ppp passedUpPk:sum(packetBytes) 20506
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp packetDropIncorrectlyReceived:count 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, count"
-scalar scenario.client0.ppp[0].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp packetDropInterfaceDown:count 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, count"
-scalar scenario.client0.ppp[0].ppp packetDropInterfaceDown:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp rxPkOk:count 506
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, count"
-scalar scenario.client0.ppp[0].ppp rxPkOk:sum(packetBytes) 24048
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client0.ppp[0].ppp transmissionState:timeavg 0.021153195121076
-attr interpolationmode sample-hold
-attr source transmissionStateChanged
-attr title "tx state, timeavg"
-scalar scenario.client0.ppp[1].ppp.queue packetPopped:count 516
-attr interpolationmode none
-attr title "packet popped, count"
-scalar scenario.client0.ppp[1].ppp.queue packetPopped:sum(packetBytes) 20912
-attr interpolationmode none
-attr title "packet popped, sum(packetBytes)"
-statistic scenario.client0.ppp[1].ppp.queue queueingTime:histogram
-field count 516
-field mean 3.2014358354651e-005
-field stddev 0.00010592574246542
-field min 0
-field max 0.000994371166
-field sum 0.016519408911
-field sqrsum 6.3072936788615e-006
-attr interpolationmode none
-attr source queueingTime(packetPopped)
-attr title "queueing times, histogram"
-attr unit s
-bin	-inf	0
-bin	0	457
-bin	2e-005	4
-bin	4e-005	1
-bin	6e-005	1
-bin	8e-005	3
-bin	0.0001	0
-bin	0.00012	2
-bin	0.00014	2
-bin	0.00016	3
-bin	0.00018	1
-bin	0.0002	2
-bin	0.00022	4
-bin	0.00024	4
-bin	0.00026	3
-bin	0.00028	8
-bin	0.0003	1
-bin	0.00032	5
-bin	0.00034	4
-bin	0.00036	3
-bin	0.00038	1
-bin	0.0004	0
-bin	0.00042	0
-bin	0.00044	1
-bin	0.00046	0
-bin	0.00048	0
-bin	0.0005	0
-bin	0.00052	0
-bin	0.00054	0
-bin	0.00056	2
-bin	0.00058	2
-bin	0.0006	0
-bin	0.00062	0
-bin	0.00064	1
-bin	0.00066	0
-bin	0.00068	0
-bin	0.0007	0
-bin	0.00072	0
-bin	0.00074	0
-bin	0.00076	0
-bin	0.00078	0
-bin	0.0008	0
-bin	0.00082	0
-bin	0.00084	0
-bin	0.00086	0
-bin	0.00088	0
-bin	0.0009	0
-bin	0.00092	0
-bin	0.00094	0
-bin	0.00096	0
-bin	0.00098	1
-bin	0.001	0
-scalar scenario.client0.ppp[1].ppp.queue queueLength:max 3
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, max"
-scalar scenario.client0.ppp[1].ppp.queue queueLength:timeavg 0.0023903874496855
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, timeavg"
-scalar scenario.client0.ppp[1].ppp.queue packetPushed:count 516
-attr interpolationmode none
-attr title "packet pushed, count"
-scalar scenario.client0.ppp[1].ppp.queue packetPushed:sum(packetBytes) 20912
-attr interpolationmode none
-attr title "packet pushed, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp.queue packetDropQueueOverflow:count 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, count"
-scalar scenario.client0.ppp[1].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp.queue packetRemoved:count 0
-attr interpolationmode none
-attr title "packets removed, count"
-scalar scenario.client0.ppp[1].ppp.queue packetRemoved:sum(packetBytes) 0
-attr interpolationmode none
-attr title "packets removed, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp txPk:count 516
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, count"
-scalar scenario.client0.ppp[1].ppp txPk:sum(packetBytes) 24524
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp rcvdPkFromHl:count 516
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, count"
-scalar scenario.client0.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 20912
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp passedUpPk:count 515
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, count"
-scalar scenario.client0.ppp[1].ppp passedUpPk:sum(packetBytes) 20860
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp packetDropIncorrectlyReceived:count 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, count"
-scalar scenario.client0.ppp[1].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp packetDropInterfaceDown:count 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, count"
-scalar scenario.client0.ppp[1].ppp packetDropInterfaceDown:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp rxPkOk:count 515
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, count"
-scalar scenario.client0.ppp[1].ppp rxPkOk:sum(packetBytes) 24465
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client0.ppp[1].ppp transmissionState:timeavg 0.02162314856193
-attr interpolationmode sample-hold
-attr source transmissionStateChanged
-attr title "tx state, timeavg"
-scalar scenario.client0.ppp[2].ppp.queue packetPopped:count 8
-attr interpolationmode none
-attr title "packet popped, count"
-scalar scenario.client0.ppp[2].ppp.queue packetPopped:sum(packetBytes) 333
-attr interpolationmode none
-attr title "packet popped, sum(packetBytes)"
-statistic scenario.client0.ppp[2].ppp.queue queueingTime:histogram
-field count 8
+field count 25
 field mean 0
 field stddev 0
 field min 0
@@ -415,7 +113,304 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	8
+bin	0	25
+bin	0.02	0
+bin	0.04	0
+bin	0.06	0
+bin	0.08	0
+bin	0.1	0
+bin	0.12	0
+bin	0.14	0
+bin	0.16	0
+bin	0.18	0
+bin	0.2	0
+bin	0.22	0
+bin	0.24	0
+bin	0.26	0
+bin	0.28	0
+bin	0.3	0
+bin	0.32	0
+bin	0.34	0
+bin	0.36	0
+bin	0.38	0
+bin	0.4	0
+bin	0.42	0
+bin	0.44	0
+bin	0.46	0
+bin	0.48	0
+bin	0.5	0
+scalar scenario.client0.ppp[0].ppp.queue queueLength:max 1
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, max"
+scalar scenario.client0.ppp[0].ppp.queue queueLength:timeavg 0
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, timeavg"
+scalar scenario.client0.ppp[0].ppp.queue packetPushed:count 25
+attr interpolationmode none
+attr title "packet pushed, count"
+scalar scenario.client0.ppp[0].ppp.queue packetPushed:sum(packetBytes) 1021
+attr interpolationmode none
+attr title "packet pushed, sum(packetBytes)"
+scalar scenario.client0.ppp[0].ppp.queue packetDropQueueOverflow:count 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, count"
+scalar scenario.client0.ppp[0].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, sum(packetBytes)"
+scalar scenario.client0.ppp[0].ppp.queue packetRemoved:count 0
+attr interpolationmode none
+attr title "packets removed, count"
+scalar scenario.client0.ppp[0].ppp.queue packetRemoved:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packets removed, sum(packetBytes)"
+scalar scenario.client0.ppp[0].ppp txPk:count 25
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, count"
+scalar scenario.client0.ppp[0].ppp txPk:sum(packetBytes) 1196
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, sum(packetBytes)"
+scalar scenario.client0.ppp[0].ppp rcvdPkFromHl:count 25
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar scenario.client0.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 1021
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar scenario.client0.ppp[0].ppp passedUpPk:count 25
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar scenario.client0.ppp[0].ppp passedUpPk:sum(packetBytes) 1020
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar scenario.client0.ppp[0].ppp packetDropIncorrectlyReceived:count 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, count"
+scalar scenario.client0.ppp[0].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, sum(packetBytes)"
+scalar scenario.client0.ppp[0].ppp packetDropInterfaceDown:count 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, count"
+scalar scenario.client0.ppp[0].ppp packetDropInterfaceDown:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, sum(packetBytes)"
+scalar scenario.client0.ppp[0].ppp rxPkOk:count 25
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, count"
+scalar scenario.client0.ppp[0].ppp rxPkOk:sum(packetBytes) 1195
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, sum(packetBytes)"
+scalar scenario.client0.ppp[0].ppp transmissionState:timeavg 7.7061855670103e-006
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, timeavg"
+scalar scenario.client0.ppp[1].ppp.queue packetPopped:count 24
+attr interpolationmode none
+attr title "packet popped, count"
+scalar scenario.client0.ppp[1].ppp.queue packetPopped:sum(packetBytes) 980
+attr interpolationmode none
+attr title "packet popped, sum(packetBytes)"
+statistic scenario.client0.ppp[1].ppp.queue queueingTime:histogram
+field count 24
+field mean 3.1333333333333e-005
+field stddev 0.00010615602408378
+field min 0
+field max 0.000376
+field sum 0.000752
+field sqrsum 2.82752e-007
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, histogram"
+attr unit s
+bin	-inf	0
+bin	0	22
+bin	1e-005	0
+bin	2e-005	0
+bin	3e-005	0
+bin	4e-005	0
+bin	5e-005	0
+bin	6e-005	0
+bin	7e-005	0
+bin	8e-005	0
+bin	9e-005	0
+bin	0.0001	0
+bin	0.00011	0
+bin	0.00012	0
+bin	0.00013	0
+bin	0.00014	0
+bin	0.00015	0
+bin	0.00016	0
+bin	0.00017	0
+bin	0.00018	0
+bin	0.00019	0
+bin	0.0002	0
+bin	0.00021	0
+bin	0.00022	0
+bin	0.00023	0
+bin	0.00024	0
+bin	0.00025	0
+bin	0.00026	0
+bin	0.00027	0
+bin	0.00028	0
+bin	0.00029	0
+bin	0.0003	0
+bin	0.00031	0
+bin	0.00032	0
+bin	0.00033	0
+bin	0.00034	0
+bin	0.00035	0
+bin	0.00036	0
+bin	0.00037	2
+bin	0.00038	0
+bin	0.00039	0
+bin	0.0004	0
+bin	0.00041	0
+bin	0.00042	0
+bin	0.00043	0
+bin	0.00044	0
+bin	0.00045	0
+bin	0.00046	0
+bin	0.00047	0
+scalar scenario.client0.ppp[1].ppp.queue queueLength:max 1
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, max"
+scalar scenario.client0.ppp[1].ppp.queue queueLength:timeavg 6.0599131265255e-007
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, timeavg"
+scalar scenario.client0.ppp[1].ppp.queue packetPushed:count 24
+attr interpolationmode none
+attr title "packet pushed, count"
+scalar scenario.client0.ppp[1].ppp.queue packetPushed:sum(packetBytes) 980
+attr interpolationmode none
+attr title "packet pushed, sum(packetBytes)"
+scalar scenario.client0.ppp[1].ppp.queue packetDropQueueOverflow:count 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, count"
+scalar scenario.client0.ppp[1].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, sum(packetBytes)"
+scalar scenario.client0.ppp[1].ppp.queue packetRemoved:count 0
+attr interpolationmode none
+attr title "packets removed, count"
+scalar scenario.client0.ppp[1].ppp.queue packetRemoved:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packets removed, sum(packetBytes)"
+scalar scenario.client0.ppp[1].ppp txPk:count 24
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, count"
+scalar scenario.client0.ppp[1].ppp txPk:sum(packetBytes) 1148
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, sum(packetBytes)"
+scalar scenario.client0.ppp[1].ppp rcvdPkFromHl:count 24
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar scenario.client0.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 980
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar scenario.client0.ppp[1].ppp passedUpPk:count 24
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar scenario.client0.ppp[1].ppp passedUpPk:sum(packetBytes) 980
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar scenario.client0.ppp[1].ppp packetDropIncorrectlyReceived:count 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, count"
+scalar scenario.client0.ppp[1].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, sum(packetBytes)"
+scalar scenario.client0.ppp[1].ppp packetDropInterfaceDown:count 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, count"
+scalar scenario.client0.ppp[1].ppp packetDropInterfaceDown:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, sum(packetBytes)"
+scalar scenario.client0.ppp[1].ppp rxPkOk:count 24
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, count"
+scalar scenario.client0.ppp[1].ppp rxPkOk:sum(packetBytes) 1148
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, sum(packetBytes)"
+scalar scenario.client0.ppp[1].ppp transmissionState:timeavg 7.3969072164948e-006
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, timeavg"
+scalar scenario.client0.ppp[2].ppp.queue packetPopped:count 25
+attr interpolationmode none
+attr title "packet popped, count"
+scalar scenario.client0.ppp[2].ppp.queue packetPopped:sum(packetBytes) 1021
+attr interpolationmode none
+attr title "packet popped, sum(packetBytes)"
+statistic scenario.client0.ppp[2].ppp.queue queueingTime:histogram
+field count 25
+field mean 0
+field stddev 0
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, histogram"
+attr unit s
+bin	-inf	0
+bin	-0.5	0
+bin	-0.48	0
+bin	-0.46	0
+bin	-0.44	0
+bin	-0.42	0
+bin	-0.4	0
+bin	-0.38	0
+bin	-0.36	0
+bin	-0.34	0
+bin	-0.32	0
+bin	-0.3	0
+bin	-0.28	0
+bin	-0.26	0
+bin	-0.24	0
+bin	-0.22	0
+bin	-0.2	0
+bin	-0.18	0
+bin	-0.16	0
+bin	-0.14	0
+bin	-0.12	0
+bin	-0.1	0
+bin	-0.08	0
+bin	-0.06	0
+bin	-0.04	0
+bin	-0.02	0
+bin	0	25
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -449,10 +444,10 @@ scalar scenario.client0.ppp[2].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client0.ppp[2].ppp.queue packetPushed:count 8
+scalar scenario.client0.ppp[2].ppp.queue packetPushed:count 25
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client0.ppp[2].ppp.queue packetPushed:sum(packetBytes) 333
+scalar scenario.client0.ppp[2].ppp.queue packetPushed:sum(packetBytes) 1021
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client0.ppp[2].ppp.queue packetDropQueueOverflow:count 0
@@ -469,27 +464,27 @@ attr title "packets removed, count"
 scalar scenario.client0.ppp[2].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client0.ppp[2].ppp txPk:count 8
+scalar scenario.client0.ppp[2].ppp txPk:count 25
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client0.ppp[2].ppp txPk:sum(packetBytes) 389
+scalar scenario.client0.ppp[2].ppp txPk:sum(packetBytes) 1196
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client0.ppp[2].ppp rcvdPkFromHl:count 8
+scalar scenario.client0.ppp[2].ppp rcvdPkFromHl:count 25
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client0.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 333
+scalar scenario.client0.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 1021
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client0.ppp[2].ppp passedUpPk:count 8
+scalar scenario.client0.ppp[2].ppp passedUpPk:count 25
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client0.ppp[2].ppp passedUpPk:sum(packetBytes) 330
+scalar scenario.client0.ppp[2].ppp passedUpPk:sum(packetBytes) 1020
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -509,26 +504,26 @@ scalar scenario.client0.ppp[2].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client0.ppp[2].ppp rxPkOk:count 8
+scalar scenario.client0.ppp[2].ppp rxPkOk:count 25
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client0.ppp[2].ppp rxPkOk:sum(packetBytes) 386
+scalar scenario.client0.ppp[2].ppp rxPkOk:sum(packetBytes) 1195
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client0.ppp[2].ppp transmissionState:timeavg 0.00034298665758404
+scalar scenario.client0.ppp[2].ppp transmissionState:timeavg 7.7061855670103e-006
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
-scalar scenario.client0.ppp[3].ppp.queue packetPopped:count 7
+scalar scenario.client0.ppp[3].ppp.queue packetPopped:count 2
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client0.ppp[3].ppp.queue packetPopped:sum(packetBytes) 292
+scalar scenario.client0.ppp[3].ppp.queue packetPopped:sum(packetBytes) 85
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client0.ppp[3].ppp.queue queueingTime:histogram
-field count 7
+field count 2
 field mean 0
 field stddev 0
 field min 0
@@ -565,7 +560,7 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	7
+bin	0	2
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -599,10 +594,10 @@ scalar scenario.client0.ppp[3].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client0.ppp[3].ppp.queue packetPushed:count 7
+scalar scenario.client0.ppp[3].ppp.queue packetPushed:count 2
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client0.ppp[3].ppp.queue packetPushed:sum(packetBytes) 292
+scalar scenario.client0.ppp[3].ppp.queue packetPushed:sum(packetBytes) 85
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client0.ppp[3].ppp.queue packetDropQueueOverflow:count 0
@@ -619,27 +614,27 @@ attr title "packets removed, count"
 scalar scenario.client0.ppp[3].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client0.ppp[3].ppp txPk:count 7
+scalar scenario.client0.ppp[3].ppp txPk:count 2
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client0.ppp[3].ppp txPk:sum(packetBytes) 341
+scalar scenario.client0.ppp[3].ppp txPk:sum(packetBytes) 99
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client0.ppp[3].ppp rcvdPkFromHl:count 7
+scalar scenario.client0.ppp[3].ppp rcvdPkFromHl:count 2
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client0.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 292
+scalar scenario.client0.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 85
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client0.ppp[3].ppp passedUpPk:count 7
+scalar scenario.client0.ppp[3].ppp passedUpPk:count 2
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client0.ppp[3].ppp passedUpPk:sum(packetBytes) 290
+scalar scenario.client0.ppp[3].ppp passedUpPk:sum(packetBytes) 84
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -659,15 +654,15 @@ scalar scenario.client0.ppp[3].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client0.ppp[3].ppp rxPkOk:count 7
+scalar scenario.client0.ppp[3].ppp rxPkOk:count 2
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client0.ppp[3].ppp rxPkOk:sum(packetBytes) 339
+scalar scenario.client0.ppp[3].ppp rxPkOk:sum(packetBytes) 98
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client0.ppp[3].ppp transmissionState:timeavg 0.00030066439649397
+scalar scenario.client0.ppp[3].ppp transmissionState:timeavg 6.3788659793814e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -781,109 +776,88 @@ scalar scenario.client1.lo[0].lo passedUpPk:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client1.ppp[0].ppp.queue packetPopped:count 506
+scalar scenario.client1.ppp[0].ppp.queue packetPopped:count 25
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client1.ppp[0].ppp.queue packetPopped:sum(packetBytes) 20506
+scalar scenario.client1.ppp[0].ppp.queue packetPopped:sum(packetBytes) 1020
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client1.ppp[0].ppp.queue queueingTime:histogram
-field count 506
-field mean 2.6508860083004e-005
-field stddev 8.8593174483092e-005
+field count 25
+field mean 0
+field stddev 0
 field min 0
-field max 0.00070311008
-field sum 0.013413483202
-field sqrsum 4.3191951847483e-006
+field max 0
+field sum 0
+field sqrsum 0
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, histogram"
 attr unit s
 bin	-inf	0
-bin	0	452
-bin	1e-005	1
-bin	2e-005	0
-bin	3e-005	0
-bin	4e-005	3
-bin	5e-005	1
-bin	6e-005	0
-bin	7e-005	2
-bin	8e-005	2
-bin	9e-005	1
-bin	0.0001	1
-bin	0.00011	0
-bin	0.00012	0
-bin	0.00013	0
-bin	0.00014	1
-bin	0.00015	1
-bin	0.00016	2
-bin	0.00017	3
-bin	0.00018	0
-bin	0.00019	1
-bin	0.0002	2
-bin	0.00021	3
-bin	0.00022	0
-bin	0.00023	1
-bin	0.00024	0
-bin	0.00025	1
-bin	0.00026	2
-bin	0.00027	1
-bin	0.00028	3
-bin	0.00029	3
-bin	0.0003	1
-bin	0.00031	2
-bin	0.00032	2
-bin	0.00033	2
-bin	0.00034	3
-bin	0.00035	4
-bin	0.00036	1
-bin	0.00037	1
-bin	0.00038	0
-bin	0.00039	0
-bin	0.0004	0
-bin	0.00041	0
-bin	0.00042	0
-bin	0.00043	0
-bin	0.00044	0
-bin	0.00045	0
-bin	0.00046	0
-bin	0.00047	0
-bin	0.00048	0
-bin	0.00049	1
-bin	0.0005	0
-bin	0.00051	0
-bin	0.00052	0
-bin	0.00053	0
-bin	0.00054	0
-bin	0.00055	0
-bin	0.00056	0
-bin	0.00057	0
-bin	0.00058	0
-bin	0.00059	0
-bin	0.0006	0
-bin	0.00061	1
-bin	0.00062	0
-bin	0.00063	0
-bin	0.00064	0
-bin	0.00065	0
-bin	0.00066	0
-bin	0.00067	0
-bin	0.00068	0
-bin	0.00069	0
-bin	0.0007	1
-bin	0.00071	0
-scalar scenario.client1.ppp[0].ppp.queue queueLength:max 2
+bin	-0.5	0
+bin	-0.48	0
+bin	-0.46	0
+bin	-0.44	0
+bin	-0.42	0
+bin	-0.4	0
+bin	-0.38	0
+bin	-0.36	0
+bin	-0.34	0
+bin	-0.32	0
+bin	-0.3	0
+bin	-0.28	0
+bin	-0.26	0
+bin	-0.24	0
+bin	-0.22	0
+bin	-0.2	0
+bin	-0.18	0
+bin	-0.16	0
+bin	-0.14	0
+bin	-0.12	0
+bin	-0.1	0
+bin	-0.08	0
+bin	-0.06	0
+bin	-0.04	0
+bin	-0.02	0
+bin	0	25
+bin	0.02	0
+bin	0.04	0
+bin	0.06	0
+bin	0.08	0
+bin	0.1	0
+bin	0.12	0
+bin	0.14	0
+bin	0.16	0
+bin	0.18	0
+bin	0.2	0
+bin	0.22	0
+bin	0.24	0
+bin	0.26	0
+bin	0.28	0
+bin	0.3	0
+bin	0.32	0
+bin	0.34	0
+bin	0.36	0
+bin	0.38	0
+bin	0.4	0
+bin	0.42	0
+bin	0.44	0
+bin	0.46	0
+bin	0.48	0
+bin	0.5	0
+scalar scenario.client1.ppp[0].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client1.ppp[0].ppp.queue queueLength:timeavg 0.0015306547705059
+scalar scenario.client1.ppp[0].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client1.ppp[0].ppp.queue packetPushed:count 506
+scalar scenario.client1.ppp[0].ppp.queue packetPushed:count 25
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client1.ppp[0].ppp.queue packetPushed:sum(packetBytes) 20506
+scalar scenario.client1.ppp[0].ppp.queue packetPushed:sum(packetBytes) 1020
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client1.ppp[0].ppp.queue packetDropQueueOverflow:count 0
@@ -900,27 +874,27 @@ attr title "packets removed, count"
 scalar scenario.client1.ppp[0].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client1.ppp[0].ppp txPk:count 506
+scalar scenario.client1.ppp[0].ppp txPk:count 25
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client1.ppp[0].ppp txPk:sum(packetBytes) 24048
+scalar scenario.client1.ppp[0].ppp txPk:sum(packetBytes) 1195
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client1.ppp[0].ppp rcvdPkFromHl:count 506
+scalar scenario.client1.ppp[0].ppp rcvdPkFromHl:count 25
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client1.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 20506
+scalar scenario.client1.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 1020
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client1.ppp[0].ppp passedUpPk:count 505
+scalar scenario.client1.ppp[0].ppp passedUpPk:count 25
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client1.ppp[0].ppp passedUpPk:sum(packetBytes) 20456
+scalar scenario.client1.ppp[0].ppp passedUpPk:sum(packetBytes) 1021
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -940,32 +914,32 @@ scalar scenario.client1.ppp[0].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client1.ppp[0].ppp rxPkOk:count 505
+scalar scenario.client1.ppp[0].ppp rxPkOk:count 25
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client1.ppp[0].ppp rxPkOk:sum(packetBytes) 23991
+scalar scenario.client1.ppp[0].ppp rxPkOk:sum(packetBytes) 1196
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client1.ppp[0].ppp transmissionState:timeavg 0.02120345280612
+scalar scenario.client1.ppp[0].ppp transmissionState:timeavg 7.6997422680412e-006
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
-scalar scenario.client1.ppp[1].ppp.queue packetPopped:count 517
+scalar scenario.client1.ppp[1].ppp.queue packetPopped:count 21
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client1.ppp[1].ppp.queue packetPopped:sum(packetBytes) 20938
+scalar scenario.client1.ppp[1].ppp.queue packetPopped:sum(packetBytes) 859
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client1.ppp[1].ppp.queue queueingTime:histogram
-field count 517
-field mean 2.1701009396518e-005
-field stddev 7.7661690838307e-005
+field count 21
+field mean 0
+field stddev 0
 field min 0
-field max 0.000608591816
-field sum 0.011219421858
-field sqrsum 3.3556433026782e-006
+field max 0
+field sum 0
+field sqrsum 0
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, histogram"
@@ -996,7 +970,7 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	517
+bin	0	21
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -1022,18 +996,18 @@ bin	0.44	0
 bin	0.46	0
 bin	0.48	0
 bin	0.5	0
-scalar scenario.client1.ppp[1].ppp.queue queueLength:max 2
+scalar scenario.client1.ppp[1].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client1.ppp[1].ppp.queue queueLength:timeavg 0.0013662013701295
+scalar scenario.client1.ppp[1].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client1.ppp[1].ppp.queue packetPushed:count 517
+scalar scenario.client1.ppp[1].ppp.queue packetPushed:count 21
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client1.ppp[1].ppp.queue packetPushed:sum(packetBytes) 20938
+scalar scenario.client1.ppp[1].ppp.queue packetPushed:sum(packetBytes) 859
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client1.ppp[1].ppp.queue packetDropQueueOverflow:count 0
@@ -1050,27 +1024,27 @@ attr title "packets removed, count"
 scalar scenario.client1.ppp[1].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client1.ppp[1].ppp txPk:count 517
+scalar scenario.client1.ppp[1].ppp txPk:count 21
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client1.ppp[1].ppp txPk:sum(packetBytes) 24557
+scalar scenario.client1.ppp[1].ppp txPk:sum(packetBytes) 1006
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client1.ppp[1].ppp rcvdPkFromHl:count 517
+scalar scenario.client1.ppp[1].ppp rcvdPkFromHl:count 21
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client1.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 20938
+scalar scenario.client1.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 859
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client1.ppp[1].ppp passedUpPk:count 516
+scalar scenario.client1.ppp[1].ppp passedUpPk:count 21
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client1.ppp[1].ppp passedUpPk:sum(packetBytes) 20915
+scalar scenario.client1.ppp[1].ppp passedUpPk:sum(packetBytes) 858
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -1090,100 +1064,97 @@ scalar scenario.client1.ppp[1].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client1.ppp[1].ppp rxPkOk:count 516
+scalar scenario.client1.ppp[1].ppp rxPkOk:count 21
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client1.ppp[1].ppp rxPkOk:sum(packetBytes) 24527
+scalar scenario.client1.ppp[1].ppp rxPkOk:sum(packetBytes) 1005
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client1.ppp[1].ppp transmissionState:timeavg 0.021626887577855
+scalar scenario.client1.ppp[1].ppp transmissionState:timeavg 6.4819587628866e-006
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
-scalar scenario.client1.ppp[2].ppp.queue packetPopped:count 8
+scalar scenario.client1.ppp[2].ppp.queue packetPopped:count 21
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client1.ppp[2].ppp.queue packetPopped:sum(packetBytes) 333
+scalar scenario.client1.ppp[2].ppp.queue packetPopped:sum(packetBytes) 859
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client1.ppp[2].ppp.queue queueingTime:histogram
-field count 8
-field mean 0
-field stddev 0
+field count 21
+field mean 1.7904761904762e-005
+field stddev 8.2049926728733e-005
 field min 0
-field max 0
-field sum 0
-field sqrsum 0
+field max 0.000376
+field sum 0.000376
+field sqrsum 1.41376e-007
 attr interpolationmode none
 attr source queueingTime(packetPopped)
 attr title "queueing times, histogram"
 attr unit s
 bin	-inf	0
-bin	-0.5	0
-bin	-0.48	0
-bin	-0.46	0
-bin	-0.44	0
-bin	-0.42	0
-bin	-0.4	0
-bin	-0.38	0
-bin	-0.36	0
-bin	-0.34	0
-bin	-0.32	0
-bin	-0.3	0
-bin	-0.28	0
-bin	-0.26	0
-bin	-0.24	0
-bin	-0.22	0
-bin	-0.2	0
-bin	-0.18	0
-bin	-0.16	0
-bin	-0.14	0
-bin	-0.12	0
-bin	-0.1	0
-bin	-0.08	0
-bin	-0.06	0
-bin	-0.04	0
-bin	-0.02	0
-bin	0	8
-bin	0.02	0
-bin	0.04	0
-bin	0.06	0
-bin	0.08	0
-bin	0.1	0
-bin	0.12	0
-bin	0.14	0
-bin	0.16	0
-bin	0.18	0
-bin	0.2	0
-bin	0.22	0
-bin	0.24	0
-bin	0.26	0
-bin	0.28	0
-bin	0.3	0
-bin	0.32	0
-bin	0.34	0
-bin	0.36	0
-bin	0.38	0
-bin	0.4	0
-bin	0.42	0
-bin	0.44	0
-bin	0.46	0
-bin	0.48	0
-bin	0.5	0
+bin	0	20
+bin	1e-005	0
+bin	2e-005	0
+bin	3e-005	0
+bin	4e-005	0
+bin	5e-005	0
+bin	6e-005	0
+bin	7e-005	0
+bin	8e-005	0
+bin	9e-005	0
+bin	0.0001	0
+bin	0.00011	0
+bin	0.00012	0
+bin	0.00013	0
+bin	0.00014	0
+bin	0.00015	0
+bin	0.00016	0
+bin	0.00017	0
+bin	0.00018	0
+bin	0.00019	0
+bin	0.0002	0
+bin	0.00021	0
+bin	0.00022	0
+bin	0.00023	0
+bin	0.00024	0
+bin	0.00025	0
+bin	0.00026	0
+bin	0.00027	0
+bin	0.00028	0
+bin	0.00029	0
+bin	0.0003	0
+bin	0.00031	0
+bin	0.00032	0
+bin	0.00033	0
+bin	0.00034	0
+bin	0.00035	0
+bin	0.00036	0
+bin	0.00037	1
+bin	0.00038	0
+bin	0.00039	0
+bin	0.0004	0
+bin	0.00041	0
+bin	0.00042	0
+bin	0.00043	0
+bin	0.00044	0
+bin	0.00045	0
+bin	0.00046	0
+bin	0.00047	0
 scalar scenario.client1.ppp[2].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client1.ppp[2].ppp.queue queueLength:timeavg 0
+scalar scenario.client1.ppp[2].ppp.queue queueLength:timeavg 3.030702874607e-007
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client1.ppp[2].ppp.queue packetPushed:count 8
+scalar scenario.client1.ppp[2].ppp.queue packetPushed:count 21
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client1.ppp[2].ppp.queue packetPushed:sum(packetBytes) 333
+scalar scenario.client1.ppp[2].ppp.queue packetPushed:sum(packetBytes) 859
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client1.ppp[2].ppp.queue packetDropQueueOverflow:count 0
@@ -1200,27 +1171,27 @@ attr title "packets removed, count"
 scalar scenario.client1.ppp[2].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client1.ppp[2].ppp txPk:count 8
+scalar scenario.client1.ppp[2].ppp txPk:count 21
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client1.ppp[2].ppp txPk:sum(packetBytes) 389
+scalar scenario.client1.ppp[2].ppp txPk:sum(packetBytes) 1006
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client1.ppp[2].ppp rcvdPkFromHl:count 8
+scalar scenario.client1.ppp[2].ppp rcvdPkFromHl:count 21
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client1.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 333
+scalar scenario.client1.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 859
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client1.ppp[2].ppp passedUpPk:count 8
+scalar scenario.client1.ppp[2].ppp passedUpPk:count 21
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client1.ppp[2].ppp passedUpPk:sum(packetBytes) 330
+scalar scenario.client1.ppp[2].ppp passedUpPk:sum(packetBytes) 858
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -1240,26 +1211,26 @@ scalar scenario.client1.ppp[2].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client1.ppp[2].ppp rxPkOk:count 8
+scalar scenario.client1.ppp[2].ppp rxPkOk:count 21
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client1.ppp[2].ppp rxPkOk:sum(packetBytes) 386
+scalar scenario.client1.ppp[2].ppp rxPkOk:sum(packetBytes) 1005
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client1.ppp[2].ppp transmissionState:timeavg 0.00034298665758404
+scalar scenario.client1.ppp[2].ppp transmissionState:timeavg 6.4819587628866e-006
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
-scalar scenario.client1.ppp[3].ppp.queue packetPopped:count 7
+scalar scenario.client1.ppp[3].ppp.queue packetPopped:count 2
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client1.ppp[3].ppp.queue packetPopped:sum(packetBytes) 292
+scalar scenario.client1.ppp[3].ppp.queue packetPopped:sum(packetBytes) 85
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client1.ppp[3].ppp.queue queueingTime:histogram
-field count 7
+field count 2
 field mean 0
 field stddev 0
 field min 0
@@ -1296,7 +1267,7 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	7
+bin	0	2
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -1330,10 +1301,10 @@ scalar scenario.client1.ppp[3].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client1.ppp[3].ppp.queue packetPushed:count 7
+scalar scenario.client1.ppp[3].ppp.queue packetPushed:count 2
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client1.ppp[3].ppp.queue packetPushed:sum(packetBytes) 292
+scalar scenario.client1.ppp[3].ppp.queue packetPushed:sum(packetBytes) 85
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client1.ppp[3].ppp.queue packetDropQueueOverflow:count 0
@@ -1350,27 +1321,27 @@ attr title "packets removed, count"
 scalar scenario.client1.ppp[3].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client1.ppp[3].ppp txPk:count 7
+scalar scenario.client1.ppp[3].ppp txPk:count 2
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client1.ppp[3].ppp txPk:sum(packetBytes) 341
+scalar scenario.client1.ppp[3].ppp txPk:sum(packetBytes) 99
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client1.ppp[3].ppp rcvdPkFromHl:count 7
+scalar scenario.client1.ppp[3].ppp rcvdPkFromHl:count 2
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client1.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 292
+scalar scenario.client1.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 85
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client1.ppp[3].ppp passedUpPk:count 7
+scalar scenario.client1.ppp[3].ppp passedUpPk:count 2
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client1.ppp[3].ppp passedUpPk:sum(packetBytes) 290
+scalar scenario.client1.ppp[3].ppp passedUpPk:sum(packetBytes) 84
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -1390,15 +1361,15 @@ scalar scenario.client1.ppp[3].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client1.ppp[3].ppp rxPkOk:count 7
+scalar scenario.client1.ppp[3].ppp rxPkOk:count 2
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client1.ppp[3].ppp rxPkOk:sum(packetBytes) 339
+scalar scenario.client1.ppp[3].ppp rxPkOk:sum(packetBytes) 98
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client1.ppp[3].ppp transmissionState:timeavg 0.00030066439649397
+scalar scenario.client1.ppp[3].ppp transmissionState:timeavg 6.3788659793814e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -1512,340 +1483,14 @@ scalar scenario.client2.lo[0].lo passedUpPk:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp.queue packetPopped:count 515
+scalar scenario.client2.ppp[0].ppp.queue packetPopped:count 24
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client2.ppp[0].ppp.queue packetPopped:sum(packetBytes) 20860
+scalar scenario.client2.ppp[0].ppp.queue packetPopped:sum(packetBytes) 980
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client2.ppp[0].ppp.queue queueingTime:histogram
-field count 515
-field mean 3.0900867856311e-005
-field stddev 8.9857767429786e-005
-field min 0
-field max 0.000616000976
-field sum 0.015913946946
-field sqrsum 4.642005812528e-006
-attr interpolationmode none
-attr source queueingTime(packetPopped)
-attr title "queueing times, histogram"
-attr unit s
-bin	-inf	0
-bin	0	444
-bin	1e-005	1
-bin	2e-005	0
-bin	3e-005	2
-bin	4e-005	2
-bin	5e-005	2
-bin	6e-005	2
-bin	7e-005	4
-bin	8e-005	1
-bin	9e-005	1
-bin	0.0001	2
-bin	0.00011	1
-bin	0.00012	0
-bin	0.00013	4
-bin	0.00014	1
-bin	0.00015	0
-bin	0.00016	0
-bin	0.00017	3
-bin	0.00018	4
-bin	0.00019	2
-bin	0.0002	3
-bin	0.00021	0
-bin	0.00022	2
-bin	0.00023	2
-bin	0.00024	3
-bin	0.00025	1
-bin	0.00026	1
-bin	0.00027	2
-bin	0.00028	1
-bin	0.00029	2
-bin	0.0003	2
-bin	0.00031	3
-bin	0.00032	1
-bin	0.00033	1
-bin	0.00034	1
-bin	0.00035	4
-bin	0.00036	1
-bin	0.00037	5
-bin	0.00038	1
-bin	0.00039	1
-bin	0.0004	0
-bin	0.00041	0
-bin	0.00042	0
-bin	0.00043	0
-bin	0.00044	0
-bin	0.00045	0
-bin	0.00046	0
-bin	0.00047	1
-bin	0.00048	0
-bin	0.00049	0
-bin	0.0005	0
-bin	0.00051	0
-bin	0.00052	0
-bin	0.00053	0
-bin	0.00054	0
-bin	0.00055	0
-bin	0.00056	0
-bin	0.00057	0
-bin	0.00058	0
-bin	0.00059	0
-bin	0.0006	0
-bin	0.00061	1
-bin	0.00062	0
-scalar scenario.client2.ppp[0].ppp.queue queueLength:max 2
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, max"
-scalar scenario.client2.ppp[0].ppp.queue queueLength:timeavg 0.0023024735210407
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, timeavg"
-scalar scenario.client2.ppp[0].ppp.queue packetPushed:count 515
-attr interpolationmode none
-attr title "packet pushed, count"
-scalar scenario.client2.ppp[0].ppp.queue packetPushed:sum(packetBytes) 20860
-attr interpolationmode none
-attr title "packet pushed, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp.queue packetDropQueueOverflow:count 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, count"
-scalar scenario.client2.ppp[0].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp.queue packetRemoved:count 0
-attr interpolationmode none
-attr title "packets removed, count"
-scalar scenario.client2.ppp[0].ppp.queue packetRemoved:sum(packetBytes) 0
-attr interpolationmode none
-attr title "packets removed, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp txPk:count 515
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, count"
-scalar scenario.client2.ppp[0].ppp txPk:sum(packetBytes) 24465
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp rcvdPkFromHl:count 515
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, count"
-scalar scenario.client2.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 20860
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp passedUpPk:count 515
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, count"
-scalar scenario.client2.ppp[0].ppp passedUpPk:sum(packetBytes) 20871
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp packetDropIncorrectlyReceived:count 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, count"
-scalar scenario.client2.ppp[0].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp packetDropInterfaceDown:count 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, count"
-scalar scenario.client2.ppp[0].ppp packetDropInterfaceDown:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp rxPkOk:count 515
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, count"
-scalar scenario.client2.ppp[0].ppp rxPkOk:sum(packetBytes) 24476
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client2.ppp[0].ppp transmissionState:timeavg 0.02157112744934
-attr interpolationmode sample-hold
-attr source transmissionStateChanged
-attr title "tx state, timeavg"
-scalar scenario.client2.ppp[1].ppp.queue packetPopped:count 517
-attr interpolationmode none
-attr title "packet popped, count"
-scalar scenario.client2.ppp[1].ppp.queue packetPopped:sum(packetBytes) 20956
-attr interpolationmode none
-attr title "packet popped, sum(packetBytes)"
-statistic scenario.client2.ppp[1].ppp.queue queueingTime:histogram
-field count 517
-field mean 2.8401748235977e-005
-field stddev 9.0635665238308e-005
-field min 0
-field max 0.00063392645
-field sum 0.014683703838
-field sqrsum 4.6558919471849e-006
-attr interpolationmode none
-attr source queueingTime(packetPopped)
-attr title "queueing times, histogram"
-attr unit s
-bin	-inf	0
-bin	0	458
-bin	1e-005	0
-bin	2e-005	0
-bin	3e-005	2
-bin	4e-005	1
-bin	5e-005	0
-bin	6e-005	0
-bin	7e-005	1
-bin	8e-005	3
-bin	9e-005	0
-bin	0.0001	3
-bin	0.00011	1
-bin	0.00012	2
-bin	0.00013	1
-bin	0.00014	3
-bin	0.00015	2
-bin	0.00016	1
-bin	0.00017	2
-bin	0.00018	1
-bin	0.00019	0
-bin	0.0002	0
-bin	0.00021	1
-bin	0.00022	3
-bin	0.00023	3
-bin	0.00024	1
-bin	0.00025	1
-bin	0.00026	1
-bin	0.00027	0
-bin	0.00028	2
-bin	0.00029	4
-bin	0.0003	3
-bin	0.00031	1
-bin	0.00032	1
-bin	0.00033	2
-bin	0.00034	0
-bin	0.00035	5
-bin	0.00036	1
-bin	0.00037	0
-bin	0.00038	0
-bin	0.00039	0
-bin	0.0004	1
-bin	0.00041	0
-bin	0.00042	0
-bin	0.00043	0
-bin	0.00044	1
-bin	0.00045	1
-bin	0.00046	0
-bin	0.00047	0
-bin	0.00048	1
-bin	0.00049	0
-bin	0.0005	0
-bin	0.00051	1
-bin	0.00052	0
-bin	0.00053	1
-bin	0.00054	0
-bin	0.00055	0
-bin	0.00056	0
-bin	0.00057	0
-bin	0.00058	0
-bin	0.00059	0
-bin	0.0006	0
-bin	0.00061	0
-bin	0.00062	0
-bin	0.00063	1
-bin	0.00064	0
-scalar scenario.client2.ppp[1].ppp.queue queueLength:max 2
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, max"
-scalar scenario.client2.ppp[1].ppp.queue queueLength:timeavg 0.0017882485298865
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, timeavg"
-scalar scenario.client2.ppp[1].ppp.queue packetPushed:count 517
-attr interpolationmode none
-attr title "packet pushed, count"
-scalar scenario.client2.ppp[1].ppp.queue packetPushed:sum(packetBytes) 20956
-attr interpolationmode none
-attr title "packet pushed, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp.queue packetDropQueueOverflow:count 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, count"
-scalar scenario.client2.ppp[1].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp.queue packetRemoved:count 0
-attr interpolationmode none
-attr title "packets removed, count"
-scalar scenario.client2.ppp[1].ppp.queue packetRemoved:sum(packetBytes) 0
-attr interpolationmode none
-attr title "packets removed, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp txPk:count 517
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, count"
-scalar scenario.client2.ppp[1].ppp txPk:sum(packetBytes) 24575
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp rcvdPkFromHl:count 517
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, count"
-scalar scenario.client2.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 20956
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp passedUpPk:count 515
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, count"
-scalar scenario.client2.ppp[1].ppp passedUpPk:sum(packetBytes) 20857
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp packetDropIncorrectlyReceived:count 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, count"
-scalar scenario.client2.ppp[1].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp packetDropInterfaceDown:count 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, count"
-scalar scenario.client2.ppp[1].ppp packetDropInterfaceDown:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp rxPkOk:count 515
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, count"
-scalar scenario.client2.ppp[1].ppp rxPkOk:sum(packetBytes) 24462
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client2.ppp[1].ppp transmissionState:timeavg 0.021668115964338
-attr interpolationmode sample-hold
-attr source transmissionStateChanged
-attr title "tx state, timeavg"
-scalar scenario.client2.ppp[2].ppp.queue packetPopped:count 8
-attr interpolationmode none
-attr title "packet popped, count"
-scalar scenario.client2.ppp[2].ppp.queue packetPopped:sum(packetBytes) 333
-attr interpolationmode none
-attr title "packet popped, sum(packetBytes)"
-statistic scenario.client2.ppp[2].ppp.queue queueingTime:histogram
-field count 8
+field count 24
 field mean 0
 field stddev 0
 field min 0
@@ -1882,7 +1527,304 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	8
+bin	0	24
+bin	0.02	0
+bin	0.04	0
+bin	0.06	0
+bin	0.08	0
+bin	0.1	0
+bin	0.12	0
+bin	0.14	0
+bin	0.16	0
+bin	0.18	0
+bin	0.2	0
+bin	0.22	0
+bin	0.24	0
+bin	0.26	0
+bin	0.28	0
+bin	0.3	0
+bin	0.32	0
+bin	0.34	0
+bin	0.36	0
+bin	0.38	0
+bin	0.4	0
+bin	0.42	0
+bin	0.44	0
+bin	0.46	0
+bin	0.48	0
+bin	0.5	0
+scalar scenario.client2.ppp[0].ppp.queue queueLength:max 1
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, max"
+scalar scenario.client2.ppp[0].ppp.queue queueLength:timeavg 0
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, timeavg"
+scalar scenario.client2.ppp[0].ppp.queue packetPushed:count 24
+attr interpolationmode none
+attr title "packet pushed, count"
+scalar scenario.client2.ppp[0].ppp.queue packetPushed:sum(packetBytes) 980
+attr interpolationmode none
+attr title "packet pushed, sum(packetBytes)"
+scalar scenario.client2.ppp[0].ppp.queue packetDropQueueOverflow:count 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, count"
+scalar scenario.client2.ppp[0].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, sum(packetBytes)"
+scalar scenario.client2.ppp[0].ppp.queue packetRemoved:count 0
+attr interpolationmode none
+attr title "packets removed, count"
+scalar scenario.client2.ppp[0].ppp.queue packetRemoved:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packets removed, sum(packetBytes)"
+scalar scenario.client2.ppp[0].ppp txPk:count 24
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, count"
+scalar scenario.client2.ppp[0].ppp txPk:sum(packetBytes) 1148
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, sum(packetBytes)"
+scalar scenario.client2.ppp[0].ppp rcvdPkFromHl:count 24
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar scenario.client2.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 980
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar scenario.client2.ppp[0].ppp passedUpPk:count 24
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar scenario.client2.ppp[0].ppp passedUpPk:sum(packetBytes) 980
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar scenario.client2.ppp[0].ppp packetDropIncorrectlyReceived:count 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, count"
+scalar scenario.client2.ppp[0].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, sum(packetBytes)"
+scalar scenario.client2.ppp[0].ppp packetDropInterfaceDown:count 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, count"
+scalar scenario.client2.ppp[0].ppp packetDropInterfaceDown:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, sum(packetBytes)"
+scalar scenario.client2.ppp[0].ppp rxPkOk:count 24
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, count"
+scalar scenario.client2.ppp[0].ppp rxPkOk:sum(packetBytes) 1148
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, sum(packetBytes)"
+scalar scenario.client2.ppp[0].ppp transmissionState:timeavg 7.3969072164948e-006
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, timeavg"
+scalar scenario.client2.ppp[1].ppp.queue packetPopped:count 21
+attr interpolationmode none
+attr title "packet popped, count"
+scalar scenario.client2.ppp[1].ppp.queue packetPopped:sum(packetBytes) 858
+attr interpolationmode none
+attr title "packet popped, sum(packetBytes)"
+statistic scenario.client2.ppp[1].ppp.queue queueingTime:histogram
+field count 21
+field mean 1.7904761904762e-005
+field stddev 8.2049926728733e-005
+field min 0
+field max 0.000376
+field sum 0.000376
+field sqrsum 1.41376e-007
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, histogram"
+attr unit s
+bin	-inf	0
+bin	0	20
+bin	1e-005	0
+bin	2e-005	0
+bin	3e-005	0
+bin	4e-005	0
+bin	5e-005	0
+bin	6e-005	0
+bin	7e-005	0
+bin	8e-005	0
+bin	9e-005	0
+bin	0.0001	0
+bin	0.00011	0
+bin	0.00012	0
+bin	0.00013	0
+bin	0.00014	0
+bin	0.00015	0
+bin	0.00016	0
+bin	0.00017	0
+bin	0.00018	0
+bin	0.00019	0
+bin	0.0002	0
+bin	0.00021	0
+bin	0.00022	0
+bin	0.00023	0
+bin	0.00024	0
+bin	0.00025	0
+bin	0.00026	0
+bin	0.00027	0
+bin	0.00028	0
+bin	0.00029	0
+bin	0.0003	0
+bin	0.00031	0
+bin	0.00032	0
+bin	0.00033	0
+bin	0.00034	0
+bin	0.00035	0
+bin	0.00036	0
+bin	0.00037	1
+bin	0.00038	0
+bin	0.00039	0
+bin	0.0004	0
+bin	0.00041	0
+bin	0.00042	0
+bin	0.00043	0
+bin	0.00044	0
+bin	0.00045	0
+bin	0.00046	0
+bin	0.00047	0
+scalar scenario.client2.ppp[1].ppp.queue queueLength:max 1
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, max"
+scalar scenario.client2.ppp[1].ppp.queue queueLength:timeavg 3.0304692625323e-007
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, timeavg"
+scalar scenario.client2.ppp[1].ppp.queue packetPushed:count 21
+attr interpolationmode none
+attr title "packet pushed, count"
+scalar scenario.client2.ppp[1].ppp.queue packetPushed:sum(packetBytes) 858
+attr interpolationmode none
+attr title "packet pushed, sum(packetBytes)"
+scalar scenario.client2.ppp[1].ppp.queue packetDropQueueOverflow:count 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, count"
+scalar scenario.client2.ppp[1].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, sum(packetBytes)"
+scalar scenario.client2.ppp[1].ppp.queue packetRemoved:count 0
+attr interpolationmode none
+attr title "packets removed, count"
+scalar scenario.client2.ppp[1].ppp.queue packetRemoved:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packets removed, sum(packetBytes)"
+scalar scenario.client2.ppp[1].ppp txPk:count 21
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, count"
+scalar scenario.client2.ppp[1].ppp txPk:sum(packetBytes) 1005
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, sum(packetBytes)"
+scalar scenario.client2.ppp[1].ppp rcvdPkFromHl:count 21
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar scenario.client2.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 858
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar scenario.client2.ppp[1].ppp passedUpPk:count 21
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar scenario.client2.ppp[1].ppp passedUpPk:sum(packetBytes) 859
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar scenario.client2.ppp[1].ppp packetDropIncorrectlyReceived:count 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, count"
+scalar scenario.client2.ppp[1].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, sum(packetBytes)"
+scalar scenario.client2.ppp[1].ppp packetDropInterfaceDown:count 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, count"
+scalar scenario.client2.ppp[1].ppp packetDropInterfaceDown:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, sum(packetBytes)"
+scalar scenario.client2.ppp[1].ppp rxPkOk:count 21
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, count"
+scalar scenario.client2.ppp[1].ppp rxPkOk:sum(packetBytes) 1006
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, sum(packetBytes)"
+scalar scenario.client2.ppp[1].ppp transmissionState:timeavg 6.4755154639175e-006
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, timeavg"
+scalar scenario.client2.ppp[2].ppp.queue packetPopped:count 20
+attr interpolationmode none
+attr title "packet popped, count"
+scalar scenario.client2.ppp[2].ppp.queue packetPopped:sum(packetBytes) 818
+attr interpolationmode none
+attr title "packet popped, sum(packetBytes)"
+statistic scenario.client2.ppp[2].ppp.queue queueingTime:histogram
+field count 20
+field mean 0
+field stddev 0
+field min 0
+field max 0
+field sum 0
+field sqrsum 0
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, histogram"
+attr unit s
+bin	-inf	0
+bin	-0.5	0
+bin	-0.48	0
+bin	-0.46	0
+bin	-0.44	0
+bin	-0.42	0
+bin	-0.4	0
+bin	-0.38	0
+bin	-0.36	0
+bin	-0.34	0
+bin	-0.32	0
+bin	-0.3	0
+bin	-0.28	0
+bin	-0.26	0
+bin	-0.24	0
+bin	-0.22	0
+bin	-0.2	0
+bin	-0.18	0
+bin	-0.16	0
+bin	-0.14	0
+bin	-0.12	0
+bin	-0.1	0
+bin	-0.08	0
+bin	-0.06	0
+bin	-0.04	0
+bin	-0.02	0
+bin	0	20
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -1916,10 +1858,10 @@ scalar scenario.client2.ppp[2].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client2.ppp[2].ppp.queue packetPushed:count 8
+scalar scenario.client2.ppp[2].ppp.queue packetPushed:count 20
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client2.ppp[2].ppp.queue packetPushed:sum(packetBytes) 333
+scalar scenario.client2.ppp[2].ppp.queue packetPushed:sum(packetBytes) 818
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client2.ppp[2].ppp.queue packetDropQueueOverflow:count 0
@@ -1936,27 +1878,27 @@ attr title "packets removed, count"
 scalar scenario.client2.ppp[2].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client2.ppp[2].ppp txPk:count 8
+scalar scenario.client2.ppp[2].ppp txPk:count 20
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client2.ppp[2].ppp txPk:sum(packetBytes) 389
+scalar scenario.client2.ppp[2].ppp txPk:sum(packetBytes) 958
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client2.ppp[2].ppp rcvdPkFromHl:count 8
+scalar scenario.client2.ppp[2].ppp rcvdPkFromHl:count 20
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client2.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 333
+scalar scenario.client2.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 818
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client2.ppp[2].ppp passedUpPk:count 8
+scalar scenario.client2.ppp[2].ppp passedUpPk:count 20
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client2.ppp[2].ppp passedUpPk:sum(packetBytes) 330
+scalar scenario.client2.ppp[2].ppp passedUpPk:sum(packetBytes) 818
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -1976,30 +1918,30 @@ scalar scenario.client2.ppp[2].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client2.ppp[2].ppp rxPkOk:count 8
+scalar scenario.client2.ppp[2].ppp rxPkOk:count 20
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client2.ppp[2].ppp rxPkOk:sum(packetBytes) 386
+scalar scenario.client2.ppp[2].ppp rxPkOk:sum(packetBytes) 958
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client2.ppp[2].ppp transmissionState:timeavg 0.00034298665758404
+scalar scenario.client2.ppp[2].ppp transmissionState:timeavg 6.1726804123711e-006
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
-scalar scenario.client2.ppp[3].ppp.queue packetPopped:count 7
+scalar scenario.client2.ppp[3].ppp.queue packetPopped:count 0
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client2.ppp[3].ppp.queue packetPopped:sum(packetBytes) 292
+scalar scenario.client2.ppp[3].ppp.queue packetPopped:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client2.ppp[3].ppp.queue queueingTime:histogram
-field count 7
-field mean 0
-field stddev 0
-field min 0
-field max 0
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
 field sum 0
 field sqrsum 0
 attr interpolationmode none
@@ -2007,69 +1949,20 @@ attr source queueingTime(packetPopped)
 attr title "queueing times, histogram"
 attr unit s
 bin	-inf	0
-bin	-0.5	0
-bin	-0.48	0
-bin	-0.46	0
-bin	-0.44	0
-bin	-0.42	0
-bin	-0.4	0
-bin	-0.38	0
-bin	-0.36	0
-bin	-0.34	0
-bin	-0.32	0
-bin	-0.3	0
-bin	-0.28	0
-bin	-0.26	0
-bin	-0.24	0
-bin	-0.22	0
-bin	-0.2	0
-bin	-0.18	0
-bin	-0.16	0
-bin	-0.14	0
-bin	-0.12	0
-bin	-0.1	0
-bin	-0.08	0
-bin	-0.06	0
-bin	-0.04	0
-bin	-0.02	0
-bin	0	7
-bin	0.02	0
-bin	0.04	0
-bin	0.06	0
-bin	0.08	0
-bin	0.1	0
-bin	0.12	0
-bin	0.14	0
-bin	0.16	0
-bin	0.18	0
-bin	0.2	0
-bin	0.22	0
-bin	0.24	0
-bin	0.26	0
-bin	0.28	0
-bin	0.3	0
-bin	0.32	0
-bin	0.34	0
-bin	0.36	0
-bin	0.38	0
-bin	0.4	0
-bin	0.42	0
-bin	0.44	0
-bin	0.46	0
-bin	0.48	0
-bin	0.5	0
-scalar scenario.client2.ppp[3].ppp.queue queueLength:max 1
+bin	0	0
+bin	1	0
+scalar scenario.client2.ppp[3].ppp.queue queueLength:max nan
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client2.ppp[3].ppp.queue queueLength:timeavg 0
+scalar scenario.client2.ppp[3].ppp.queue queueLength:timeavg nan
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client2.ppp[3].ppp.queue packetPushed:count 7
+scalar scenario.client2.ppp[3].ppp.queue packetPushed:count 0
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client2.ppp[3].ppp.queue packetPushed:sum(packetBytes) 292
+scalar scenario.client2.ppp[3].ppp.queue packetPushed:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client2.ppp[3].ppp.queue packetDropQueueOverflow:count 0
@@ -2086,27 +1979,27 @@ attr title "packets removed, count"
 scalar scenario.client2.ppp[3].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client2.ppp[3].ppp txPk:count 7
+scalar scenario.client2.ppp[3].ppp txPk:count 0
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client2.ppp[3].ppp txPk:sum(packetBytes) 341
+scalar scenario.client2.ppp[3].ppp txPk:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client2.ppp[3].ppp rcvdPkFromHl:count 7
+scalar scenario.client2.ppp[3].ppp rcvdPkFromHl:count 0
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client2.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 292
+scalar scenario.client2.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client2.ppp[3].ppp passedUpPk:count 7
+scalar scenario.client2.ppp[3].ppp passedUpPk:count 0
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client2.ppp[3].ppp passedUpPk:sum(packetBytes) 290
+scalar scenario.client2.ppp[3].ppp passedUpPk:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -2126,15 +2019,15 @@ scalar scenario.client2.ppp[3].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client2.ppp[3].ppp rxPkOk:count 7
+scalar scenario.client2.ppp[3].ppp rxPkOk:count 0
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client2.ppp[3].ppp rxPkOk:sum(packetBytes) 339
+scalar scenario.client2.ppp[3].ppp rxPkOk:sum(packetBytes) 0
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client2.ppp[3].ppp transmissionState:timeavg 0.00030066439649397
+scalar scenario.client2.ppp[3].ppp transmissionState:timeavg 0
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -2248,14 +2141,14 @@ scalar scenario.client3.lo[0].lo passedUpPk:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client3.ppp[0].ppp.queue packetPopped:count 8
+scalar scenario.client3.ppp[0].ppp.queue packetPopped:count 25
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client3.ppp[0].ppp.queue packetPopped:sum(packetBytes) 330
+scalar scenario.client3.ppp[0].ppp.queue packetPopped:sum(packetBytes) 1020
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client3.ppp[0].ppp.queue queueingTime:histogram
-field count 8
+field count 25
 field mean 0
 field stddev 0
 field min 0
@@ -2292,7 +2185,7 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	8
+bin	0	25
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -2326,10 +2219,10 @@ scalar scenario.client3.ppp[0].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client3.ppp[0].ppp.queue packetPushed:count 8
+scalar scenario.client3.ppp[0].ppp.queue packetPushed:count 25
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client3.ppp[0].ppp.queue packetPushed:sum(packetBytes) 330
+scalar scenario.client3.ppp[0].ppp.queue packetPushed:sum(packetBytes) 1020
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client3.ppp[0].ppp.queue packetDropQueueOverflow:count 0
@@ -2346,27 +2239,27 @@ attr title "packets removed, count"
 scalar scenario.client3.ppp[0].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client3.ppp[0].ppp txPk:count 8
+scalar scenario.client3.ppp[0].ppp txPk:count 25
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client3.ppp[0].ppp txPk:sum(packetBytes) 386
+scalar scenario.client3.ppp[0].ppp txPk:sum(packetBytes) 1195
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client3.ppp[0].ppp rcvdPkFromHl:count 8
+scalar scenario.client3.ppp[0].ppp rcvdPkFromHl:count 25
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client3.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 330
+scalar scenario.client3.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 1020
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client3.ppp[0].ppp passedUpPk:count 8
+scalar scenario.client3.ppp[0].ppp passedUpPk:count 25
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client3.ppp[0].ppp passedUpPk:sum(packetBytes) 333
+scalar scenario.client3.ppp[0].ppp passedUpPk:sum(packetBytes) 1021
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -2386,26 +2279,26 @@ scalar scenario.client3.ppp[0].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client3.ppp[0].ppp rxPkOk:count 8
+scalar scenario.client3.ppp[0].ppp rxPkOk:count 25
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client3.ppp[0].ppp rxPkOk:sum(packetBytes) 389
+scalar scenario.client3.ppp[0].ppp rxPkOk:sum(packetBytes) 1196
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client3.ppp[0].ppp transmissionState:timeavg 0.00034034151626591
+scalar scenario.client3.ppp[0].ppp transmissionState:timeavg 7.6997422680412e-006
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
-scalar scenario.client3.ppp[1].ppp.queue packetPopped:count 8
+scalar scenario.client3.ppp[1].ppp.queue packetPopped:count 21
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client3.ppp[1].ppp.queue packetPopped:sum(packetBytes) 330
+scalar scenario.client3.ppp[1].ppp.queue packetPopped:sum(packetBytes) 858
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client3.ppp[1].ppp.queue queueingTime:histogram
-field count 8
+field count 21
 field mean 0
 field stddev 0
 field min 0
@@ -2442,7 +2335,7 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	8
+bin	0	21
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -2476,10 +2369,10 @@ scalar scenario.client3.ppp[1].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client3.ppp[1].ppp.queue packetPushed:count 8
+scalar scenario.client3.ppp[1].ppp.queue packetPushed:count 21
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client3.ppp[1].ppp.queue packetPushed:sum(packetBytes) 330
+scalar scenario.client3.ppp[1].ppp.queue packetPushed:sum(packetBytes) 858
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client3.ppp[1].ppp.queue packetDropQueueOverflow:count 0
@@ -2496,27 +2389,27 @@ attr title "packets removed, count"
 scalar scenario.client3.ppp[1].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client3.ppp[1].ppp txPk:count 8
+scalar scenario.client3.ppp[1].ppp txPk:count 21
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client3.ppp[1].ppp txPk:sum(packetBytes) 386
+scalar scenario.client3.ppp[1].ppp txPk:sum(packetBytes) 1005
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client3.ppp[1].ppp rcvdPkFromHl:count 8
+scalar scenario.client3.ppp[1].ppp rcvdPkFromHl:count 21
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client3.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 330
+scalar scenario.client3.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 858
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client3.ppp[1].ppp passedUpPk:count 8
+scalar scenario.client3.ppp[1].ppp passedUpPk:count 21
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client3.ppp[1].ppp passedUpPk:sum(packetBytes) 333
+scalar scenario.client3.ppp[1].ppp passedUpPk:sum(packetBytes) 859
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -2536,26 +2429,173 @@ scalar scenario.client3.ppp[1].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client3.ppp[1].ppp rxPkOk:count 8
+scalar scenario.client3.ppp[1].ppp rxPkOk:count 21
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client3.ppp[1].ppp rxPkOk:sum(packetBytes) 389
+scalar scenario.client3.ppp[1].ppp rxPkOk:sum(packetBytes) 1006
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client3.ppp[1].ppp transmissionState:timeavg 0.00034034151626591
+scalar scenario.client3.ppp[1].ppp transmissionState:timeavg 6.4755154639175e-006
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
-scalar scenario.client3.ppp[2].ppp.queue packetPopped:count 8
+scalar scenario.client3.ppp[2].ppp.queue packetPopped:count 20
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client3.ppp[2].ppp.queue packetPopped:sum(packetBytes) 330
+scalar scenario.client3.ppp[2].ppp.queue packetPopped:sum(packetBytes) 818
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client3.ppp[2].ppp.queue queueingTime:histogram
-field count 8
+field count 20
+field mean 1.88e-005
+field stddev 8.4076155953992e-005
+field min 0
+field max 0.000376
+field sum 0.000376
+field sqrsum 1.41376e-007
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, histogram"
+attr unit s
+bin	-inf	0
+bin	0	19
+bin	1e-005	0
+bin	2e-005	0
+bin	3e-005	0
+bin	4e-005	0
+bin	5e-005	0
+bin	6e-005	0
+bin	7e-005	0
+bin	8e-005	0
+bin	9e-005	0
+bin	0.0001	0
+bin	0.00011	0
+bin	0.00012	0
+bin	0.00013	0
+bin	0.00014	0
+bin	0.00015	0
+bin	0.00016	0
+bin	0.00017	0
+bin	0.00018	0
+bin	0.00019	0
+bin	0.0002	0
+bin	0.00021	0
+bin	0.00022	0
+bin	0.00023	0
+bin	0.00024	0
+bin	0.00025	0
+bin	0.00026	0
+bin	0.00027	0
+bin	0.00028	0
+bin	0.00029	0
+bin	0.0003	0
+bin	0.00031	0
+bin	0.00032	0
+bin	0.00033	0
+bin	0.00034	0
+bin	0.00035	0
+bin	0.00036	0
+bin	0.00037	1
+bin	0.00038	0
+bin	0.00039	0
+bin	0.0004	0
+bin	0.00041	0
+bin	0.00042	0
+bin	0.00043	0
+bin	0.00044	0
+bin	0.00045	0
+bin	0.00046	0
+bin	0.00047	0
+scalar scenario.client3.ppp[2].ppp.queue queueLength:max 1
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, max"
+scalar scenario.client3.ppp[2].ppp.queue queueLength:timeavg 3.031426876705e-007
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, timeavg"
+scalar scenario.client3.ppp[2].ppp.queue packetPushed:count 20
+attr interpolationmode none
+attr title "packet pushed, count"
+scalar scenario.client3.ppp[2].ppp.queue packetPushed:sum(packetBytes) 818
+attr interpolationmode none
+attr title "packet pushed, sum(packetBytes)"
+scalar scenario.client3.ppp[2].ppp.queue packetDropQueueOverflow:count 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, count"
+scalar scenario.client3.ppp[2].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, sum(packetBytes)"
+scalar scenario.client3.ppp[2].ppp.queue packetRemoved:count 0
+attr interpolationmode none
+attr title "packets removed, count"
+scalar scenario.client3.ppp[2].ppp.queue packetRemoved:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packets removed, sum(packetBytes)"
+scalar scenario.client3.ppp[2].ppp txPk:count 20
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, count"
+scalar scenario.client3.ppp[2].ppp txPk:sum(packetBytes) 958
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, sum(packetBytes)"
+scalar scenario.client3.ppp[2].ppp rcvdPkFromHl:count 20
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar scenario.client3.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 818
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar scenario.client3.ppp[2].ppp passedUpPk:count 20
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar scenario.client3.ppp[2].ppp passedUpPk:sum(packetBytes) 818
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar scenario.client3.ppp[2].ppp packetDropIncorrectlyReceived:count 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, count"
+scalar scenario.client3.ppp[2].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, sum(packetBytes)"
+scalar scenario.client3.ppp[2].ppp packetDropInterfaceDown:count 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, count"
+scalar scenario.client3.ppp[2].ppp packetDropInterfaceDown:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, sum(packetBytes)"
+scalar scenario.client3.ppp[2].ppp rxPkOk:count 20
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, count"
+scalar scenario.client3.ppp[2].ppp rxPkOk:sum(packetBytes) 958
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, sum(packetBytes)"
+scalar scenario.client3.ppp[2].ppp transmissionState:timeavg 6.1726804123711e-006
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, timeavg"
+scalar scenario.client3.ppp[3].ppp.queue packetPopped:count 2
+attr interpolationmode none
+attr title "packet popped, count"
+scalar scenario.client3.ppp[3].ppp.queue packetPopped:sum(packetBytes) 85
+attr interpolationmode none
+attr title "packet popped, sum(packetBytes)"
+statistic scenario.client3.ppp[3].ppp.queue queueingTime:histogram
+field count 2
 field mean 0
 field stddev 0
 field min 0
@@ -2592,7 +2632,7 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	8
+bin	0	2
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -2618,119 +2658,18 @@ bin	0.44	0
 bin	0.46	0
 bin	0.48	0
 bin	0.5	0
-scalar scenario.client3.ppp[2].ppp.queue queueLength:max 1
+scalar scenario.client3.ppp[3].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client3.ppp[2].ppp.queue queueLength:timeavg 0
+scalar scenario.client3.ppp[3].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client3.ppp[2].ppp.queue packetPushed:count 8
+scalar scenario.client3.ppp[3].ppp.queue packetPushed:count 2
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client3.ppp[2].ppp.queue packetPushed:sum(packetBytes) 330
-attr interpolationmode none
-attr title "packet pushed, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp.queue packetDropQueueOverflow:count 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, count"
-scalar scenario.client3.ppp[2].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp.queue packetRemoved:count 0
-attr interpolationmode none
-attr title "packets removed, count"
-scalar scenario.client3.ppp[2].ppp.queue packetRemoved:sum(packetBytes) 0
-attr interpolationmode none
-attr title "packets removed, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp txPk:count 8
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, count"
-scalar scenario.client3.ppp[2].ppp txPk:sum(packetBytes) 386
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp rcvdPkFromHl:count 8
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, count"
-scalar scenario.client3.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 330
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp passedUpPk:count 8
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, count"
-scalar scenario.client3.ppp[2].ppp passedUpPk:sum(packetBytes) 333
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp packetDropIncorrectlyReceived:count 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, count"
-scalar scenario.client3.ppp[2].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp packetDropInterfaceDown:count 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, count"
-scalar scenario.client3.ppp[2].ppp packetDropInterfaceDown:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp rxPkOk:count 8
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, count"
-scalar scenario.client3.ppp[2].ppp rxPkOk:sum(packetBytes) 389
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client3.ppp[2].ppp transmissionState:timeavg 0.00034034151626591
-attr interpolationmode sample-hold
-attr source transmissionStateChanged
-attr title "tx state, timeavg"
-scalar scenario.client3.ppp[3].ppp.queue packetPopped:count 0
-attr interpolationmode none
-attr title "packet popped, count"
-scalar scenario.client3.ppp[3].ppp.queue packetPopped:sum(packetBytes) 0
-attr interpolationmode none
-attr title "packet popped, sum(packetBytes)"
-statistic scenario.client3.ppp[3].ppp.queue queueingTime:histogram
-field count 0
-field mean nan
-field stddev nan
-field min nan
-field max nan
-field sum 0
-field sqrsum 0
-attr interpolationmode none
-attr source queueingTime(packetPopped)
-attr title "queueing times, histogram"
-attr unit s
-bin	-inf	0
-bin	0	0
-bin	1	0
-scalar scenario.client3.ppp[3].ppp.queue queueLength:max nan
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, max"
-scalar scenario.client3.ppp[3].ppp.queue queueLength:timeavg nan
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, timeavg"
-scalar scenario.client3.ppp[3].ppp.queue packetPushed:count 0
-attr interpolationmode none
-attr title "packet pushed, count"
-scalar scenario.client3.ppp[3].ppp.queue packetPushed:sum(packetBytes) 0
+scalar scenario.client3.ppp[3].ppp.queue packetPushed:sum(packetBytes) 85
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client3.ppp[3].ppp.queue packetDropQueueOverflow:count 0
@@ -2747,27 +2686,27 @@ attr title "packets removed, count"
 scalar scenario.client3.ppp[3].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client3.ppp[3].ppp txPk:count 0
+scalar scenario.client3.ppp[3].ppp txPk:count 2
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client3.ppp[3].ppp txPk:sum(packetBytes) 0
+scalar scenario.client3.ppp[3].ppp txPk:sum(packetBytes) 99
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client3.ppp[3].ppp rcvdPkFromHl:count 0
+scalar scenario.client3.ppp[3].ppp rcvdPkFromHl:count 2
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client3.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 0
+scalar scenario.client3.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 85
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client3.ppp[3].ppp passedUpPk:count 0
+scalar scenario.client3.ppp[3].ppp passedUpPk:count 2
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client3.ppp[3].ppp passedUpPk:sum(packetBytes) 0
+scalar scenario.client3.ppp[3].ppp passedUpPk:sum(packetBytes) 84
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -2787,15 +2726,15 @@ scalar scenario.client3.ppp[3].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client3.ppp[3].ppp rxPkOk:count 0
+scalar scenario.client3.ppp[3].ppp rxPkOk:count 2
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client3.ppp[3].ppp rxPkOk:sum(packetBytes) 0
+scalar scenario.client3.ppp[3].ppp rxPkOk:sum(packetBytes) 98
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client3.ppp[3].ppp transmissionState:timeavg 0
+scalar scenario.client3.ppp[3].ppp transmissionState:timeavg 6.3788659793814e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
@@ -2909,14 +2848,14 @@ scalar scenario.client4.lo[0].lo passedUpPk:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client4.ppp[0].ppp.queue packetPopped:count 7
+scalar scenario.client4.ppp[0].ppp.queue packetPopped:count 2
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client4.ppp[0].ppp.queue packetPopped:sum(packetBytes) 290
+scalar scenario.client4.ppp[0].ppp.queue packetPopped:sum(packetBytes) 84
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client4.ppp[0].ppp.queue queueingTime:histogram
-field count 7
+field count 2
 field mean 0
 field stddev 0
 field min 0
@@ -2953,7 +2892,7 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	7
+bin	0	2
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -2987,10 +2926,10 @@ scalar scenario.client4.ppp[0].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client4.ppp[0].ppp.queue packetPushed:count 7
+scalar scenario.client4.ppp[0].ppp.queue packetPushed:count 2
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client4.ppp[0].ppp.queue packetPushed:sum(packetBytes) 290
+scalar scenario.client4.ppp[0].ppp.queue packetPushed:sum(packetBytes) 84
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client4.ppp[0].ppp.queue packetDropQueueOverflow:count 0
@@ -3007,27 +2946,27 @@ attr title "packets removed, count"
 scalar scenario.client4.ppp[0].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client4.ppp[0].ppp txPk:count 7
+scalar scenario.client4.ppp[0].ppp txPk:count 2
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client4.ppp[0].ppp txPk:sum(packetBytes) 339
+scalar scenario.client4.ppp[0].ppp txPk:sum(packetBytes) 98
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client4.ppp[0].ppp rcvdPkFromHl:count 7
+scalar scenario.client4.ppp[0].ppp rcvdPkFromHl:count 2
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client4.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 290
+scalar scenario.client4.ppp[0].ppp rcvdPkFromHl:sum(packetBytes) 84
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client4.ppp[0].ppp passedUpPk:count 7
+scalar scenario.client4.ppp[0].ppp passedUpPk:count 2
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client4.ppp[0].ppp passedUpPk:sum(packetBytes) 292
+scalar scenario.client4.ppp[0].ppp passedUpPk:sum(packetBytes) 85
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -3047,26 +2986,26 @@ scalar scenario.client4.ppp[0].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client4.ppp[0].ppp rxPkOk:count 7
+scalar scenario.client4.ppp[0].ppp rxPkOk:count 2
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client4.ppp[0].ppp rxPkOk:sum(packetBytes) 341
+scalar scenario.client4.ppp[0].ppp rxPkOk:sum(packetBytes) 99
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client4.ppp[0].ppp transmissionState:timeavg 0.00029890096894856
+scalar scenario.client4.ppp[0].ppp transmissionState:timeavg 6.3144329896907e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
-scalar scenario.client4.ppp[1].ppp.queue packetPopped:count 7
+scalar scenario.client4.ppp[1].ppp.queue packetPopped:count 2
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client4.ppp[1].ppp.queue packetPopped:sum(packetBytes) 290
+scalar scenario.client4.ppp[1].ppp.queue packetPopped:sum(packetBytes) 84
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client4.ppp[1].ppp.queue queueingTime:histogram
-field count 7
+field count 2
 field mean 0
 field stddev 0
 field min 0
@@ -3103,7 +3042,7 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	7
+bin	0	2
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -3137,10 +3076,10 @@ scalar scenario.client4.ppp[1].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client4.ppp[1].ppp.queue packetPushed:count 7
+scalar scenario.client4.ppp[1].ppp.queue packetPushed:count 2
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client4.ppp[1].ppp.queue packetPushed:sum(packetBytes) 290
+scalar scenario.client4.ppp[1].ppp.queue packetPushed:sum(packetBytes) 84
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client4.ppp[1].ppp.queue packetDropQueueOverflow:count 0
@@ -3157,27 +3096,27 @@ attr title "packets removed, count"
 scalar scenario.client4.ppp[1].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client4.ppp[1].ppp txPk:count 7
+scalar scenario.client4.ppp[1].ppp txPk:count 2
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client4.ppp[1].ppp txPk:sum(packetBytes) 339
+scalar scenario.client4.ppp[1].ppp txPk:sum(packetBytes) 98
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client4.ppp[1].ppp rcvdPkFromHl:count 7
+scalar scenario.client4.ppp[1].ppp rcvdPkFromHl:count 2
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client4.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 290
+scalar scenario.client4.ppp[1].ppp rcvdPkFromHl:sum(packetBytes) 84
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client4.ppp[1].ppp passedUpPk:count 7
+scalar scenario.client4.ppp[1].ppp passedUpPk:count 2
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client4.ppp[1].ppp passedUpPk:sum(packetBytes) 292
+scalar scenario.client4.ppp[1].ppp passedUpPk:sum(packetBytes) 85
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -3197,26 +3136,127 @@ scalar scenario.client4.ppp[1].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client4.ppp[1].ppp rxPkOk:count 7
+scalar scenario.client4.ppp[1].ppp rxPkOk:count 2
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client4.ppp[1].ppp rxPkOk:sum(packetBytes) 341
+scalar scenario.client4.ppp[1].ppp rxPkOk:sum(packetBytes) 99
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client4.ppp[1].ppp transmissionState:timeavg 0.00029890096894856
+scalar scenario.client4.ppp[1].ppp transmissionState:timeavg 6.3144329896907e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"
-scalar scenario.client4.ppp[2].ppp.queue packetPopped:count 7
+scalar scenario.client4.ppp[2].ppp.queue packetPopped:count 0
 attr interpolationmode none
 attr title "packet popped, count"
-scalar scenario.client4.ppp[2].ppp.queue packetPopped:sum(packetBytes) 290
+scalar scenario.client4.ppp[2].ppp.queue packetPopped:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packet popped, sum(packetBytes)"
 statistic scenario.client4.ppp[2].ppp.queue queueingTime:histogram
-field count 7
+field count 0
+field mean nan
+field stddev nan
+field min nan
+field max nan
+field sum 0
+field sqrsum 0
+attr interpolationmode none
+attr source queueingTime(packetPopped)
+attr title "queueing times, histogram"
+attr unit s
+bin	-inf	0
+bin	0	0
+bin	1	0
+scalar scenario.client4.ppp[2].ppp.queue queueLength:max nan
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, max"
+scalar scenario.client4.ppp[2].ppp.queue queueLength:timeavg nan
+attr interpolationmode sample-hold
+attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
+attr title "queue length, timeavg"
+scalar scenario.client4.ppp[2].ppp.queue packetPushed:count 0
+attr interpolationmode none
+attr title "packet pushed, count"
+scalar scenario.client4.ppp[2].ppp.queue packetPushed:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packet pushed, sum(packetBytes)"
+scalar scenario.client4.ppp[2].ppp.queue packetDropQueueOverflow:count 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, count"
+scalar scenario.client4.ppp[2].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsQueueOverflow(packetDropped)
+attr title "packet drops: queue overflow, sum(packetBytes)"
+scalar scenario.client4.ppp[2].ppp.queue packetRemoved:count 0
+attr interpolationmode none
+attr title "packets removed, count"
+scalar scenario.client4.ppp[2].ppp.queue packetRemoved:sum(packetBytes) 0
+attr interpolationmode none
+attr title "packets removed, sum(packetBytes)"
+scalar scenario.client4.ppp[2].ppp txPk:count 0
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, count"
+scalar scenario.client4.ppp[2].ppp txPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetSentToLower
+attr title "packets transmitted, sum(packetBytes)"
+scalar scenario.client4.ppp[2].ppp rcvdPkFromHl:count 0
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, count"
+scalar scenario.client4.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, sum(packetBytes)"
+scalar scenario.client4.ppp[2].ppp passedUpPk:count 0
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, count"
+scalar scenario.client4.ppp[2].ppp passedUpPk:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetSentToUpper
+attr title "packets passed to higher layer, sum(packetBytes)"
+scalar scenario.client4.ppp[2].ppp packetDropIncorrectlyReceived:count 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, count"
+scalar scenario.client4.ppp[2].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, sum(packetBytes)"
+scalar scenario.client4.ppp[2].ppp packetDropInterfaceDown:count 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, count"
+scalar scenario.client4.ppp[2].ppp packetDropInterfaceDown:sum(packetBytes) 0
+attr interpolationmode none
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, sum(packetBytes)"
+scalar scenario.client4.ppp[2].ppp rxPkOk:count 0
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, count"
+scalar scenario.client4.ppp[2].ppp rxPkOk:sum(packetBytes) 0
+attr interpolationmode none
+attr source rxPkOk
+attr title "packets received OK, sum(packetBytes)"
+scalar scenario.client4.ppp[2].ppp transmissionState:timeavg 0
+attr interpolationmode sample-hold
+attr source transmissionStateChanged
+attr title "tx state, timeavg"
+scalar scenario.client4.ppp[3].ppp.queue packetPopped:count 2
+attr interpolationmode none
+attr title "packet popped, count"
+scalar scenario.client4.ppp[3].ppp.queue packetPopped:sum(packetBytes) 84
+attr interpolationmode none
+attr title "packet popped, sum(packetBytes)"
+statistic scenario.client4.ppp[3].ppp.queue queueingTime:histogram
+field count 2
 field mean 0
 field stddev 0
 field min 0
@@ -3253,7 +3293,7 @@ bin	-0.08	0
 bin	-0.06	0
 bin	-0.04	0
 bin	-0.02	0
-bin	0	7
+bin	0	2
 bin	0.02	0
 bin	0.04	0
 bin	0.06	0
@@ -3279,119 +3319,18 @@ bin	0.44	0
 bin	0.46	0
 bin	0.48	0
 bin	0.5	0
-scalar scenario.client4.ppp[2].ppp.queue queueLength:max 1
+scalar scenario.client4.ppp[3].ppp.queue queueLength:max 1
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, max"
-scalar scenario.client4.ppp[2].ppp.queue queueLength:timeavg 0
+scalar scenario.client4.ppp[3].ppp.queue queueLength:timeavg 0
 attr interpolationmode sample-hold
 attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
 attr title "queue length, timeavg"
-scalar scenario.client4.ppp[2].ppp.queue packetPushed:count 7
+scalar scenario.client4.ppp[3].ppp.queue packetPushed:count 2
 attr interpolationmode none
 attr title "packet pushed, count"
-scalar scenario.client4.ppp[2].ppp.queue packetPushed:sum(packetBytes) 290
-attr interpolationmode none
-attr title "packet pushed, sum(packetBytes)"
-scalar scenario.client4.ppp[2].ppp.queue packetDropQueueOverflow:count 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, count"
-scalar scenario.client4.ppp[2].ppp.queue packetDropQueueOverflow:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsQueueOverflow(packetDropped)
-attr title "packet drops: queue overflow, sum(packetBytes)"
-scalar scenario.client4.ppp[2].ppp.queue packetRemoved:count 0
-attr interpolationmode none
-attr title "packets removed, count"
-scalar scenario.client4.ppp[2].ppp.queue packetRemoved:sum(packetBytes) 0
-attr interpolationmode none
-attr title "packets removed, sum(packetBytes)"
-scalar scenario.client4.ppp[2].ppp txPk:count 7
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, count"
-scalar scenario.client4.ppp[2].ppp txPk:sum(packetBytes) 339
-attr interpolationmode none
-attr source packetSentToLower
-attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client4.ppp[2].ppp rcvdPkFromHl:count 7
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, count"
-scalar scenario.client4.ppp[2].ppp rcvdPkFromHl:sum(packetBytes) 290
-attr interpolationmode none
-attr source packetReceivedFromUpper
-attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client4.ppp[2].ppp passedUpPk:count 7
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, count"
-scalar scenario.client4.ppp[2].ppp passedUpPk:sum(packetBytes) 292
-attr interpolationmode none
-attr source packetSentToUpper
-attr title "packets passed to higher layer, sum(packetBytes)"
-scalar scenario.client4.ppp[2].ppp packetDropIncorrectlyReceived:count 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, count"
-scalar scenario.client4.ppp[2].ppp packetDropIncorrectlyReceived:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
-attr title "packet drop: incorrectly received, sum(packetBytes)"
-scalar scenario.client4.ppp[2].ppp packetDropInterfaceDown:count 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, count"
-scalar scenario.client4.ppp[2].ppp packetDropInterfaceDown:sum(packetBytes) 0
-attr interpolationmode none
-attr source packetDropReasonIsInterfaceDown(packetDropped)
-attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client4.ppp[2].ppp rxPkOk:count 7
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, count"
-scalar scenario.client4.ppp[2].ppp rxPkOk:sum(packetBytes) 341
-attr interpolationmode none
-attr source rxPkOk
-attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client4.ppp[2].ppp transmissionState:timeavg 0.00029890096894856
-attr interpolationmode sample-hold
-attr source transmissionStateChanged
-attr title "tx state, timeavg"
-scalar scenario.client4.ppp[3].ppp.queue packetPopped:count 0
-attr interpolationmode none
-attr title "packet popped, count"
-scalar scenario.client4.ppp[3].ppp.queue packetPopped:sum(packetBytes) 0
-attr interpolationmode none
-attr title "packet popped, sum(packetBytes)"
-statistic scenario.client4.ppp[3].ppp.queue queueingTime:histogram
-field count 0
-field mean nan
-field stddev nan
-field min nan
-field max nan
-field sum 0
-field sqrsum 0
-attr interpolationmode none
-attr source queueingTime(packetPopped)
-attr title "queueing times, histogram"
-attr unit s
-bin	-inf	0
-bin	0	0
-bin	1	0
-scalar scenario.client4.ppp[3].ppp.queue queueLength:max nan
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, max"
-scalar scenario.client4.ppp[3].ppp.queue queueLength:timeavg nan
-attr interpolationmode sample-hold
-attr source "count(packetPushed) - count(packetPopped) - count(packetRemoved) - count(packetDropped)"
-attr title "queue length, timeavg"
-scalar scenario.client4.ppp[3].ppp.queue packetPushed:count 0
-attr interpolationmode none
-attr title "packet pushed, count"
-scalar scenario.client4.ppp[3].ppp.queue packetPushed:sum(packetBytes) 0
+scalar scenario.client4.ppp[3].ppp.queue packetPushed:sum(packetBytes) 84
 attr interpolationmode none
 attr title "packet pushed, sum(packetBytes)"
 scalar scenario.client4.ppp[3].ppp.queue packetDropQueueOverflow:count 0
@@ -3408,27 +3347,27 @@ attr title "packets removed, count"
 scalar scenario.client4.ppp[3].ppp.queue packetRemoved:sum(packetBytes) 0
 attr interpolationmode none
 attr title "packets removed, sum(packetBytes)"
-scalar scenario.client4.ppp[3].ppp txPk:count 0
+scalar scenario.client4.ppp[3].ppp txPk:count 2
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, count"
-scalar scenario.client4.ppp[3].ppp txPk:sum(packetBytes) 0
+scalar scenario.client4.ppp[3].ppp txPk:sum(packetBytes) 98
 attr interpolationmode none
 attr source packetSentToLower
 attr title "packets transmitted, sum(packetBytes)"
-scalar scenario.client4.ppp[3].ppp rcvdPkFromHl:count 0
+scalar scenario.client4.ppp[3].ppp rcvdPkFromHl:count 2
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, count"
-scalar scenario.client4.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 0
+scalar scenario.client4.ppp[3].ppp rcvdPkFromHl:sum(packetBytes) 84
 attr interpolationmode none
 attr source packetReceivedFromUpper
 attr title "packets received from higher layer, sum(packetBytes)"
-scalar scenario.client4.ppp[3].ppp passedUpPk:count 0
+scalar scenario.client4.ppp[3].ppp passedUpPk:count 2
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, count"
-scalar scenario.client4.ppp[3].ppp passedUpPk:sum(packetBytes) 0
+scalar scenario.client4.ppp[3].ppp passedUpPk:sum(packetBytes) 85
 attr interpolationmode none
 attr source packetSentToUpper
 attr title "packets passed to higher layer, sum(packetBytes)"
@@ -3448,15 +3387,15 @@ scalar scenario.client4.ppp[3].ppp packetDropInterfaceDown:sum(packetBytes) 0
 attr interpolationmode none
 attr source packetDropReasonIsInterfaceDown(packetDropped)
 attr title "packet drop: interface down, sum(packetBytes)"
-scalar scenario.client4.ppp[3].ppp rxPkOk:count 0
+scalar scenario.client4.ppp[3].ppp rxPkOk:count 2
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, count"
-scalar scenario.client4.ppp[3].ppp rxPkOk:sum(packetBytes) 0
+scalar scenario.client4.ppp[3].ppp rxPkOk:sum(packetBytes) 99
 attr interpolationmode none
 attr source rxPkOk
 attr title "packets received OK, sum(packetBytes)"
-scalar scenario.client4.ppp[3].ppp transmissionState:timeavg 0
+scalar scenario.client4.ppp[3].ppp transmissionState:timeavg 6.3144329896907e-007
 attr interpolationmode sample-hold
 attr source transmissionStateChanged
 attr title "tx state, timeavg"

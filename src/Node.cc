@@ -278,6 +278,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
                  break;
              }
              else{
+                 EV<<"False";
                  view_discovery();
                  for(auto it:stored_value){
                      EV << "[" << it->getSender() << ", "<<it->getMsgId()<<"],";
@@ -485,7 +486,7 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
                         }
                     }
                     if(s==true){
-                        if(contains(x->getView(),init_view)==false){
+                        if(contains(x->getView(),init_view)==true){
                             init_view=x->getView();
                             int tmp = sizeCV(init_view) + f + 1;
                             if (tmp % 2 == 1){
@@ -801,6 +802,7 @@ void Node::finish()
         }else{
             EV<<"False";
         }
+        EV<<"\nQuorum size: "<<quorumSize;
         EV << "\n-----------------------------------------------------------------------\n";
     }else{
         EV_INFO << "Time finish: " << simTime() << "\n\n";
@@ -999,6 +1001,7 @@ void Node::finish()
         }else{
             EV<<"False";
         }
+        EV<<"\nQuorum size: "<<quorumSize;
         EV << "\n-----------------------------------------------------------------------\n";
     }
 
@@ -1052,25 +1055,22 @@ bool Node::checkPropose(int x, int join_or_leave, vector<pair<int,int>> cv) {
 bool Node::checkDeliverMsg() {
     bool cond=false;
     for(auto it = deliver.begin(); it!=deliver.end(); ++it){
-        for(auto it2:it->second){
-            int c=0;
-            int i=0;
-            for(auto it3:it2.second){
-                if(isMember(i,it->first)==true){ //TODO and CER
-                    c++;
-                }
-            }
-            if(c>=quorumSize && firstTimeDeliver(it2.first)==true && isDelivered(it2.first)==false){
-                msg_to_send.push_back(it2.first);
-                cond=true;
-            }
+        int c=0;
+        int i=0;
+        for(auto it3:it->second){
+            c+=it3;
         }
+        if(c>=quorumSize && firstTimeDeliver(it->first)==true && isDelivered(it->first)==false){
+            msg_to_send.push_back(it->first);
+            cond=true;
+        }
+
     }
     return cond;
 }
 
 Msg * Node::returnDeliverMsg() {
-    int j=0;
+/*    int j=0;
     if(msg_to_send.empty()==false){
         for(auto it = deliver.begin(); it!=deliver.end(); ++it){
             for(auto it2:it->second){
@@ -1099,7 +1099,7 @@ Msg * Node::returnDeliverMsg() {
              }
              k++;
          }
-    }
+    }*/
 }
 
 bool Node::checkAckMsg() {
@@ -1214,27 +1214,19 @@ void Node::addAcksMsg(Msg* m, int id, vector<pair<int,int>> v){
     return;
 }
 
-void Node::addDeliverMsg(Msg* m, int id, vector<pair<int,int>> v){
-    int i=0;
+void Node::addDeliverMsg(Msg* m, int id){
     for(auto it = deliver.begin(); it!=deliver.end(); ++it){
-        if(equalVec(it->first,v)){
-            int j=0;
-            for(auto it2:it->second){
-                if(equalMsg(it2.first,m)==true){
-                    //it2.second[id]=1;
-                    deliver[i].second[j].second[id]=1;
-                    return;
-                }
-                j++;
-            }
+        int j=0;
+        if(equalMsg(it->first,m)==true){
+            //it2.second[id]=1;
+            deliver[j].second[id]=1;
+            return;
         }
-        i++;
+        j++;
     }
     vector<int> vec(nodesNbr,0);
     vec[id]=1;
-    vector<pair<Msg*,vector<int>>> vec2 = {};
-    vec2.push_back(std::make_pair(m,vec));
-    deliver.push_back(std::make_pair(v,vec2));
+    deliver.push_back(std::make_pair(m,vec));
     return;
 }
 
@@ -3169,7 +3161,7 @@ void Node::ack_f(Msg * x){
 void Node::deliver_f(Msg * x){
     if(contain(x->getId(),x->getView())==true){
         receivedMsg.push_back(x);
-        addDeliverMsg(x,x->getId(),x->getView());
+        addDeliverMsg(x,x->getId());
         msg_to_send={};
         if(checkDeliverMsg()==true){ //TODO mettere in un timer?
             for(auto it:msg_to_send){
@@ -3186,13 +3178,13 @@ void Node::deliver_f(Msg * x){
                 removeMsgFromAckS(m);
                 Msg * prova=new Msg();
                 prova->setTypeS("NEW MESSAGE DELIVERED");
-                prova->setView(x->getView());
+                prova->setView(m->getView());
                 prova->setSendTime(simTime());
                 prova->setSender(m->getSender());
                 prova->setMsgId(m->getMsgId());
                 Msg * prova2=new Msg();
                 prova2->setTypeS("NEW MESSAGE DELIVERED");
-                prova2->setView(x->getView());
+                prova2->setView(m->getView());
                 prova2->setSendTime(simTime());
                 prova2->setSender(m->getSender());
                 prova2->setMsgId(m->getMsgId());
@@ -3298,13 +3290,13 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
     L3Address selfAddr = L3AddressResolver().addressOf(getParentModule(),L3AddressResolver().ADDR_IPv4);
     selfId = addrToId[selfAddr];
 
-    if(selfId==0 || selfId==1 || selfId==2  ){
-        current_view = {{0,1}, {1,1}, {2,1}}; //fixed current view
+    if(selfId==0 || selfId==1 || selfId==2 || selfId==3  ){
+        current_view = {{0,1}, {1,1}, {2,1}, {3,1}}; //fixed current view
         installedView={{current_view,1}};
         p=true;
     }else{
-        init_view={{0,1}, {1,1}, {2,1}};
-        init_view_={{{0,1}, {1,1}, {2,1}}};
+        init_view={{0,1}, {1,1}, {2,1}, {3,1}};
+        init_view_={{{0,1}, {1,1}, {2,1}, {3,1}}};
         current_view={}; //fixed current view
         installedView={};
         p=false;

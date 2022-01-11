@@ -135,7 +135,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<pair<vector<pair<int,int>>,vector<Msg*>>> first_time_ack;
 
     vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> acks;
-    vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> deliver;
+    vector<pair<Msg*,vector<int>>> deliver;
     int ** sigma; //bool?
     vector<Msg*> msg_to_send;
     vector<Msg*> msg_to_ack;
@@ -273,7 +273,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual bool checkAckMsg();
     virtual bool firstTimeDeliver(Msg* m);
 
-    virtual void addDeliverMsg(Msg* m, int id, vector<pair<int,int>> v);
+    virtual void addDeliverMsg(Msg* m, int id);
     virtual Msg * returnDeliverMsg();
     virtual bool checkDeliverMsg();
 
