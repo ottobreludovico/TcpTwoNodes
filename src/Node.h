@@ -83,7 +83,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
   protected:
     TcpSocket socketL;
     SocketMap socketMap;
-    pair<int,TcpSocket *> socketV[5];
+    vector<pair<int,TcpSocket *>> socketV;
 
     // statistics
     int numSessions;
@@ -134,18 +134,18 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<pair<vector<pair<int,int>>,vector<Msg*>>> first_time_deliver;
     vector<pair<vector<pair<int,int>>,vector<Msg*>>> first_time_ack;
 
-    vector<pair<vector<pair<int,int>>,vector<pair<Msg*,vector<int>>>>> acks;
+    vector<pair<Msg*,vector<int>>> acks;
     vector<pair<Msg*,vector<int>>> deliver;
     int ** sigma; //bool?
     vector<Msg*> msg_to_send;
     vector<Msg*> msg_to_ack;
     vector<Msg*> quorum_msg;
-    vector<Msg*> msg4view;
+    vector<vector<Msg*>> msg4view;
 
     vector<vector<vector<pair<int,int>>>> msg_to_converge;
     vector<vector<vector<pair<int,int>>>> msg_to_propose;
     bool join_complete;
-    bool leave_complete;
+    bool leave_complete=false;
     bool rec_cond;
 
     vector<int> req_rec;
@@ -186,6 +186,14 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<StateUpdateMessage*> states_update_rec;
 
     vector<StateUpdateMessage*> states_update_sended;
+
+    bool uscito=false;
+
+    simtime_t sending_time=-1.0;
+
+    vector<pair<int,int>> cicle_view={};
+
+    vector<pair<int,int>> join_view={};
 
   public:
       Node() { }
@@ -292,7 +300,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void prepare_f(Msg * x);
 
     virtual void newView();
-    virtual void stateTransfer();
+    virtual void stateTransfer(vector<StateUpdate*> states);
     virtual msg_ castMsgToMsg_(Msg* m);
 
     virtual void timer(double x);
@@ -335,6 +343,8 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual bool canLeave();
 
     virtual void cicleLeave(double x);
+
+    virtual bool pendingMsg();
 };
 
 } // namespace inet

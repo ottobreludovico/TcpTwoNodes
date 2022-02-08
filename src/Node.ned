@@ -70,12 +70,16 @@ simple Node like IApp
         double 			leave = default(-1); // time to call a leave req
         double 			broadcast = default(-1); // time to call a broadcast req
         double 			timer = default(3); 
+        int 			numMsg = default(0);
+        double			sendFrequency = default(5);
+        double			startSend = default(0);
         int nPar; 
+        int nNPar;
         int fPar;
         @display("i=block/app");
-        @signal[packetSent](type=inet::Packet);
-        @signal[packetReceived](type=inet::Packet);
-        @signal[connect](type=long);  // 1 for open, -1 for close
+        //@signal[packetSent](type=inet::Packet);
+        //@signal[packetReceived](type=inet::Packet);
+        //@signal[connect](type=long);  // 1 for open, -1 for close
        
     gates:
         input socketIn @labels(TCPCommand/up);
