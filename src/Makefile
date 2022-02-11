@@ -79,7 +79,7 @@ endif
 # User-supplied makefile fragment(s)
 # >>>
 # inserted from file 'makefrag':
-MSGC:=$(MSGC) --msg6
+MSGC:=$(MSGC) --msg4
 
 # <<<
 #------------------------------------------------------------------------------

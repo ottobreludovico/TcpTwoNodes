@@ -53,13 +53,13 @@ namespace inet {
 
 struct StateUpdate{
     bool ack;
-    vector<Msg *> ack_value;
+    vector<Msg> ack_value;
 
     bool conflicting;
-    vector<Msg*> conflicting_value;
+    vector<Msg> conflicting_value;
 
     bool stored;
-    vector<Msg *> stored_value;
+    vector<Msg> stored_value;
 };
 
 class Node : public ApplicationBase, public TcpSocket::ICallback
@@ -72,12 +72,12 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<pair<vector<vector<pair<int,int>>>,vector<int>>> proposeReceived;
     vector<pair<vector<vector<pair<int,int>>>,vector<int>>> converge;
     vector<pair<vector<vector<pair<int,int>>>,vector<int>>> convergeReceived;
-    vector<pair<vector<pair<int,int>>,vector<StateUpdate*>>> statesReceived;
+    vector<pair<vector<pair<int,int>>,vector<StateUpdate>>> statesReceived;
 
     vector<vector<pair<int,int>>> installReceived;
 
     vector<pair<vector<pair<int,int>>,int>> installedView;
-    vector<Msg*> mio;
+    vector<Msg> mio;
     vector<int> leavedId;
 
   protected:
@@ -107,7 +107,7 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     vector<L3Address> nodesAddr;
     simtime_t startTime;
 
-    vector<Msg*> receivedMsg;
+    vector<Msg> receivedMsg;
 
     int numMsgToSend;
 
@@ -126,21 +126,21 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     int cer;
     vector<pair<int,int>> v_cer;
     bool allowed_ack=false;
-    vector<Msg *> allowed_ack_value;
+    vector<Msg> allowed_ack_value;
     bool stored = false;
-    vector<Msg *> stored_value;
+    vector<Msg> stored_value;
     bool can_leave = false;
-    vector<pair<Msg *,bool>> delivered;
-    vector<pair<vector<pair<int,int>>,vector<Msg*>>> first_time_deliver;
-    vector<pair<vector<pair<int,int>>,vector<Msg*>>> first_time_ack;
+    vector<pair<Msg,bool>> delivered;
+    vector<pair<vector<pair<int,int>>,vector<Msg>>> first_time_deliver;
+    vector<pair<vector<pair<int,int>>,vector<Msg>>> first_time_ack;
 
-    vector<pair<Msg*,vector<int>>> acks;
-    vector<pair<Msg*,vector<int>>> deliver;
+    vector<pair<Msg,vector<int>>> acks;
+    vector<pair<Msg,vector<int>>> deliver;
     int ** sigma; //bool?
-    vector<Msg*> msg_to_send;
-    vector<Msg*> msg_to_ack;
-    vector<Msg*> quorum_msg;
-    vector<vector<Msg*>> msg4view;
+    vector<Msg> msg_to_send;
+    vector<Msg> msg_to_ack;
+    vector<Msg> quorum_msg;
+    vector<vector<Msg>> msg4view;
 
     vector<vector<vector<pair<int,int>>>> msg_to_converge;
     vector<vector<vector<pair<int,int>>>> msg_to_propose;
@@ -159,19 +159,19 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     bool first_time=true;
 
-    vector<Msg*> deliverati;
+    vector<Msg> deliverati;
 
-    vector<Msg*> inviati;
+    vector<Msg> inviati;
 
-    vector<Msg*> prepare_to_send;
+    vector<Msg> prepare_to_send;
 
-    vector<Msg*> commit_to_send;
+    vector<Msg> commit_to_send;
 
-    vector<StateUpdateMessage*> states_update;
+    vector<StateUpdateMessage> states_update;
 
     vector<pair<int,int>> req;
 
-    vector<StateUpdate*> states;
+    vector<StateUpdate> states;
 
     vector<vector<pair<int,int>>> first_time_state_update;
 
@@ -179,13 +179,13 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     double timerDelay;
 
-    vector<pair<Msg *,vector<pair<int,int>>>> certificati;
+    vector<pair<Msg,vector<pair<int,int>>>> certificati;
 
-    vector<Msg* > msg_prepare;
+    vector<Msg > msg_prepare;
 
-    vector<StateUpdateMessage*> states_update_rec;
+    vector<StateUpdateMessage> states_update_rec;
 
-    vector<StateUpdateMessage*> states_update_sended;
+    vector<StateUpdateMessage> states_update_sended;
 
     bool uscito=false;
 
@@ -273,66 +273,66 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
     virtual void deInstall(vector<pair<int,int>> v1);
     virtual void install(vector<pair<int,int>> v1);
     virtual bool contains(vector<pair<int,int>> v1, vector<pair<int,int>> v2);
-    //virtual bool isAllowed(Msg * m );
-    virtual bool acksMsg(Msg* m, int id, vector<pair<int,int>> v);
-    virtual void addAcksMsg(Msg* m, int id, vector<pair<int,int>> v);
-    virtual bool equalMsg(Msg* m1, Msg* m2);
-    virtual Msg * returnMsg();
+    //virtual bool isAllowed(Msg m );
+    virtual bool acksMsg(Msg m, int id, vector<pair<int,int>> v);
+    virtual void addAcksMsg(Msg m, int id, vector<pair<int,int>> v);
+    virtual bool equalMsg(Msg m1, Msg m2);
+    virtual Msg returnMsg();
     virtual bool checkAckMsg();
-    virtual bool firstTimeDeliver(Msg* m);
+    virtual bool firstTimeDeliver(Msg m);
 
-    virtual void addDeliverMsg(Msg* m, int id);
-    virtual Msg * returnDeliverMsg();
+    virtual void addDeliverMsg(Msg m, int id);
+    virtual Msg returnDeliverMsg();
     virtual bool checkDeliverMsg();
 
     virtual void broadcast(double x);
-    virtual bool quorumMsg(Msg *m);
+    virtual bool quorumMsg(Msg m);
 
-    virtual void reconfig_f(Msg * x);
-    virtual void rec_confirm_f(Msg * x);
-    virtual void propose_f(Msg * x);
-    virtual void converge_f(Msg * x);
-    virtual void install_f(Msg * x);
+    virtual void reconfig_f(Msg x);
+    virtual void rec_confirm_f(Msg x);
+    virtual void propose_f(Msg x);
+    virtual void converge_f(Msg x);
+    virtual void install_f(Msg x);
     virtual void state_update_f(StateUpdateMessage * x);
-    virtual void commit_f(Msg * x);
-    virtual void ack_f(Msg * x);
-    virtual void deliver_f(Msg * x);
-    virtual void prepare_f(Msg * x);
+    virtual void commit_f(Msg x);
+    virtual void ack_f(Msg x);
+    virtual void deliver_f(Msg x);
+    virtual void prepare_f(Msg x);
 
     virtual void newView();
-    virtual void stateTransfer(vector<StateUpdate*> states);
-    virtual msg_ castMsgToMsg_(Msg* m);
+    virtual void stateTransfer(vector<StateUpdate> states);
+    virtual msg_ castMsgToMsg_(Msg m);
 
     virtual void timer(double x);
     virtual double fRand(double fMin, double fMax);
 
-    virtual bool isAllowed(Msg * m);
+    virtual bool isAllowed(Msg m);
 
-    virtual bool isStored(Msg * m);
+    virtual bool isStored(Msg m);
 
-    virtual bool isAllowedS(Msg * m);
+    virtual bool isAllowedS(Msg m);
 
-    virtual bool isStoredS(Msg * m);
+    virtual bool isStoredS(Msg m);
 
-    virtual bool isDelivered(Msg * m);
+    virtual bool isDelivered(Msg m);
 
     virtual void view_discovery();
 
-    virtual void insertInMsg(Msg * x);
+    virtual void insertInMsg(Msg x);
 
-    virtual bool firstTimeAck(Msg * m);
+    virtual bool firstTimeAck(Msg m);
 
-    virtual void ftdInsert(Msg* m);
+    virtual void ftdInsert(Msg m);
 
-    virtual void ftaInsert(Msg* m);
+    virtual void ftaInsert(Msg m);
 
-    virtual void removeMsgFromStored(Msg * m);
+    virtual void removeMsgFromStored(Msg m);
 
-    virtual void removeMsgFromAck(Msg * m);
+    virtual void removeMsgFromAck(Msg m);
 
-    virtual void removeMsgFromStoredS(Msg * m);
+    virtual void removeMsgFromStoredS(Msg m);
 
-    virtual void removeMsgFromAckS(Msg * m);
+    virtual void removeMsgFromAckS(Msg m);
 
     virtual void updateCV();
 

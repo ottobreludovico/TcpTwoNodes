@@ -96,7 +96,7 @@ class Msg extends FieldsChunk {
 
 cplusplus {{
 #include <vector>
-typedef std::vector<Msg*> MsgVector;
+typedef std::vector<Msg> MsgVector;
 }}
 
 class MsgVector {

@@ -1,1 +1,1 @@
-MSGC:=$(MSGC) --msg6
+MSGC:=$(MSGC) --msg4

@@ -19,7 +19,7 @@
 
 cplusplus {{
 #include "msg_m.h"
-typedef inet::Msg* msgPtr;
+typedef inet::Msg msgPtr;
 }}
 
 class noncobject msgPtr;

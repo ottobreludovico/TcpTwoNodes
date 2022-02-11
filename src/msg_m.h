@@ -175,7 +175,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, Msg& obj) {obj.parsimUnpa
 
 // cplusplus {{
 #include <vector>
-typedef std::vector<Msg*> MsgVector;
+typedef std::vector<Msg> MsgVector;
 // }}
 
 /**

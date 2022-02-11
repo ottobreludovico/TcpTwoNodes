@@ -71,8 +71,8 @@ simple Node like IApp
         double 			broadcast = default(-1); // time to call a broadcast req
         double 			timer = default(3); 
         int 			numMsg = default(0);
-        double			sendFrequency = default(5);
-        double			startSend = default(0);
+        double			sendFrequency = default(5.0);
+        double			startSend = default(0.0);
         int nPar; 
         int nNPar;
         int fPar;
