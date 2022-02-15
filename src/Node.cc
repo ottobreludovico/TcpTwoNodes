@@ -86,12 +86,12 @@ void Node::initialize(int stage)
         //WATCH(bytesSent);
         //WATCH(bytesRcvd);
     }else if (stage == INITSTAGE_APPLICATION_LAYER) {
-        /*const char *localAddress = par("localAddress");
+        const char *localAddress = par("localAddress");
         int localPortL = par("localPortL");
         socketL.setOutputGate(gate("socketOut"));
         socketL.bind(localAddress[0] ? L3AddressResolver().resolve(localAddress) : L3Address(), localPortL);
         socketL.setCallback(this);
-        socketL.listen();*/
+        socketL.listen();
     }
 }
 
@@ -246,6 +246,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
                         bp.setSender(selfId);
                         bp.setMsgId(msgId);
                         if(first_time==true){
+                            EV_WARN<<"[Client"<<selfId<<"] ("<<selfId<<","<<msgId<<") inviato a "<<sending_time<<"\n";
                             msg_prepare.push_back(bp);
                             first_time=false;
                         }
@@ -273,9 +274,20 @@ void Node::handleMessageWhenUp(cMessage *msg)
              auto briefPacket = new Packet();
              Msg tmp = ((MessageL*)msg)->getM();
              tmp.setDestId(((MessageL*)msg)->getDestId());
-             if(tmp.getType()==PREPARE){
+
+             if(debug){
                  inviati.push_back(tmp);
+             }else{
+                 if(tmp.getType()==PREPARE){
+                      inviati.push_back(tmp);
+                  }
              }
+             if(tmp.getType()==PROPOSE || tmp.getType()==ACK || tmp.getType()==COMMIT || tmp.getType()==DELIVER){
+                msgSB++;
+             }else{
+                msgSV++;
+             }
+
              const auto& payload = makeShared<Msg>(tmp);
              briefPacket->insertAtBack(payload);
              EV << "\n\n\n\n [Client"<< selfId <<"]"<< tmp.getTypeS() <<" inviato a: " << simTime() << "\n\n\n";
@@ -293,8 +305,11 @@ void Node::handleMessageWhenUp(cMessage *msg)
                  prova->setSendTime(simTime());
                  prova->setSender(-1);
                  prova->setMsgId(-1);
-                 receivedMsg.push_back(*prova);
-                 inviati.push_back(*prova);
+                 num_view++;
+                 if(debug){
+                      inviati.push_back(*prova);
+                      receivedMsg.push_back(*prova);
+                  }
                  for (int destId = 0; destId < nodesNbr; destId++) {
                     if(destId==selfId) continue;
                     //if(isMember_(destId,current_view)==true) continue;
@@ -337,6 +352,7 @@ void Node::handleMessageWhenUp(cMessage *msg)
                  if(equalVec(current_view,cicle_view)==false){
                      cicle_view=current_view;
                      for(auto it:stored_value){
+                        //msgStep++;
                         EV << "[" << it.getSender() << ", "<<it.getMsgId()<<"],";
                         if(it.getSender()!=selfId && canLeave()==false && isDelivered(it)==false){
                           for (int destId = 0; destId < nodesNbr; destId++) {
@@ -495,7 +511,8 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
         if(msg->getByteLength()==2){
             StateUpdateMessage* x2 = (StateUpdateMessage *)msg->peekAtBack().get();
             if(x2->getType()==STATE_UPDATE){
-                ////x->setArrivalTime(simTime());
+                msgRV++;
+                //x->setArrivalTime(simTime());
                 states_update.push_back(*x2);
                 //states_update_rec.push_back(*x2);
                 state_update_f(x2);
@@ -511,13 +528,16 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
                 else {*/
                     if(x.getType()==RECONFIG && stop_processing==false){
                         //x->setArrivalTime(simTime());
-                        //receivedMsg.push_back(x);
+                        msgRV++;
+                        receivedMsg.push_back(x);
                         reconfig_f(x);
                     }else if(x.getType()==REC_CONFIRM){
+                        msgRV++;
                         //x->setArrivalTime(simTime());
-                        //receivedMsg.push_back(x);
+                        receivedMsg.push_back(x);
                         rec_confirm_f(x);
                     }else if(x.getType()==PROPOSE){
+                        msgRV++;
                         vector<Msg> pr=msg4view[x.getId()];
                         for(auto it:msg4view[x.getId()]){
                             if(it.getType()==PROPOSE){
@@ -527,21 +547,26 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
                             }
                         }
                         msg4view[x.getId()].push_back(x);
-                        ////x->setArrivalTime(simTime());
+                        //x->setArrivalTime(simTime());
                         propose_f(x);
                     }else if(x.getType()==CONVERGED){
+                        msgRV++;
                         //x->setArrivalTime(simTime());
                         converge_f(x);
                     }else if(x.getType()==ACK){
                         //x->setArrivalTime(simTime());
+                        msgRB++;
                         ack_f(x);
                     }else if(x.getType()==PREPARE && stop_processing==false){
                         //x->setArrivalTime(simTime());
+                        msgRB++;
                         prepare_f(x);
                     }else if(x.getType()==COMMIT && stop_processing==false){
                         //x->setArrivalTime(simTime());
+                        msgRB++;
                         commit_f(x);
                     }else if(x.getType()==INSTALL){
+                        msgRV++;
                         for(auto it:msg4view[x.getId()]){
                             if(it.getType()==INSTALL){
                                 if(equalSeq(it.getSEQcv(),SEQv)==true){
@@ -551,12 +576,14 @@ void Node::socketDataArrived(TcpSocket * s, Packet *msg, bool)
                         }
                         msg4view[x.getId()].push_back(x);
                         //x->setArrivalTime(simTime());
-                        //receivedMsg.push_back(x);
+                        receivedMsg.push_back(x);
                         install_f(x);
                     }else if(x.getType()==DELIVER){
+                        msgRB++;
                         //x->setArrivalTime(simTime());
                         deliver_f(x);
                     }else if(x.getType()==CHANGE_VIEW){
+                        //msgRV++;
                         //x->setArrivalTime(simTime());
                         receivedMsg.push_back(x);
 
@@ -700,441 +727,464 @@ void Node::socketFailure(TcpSocket *, int code)
 
 void Node::finish()
 {
-    std::string modulePath = getFullPath();
     EV_WARN << "-----------------------------CLIENT"<<selfId<<"------------------------------\n";
-    if(p==false){
-        EV_INFO << "Time finish: " << simTime() << "\n\n";
-        EV_INFO << "Messaggi inviati: "<< inviati.size() <<"\n";
-        for(auto view : init_view_){
-            EV<<"\n[";
-            for(auto elem: view){
-                if(elem.second==1){
-                    EV<< "["<<elem.first<<","<<elem.second<<"]";
-                }
-            }
-            EV<<"]:\n";
+    EV_WARN << "Messaggi view-managing inviati: "<<msgSV<<"\n";
+    EV_WARN << "Messaggi view-managing ricevuti: "<<msgRV<<"\n";
+    EV_WARN << "Messaggi view-managing totali : "<<msgSV+msgRV<<"\n\n";
 
-            for (int i = 0; i < inviati.size(); i++) {
-                if(equalVec(view,inviati.at(i).getView())==true){
-                    if(strcmp(inviati.at(i).getTypeS(),"PROPOSE")==0 || strcmp(inviati.at(i).getTypeS(),"CONVERGED")==0 ||  strcmp(inviati.at(i).getTypeS(),"INSTALL")==0){
-                      EV << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime()<< "----> seq";
-                      for(auto it:inviati.at(i).getSEQcv()){
-                          EV<<"  [";
-                          for(auto it2:it){
-                              EV<<"["<<it2.first<<","<<it2.second<<"]";
-                          }
-                          EV<<"],";
-                      }
-                      EV<<"]\n";
-                   }else if(strcmp(inviati.at(i).getTypeS(),"NEW VIEW")==0){
-                       EV_WARN << i << " : " << inviati.at(i).getTypeS() << " a "<< inviati.at(i).getSendTime() << " ----> seq";
+    EV_WARN << "Messaggi broadcast inviati: "<<msgSB<<"\n";
+    EV_WARN << "Messaggi broadcast ricevuti: "<<msgRB<<"\n";
+    EV_WARN << "Messaggi broadcast totali : "<<msgRB+msgSB<<"\n\n";
 
-                       EV_WARN<<"[";
-                       for(auto it2:inviati.at(i).getView()){
-                           EV_WARN<< "["<<it2.first<<","<<it2.second<<"]";
-                       }
-                       EV_WARN<<"]";
+    EV_WARN << "Messaggi totali inviati: "<<msgSB+msgSV<<"\n";
+    EV_WARN << "Messaggi totali ricevuti: "<<msgRB+msgRV<<"\n";
+    EV_WARN << "Messaggi totali: "<<msgRB+msgRV+msgSB+msgSV<<"\n\n";
 
-                       EV_WARN<<"\n";
-                   }else if(strcmp(inviati.at(i).getTypeS(),"NEW MESSAGE DELIVERED")==0){
-                       EV_WARN << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() << " a " << inviati.at(i).getSendTime() << " ----> seq";
+    EV_WARN << "Numero installed-view: "<< num_view <<"\n";
+    EV_WARN << "Numero 'step-messages': "<< msgStep <<"\n\n";
 
-                       EV_WARN<<"[";
-                       for(auto it2:inviati.at(i).getView()){
-                           EV_WARN<< "["<<it2.first<<","<<it2.second<<"] ";
-                       }
-                       EV_WARN<<"]";
+    EV_WARN << "Broadcast: "<<numMsg<<"\n";
+    EV_WARN << "Deliver: "<<msgDel<<"\n\n";
+    EV_WARN << "Tempo totale: " << simTime() <<"\n";
 
-                       EV_WARN<<"\n";
-                   }else if(strcmp(inviati.at(i).getTypeS(),"EXIT FROM THE SYSTEM")==0){
-                       EV_WARN << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS();
-                   }else if(strcmp(inviati.at(i).getTypeS(),"PREPARE")==0){
-                       EV_WARN << i << "("<< inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime() << "\n";
-                   }else{
-                       EV << i << "("<< inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime() << "\n";
-                   }
-                }
-            }
-        }
-        EV << "\n";
-        EV_INFO << "Messaggi ricevuti: "<< receivedMsg.size() <<"\n";
-        for(auto view : init_view_){
-            EV<<"\n[ ";
+    if(debug){
+        std::string modulePath = getFullPath();
+        //EV_WARN << "-----------------------------CLIENT"<<selfId<<"------------------------------\n";
+        if(p==false){
+            EV_INFO << "Time finish: " << simTime() << "\n\n";
+            EV_INFO << "Messaggi inviati: "<< inviati.size() <<"\n";
+            for(auto view : init_view_){
+                EV<<"\n[";
                 for(auto elem: view){
                     if(elem.second==1){
-                    EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                        EV<< "["<<elem.first<<","<<elem.second<<"]";
                     }
                 }
                 EV<<"]:\n";
 
-                for (int i = 0; i < receivedMsg.size(); i++) {
-                    if(equalVec(view,receivedMsg.at(i).getView())==true){
-                       if(strcmp(receivedMsg.at(i).getTypeS(),"PROPOSE")==0 || strcmp(receivedMsg.at(i).getTypeS(),"CONVERGED")==0){
-                           EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime()<< "----> seq";
-                           for(auto it:receivedMsg.at(i).getSEQcv()){
-                               EV<<"  [";
-                               for(auto it2:it){
-                                   EV<<"["<<it2.first<<","<<it2.second<<"]";
-                               }
-                               EV<<"],";
+                for (int i = 0; i < inviati.size(); i++) {
+                    if(equalVec(view,inviati.at(i).getView())==true){
+                        if(strcmp(inviati.at(i).getTypeS(),"PROPOSE")==0 || strcmp(inviati.at(i).getTypeS(),"CONVERGED")==0 ||  strcmp(inviati.at(i).getTypeS(),"INSTALL")==0){
+                          EV << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime()<< "----> seq";
+                          for(auto it:inviati.at(i).getSEQcv()){
+                              EV<<"  [";
+                              for(auto it2:it){
+                                  EV<<"["<<it2.first<<","<<it2.second<<"]";
+                              }
+                              EV<<"],";
+                          }
+                          EV<<"]\n";
+                       }else if(strcmp(inviati.at(i).getTypeS(),"NEW VIEW")==0){
+                           EV_WARN << i << " : " << inviati.at(i).getTypeS() << " a "<< inviati.at(i).getSendTime() << " ----> seq";
+
+                           EV_WARN<<"[";
+                           for(auto it2:inviati.at(i).getView()){
+                               EV_WARN<< "["<<it2.first<<","<<it2.second<<"]";
                            }
-                           EV<<"]\n";
-                       }else if(strcmp(receivedMsg.at(i).getTypeS(),"INSTALL")==0){
-                           EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime()<< "----> seq";
-                           EV<<"[";
-                           for(auto it:receivedMsg.at(i).getInstallView()){
-                               EV<< "["<<it.first<<","<<it.second<<"] ";
+                           EV_WARN<<"]";
+
+                           EV_WARN<<"\n";
+                       }else if(strcmp(inviati.at(i).getTypeS(),"NEW MESSAGE DELIVERED")==0){
+                           EV_WARN << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() << " a " << inviati.at(i).getSendTime() << " ----> seq";
+
+                           EV_WARN<<"[";
+                           for(auto it2:inviati.at(i).getView()){
+                               EV_WARN<< "["<<it2.first<<","<<it2.second<<"] ";
                            }
-                           EV<<"]\n";
-                       }else if(strcmp(receivedMsg.at(i).getTypeS(),"NEW VIEW")==0){
-                            EV << i << " : " << receivedMsg.at(i).getTypeS() << " a "<< receivedMsg.at(i).getSendTime() << " ----> seq";
+                           EV_WARN<<"]";
 
-                            EV<<"[";
-                            for(auto it2:receivedMsg.at(i).getView()){
-                                EV<< "["<<it2.first<<","<<it2.second<<"] ";
-                            }
-                            EV<<"]";
-
-                            EV_WARN<<"\n";
-                       }else if(strcmp(receivedMsg.at(i).getTypeS(),"NEW MESSAGE DELIVERED")==0){
-                           EV << i << "("<<receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() << " a " << receivedMsg.at(i).getSendTime() << " ----> seq";
-
-                           EV<<"[";
-                           for(auto it2:receivedMsg.at(i).getView()){
-                               EV<< "["<<it2.first<<","<<it2.second<<"] ";
-                           }
-                           EV<<"]";
-
-                           EV<<"\n";
-                       }else if(strcmp(receivedMsg.at(i).getTypeS(),"EXIT FROM THE SYSTEM")==0){
-                           EV << i << "("<<receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS();
+                           EV_WARN<<"\n";
+                       }else if(strcmp(inviati.at(i).getTypeS(),"EXIT FROM THE SYSTEM")==0){
+                           EV_WARN << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS();
+                       }else if(strcmp(inviati.at(i).getTypeS(),"PREPARE")==0){
+                           EV_WARN << i << "("<< inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime() << "\n";
                        }else{
-                           EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime() << "\n";
+                           EV << i << "("<< inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime() << "\n";
                        }
                     }
                 }
-        }
-        EV << "\n";
-        EV<< "State-Updates inviati: "<< states_update_sended.size() <<"\n";
-        for(auto view : init_view_){
+            }
+            EV << "\n";
+            EV_INFO << "Messaggi ricevuti: "<< receivedMsg.size() <<"\n";
+            for(auto view : init_view_){
                 EV<<"\n[ ";
-                for(auto elem: view){
+                    for(auto elem: view){
+                        if(elem.second==1){
+                        EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                        }
+                    }
+                    EV<<"]:\n";
+
+                    for (int i = 0; i < receivedMsg.size(); i++) {
+                        if(equalVec(view,receivedMsg.at(i).getView())==true){
+                           if(strcmp(receivedMsg.at(i).getTypeS(),"PROPOSE")==0 || strcmp(receivedMsg.at(i).getTypeS(),"CONVERGED")==0){
+                               EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime()<< "----> seq";
+                               for(auto it:receivedMsg.at(i).getSEQcv()){
+                                   EV<<"  [";
+                                   for(auto it2:it){
+                                       EV<<"["<<it2.first<<","<<it2.second<<"]";
+                                   }
+                                   EV<<"],";
+                               }
+                               EV<<"]\n";
+                           }else if(strcmp(receivedMsg.at(i).getTypeS(),"INSTALL")==0){
+                               EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime()<< "----> seq";
+                               EV<<"[";
+                               for(auto it:receivedMsg.at(i).getInstallView()){
+                                   EV<< "["<<it.first<<","<<it.second<<"] ";
+                               }
+                               EV<<"]\n";
+                           }else if(strcmp(receivedMsg.at(i).getTypeS(),"NEW VIEW")==0){
+                                EV << i << " : " << receivedMsg.at(i).getTypeS() << " a "<< receivedMsg.at(i).getSendTime() << " ----> seq";
+
+                                EV<<"[";
+                                for(auto it2:receivedMsg.at(i).getView()){
+                                    EV<< "["<<it2.first<<","<<it2.second<<"] ";
+                                }
+                                EV<<"]";
+
+                                EV_WARN<<"\n";
+                           }else if(strcmp(receivedMsg.at(i).getTypeS(),"NEW MESSAGE DELIVERED")==0){
+                               EV << i << "("<<receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() << " a " << receivedMsg.at(i).getSendTime() << " ----> seq";
+
+                               EV<<"[";
+                               for(auto it2:receivedMsg.at(i).getView()){
+                                   EV<< "["<<it2.first<<","<<it2.second<<"] ";
+                               }
+                               EV<<"]";
+
+                               EV<<"\n";
+                           }else if(strcmp(receivedMsg.at(i).getTypeS(),"EXIT FROM THE SYSTEM")==0){
+                               EV << i << "("<<receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS();
+                           }else{
+                               EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime() << "\n";
+                           }
+                        }
+                    }
+            }
+            EV << "\n";
+            EV<< "State-Updates inviati: "<< states_update_sended.size() <<"\n";
+            for(auto view : init_view_){
+                    EV<<"\n[ ";
+                    for(auto elem: view){
+                        if(elem.second==1){
+                        EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                        }
+                    }
+                    EV<<"]:\n";
+                    for (int i = 0; i < states_update_sended.size(); i++) {
+                        if(equalVec(view,states_update_sended.at(i).getView())==true){
+                            EV << i << " : " << states_update_sended.at(i).getTypeS() <<" inviato a Client"<< states_update_sended.at(i).getDestId() << " inviato a " << states_update_sended.at(i).getSendTime()<<" e arrivato a " << states_update_sended.at(i).getArrivalTime() << "\n";
+                        }
+                    }
+            }
+            EV << "\n";
+            EV<< "State-Updates ricevuti: "<< states_update_rec.size() <<"\n";
+            for(auto view : init_view_){
+                    EV<<"\n[ ";
+                    for(auto elem: view){
+                        if(elem.second==1){
+                        EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                        }
+                    }
+                    EV<<"]:\n";
+                    for (int i = 0; i < states_update_rec.size(); i++) {
+                        if(equalVec(view,states_update_rec.at(i).getView())==true){
+                            EV << i << " : " << states_update_rec.at(i).getTypeS() <<" ricevuto da Client"<< states_update_rec.at(i).getId() << " inviato a " << states_update_rec.at(i).getSendTime()<<" e arrivato a " << states_update_rec.at(i).getArrivalTime() << "\n";
+                        }
+                    }
+            }
+            EV << "\n";
+
+            EV<< "Messaggi deliverati: "<< deliverati.size() <<"\n";
+            for(auto view : init_view_){
+                EV<<"\n[ ";
+                    for(auto elem: view){
+                        if(elem.second==1){
+                        EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                        }
+                    }
+                    EV<<"]:\n";
+                    for(auto it:deliverati){
+                        if(equalVec(view,it.getView())==true){
+                            EV<< it.getMsgId() << " da Client" << it.getSender() << "\n";
+                        }
+                    }
+            }
+            EV << "\n";
+            EV<< "Stato: \n";
+            if(state.ack==true){
+                EV << "ACK: TRUE \n";
+                //EV << "ACK_VALUE: " << (state.ack_value).getTypeS() << "\n";
+                for(auto elem:state.ack_value){
+                    EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<") ";
+                }
+                EV <<"\n";
+            }else{
+                EV << "ACK: FALSE \n";
+            }
+            if(state.conflicting==true){
+                EV << "CONFLICTING: TRUE \n";
+                //EV << "CONF_VALUE_1: " << (state.conflicting_value_1)->getTypeS() << "\n";
+                //EV << "CONF_VALUE_2: " << (state.conflicting_value_2)->getTypeS() << "\n";
+            }else{
+                EV << "CONFLICTING: FALSE \n";
+            }
+            if(state.stored==true){
+                EV << "STORED: TRUE \n";
+                //EV << "STORED_VALUE: " << (state.stored_value)->getTypeS() << "\n";
+                for(auto elem:state.stored_value){
+                    EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<") ";
+                }
+                EV <<"\n";
+            }else{
+                EV << "STORED: FALSE \n";
+            }
+            EV << "\n";
+            for(auto elem:msg_prepare){
+               EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<")";
+            }
+            EV <<"\n";
+            EV_INFO << modulePath << ": opened " << numSessions << " sessions\n\n";
+            EV_INFO << modulePath << ": sent " << bytesSent << " bytes in " << packetsSent << " packets\n\n";
+            EV_INFO << modulePath << ": received " << bytesRcvd << " bytes in " << packetsRcvd << " packets\n\n";
+
+            EV << "Current view: ";
+            for(auto it : current_view){
+                if(it.second==1){
+                EV<< "["<<it.first<<","<<it.second<<"] ";
+                }
+            }
+            EV<<"\nStop processing: ";
+            if(stop_processing){
+                EV<<"True";
+            }else{
+                EV<<"False";
+            }
+            EV<<"\nQuorum size: "<<quorumSize;
+            EV<<"\nLeaved: ";
+            for(auto it2:leavedId){
+                   EV<<it2<<" ";
+            }
+            EV << "\n-----------------------------------------------------------------------\n";
+        }else{
+            EV_INFO << "Time finish: " << simTime() << "\n\n";
+            EV_INFO << "Messaggi inviati: "<< inviati.size() <<"\n";
+            for(auto view : installedView){
+                EV<<"\n[ ";
+                for(auto elem: view.first){
+                    if(elem.second==1){
+                    EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                    }
+                }
+                EV<<"]:\n ";
+
+                for (int i = 0; i < inviati.size(); i++) {
+                    if(equalVec(view.first,inviati.at(i).getView())==true){
+                        if(strcmp(inviati.at(i).getTypeS(),"PROPOSE")==0 || strcmp(inviati.at(i).getTypeS(),"CONVERGED")==0 ||  strcmp(inviati.at(i).getTypeS(),"INSTALL")==0){
+                          EV << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime()<< "----> seq";
+                          for(auto it:inviati.at(i).getSEQcv()){
+                              EV<<"  [";
+                              for(auto it2:it){
+                                  EV<<"["<<it2.first<<","<<it2.second<<"]";
+                              }
+                              EV<<"],";
+                          }
+                          EV<<"]\n";
+                       }else if(strcmp(inviati.at(i).getTypeS(),"NEW VIEW")==0){
+                           EV_WARN << i << " : " << inviati.at(i).getTypeS() << " a "<< inviati.at(i).getSendTime() << " ----> seq";
+
+                           EV_WARN<<"[";
+                           for(auto it2:inviati.at(i).getView()){
+                               EV_WARN<< "["<<it2.first<<","<<it2.second<<"]";
+                           }
+                           EV_WARN<<"]";
+
+                           EV_WARN<<"\n";
+                       }else if(strcmp(inviati.at(i).getTypeS(),"NEW MESSAGE DELIVERED")==0){
+                           EV_WARN << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() << " a " << inviati.at(i).getSendTime() << " ----> seq";
+
+                           EV_WARN<<"[";
+                           for(auto it2:inviati.at(i).getView()){
+                               EV_WARN<< "["<<it2.first<<","<<it2.second<<"] ";
+                           }
+                           EV_WARN<<"]";
+
+                           EV_WARN<<"\n";
+                       }else if(strcmp(inviati.at(i).getTypeS(),"EXIT FROM THE SYSTEM")==0){
+                           EV_WARN << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS();
+                       }else if(strcmp(inviati.at(i).getTypeS(),"PREPARE")==0){
+                           EV_WARN << i << "("<< inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime() << "\n";
+                       }else{
+                           EV << i << "("<< inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime() << "\n";
+                       }
+                    }
+                }
+            }
+            EV << "\n";
+            EV_INFO << "Messaggi ricevuti: "<< receivedMsg.size() <<"\n";
+            for(auto view : installedView){
+                EV<<"\n[ ";
+                    for(auto elem: view.first){
+                        if(elem.second==1){
+                        EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                        }
+                    }
+                    EV<<"]:\n";
+
+                    for (int i = 0; i < receivedMsg.size(); i++) {
+                        if(equalVec(view.first,receivedMsg.at(i).getView())==true){
+                           if(strcmp(receivedMsg.at(i).getTypeS(),"PROPOSE")==0 || strcmp(receivedMsg.at(i).getTypeS(),"CONVERGED")==0){
+                               EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime()<< "----> seq";
+                               for(auto it:receivedMsg.at(i).getSEQcv()){
+                                   EV<<"  [";
+                                   for(auto it2:it){
+                                       EV<<"["<<it2.first<<","<<it2.second<<"]";
+                                   }
+                                   EV<<"],";
+                               }
+                               EV<<"]\n";
+                           }else if(strcmp(receivedMsg.at(i).getTypeS(),"INSTALL")==0){
+                               EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime()<< "----> seq";
+                               EV<<"[";
+                               for(auto it:receivedMsg.at(i).getInstallView()){
+                                   EV<< "["<<it.first<<","<<it.second<<"] ";
+                               }
+                               EV<<"]\n";
+                           }else if(strcmp(receivedMsg.at(i).getTypeS(),"NEW VIEW")==0){
+                                EV << i << " : " << receivedMsg.at(i).getTypeS() << " a "<< receivedMsg.at(i).getSendTime() << " ----> seq";
+
+                                EV<<"[";
+                                for(auto it2:receivedMsg.at(i).getView()){
+                                    EV<< "["<<it2.first<<","<<it2.second<<"] ";
+                                }
+                                EV<<"]";
+
+                                EV<<"\n";
+                           }else if(strcmp(receivedMsg.at(i).getTypeS(),"NEW MESSAGE DELIVERED")==0){
+                               EV << i << "("<<receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() << " a " << receivedMsg.at(i).getSendTime() << " ----> seq";
+
+                               EV<<"[";
+                               for(auto it2:receivedMsg.at(i).getView()){
+                                   EV<< "["<<it2.first<<","<<it2.second<<"] ";
+                               }
+                               EV<<"]";
+
+                               EV<<"\n";
+                           }else if(strcmp(receivedMsg.at(i).getTypeS(),"EXIT FROM THE SYSTEM")==0){
+                               EV << i << "("<<receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS();
+                           }else{
+                               EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime() << "\n";
+                           }
+                        }
+                    }
+            }
+            EV << "\n";
+            EV<< "State-Updates inviati: "<< states_update_sended.size() <<"\n";
+            for(auto view : installedView){
+                EV<<"\n[ ";
+                for(auto elem: view.first){
                     if(elem.second==1){
                     EV<< "["<<elem.first<<","<<elem.second<<"] ";
                     }
                 }
                 EV<<"]:\n";
                 for (int i = 0; i < states_update_sended.size(); i++) {
-                    if(equalVec(view,states_update_sended.at(i).getView())==true){
+                    if(equalVec(view.first,states_update_sended.at(i).getView())==true){
                         EV << i << " : " << states_update_sended.at(i).getTypeS() <<" inviato a Client"<< states_update_sended.at(i).getDestId() << " inviato a " << states_update_sended.at(i).getSendTime()<<" e arrivato a " << states_update_sended.at(i).getArrivalTime() << "\n";
                     }
                 }
-        }
-        EV << "\n";
-        EV<< "State-Updates ricevuti: "<< states_update_rec.size() <<"\n";
-        for(auto view : init_view_){
+            }
+            EV << "\n";
+            EV<< "State-Updates ricevuti: "<< states_update_rec.size() <<"\n";
+            for(auto view : installedView){
+                    EV<<"\n[ ";
+                    for(auto elem: view.first){
+                        if(elem.second==1){
+                        EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                        }
+                    }
+                    EV<<"]:\n";
+                    for (int i = 0; i < states_update_rec.size(); i++) {
+                        if(equalVec(view.first,states_update_rec.at(i).getView())==true){
+                            EV << i << " : " << states_update_rec.at(i).getTypeS() <<" ricevuto da Client"<< states_update_rec.at(i).getId() << " inviato a " << states_update_rec.at(i).getSendTime()<<" e arrivato a " << states_update_rec.at(i).getArrivalTime() << "\n";
+                        }
+                    }
+            }
+            EV << "\n";
+            EV<< "Messaggi deliverati: "<< deliverati.size() <<"\n";
+            for(auto view : installedView){
                 EV<<"\n[ ";
-                for(auto elem: view){
-                    if(elem.second==1){
-                    EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                    for(auto elem: view.first){
+                        if(elem.second==1){
+                        EV<< "["<<elem.first<<","<<elem.second<<"] ";
+                        }
                     }
-                }
-                EV<<"]:\n";
-                for (int i = 0; i < states_update_rec.size(); i++) {
-                    if(equalVec(view,states_update_rec.at(i).getView())==true){
-                        EV << i << " : " << states_update_rec.at(i).getTypeS() <<" ricevuto da Client"<< states_update_rec.at(i).getId() << " inviato a " << states_update_rec.at(i).getSendTime()<<" e arrivato a " << states_update_rec.at(i).getArrivalTime() << "\n";
+                    EV<<"]:\n";
+                    for(auto it:deliverati){
+                        if(equalVec(view.first,it.getView())==true){
+                            EV<< it.getMsgId() << " da Client" << it.getSender() << "\n";
+                        }
                     }
+            }
+            EV << "\n";
+            EV<< "Stato: \n";
+            if(state.ack==true){
+                EV << "ACK: TRUE \n";
+                //EV << "ACK_VALUE: " << (state.ack_value)->getTypeS() << "\n";
+                for(auto elem:state.ack_value){
+                    EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<") ";
                 }
-        }
-        EV << "\n";
-
-        EV<< "Messaggi deliverati: "<< deliverati.size() <<"\n";
-        for(auto view : init_view_){
-            EV<<"\n[ ";
-                for(auto elem: view){
-                    if(elem.second==1){
-                    EV<< "["<<elem.first<<","<<elem.second<<"] ";
-                    }
+                EV <<"\n";
+            }else{
+                EV << "ACK: FALSE \n";
+            }
+            if(state.conflicting==true){
+                EV << "CONFLICTING: TRUE \n";
+                //EV << "CONF_VALUE_1: " << (state.conflicting_value_1)->getTypeS() << "\n";
+                //EV << "CONF_VALUE_2: " << (state.conflicting_value_2)->getTypeS() << "\n";
+            }else{
+                EV << "CONFLICTING: FALSE \n";
+            }
+            if(state.stored==true){
+                EV << "STORED: TRUE \n";
+                //EV << "STORED_VALUE: " << (state.stored_value)->getTypeS() << "\n";
+                for(auto elem:state.stored_value){
+                    EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<")";
                 }
-                EV<<"]:\n";
-                for(auto it:deliverati){
-                    if(equalVec(view,it.getView())==true){
-                        EV<< it.getMsgId() << " da Client" << it.getSender() << "\n";
-                    }
-                }
-        }
-        EV << "\n";
-        EV<< "Stato: \n";
-        if(state.ack==true){
-            EV << "ACK: TRUE \n";
-            //EV << "ACK_VALUE: " << (state.ack_value).getTypeS() << "\n";
-            for(auto elem:state.ack_value){
-                EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<") ";
+                EV <<"\n";
+            }else{
+                EV << "STORED: FALSE \n";
+            }
+            EV << "\n";
+            for(auto elem:msg_prepare){
+               EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<")";
             }
             EV <<"\n";
-        }else{
-            EV << "ACK: FALSE \n";
-        }
-        if(state.conflicting==true){
-            EV << "CONFLICTING: TRUE \n";
-            //EV << "CONF_VALUE_1: " << (state.conflicting_value_1)->getTypeS() << "\n";
-            //EV << "CONF_VALUE_2: " << (state.conflicting_value_2)->getTypeS() << "\n";
-        }else{
-            EV << "CONFLICTING: FALSE \n";
-        }
-        if(state.stored==true){
-            EV << "STORED: TRUE \n";
-            //EV << "STORED_VALUE: " << (state.stored_value)->getTypeS() << "\n";
-            for(auto elem:state.stored_value){
-                EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<") ";
-            }
-            EV <<"\n";
-        }else{
-            EV << "STORED: FALSE \n";
-        }
-        EV << "\n";
-        for(auto elem:msg_prepare){
-           EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<")";
-        }
-        EV <<"\n";
-        EV_INFO << modulePath << ": opened " << numSessions << " sessions\n\n";
-        EV_INFO << modulePath << ": sent " << bytesSent << " bytes in " << packetsSent << " packets\n\n";
-        EV_INFO << modulePath << ": received " << bytesRcvd << " bytes in " << packetsRcvd << " packets\n\n";
+            EV_INFO << modulePath << ": opened " << numSessions << " sessions\n\n";
+            EV_INFO << modulePath << ": sent " << bytesSent << " bytes in " << packetsSent << " packets\n\n";
+            EV_INFO << modulePath << ": received " << bytesRcvd << " bytes in " << packetsRcvd << " packets\n\n";
 
-        EV << "Current view: ";
-        for(auto it : current_view){
-            if(it.second==1){
-            EV<< "["<<it.first<<","<<it.second<<"] ";
-            }
-        }
-        EV<<"\nStop processing: ";
-        if(stop_processing){
-            EV<<"True";
-        }else{
-            EV<<"False";
-        }
-        EV<<"\nQuorum size: "<<quorumSize;
-        EV<<"\nLeaved: ";
-        for(auto it2:leavedId){
-               EV<<it2<<" ";
-        }
-        EV << "\n-----------------------------------------------------------------------\n";
-    }else{
-        EV_INFO << "Time finish: " << simTime() << "\n\n";
-        EV_INFO << "Messaggi inviati: "<< inviati.size() <<"\n";
-        for(auto view : installedView){
-            EV<<"\n[ ";
-            for(auto elem: view.first){
-                if(elem.second==1){
-                EV<< "["<<elem.first<<","<<elem.second<<"] ";
+            EV << "Current view: ";
+            for(auto it : current_view){
+                if(it.second==1){
+                EV<< "["<<it.first<<","<<it.second<<"] ";
                 }
             }
-            EV<<"]:\n ";
-
-            for (int i = 0; i < inviati.size(); i++) {
-                if(equalVec(view.first,inviati.at(i).getView())==true){
-                    if(strcmp(inviati.at(i).getTypeS(),"PROPOSE")==0 || strcmp(inviati.at(i).getTypeS(),"CONVERGED")==0 ||  strcmp(inviati.at(i).getTypeS(),"INSTALL")==0){
-                      EV << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime()<< "----> seq";
-                      for(auto it:inviati.at(i).getSEQcv()){
-                          EV<<"  [";
-                          for(auto it2:it){
-                              EV<<"["<<it2.first<<","<<it2.second<<"]";
-                          }
-                          EV<<"],";
-                      }
-                      EV<<"]\n";
-                   }else if(strcmp(inviati.at(i).getTypeS(),"NEW VIEW")==0){
-                       EV_WARN << i << " : " << inviati.at(i).getTypeS() << " a "<< inviati.at(i).getSendTime() << " ----> seq";
-
-                       EV_WARN<<"[";
-                       for(auto it2:inviati.at(i).getView()){
-                           EV_WARN<< "["<<it2.first<<","<<it2.second<<"]";
-                       }
-                       EV_WARN<<"]";
-
-                       EV_WARN<<"\n";
-                   }else if(strcmp(inviati.at(i).getTypeS(),"NEW MESSAGE DELIVERED")==0){
-                       EV_WARN << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() << " a " << inviati.at(i).getSendTime() << " ----> seq";
-
-                       EV_WARN<<"[";
-                       for(auto it2:inviati.at(i).getView()){
-                           EV_WARN<< "["<<it2.first<<","<<it2.second<<"] ";
-                       }
-                       EV_WARN<<"]";
-
-                       EV_WARN<<"\n";
-                   }else if(strcmp(inviati.at(i).getTypeS(),"EXIT FROM THE SYSTEM")==0){
-                       EV_WARN << i << "("<<inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS();
-                   }else if(strcmp(inviati.at(i).getTypeS(),"PREPARE")==0){
-                       EV_WARN << i << "("<< inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime() << "\n";
-                   }else{
-                       EV << i << "("<< inviati.at(i).getSender() << ","<< inviati.at(i).getMsgId()<< ") "<< " : " << inviati.at(i).getTypeS() <<" inviato a Client"<< inviati.at(i).getDestId() << " inviato a " << inviati.at(i).getSendTime() << "\n";
-                   }
-                }
+            EV<<"\nStop processing: ";
+            if(stop_processing){
+                EV<<"True";
+            }else{
+                EV<<"False";
             }
-        }
-        EV << "\n";
-        EV_INFO << "Messaggi ricevuti: "<< receivedMsg.size() <<"\n";
-        for(auto view : installedView){
-            EV<<"\n[ ";
-                for(auto elem: view.first){
-                    if(elem.second==1){
-                    EV<< "["<<elem.first<<","<<elem.second<<"] ";
-                    }
-                }
-                EV<<"]:\n";
-
-                for (int i = 0; i < receivedMsg.size(); i++) {
-                    if(equalVec(view.first,receivedMsg.at(i).getView())==true){
-                       if(strcmp(receivedMsg.at(i).getTypeS(),"PROPOSE")==0 || strcmp(receivedMsg.at(i).getTypeS(),"CONVERGED")==0){
-                           EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime()<< "----> seq";
-                           for(auto it:receivedMsg.at(i).getSEQcv()){
-                               EV<<"  [";
-                               for(auto it2:it){
-                                   EV<<"["<<it2.first<<","<<it2.second<<"]";
-                               }
-                               EV<<"],";
-                           }
-                           EV<<"]\n";
-                       }else if(strcmp(receivedMsg.at(i).getTypeS(),"INSTALL")==0){
-                           EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime()<< "----> seq";
-                           EV<<"[";
-                           for(auto it:receivedMsg.at(i).getInstallView()){
-                               EV<< "["<<it.first<<","<<it.second<<"] ";
-                           }
-                           EV<<"]\n";
-                       }else if(strcmp(receivedMsg.at(i).getTypeS(),"NEW VIEW")==0){
-                            EV << i << " : " << receivedMsg.at(i).getTypeS() << " a "<< receivedMsg.at(i).getSendTime() << " ----> seq";
-
-                            EV<<"[";
-                            for(auto it2:receivedMsg.at(i).getView()){
-                                EV<< "["<<it2.first<<","<<it2.second<<"] ";
-                            }
-                            EV<<"]";
-
-                            EV<<"\n";
-                       }else if(strcmp(receivedMsg.at(i).getTypeS(),"NEW MESSAGE DELIVERED")==0){
-                           EV << i << "("<<receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() << " a " << receivedMsg.at(i).getSendTime() << " ----> seq";
-
-                           EV<<"[";
-                           for(auto it2:receivedMsg.at(i).getView()){
-                               EV<< "["<<it2.first<<","<<it2.second<<"] ";
-                           }
-                           EV<<"]";
-
-                           EV<<"\n";
-                       }else if(strcmp(receivedMsg.at(i).getTypeS(),"EXIT FROM THE SYSTEM")==0){
-                           EV << i << "("<<receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS();
-                       }else{
-                           EV << i << "("<< receivedMsg.at(i).getSender() << ","<< receivedMsg.at(i).getMsgId()<< ") "<< " : " << receivedMsg.at(i).getTypeS() <<" ricevuto da Client"<< receivedMsg.at(i).getId() << " inviato a " << receivedMsg.at(i).getSendTime()<<" e arrivato a " << receivedMsg.at(i).getArrivalTime() << "\n";
-                       }
-                    }
-                }
-        }
-        EV << "\n";
-        EV<< "State-Updates inviati: "<< states_update_sended.size() <<"\n";
-        for(auto view : installedView){
-            EV<<"\n[ ";
-            for(auto elem: view.first){
-                if(elem.second==1){
-                EV<< "["<<elem.first<<","<<elem.second<<"] ";
-                }
+            EV<<"\nQuorum size: "<<quorumSize;
+            EV<<"\nLeaved: ";
+            for(auto it2:leavedId){
+                   EV<<it2<<" ";
             }
-            EV<<"]:\n";
-            for (int i = 0; i < states_update_sended.size(); i++) {
-                if(equalVec(view.first,states_update_sended.at(i).getView())==true){
-                    EV << i << " : " << states_update_sended.at(i).getTypeS() <<" inviato a Client"<< states_update_sended.at(i).getDestId() << " inviato a " << states_update_sended.at(i).getSendTime()<<" e arrivato a " << states_update_sended.at(i).getArrivalTime() << "\n";
-                }
-            }
+            EV << "\n-----------------------------------------------------------------------\n";
         }
-        EV << "\n";
-        EV<< "State-Updates ricevuti: "<< states_update_rec.size() <<"\n";
-        for(auto view : installedView){
-                EV<<"\n[ ";
-                for(auto elem: view.first){
-                    if(elem.second==1){
-                    EV<< "["<<elem.first<<","<<elem.second<<"] ";
-                    }
-                }
-                EV<<"]:\n";
-                for (int i = 0; i < states_update_rec.size(); i++) {
-                    if(equalVec(view.first,states_update_rec.at(i).getView())==true){
-                        EV << i << " : " << states_update_rec.at(i).getTypeS() <<" ricevuto da Client"<< states_update_rec.at(i).getId() << " inviato a " << states_update_rec.at(i).getSendTime()<<" e arrivato a " << states_update_rec.at(i).getArrivalTime() << "\n";
-                    }
-                }
-        }
-        EV << "\n";
-        EV<< "Messaggi deliverati: "<< deliverati.size() <<"\n";
-        for(auto view : installedView){
-            EV<<"\n[ ";
-                for(auto elem: view.first){
-                    if(elem.second==1){
-                    EV<< "["<<elem.first<<","<<elem.second<<"] ";
-                    }
-                }
-                EV<<"]:\n";
-                for(auto it:deliverati){
-                    if(equalVec(view.first,it.getView())==true){
-                        EV<< it.getMsgId() << " da Client" << it.getSender() << "\n";
-                    }
-                }
-        }
-        EV << "\n";
-        EV<< "Stato: \n";
-        if(state.ack==true){
-            EV << "ACK: TRUE \n";
-            //EV << "ACK_VALUE: " << (state.ack_value)->getTypeS() << "\n";
-            for(auto elem:state.ack_value){
-                EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<") ";
-            }
-            EV <<"\n";
-        }else{
-            EV << "ACK: FALSE \n";
-        }
-        if(state.conflicting==true){
-            EV << "CONFLICTING: TRUE \n";
-            //EV << "CONF_VALUE_1: " << (state.conflicting_value_1)->getTypeS() << "\n";
-            //EV << "CONF_VALUE_2: " << (state.conflicting_value_2)->getTypeS() << "\n";
-        }else{
-            EV << "CONFLICTING: FALSE \n";
-        }
-        if(state.stored==true){
-            EV << "STORED: TRUE \n";
-            //EV << "STORED_VALUE: " << (state.stored_value)->getTypeS() << "\n";
-            for(auto elem:state.stored_value){
-                EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<")";
-            }
-            EV <<"\n";
-        }else{
-            EV << "STORED: FALSE \n";
-        }
-        EV << "\n";
-        for(auto elem:msg_prepare){
-           EV<<"("<<elem.getSender()<<","<<elem.getMsgId()<<")";
-        }
-        EV <<"\n";
-        EV_INFO << modulePath << ": opened " << numSessions << " sessions\n\n";
-        EV_INFO << modulePath << ": sent " << bytesSent << " bytes in " << packetsSent << " packets\n\n";
-        EV_INFO << modulePath << ": received " << bytesRcvd << " bytes in " << packetsRcvd << " packets\n\n";
 
-        EV << "Current view: ";
-        for(auto it : current_view){
-            if(it.second==1){
-            EV<< "["<<it.first<<","<<it.second<<"] ";
-            }
-        }
-        EV<<"\nStop processing: ";
-        if(stop_processing){
-            EV<<"True";
-        }else{
-            EV<<"False";
-        }
-        EV<<"\nQuorum size: "<<quorumSize;
-        EV<<"\nLeaved: ";
-        for(auto it2:leavedId){
-               EV<<it2<<" ";
-        }
-        EV << "\n-----------------------------------------------------------------------\n";
     }
 
 }
@@ -1184,22 +1234,32 @@ bool Node::checkPropose(int x, int join_or_leave, vector<pair<int,int>> cv) {
     }
 }
 
-bool Node::checkDeliverMsg() {
+bool Node::checkDeliverMsg() { //posso cancellare dalle deliver
     bool cond=false;
+    int i=0;
+    vector<int> t={};
     for(auto it = deliver.begin(); it!=deliver.end(); ++it){
         int c=0;
-        int i=0;
         for(auto it3:it->second){
             c+=it3;
         }
         EV<<selfId<<"ciro"<<it->first.getSender()<<","<<it->first.getMsgId();
         EV<<"\n"<<c<<"\n";
-        if(c>=quorumSize && firstTimeDeliver(it->first)==true && isDelivered(it->first)==false){
+        //TODO == se vogliamo totalità
+        if(c>=quorumSize && del[it->first.getSender()]<=it->first.getMsgId()-1/*firstTimeDeliver(it->first)==true && isDelivered(it->first)==false*/){
             msg_to_send.push_back(it->first);
             cond=true;
         }
-
+        if(c>=quorumSize && del[it->first.getSender()]>it->first.getMsgId()-1/*firstTimeDeliver(it->first)==true && isDelivered(it->first)==false*/){
+            t.push_back(i);
+        }
+        i++;
     }
+
+    for(int j:t){
+        deliver.erase(deliver.begin()+j);
+    }
+    t.clear();
     return cond;
 }
 
@@ -1236,25 +1296,39 @@ Msg Node::returnDeliverMsg() {
     }*/
 }
 
-bool Node::checkAckMsg() {
+bool Node::checkAckMsg() { //posso cancellare dagli ack
     bool cond=false;
-    for(auto it : acks){
+    int i=0;
+    vector<int> t={};
+    for(auto it=acks.begin();it!=acks.end();++it){
         //for(auto it2:it->second){
             int c=0;
-            int i=0;
-            for(auto it3:it.second){
+
+            for(auto it3:it->second){
                // EV << "Client" << i << " -> " << it3 << "\n";
                 if(isMember(i,current_view)==true){ //TODO and CER
                     c+=it3;
                 }
-                i++;
+
             }
-            if(c>=quorumSize && firstTimeAck(it.first)==true && isDelivered(it.first)==false){
-                msg_to_ack.push_back(it.first);
+            if(c>=quorumSize && firstTimeAck(it->first)==true && isDelivered(it->first)==false){
+                msg_to_ack.push_back(it->first);
                 cond=true;
             }
+            if(isDelivered(it->first)==true){
+                t.push_back(i);
+            }
+            i++;
         //}
     }
+    for(int j:t){
+        acks.erase(acks.begin()+j);
+    }
+    EV<<"ACKSDEBUG\n";
+    for(auto e:acks){
+        EV<<"("<<e.first.getSender()<<","<<e.first.getMsgId()<<") ";
+    }
+    t.clear();
     return cond;
 }
 
@@ -1321,7 +1395,7 @@ bool Node::acksMsg(Msg m, int id, vector<pair<int,int>> v){
 }
 
 void Node::addAcksMsg(Msg m, int id, vector<pair<int,int>> v){
-    for(int j=0;j<acks.size();j++){
+    for(int j=acks.size()-1;j>=0;j--){
         //if(equalVec(it->first,v)){
             //int j=0;
             //for(auto it2:it->second){
@@ -1344,7 +1418,7 @@ void Node::addAcksMsg(Msg m, int id, vector<pair<int,int>> v){
 }
 
 void Node::addDeliverMsg(Msg m, int id){
-    for(int j=0; j<deliver.size(); j++){
+    for(int j=deliver.size()-1; j>=0; j--){
         if(equalMsg(deliver[j].first,m)==true){
             //it2.second[id]=1;
             deliver[j].second[id]=1;
@@ -1429,7 +1503,7 @@ bool Node::equalSeq(vector<vector<pair<int,int>>>s1, vector<vector<pair<int,int>
     else return false;
 }
 
-bool Node::checkPropose() {
+bool Node::checkPropose() { //posso cancellare dalle propose
     for (auto it = propose.begin(); it!=propose.end(); ++it) {
         int c=0;
         for(int i:it->second){
@@ -1533,7 +1607,7 @@ bool Node::firstTimeDeliver(Msg m) {
 }
 
 bool Node::firstTimeAck(Msg m) {
-    for(auto it : first_time_ack) {
+    /*for(auto it : first_time_ack) {
         if(equalVec(it.first,m.getView())){
             for(auto it2:it.second){
                 if(equalMsg(m,it2)==true){
@@ -1542,17 +1616,25 @@ bool Node::firstTimeAck(Msg m) {
             }
         }
     }
+    return true;*/
+    for(auto it : ft[m.getSender()]) {
+        if(it==m.getMsgId()){
+            return false;
+        }
+    }
+    ft[m.getSender()].push_back(m.getMsgId());
     return true;
 }
 
 
 bool Node::isDelivered(Msg m) {
-    for(auto it : deliverati) {
+    /*for(auto it : deliverati) {
         if(equalMsg(m,it)){
             return true;
         }
-    }
-    return false;
+    }*/
+    if(del[m.getSender()]>=m.getMsgId()) return true;
+    else return false;
 }
 
 bool Node::isValid(vector<vector<pair<int,int>>> seq, vector<pair<int,int>> v) {
@@ -1632,7 +1714,7 @@ vector<vector<pair<int,int>>> Node::returnPropose() {
     return {};
 }
 
-bool Node::checkConverge() {
+bool Node::checkConverge() { //posso cancellare dalle converge (???)
     for (auto it = converge.begin(); it!=converge.end(); ++it) {
         int c=0;
         for(int i:it->second){
@@ -2160,7 +2242,7 @@ void Node::reconfig_f(Msg x){
         EV<<"R1";
         if(checkPropose(x.getId(),x.getJoin_or_leave(),current_view)){
             EV<<"R2";
-            //receivedMsg.push_back(x);
+            receivedMsg.push_back(x);
             if(contain(x.getId(),RECV)==false){
                 EV<<"R3";
                 RECV.push_back(std::make_pair(x.getId(),x.getJoin_or_leave()));
@@ -2251,7 +2333,7 @@ void Node::propose_f(Msg x){
                     EV<<it.first<<","<<it.second<<" ";
                 }
                 EV<<"\n";
-                //receivedMsg.push_back(x);
+                receivedMsg.push_back(x);
                 if(conflictS(x.getSEQcv(),SEQv)==true){
                     vector<pair<int,int>> w = mostRecent(x.getSEQcv());
                     vector<pair<int,int>> w1 = mostRecent(SEQv);
@@ -2337,7 +2419,7 @@ void Node::propose_f(Msg x){
         }
         //}
         //if(isReceivedP(x->getSEQcv(),x->getId())==false){
-       //receivedMsg.push_back(x);
+       receivedMsg.push_back(x);
        EV << "\n\n\n\n [Client"<< selfId <<"]PROPOSE ricevuto a: " << simTime() << "\n\n\n";
        updatePropose(x.getSEQcv(),x.getId());
        if(checkPropose()==true){
@@ -2402,7 +2484,7 @@ void Node::converge_f(Msg x){
         EV<<"Rick"<<x.getId();
         if(isReceivedC(x.getSEQcv(),x.getId())==false){
 
-            //receivedMsg.push_back(x);
+            receivedMsg.push_back(x);
             EV << "\n\n\n\n [Client"<< selfId <<"]CONVERGED ricevuto a: " << simTime() << "\n\n\n";
             updateConverge(x.getSEQcv(),x.getId());
             if(checkConverge()==true){
@@ -2489,7 +2571,7 @@ void Node::prepare_f(Msg x){
     }
     if(equalVec(x.getView(),current_view)==true && isMember(x.getId(),current_view)==true && isDelivered(x)==false){
         //msg_to_send.push_back(x); //TODO: se gia non c e
-        //receivedMsg.push_back(x);
+        receivedMsg.push_back(x);
         if(allowed_ack==false || isAllowed(x)==false ){
             allowed_ack=true;
             if(isAllowed(x)==false){
@@ -2554,7 +2636,7 @@ void Node::install_f(Msg x){
     }
     if(isReceivedI((vector<pair<int,int>>)x.getInstallView())==false){
         EV<<"si";
-        //receivedMsg.push_back(x);
+        receivedMsg.push_back(x);
         for (int destId = 0; destId < nodesNbr; destId++) {
           if(destId==selfId) continue;
           if(isMember_(destId,x.getInstallView())==true || isMember_(destId,x.getView())==true){
@@ -2922,9 +3004,12 @@ void Node::state_update_f(StateUpdateMessage * x){
                 prova->setTypeS("NEW VIEW");
                 prova->setView(current_view);
                 prova->setSendTime(simTime());
-                receivedMsg.push_back(*prova);
-                inviati.push_back(*prova);
+                if(debug){
+                    receivedMsg.push_back(*prova);
+                    inviati.push_back(*prova);
+                }
                 EV << "IN5" << selfId;
+                num_view++;
                 newView();
             }
         }else{
@@ -2937,12 +3022,15 @@ void Node::state_update_f(StateUpdateMessage * x){
                 leave_complete=true;
                 Msg * prova=new Msg();
                 prova->setTypeS("EXIT FROM THE SYSTEM");
+                num_view++;
                 prova->setView(current_view);
                 prova->setSendTime(simTime());
                 prova->setSender(-1);
                 prova->setMsgId(-1);
-                receivedMsg.push_back(*prova);
-                inviati.push_back(*prova);
+                if(debug){
+                    receivedMsg.push_back(*prova);
+                    inviati.push_back(*prova);
+                }
                 for (int destId = 0; destId < nodesNbr; destId++) {
                    if(destId==selfId) continue;
                    //if(isMember_(destId,current_view)==true) continue;
@@ -3086,6 +3174,7 @@ void Node::newView(){
                     EV << "nok\n";
                 }
                 if(canLeave()==false && isDelivered(it)==false){
+                    msgStep++;
                     EV << "[" << it.getSender() << ", "<<it.getMsgId()<<"],";
                     for (int destId = 0; destId < nodesNbr; destId++) {
                         if(destId==selfId) continue;
@@ -3353,11 +3442,11 @@ void Node::insertInMsg(Msg x){
 
 void Node::commit_f(Msg x){
     if(equalVec(x.getView(),current_view)){
-        //receivedMsg.push_back(x);
+        receivedMsg.push_back(x);
     //TODO verify CER
         //msg_to_send.push_back(x);
         //insertInMsg()
-        if(stored==false || isStored(x)==false){
+        if((stored==false || isStored(x)==false) && isDelivered(x)==false){
             stored=true;
             if(isStored(x)==false){
                 stored_value.push_back(x);
@@ -3444,13 +3533,16 @@ void Node::commit_f(Msg x){
 
 void Node::ack_f(Msg x){
     if(isMember(x.getId(),x.getView())==true){
-        if(acksMsg(x, x.getId(), x.getView())==true){ //TODO verify signature
+        //if(acksMsg(x, x.getId(), x.getView())==true){ //TODO verify signature
               //  EV << "DEBUG1";
-            //receivedMsg.push_back(x);
-            addAcksMsg(x, x.getId(), x.getView()); //TODO wait for return!
+            receivedMsg.push_back(x);
+        if(isDelivered(x)==false){
+            addAcksMsg(x, x.getId(), x.getView());
+        }
+        //TODO wait for return!
             //TODO add sigma
 
-        }
+        //}
 
         msg_to_ack.clear();
         if(checkAckMsg()==true){
@@ -3458,8 +3550,8 @@ void Node::ack_f(Msg x){
             EV<<"devoinviarecommit";
             for(auto it:msg_to_ack){
                 Msg m = it;
-                ftaInsert(m);
-                if(quorumMsg(m)==false){
+                //ftaInsert(m);
+                //if(quorumMsg(m)==false){
                     v_cer = m.getView();
                       if(isInstalled(current_view)==true){
                           //TODO add cer
@@ -3502,7 +3594,7 @@ void Node::ack_f(Msg x){
                             }
                           }
                       }
-                 }
+                 //}
             }
 
         }
@@ -3512,7 +3604,7 @@ void Node::ack_f(Msg x){
 void Node::deliver_f(Msg x){
     if(isMember(x.getId(),x.getView())==true){
         if(isDelivered(x)==false){
-            //receivedMsg.push_back(x);
+            receivedMsg.push_back(x);
             addDeliverMsg(x,x.getId());
             msg_to_send.clear();
             if(checkDeliverMsg()==true){ //TODO mettere in un timer?
@@ -3520,24 +3612,31 @@ void Node::deliver_f(Msg x){
                     EV<<"cola"<<it.getMsgId()<<","<<it.getSender();
                     Msg m = it;
                     //first_time_deliver.push_back(m);
-                    ftdInsert(m);
+                    //ftdInsert(m);
                     //delivered=true;
                     EV << "\n\n\n\n [Client"<< selfId <<"]DELIVERED di " << m.getMsgId()  << "da parte di" << m.getSender() << " FINISHED a: " << simTime() << "\n\n\n";
                     //can_leave=true;
-                    //deliverati.push_back(m);
+                    if(debug){
+                        deliverati.push_back(m);
+                    }
                     removeMsgFromStored(m);
                     removeMsgFromAck(m);
                     removeMsgFromAckS(m);
                     removeMsgFromStoredS(m);
                     Msg * prova=new Msg();
                     prova->setTypeS("NEW MESSAGE DELIVERED");
+                    msgDel++;
                     prova->setView(current_view);
                     prova->setSendTime(simTime());
                     prova->setSender(m.getSender());
                     prova->setMsgId(m.getMsgId());
-                    deliverati.push_back(*prova);
-                    receivedMsg.push_back(*prova);
-                    inviati.push_back(*prova);
+                    del[m.getSender()]=m.getMsgId();
+                    if(debug){
+                        deliverati.push_back(*prova);
+                        receivedMsg.push_back(*prova);
+                        inviati.push_back(*prova);
+                    }
+                    EV_WARN<<"[Client"<<selfId<<"]"<<"("<<m.getSender()<<","<<m.getMsgId()<<") deliverato a "<<simTime()<<"\n";
 
                 }
                 can_leave=canLeave();
@@ -3625,7 +3724,7 @@ void Node::removeMsgFromAckS(Msg m){
 }
 
 void Node::handleStartOperation(LifecycleOperation *operation) {
-    /*EV << "\n\n\n HandleStartTime: " << startTime << "\n\n\n";
+    EV << "\n\n\n HandleStartTime: " << startTime << "\n\n\n";
 
     //numMsgToSend=rand()%10+1;
 
@@ -3649,8 +3748,13 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
     L3Address selfAddr = L3AddressResolver().addressOf(getParentModule(),L3AddressResolver().ADDR_IPv4);
     selfId = addrToId[selfAddr];
     vector<Msg> mmm={};
+    vector<int> mmm2={};
     vector<vector<Msg>> vec( nodesNbr , mmm);
+    vector<vector<int>> vec2( nodesNbr , mmm2);
+    vector<int> vn( nodesNbr , -1);
+    del=vn;
     msg4view=vec;
+    ft=vec2;
     for(int i=0;i<nodesNbr;i++){
         if(i<nodesNbr-no_partecipants){
             current_view.push_back(make_pair(i,1));
@@ -3711,6 +3815,15 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
     leavedId={};
     states_update_sended={};
 
+    msgSV=0;
+    msgRV=0;
+    msgSB=0;
+    msgRB=0;
+    num_view=0;
+    msgDel=0;
+
+    msgStep=0;
+
     state={false,{},false,{},false,{}};
 
     double m=par("join");
@@ -3727,16 +3840,17 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
         leave(m4);
     }
 
-    double m2=par("broadcast");*/
+    debug=par("debug");
+    double m2=par("broadcast");
     /*if(m2!=-1){
         broadcast(m2);
     }*/
 
-    /*double m3=par("timer");
+    double m3=par("timer");
     timerDelay=m3;
-    timer(timerDelay);*/
+    timer(timerDelay);
 
-    /*int numMsg=par("numMsg");
+    numMsg=par("numMsg");
     double sendFrequency=par("sendFrequency");
     double startSend=par("startSend");
     if(numMsg!=0){
@@ -3746,7 +3860,7 @@ void Node::handleStartOperation(LifecycleOperation *operation) {
             m4+=sendFrequency;
         }
     }
-*/
+
 
 }
 

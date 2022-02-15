@@ -1,0 +1,101 @@
+
+Running configuration BROADCAST10c, run #0...
+Assigned runID=BROADCAST10c-0-20220214-20:20:28-15876
+Setting up network "scenario"...
+Initializing...
+
+Running simulation...
+[WARN]	[Client0] (0,0) inviato a 0
+[WARN]	[Client0](0,0) deliverato a 4.368149432295
+[WARN]	[Client1](0,0) deliverato a 4.712089242836
+[WARN]	[Client0] (0,1) inviato a 10.887911618397
+[WARN]	[Client2](0,0) deliverato a 5.011411731925
+[WARN]	[Client4](0,0) deliverato a 5.668786529742
+[WARN]	[Client3](0,0) deliverato a 5.70788379223
+[WARN]	[Client5](0,0) deliverato a 6.185803353252
+[WARN]	[Client6](0,0) deliverato a 6.932826272653
+[WARN]	[Client7](0,0) deliverato a 7.324882304635
+[WARN]	[Client0] (0,2) inviato a 13.64747154149
+[WARN]	[Client0] (0,3) inviato a 19.060228278451
+[WARN]	[Client0](0,1) deliverato a 17.827816170171
+[WARN]	[Client1](0,1) deliverato a 18.25752490237
+[WARN]	[Client2](0,1) deliverato a 18.683242850307
+[WARN]	[Client3](0,1) deliverato a 19.115497862971
+[WARN]	[Client4](0,1) deliverato a 19.350731482162
+[WARN]	[Client5](0,1) deliverato a 19.962032486221
+[WARN]	[Client0] (0,4) inviato a 30.13642689291
+[WARN]	[Client6](0,1) deliverato a 20.257277702445
+[WARN]	[Client7](0,1) deliverato a 20.878094377758
+[WARN]	[Client0](0,2) deliverato a 23.25357989587
+[WARN]	[Client1](0,2) deliverato a 24.105326043762
+[WARN]	[Client2](0,2) deliverato a 24.644340906279
+[WARN]	[Client0] (0,5) inviato a 41.599899288919
+[WARN]	[Client3](0,2) deliverato a 25.058345850275
+[WARN]	[Client4](0,2) deliverato a 25.232212850612
+[WARN]	[Client5](0,2) deliverato a 25.890127826042
+[WARN]	[Client6](0,2) deliverato a 26.467089403242
+[WARN]	[Client7](0,2) deliverato a 26.739415218848
+[WARN]	[Client0] (0,6) inviato a 47.127533799248
+[WARN]	[Client0] (0,7) inviato a 52.846537675099
+[WARN]	[Client0](0,3) deliverato a 37.874799415509
+[WARN]	[Client1](0,3) deliverato a 38.09130584051
+[WARN]	[Client2](0,3) deliverato a 38.431645206334
+[WARN]	[Client3](0,3) deliverato a 39.042842447462
+[WARN]	[Client4](0,3) deliverato a 39.590652744407
+[WARN]	[Client6](0,3) deliverato a 39.994742224677
+[WARN]	[Client0] (0,8) inviato a 61.102664265878
+[WARN]	[Client5](0,3) deliverato a 40.048396816187
+[WARN]	[Client7](0,3) deliverato a 40.60718462099
+[WARN]	[Client0] (0,9) inviato a 69.084490493486
+[WARN]	[Client0](0,4) deliverato a 51.697709660571
+[WARN]	[Client1](0,4) deliverato a 52.010117449749
+[WARN]	[Client2](0,4) deliverato a 52.5109231384
+[WARN]	[Client3](0,4) deliverato a 52.614933270545
+[WARN]	[Client4](0,4) deliverato a 53.380773902888
+[WARN]	[Client5](0,4) deliverato a 53.531575013762
+[WARN]	[Client6](0,4) deliverato a 53.972363001677
+[WARN]	[Client7](0,4) deliverato a 54.412107256568
+[WARN]	[Client0](0,5) deliverato a 73.56713316593
+[WARN]	[Client1](0,5) deliverato a 73.892944684472
+[WARN]	[Client2](0,5) deliverato a 74.29036587042
+[WARN]	[Client3](0,5) deliverato a 74.790762611044
+[WARN]	[Client4](0,5) deliverato a 75.184588716575
+[WARN]	[Client5](0,5) deliverato a 75.584677220253
+[WARN]	[Client6](0,5) deliverato a 75.820429654105
+[WARN]	[Client0](0,6) deliverato a 76.246044875882
+[WARN]	[Client7](0,5) deliverato a 76.515375788936
+[WARN]	[Client5](0,6) deliverato a 78.502731970459
+[WARN]	[Client2](0,6) deliverato a 79.410474516314
+[WARN]	[Client1](0,6) deliverato a 79.836583101173
+[WARN]	[Client3](0,6) deliverato a 80.377694585287
+[WARN]	[Client4](0,6) deliverato a 80.685128894195
+[WARN]	[Client6](0,6) deliverato a 81.491739203347
+[WARN]	[Client7](0,6) deliverato a 82.249187245585
+[WARN]	[Client0](0,7) deliverato a 87.798551971432
+[WARN]	[Client0](0,8) deliverato a 90.501164355842
+[WARN]	[Client5](0,7) deliverato a 95.484231650016
+[WARN]	[Client2](0,7) deliverato a 96.184423916625
+[WARN]	[Client1](0,7) deliverato a 96.658953168622
+[WARN]	[Client4](0,7) deliverato a 97.664760840971
+[WARN]	[Client3](0,7) deliverato a 97.698767616081
+[WARN]	[Client5](0,8) deliverato a 98.221604616721
+[WARN]	[Client6](0,7) deliverato a 98.452950177805
+[WARN]	[Client0](0,9) deliverato a 98.810612886376
+[WARN]	[Client7](0,7) deliverato a 98.922163105444
+[WARN]	[Client2](0,8) deliverato a 99.23719347136
+[WARN]	[Client1](0,8) deliverato a 99.474612215834
+[WARN]	[Client3](0,8) deliverato a 100.473525756894
+[WARN]	[Client4](0,8) deliverato a 100.517048203257
+[WARN]	[Client6](0,8) deliverato a 101.203897777524
+[WARN]	[Client7](0,8) deliverato a 101.574242941865
+[WARN]	[Client3](0,9) deliverato a 108.854131244124
+[WARN]	[Client4](0,9) deliverato a 109.308011672601
+[WARN]	[Client6](0,9) deliverato a 110.083651798337
+[WARN]	[Client2](0,9) deliverato a 110.8630792711
+[WARN]	[Client1](0,9) deliverato a 111.028303429559
+[WARN]	[Client7](0,9) deliverato a 112.676833963319
+[WARN]	[Client5](0,9) deliverato a 115.134779457265
+
+<!> No more events, simulation completed -- at t=160.911435968144s, event #80152
+
+Calling finish() at end of Run #0...

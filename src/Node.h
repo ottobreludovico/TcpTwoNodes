@@ -195,6 +195,28 @@ class Node : public ApplicationBase, public TcpSocket::ICallback
 
     vector<pair<int,int>> join_view={};
 
+    vector<int> del;
+
+    bool debug;
+
+    int msgSV;
+
+    int msgRV;
+
+    int msgSB;
+
+    int msgRB;
+
+    int numMsg;
+
+    int num_view;
+
+    int msgStep;
+
+    int msgDel;
+
+    vector<vector<int>> ft;
+
   public:
       Node() { }
       virtual ~Node() { }

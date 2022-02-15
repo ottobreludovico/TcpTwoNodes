@@ -76,6 +76,7 @@ simple Node like IApp
         int nPar; 
         int nNPar;
         int fPar;
+        bool debug = default(false);
         @display("i=block/app");
         //@signal[packetSent](type=inet::Packet);
         //@signal[packetReceived](type=inet::Packet);
